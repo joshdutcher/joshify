@@ -1,0 +1,89 @@
+import React from 'react';
+import { Play, Pause, Heart, ExternalLink } from 'lucide-react';
+
+const ProjectDetailView = ({ 
+  project, 
+  currentlyPlaying, 
+  isPlaying, 
+  onPlayProject 
+}) => (
+  <div className="text-white p-4 md:p-6">
+    <div className="flex flex-col md:flex-row md:items-end space-y-4 md:space-y-0 md:space-x-6 mb-6 md:mb-8">
+      <div className="w-48 h-48 md:w-64 md:h-64 mx-auto md:mx-0 bg-gradient-to-br from-green-500 to-green-700 rounded-lg flex items-center justify-center shadow-2xl">
+        <span className="text-white font-bold text-3xl md:text-4xl">
+          {project.title.split(' ').map(w => w[0]).join('').slice(0, 2)}
+        </span>
+      </div>
+      <div className="text-center md:text-left">
+        <p className="text-sm font-semibold uppercase">Project</p>
+        <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-2 md:mb-4">{project.title}</h1>
+        <p className="text-gray-400 mb-2">{project.artist}</p>
+        <p className="text-gray-400">{project.year} • {project.duration} • {project.plays} plays</p>
+      </div>
+    </div>
+
+    <div className="flex items-center space-x-4 md:space-x-6 mb-6 md:mb-8">
+      <button
+        className="w-12 h-12 md:w-14 md:h-14 bg-green-500 rounded-full flex items-center justify-center hover:scale-105 transition-transform"
+        onClick={() => onPlayProject(project)}
+      >
+        {currentlyPlaying?.id === project.id && isPlaying ?
+          <Pause className="w-5 h-5 md:w-6 md:h-6 text-black" /> :
+          <Play className="w-5 h-5 md:w-6 md:h-6 text-black ml-0.5" />
+        }
+      </button>
+      <Heart className="w-6 h-6 md:w-8 md:h-8 text-gray-400 hover:text-white cursor-pointer" />
+      {project.demoUrl && (
+        <a
+          href={project.demoUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center space-x-2 text-green-500 hover:text-green-400"
+        >
+          <ExternalLink className="w-4 h-4 md:w-5 md:h-5" />
+          <span className="text-sm md:text-base">View Live</span>
+        </a>
+      )}
+    </div>
+
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
+      <div className="lg:col-span-2">
+        <h2 className="text-xl md:text-2xl font-bold mb-4">About this project</h2>
+        <p className="text-gray-300 mb-6 text-sm md:text-base leading-relaxed">{project.description}</p>
+
+        <h3 className="text-lg md:text-xl font-bold mb-3">Technologies Used</h3>
+        <div className="flex flex-wrap gap-2">
+          {project.skills.map(skill => (
+            <span key={skill} className="px-3 py-1 bg-gray-800 rounded-full text-xs md:text-sm">
+              {skill}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <h3 className="text-lg md:text-xl font-bold mb-4">Project Stats</h3>
+        <div className="space-y-3">
+          <div>
+            <p className="text-gray-400 text-sm">Duration</p>
+            <p className="text-white font-semibold">{project.duration}</p>
+          </div>
+          <div>
+            <p className="text-gray-400 text-sm">Year</p>
+            <p className="text-white font-semibold">{project.year}</p>
+          </div>
+          <div>
+            <p className="text-gray-400 text-sm">Impact</p>
+            <p className="text-white font-semibold">{project.plays} plays</p>
+          </div>
+          <div>
+            <p className="text-gray-400 text-sm">Album</p>
+            <p className="text-white font-semibold">{project.album}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+export default ProjectDetailView;
