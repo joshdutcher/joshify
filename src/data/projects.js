@@ -107,23 +107,24 @@ export const projects = {
   sideProjects: [
     {
       id: 'beer-fridge',
-      title: 'Beer Fridge App',
+      title: 'Dark Side of the Brew',
       artist: 'Personal Project',
       album: 'Android Development',
-      duration: '6 months',
-      image: '/api/placeholder/300/300',
-      year: '2024',
+      duration: 'In Progress',
+      image: '/album-art/dark-side-of-the-brew.png',
+      year: '2025',
       plays: '53MB',
-      description: 'Modern Android app for cataloging beer bottles with photo documentation, intelligent search, and Material You design. Features PunkAPI integration and smart duplicate detection.',
-      skills: ['Android', 'Kotlin', 'Material Design', 'Camera APIs', 'Room Database'],
+      description: 'A masterfully crafted Android opus currently in studio production, refracting the mundane task of collection management through a prismatic lens of technical excellence. This ambitious 53MB composition layers Material Design 3 harmonics over a robust MVVM architecture, creating an experience that feels as polished as a Google first-party release. The standout track "Intelligent Beer Lookup" showcases sophisticated fuzzy matching algorithms, while "Smart Duplicate Detection" demonstrates the artist\'s maturity in UX design. Like Pink Floyd\'s original masterpiece, this work reveals new depths with each interaction—from the seamless CameraX integration to the whisper-quiet Room database performance. A rare gem that proves mobile development can be both technically ambitious and beautifully accessible.',
+      skills: ['Android', 'Kotlin', 'Material Design 3', 'CameraX', 'Room Database', 'MVVM', 'Hilt DI'],
       demoUrl: null,
       githubUrl: 'https://github.com/username/beer-fridge-app',
       canvas: {
-        video: '/canvases/beer-fridge.mp4',
-        image: '/canvases/beer-fridge.jpg',
-        fallback: '/canvases/default.jpg'
+        video: '/canvases/dark-side-of-the-brew.mp4',
+        image: '/album-art/dark-side-of-the-brew.png',
+        fallback: '/album-art/dark-side-of-the-brew.png'
       },
-      featured: true
+      featured: true,
+      isAlbum: true
     },
     {
       id: 'did-kansas-win',

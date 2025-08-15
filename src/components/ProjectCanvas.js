@@ -10,7 +10,30 @@ const ProjectCanvas = ({
   const [isLoaded, setIsLoaded] = useState(false);
   const videoRef = useRef(null);
 
+  // Reset error state when project changes
+  useEffect(() => {
+    setHasError(false);
+    setIsLoaded(false);
+  }, [project?.id]);
+
   const canvas = project?.canvas;
+  
+  // Debug logging
+  useEffect(() => {
+    if (project) {
+      console.log('ProjectCanvas Debug:', {
+        projectTitle: project.title,
+        hasCanvas: !!canvas,
+        videoUrl: canvas?.video,
+        imageUrl: canvas?.image,
+        isPlaying,
+        hasError,
+        isLoaded,
+        shouldShowVideo: !!(canvas?.video && !hasError),
+        shouldShowImage: !!((canvas?.image && hasError) || (!canvas?.video && canvas?.image))
+      });
+    }
+  }, [project, canvas, isPlaying, hasError, isLoaded]);
   
   useEffect(() => {
     if (videoRef.current && isPlaying && isLoaded) {
@@ -27,12 +50,21 @@ const ProjectCanvas = ({
     setHasError(false);
   };
 
-  const handleVideoError = () => {
+  const handleVideoError = (e) => {
+    const error = e.target.error;
+    console.error('Video loading error details:', {
+      errorCode: error?.code,
+      errorMessage: error?.message,
+      networkState: e.target.networkState,
+      readyState: e.target.readyState,
+      videoUrl: canvas?.video
+    });
     setHasError(true);
     setIsLoaded(false);
   };
 
-  const handleImageError = () => {
+  const handleImageError = (e) => {
+    console.error('Image fallback error:', e.target.src);
     setHasError(true);
   };
 
@@ -60,6 +92,8 @@ const ProjectCanvas = ({
           preload="metadata"
           onLoadedData={handleVideoLoad}
           onError={handleVideoError}
+          onLoadStart={() => console.log('Video loading started:', canvas.video)}
+          onCanPlay={() => console.log('Video can play:', canvas.video)}
         >
           <source src={canvas.video} type="video/mp4" />
         </video>
@@ -72,6 +106,7 @@ const ProjectCanvas = ({
           alt={`${project.title} canvas`}
           className="absolute inset-0 w-full h-full object-cover"
           onError={handleImageError}
+          onLoad={() => console.log('Image loaded successfully:', canvas.image)}
         />
       )}
       

@@ -44,3 +44,11 @@ temp/
 
 # Claude Code local settings (keep project config)
 .claude/settings.local.json
+
+# Design reference files
+designref/
+
+# Canvas videos (hosted on GitHub Releases)
+public/canvases/*.mp4
+public/canvases/*.webm
+public/canvases/*.mov
