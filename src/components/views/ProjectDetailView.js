@@ -9,10 +9,28 @@ const ProjectDetailView = ({
 }) => (
   <div className="text-white p-4 md:p-6">
     <div className="flex flex-col md:flex-row md:items-end space-y-4 md:space-y-0 md:space-x-6 mb-6 md:mb-8">
-      <div className="w-48 h-48 md:w-64 md:h-64 mx-auto md:mx-0 bg-gradient-to-br from-green-500 to-green-700 rounded-lg flex items-center justify-center shadow-2xl">
-        <span className="text-white font-bold text-3xl md:text-4xl">
-          {project.title.split(' ').map(w => w[0]).join('').slice(0, 2)}
-        </span>
+      <div className="w-48 h-48 md:w-64 md:h-64 mx-auto md:mx-0 rounded-lg shadow-2xl">
+        {project.isAlbum && project.image ? (
+          <img 
+            src={project.image} 
+            alt={project.title}
+            className="w-full h-full object-cover rounded-lg shadow-2xl"
+            onError={(e) => {
+              // Fallback to generated thumbnail if album art fails to load
+              e.target.style.display = 'none';
+              e.target.nextSibling.style.display = 'flex';
+            }}
+          />
+        ) : null}
+        <div 
+          className={`w-full h-full bg-gradient-to-br from-green-500 to-green-700 rounded-lg flex items-center justify-center shadow-2xl ${
+            project.isAlbum && project.image ? 'hidden' : ''
+          }`}
+        >
+          <span className="text-white font-bold text-3xl md:text-4xl">
+            {project.title.split(' ').map(w => w[0]).join('').slice(0, 2)}
+          </span>
+        </div>
       </div>
       <div className="text-center md:text-left">
         <p className="text-sm font-semibold uppercase">Project</p>

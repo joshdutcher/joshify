@@ -1,5 +1,6 @@
 import React from 'react';
 import { Play, Pause } from 'lucide-react';
+import EqualizerIcon from './EqualizerIcon';
 
 const GitHubIcon = ({ className }) => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" className={className}>
@@ -23,29 +24,47 @@ const ProjectCard = ({
       size === 'large' ? 'flex items-center space-x-4' : ''
     }`}
     onClick={() => onProjectClick && onProjectClick(project)}>
-      {/* Container for image and play button */}
+      {/* Album art (no play button overlay for large size) */}
       <div className={`relative ${size === 'large' ? 'w-12 h-12 md:w-16 md:h-16 flex-shrink-0' : 'w-full aspect-square'} ${size === 'large' ? 'mb-0' : 'mb-3'}`}>
         {/* Album art */}
-        <div className="w-full h-full bg-gradient-to-br from-spotify-green to-green-700 rounded-md flex items-center justify-center shadow-lg">
+        {project.isAlbum && project.image ? (
+          <img 
+            src={project.image} 
+            alt={project.title}
+            className="w-full h-full object-cover rounded-md shadow-lg"
+            onError={(e) => {
+              // Fallback to generated thumbnail if album art fails to load
+              e.target.style.display = 'none';
+              e.target.nextSibling.style.display = 'flex';
+            }}
+          />
+        ) : null}
+        <div 
+          className={`w-full h-full bg-gradient-to-br from-spotify-green to-green-700 rounded-md flex items-center justify-center shadow-lg ${
+            project.isAlbum && project.image ? 'hidden' : ''
+          }`}
+        >
           <span className="text-white font-bold text-lg">
             {project.title.split(' ').map(w => w[0]).join('').slice(0, 2)}
           </span>
         </div>
-        {/* Play button with enhanced animation */}
-        <button
-          className={`absolute bottom-2 right-2 w-12 h-12 bg-spotify-green rounded-full flex items-center justify-center shadow-xl transition-all duration-200 ease-out hover:scale-105 ${
-            isCurrentlyPlaying ? 'opacity-100' : 'opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0'
-          }`}
-          onClick={(e) => {
-            e.stopPropagation();
-            onPlayProject && onPlayProject(project);
-          }}
-        >
-          {isCurrentlyPlaying ?
-            <Pause className="w-5 h-5 text-black" /> :
-            <Play className="w-5 h-5 text-black ml-0.5" />
-          }
-        </button>
+        {/* Play button for small/medium cards only */}
+        {size !== 'large' && (
+          <button
+            className={`absolute bottom-2 right-2 w-12 h-12 bg-spotify-green rounded-full flex items-center justify-center shadow-xl transition-all duration-200 ease-out hover:scale-105 ${
+              isCurrentlyPlaying ? 'opacity-100' : 'opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0'
+            }`}
+            onClick={(e) => {
+              e.stopPropagation();
+              onPlayProject && onPlayProject(project);
+            }}
+          >
+            {isCurrentlyPlaying ?
+              <Pause className="w-5 h-5 text-black" /> :
+              <Play className="w-5 h-5 text-black ml-0.5" />
+            }
+          </button>
+        )}
       </div>
 
       {/* Text content */}
@@ -76,6 +95,44 @@ const ProjectCard = ({
           </div>
         )}
       </div>
+
+      {/* Play/Pause/Equalizer controls for large (horizontal) cards - positioned on the right */}
+      {size === 'large' && (
+        <div className="relative w-12 h-12 flex items-center justify-center flex-shrink-0">
+          {/* Equalizer - shown when playing and mouse is not hovering */}
+          {currentlyPlaying?.id === project.id && isPlaying && (
+            <div className="group-hover:opacity-0 transition-opacity duration-200">
+              <EqualizerIcon />
+            </div>
+          )}
+          
+          {/* Play button - shown on hover when not currently playing this project */}
+          {(!currentlyPlaying || currentlyPlaying?.id !== project.id || !isPlaying) && (
+            <button
+              className="absolute inset-0 w-12 h-12 bg-spotify-green rounded-full flex items-center justify-center shadow-xl transition-all duration-200 ease-out hover:scale-105 opacity-0 group-hover:opacity-100"
+              onClick={(e) => {
+                e.stopPropagation();
+                onPlayProject && onPlayProject(project);
+              }}
+            >
+              <Play className="w-5 h-5 text-black ml-0.5" />
+            </button>
+          )}
+          
+          {/* Pause button - shown on hover when currently playing this project */}
+          {currentlyPlaying?.id === project.id && isPlaying && (
+            <button
+              className="absolute inset-0 w-12 h-12 bg-spotify-green rounded-full flex items-center justify-center shadow-xl transition-all duration-200 ease-out hover:scale-105 opacity-0 group-hover:opacity-100"
+              onClick={(e) => {
+                e.stopPropagation();
+                onPlayProject && onPlayProject(project);
+              }}
+            >
+              <Pause className="w-5 h-5 text-black" />
+            </button>
+          )}
+        </div>
+      )}
     </div>
   );
 };
