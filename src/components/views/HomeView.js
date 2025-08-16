@@ -35,16 +35,16 @@ const HomeView = ({
           onProjectClick={onNavigateToProject}
         />
       ))}
-      <div className="bg-spotify-card rounded-lg p-4 hover:bg-spotify-hover transition-all duration-300 cursor-pointer flex items-center space-x-4"
-           onClick={onNavigateToProfile}>
-        <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
-          <User className="w-8 h-8 text-white" />
-        </div>
-        <div>
-          <h3 className="text-spotify-primary font-semibold text-base">Josh Dutcher</h3>
-          <p className="text-spotify-secondary text-sm">View Profile</p>
-        </div>
-      </div>
+      <ProjectCard 
+        key="did-kansas-win" 
+        project={projects.sideProjects.find(p => p.id === 'did-kansas-win')} 
+        size="large" 
+        showArtist={false} 
+        currentlyPlaying={currentlyPlaying}
+        isPlaying={isPlaying}
+        onPlayProject={onPlayProject}
+        onProjectClick={onNavigateToProject}
+      />
     </div>
 
     {/* Made for You Section */}
