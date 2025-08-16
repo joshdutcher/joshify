@@ -11,6 +11,25 @@
   - [x] Configure TASKS.md development roadmap
 
 ### Next Session
+- [ ] **UI/UX Improvements**
+  - [ ] Remove heart/like icon from bottom player bar
+  - [ ] Completely redesign left sidebar to match current Spotify style
+    - [ ] Add "Your Library" header with expand/collapse controls
+    - [ ] Implement compact playlist view with thumbnails
+    - [ ] Add filter and sort functionality for playlists
+    - [ ] Update visual hierarchy and spacing to match modern Spotify
+  - [ ] Replace outlined play/pause icons with solid versions across all components
+    - [ ] Update BottomPlayer, ProjectCard, ProjectDetailView, PlaylistView
+    - [ ] Create custom solid icon components if needed
+  - [ ] Move GitHub links from project cards to project detail pages
+    - [ ] Remove GitHub link from horizontal ProjectCard layout
+    - [ ] Add GitHub link to ProjectDetailView alongside other actions
+  - [ ] Implement playlist thumbnail 2x2 grid system
+    - [ ] Create PlaylistThumbnail component with 2x2 album art grid
+    - [ ] Use first 4 projects from each playlist for thumbnail
+    - [ ] Handle edge cases (fewer than 4 projects with fallbacks)
+    - [ ] Apply to both PlaylistView headers and Sidebar playlist items
+
 - [ ] **Codebase Integration**
   - [ ] Add existing Spotify-clone portfolio code to repository
   - [ ] Review current implementation and file structure
