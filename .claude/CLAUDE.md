@@ -88,6 +88,14 @@
 
 ## Reference Information
 
+### Canvas Video Hosting Strategy
+**IMPORTANT**: Canvas videos (9:16 MP4 files) are NOT stored in git repository due to file size.
+- **Local Development**: Videos stored in `public/canvases/` for testing
+- **Production**: Videos hosted via GitHub Releases CDN
+- **Deployment Process**: Upload videos to GitHub Releases, update URLs in code
+- **Gitignore**: `public/canvases/*.mp4` excluded from repository
+- **Fallback System**: Automatic fallback to album art if video unavailable
+
 ### Key Dependencies
 *See PLANNING.md for complete dependency list and version specifications.*
 
