@@ -1,12 +1,16 @@
 import React from 'react';
-import { User, Mail, Phone, MapPin, ExternalLink } from 'lucide-react';
+import { User, Mail, Phone, MapPin, ExternalLink, Github, FileText } from 'lucide-react';
 import { projects, skills } from '../../data/projects';
 
 const ProfileView = () => (
   <div className="text-white p-4 md:p-6">
     <div className="flex flex-col md:flex-row md:items-end space-y-4 md:space-y-0 md:space-x-6 mb-6 md:mb-8">
-      <div className="w-48 h-48 md:w-64 md:h-64 mx-auto md:mx-0 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center shadow-2xl">
-        <User className="w-24 h-24 md:w-32 md:h-32 text-white" />
+      <div className="w-48 h-48 md:w-64 md:h-64 mx-auto md:mx-0 rounded-full overflow-hidden shadow-2xl">
+        <img 
+          src="/images/josh.jpg" 
+          alt="Josh Dutcher"
+          className="w-full h-full object-cover"
+        />
       </div>
       <div className="text-center md:text-left">
         <p className="text-sm font-semibold uppercase">Profile</p>
@@ -60,6 +64,18 @@ const ProfileView = () => (
             <ExternalLink className="w-4 h-4 md:w-5 md:h-5 text-gray-400 flex-shrink-0" />
             <a href="https://www.linkedin.com/in/joshdutcher/" className="text-green-500 hover:text-green-400 text-sm md:text-base">
               LinkedIn Profile
+            </a>
+          </div>
+          <div className="flex items-center space-x-3">
+            <Github className="w-4 h-4 md:w-5 md:h-5 text-gray-400 flex-shrink-0" />
+            <a href="https://github.com/joshdutcher" className="text-green-500 hover:text-green-400 text-sm md:text-base">
+              GitHub Profile
+            </a>
+          </div>
+          <div className="flex items-center space-x-3">
+            <FileText className="w-4 h-4 md:w-5 md:h-5 text-gray-400 flex-shrink-0" />
+            <a href="https://www.joshsresume.com" className="text-green-500 hover:text-green-400 text-sm md:text-base">
+              Resume
             </a>
           </div>
         </div>

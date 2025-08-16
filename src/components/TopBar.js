@@ -20,10 +20,15 @@ const TopBar = ({
     </div>
     <div className="flex items-center space-x-4">
       <button
-        className="bg-spotify-black bg-opacity-70 rounded-full px-6 py-2 font-semibold hover:bg-opacity-80 transition-colors text-base text-spotify-primary"
+        className="bg-spotify-black bg-opacity-70 rounded-full px-3 py-2 font-semibold hover:bg-opacity-80 transition-colors text-base text-spotify-primary flex items-center space-x-3"
         onClick={onNavigateToProfile}
       >
-        Josh Dutcher
+        <span>Josh Dutcher</span>
+        <img 
+          src="/images/josh.jpg" 
+          alt="Josh Dutcher"
+          className="w-7 h-7 rounded-full object-cover border-2 border-spotify-primary"
+        />
       </button>
     </div>
   </div>
