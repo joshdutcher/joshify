@@ -38,7 +38,12 @@
 - Responsive design testing across devices
 
 **Build Commands:**
-*To be determined after codebase integration*
+```bash
+npm run dev      # Development server (port 3000+)
+npm run build    # Production build
+npm run preview  # Preview build locally
+npm run lint     # Code linting (needs ESLint config)
+```
 
 **Requirements:**
 - Portfolio showcasing projects as "albums"

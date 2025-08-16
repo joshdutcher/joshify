@@ -180,20 +180,25 @@ src/
 - **A/B Testing**: Experiment with different presentation styles
 - **Internationalization**: Multi-language support
 
-## Current Issues to Fix (Phase 2)
+## Previously Completed Issues (Phase 2)
 
-### Layout & UI Fixes Required
-1. **TopBar Issue**: TopBar not spanning full screen width like authentic Spotify
-2. **Auto-Play on Load**: Set Campbell Zafar as default "now playing" on first load
-3. **Logo Simplification**: Remove "Spotify" text, keep only circular logo + "Joshlify"
-4. **Bottom Player Position**: Move "now playing" bar to bottom of screen (desktop only)
-5. **Scroll Issue**: Middle column not responding to mouse scroll wheel
-6. **Dynamic Greeting**: Change "Good Morning" based on time of day
+### ✅ Layout & UI Fixes Completed
+1. ✅ **TopBar Issue**: TopBar now spans full screen width like authentic Spotify
+2. ✅ **Auto-Play on Load**: Campbell Zafar set as default "now playing" on first load
+3. ✅ **Logo Simplification**: Removed "Spotify" text, kept only circular logo + "Joshlify"
+4. ✅ **Bottom Player Position**: "Now playing" bar moved to bottom of screen (desktop)
+5. ✅ **Scroll Issue**: Middle column now responds to mouse scroll wheel
+6. ✅ **Dynamic Greeting**: Time-based greeting implemented ("Good morning/afternoon/evening")
 
-### Priority Order
-- **High**: TopBar layout, Bottom player positioning, Auto-play setup
-- **Medium**: Logo fix, Scroll functionality
-- **Low**: Dynamic greeting
+## Current UI Enhancement Backlog
+
+### Planned UI/UX Improvements
+*See `.claude/TASKS.md` for detailed implementation tasks:*
+- Remove heart/like icon from bottom player bar
+- Redesign left sidebar to match current Spotify style
+- Replace outlined play/pause icons with solid versions
+- Move GitHub links from project cards to project detail pages
+- Implement playlist thumbnail 2x2 grid system
 
 ## Canvas Feature Specification
 
