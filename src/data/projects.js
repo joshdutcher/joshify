@@ -9,19 +9,20 @@ export const projects = {
       artist: 'Founding Operations & Technology Manager',
       album: 'Legal Tech Startup',
       duration: '8 months',
-      image: '/api/placeholder/300/300',
+      image: '/album-art/campbell-zafar.png',
       year: '2025',
       plays: '∞',
-      description: 'Complete business launch: Google Workspace setup, Squarespace website, VoIP systems, vendor coordination, and operational documentation.',
+      description: 'Look, I\'ve heard plenty of startup tracks that promise the world and deliver elevator music. But this Campbell Zafar joint? It\'s the real deal—no filler, all killer. What you get here is eight months of straight-up hustle distilled into pure operational gold. The producer doesn\'t waste time on flashy solos; instead, they lay down a foundation so solid you could build a skyscraper on it. Google Workspace integration hits harder than a bass drop, while the Squarespace build flows smoother than Sunday morning jazz. But here\'s where it gets interesting: the vendor management game is absolutely *chef\'s kiss*. Photographers, designers, tech suppliers—everyone stays in their lane while contributing to something bigger. The S-Corp formation breakdown? Pure technical wizardry that most artists wouldn\'t even attempt. By the final track, you\'ve got SOPs that read like a producer\'s notebook—every detail documented for the next generation. This isn\'t just business operations; it\'s a masterpiece of getting stuff done.',
       skills: ['Business Operations', 'Google Workspace', 'Squarespace', 'Project Management'],
       demoUrl: null,
       githubUrl: null,
       canvas: {
-        video: null,
-        image: '/canvases/campbell-zafar.jpg',
-        fallback: '/canvases/default.jpg'
+        video: '/canvases/campbell-zafar.mp4',
+        image: '/album-art/campbell-zafar.png',
+        fallback: '/album-art/campbell-zafar.png'
       },
-      featured: true
+      featured: true,
+      isAlbum: true
     },
     {
       id: 'ddx-election',
