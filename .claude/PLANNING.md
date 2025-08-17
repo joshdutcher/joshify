@@ -2,9 +2,11 @@
 
 ## Vision
 
-**Joshify** is a personal portfolio website that reimagines the traditional developer portfolio as a Spotify-like music streaming interface. Each development project becomes an "album" with rich visual presentation, detailed information, and an engaging browsing experience that leverages familiar UI patterns from music streaming platforms.
+**Joshify** is a personal portfolio website that reimagines the traditional developer portfolio as a Spotify-like music streaming interface. Each development project becomes a "track" with rich visual presentation, detailed information, and an engaging browsing experience that leverages familiar UI patterns from music streaming platforms.
 
-**Core Metaphor**: Projects = Albums, Skills = Genres, Experience = Discography
+**Core Metaphor**: Projects = Tracks, Collections = Playlists, Skills = Genres, Experience = Discography
+
+**Note**: While the codebase may internally reference "albums" for historical reasons, the user-facing interface uses "Collections" for playlists and treats individual projects as "tracks" with album-like rich metadata and presentation.
 
 ## Architecture
 
@@ -44,8 +46,8 @@ src/
 - **Canvas System**: Visual project backgrounds (video/image, 9:16 aspect ratio)
 
 ### Key Abstractions
-- **Album**: A completed project with rich metadata
-- **Playlist**: Curated collections of related projects
+- **Track**: A completed project with rich metadata (internally may reference "album" structure)
+- **Collection/Playlist**: Curated collections of related projects (displayed as "Collections" in UI)
 - **Genre**: Skill categories and technology groupings
 - **Player**: Portfolio navigation and detail interface
 
@@ -122,11 +124,11 @@ src/
 - **Detail Views**: Rich project information with screenshots and demos
 - **Responsive**: Seamless experience across all device sizes
 
-### Album/Project Presentation
-- **Album Art**: Eye-catching visuals representing each project
+### Track/Project Presentation
+- **Cover Art**: Eye-catching visuals representing each project (may be referenced as "album art" in code)
 - **Metadata**: Tech stack, duration, team size, role
-- **Track Listing**: Key features and accomplishments
-- **Liner Notes**: Detailed project description and learnings
+- **Track Details**: Key features and accomplishments
+- **About This Project**: Detailed project description and learnings (music critic style, employer-focused)
 
 ## Performance Targets
 
@@ -190,15 +192,48 @@ src/
 5. ✅ **Scroll Issue**: Middle column now responds to mouse scroll wheel
 6. ✅ **Dynamic Greeting**: Time-based greeting implemented ("Good morning/afternoon/evening")
 
-## Current UI Enhancement Backlog
+## Current UI Enhancement Implementation Plan
 
-### Planned UI/UX Improvements
-*See `.claude/TASKS.md` for detailed implementation tasks:*
+### 6-Phase Spotify-Authentic Redesign
+*Complete implementation plan based on detailed UI/UX specifications:*
+
+**Phase 1: Terminology & Data Structure Updates** (1-2 hours)
+- Update UI terminology: Albums → Tracks, "Album" column → "Role" column
+- Change "Your Library" → "My Work"
 - Remove heart/like icon from bottom player bar
-- Redesign left sidebar to match current Spotify style
-- Replace outlined play/pause icons with solid versions
-- Move GitHub links from project cards to project detail pages
-- Implement playlist thumbnail 2x2 grid system
+- Update search placeholder text and filter labels
+
+**Phase 2: Left Column Complete Redesign** (3-4 hours)  
+- Implement "My Work" header with Spotify styling
+- Add functional search with "Search My Work" functionality
+- Create filter buttons: "All", "Collections", "Projects"
+- Match authentic Spotify visual design patterns
+
+**Phase 3: Column Resizing System** (4-5 hours)
+- Implement drag-to-resize for left column with min/max/icon-only modes
+- Add Spotify-style resize handles with visual feedback
+- Implement right column resizing functionality
+- Create snap-to-width behavior matching Spotify
+
+**Phase 4: Top Bar & Global Search** (3-4 hours)
+- Make Joshify logo clickable, add home icon
+- Remove Browse functionality entirely
+- Implement comprehensive search with results page
+- Add "All", "Collections", "Projects" search filters
+
+**Phase 5: Navigation & Canvas Enhancements** (2-3 hours)
+- Make all track names and roles clickable for navigation
+- Implement playlist-aware next/previous functionality
+- Create canvas fallback animations with cover art color extraction
+- Add random complementary color gradients (green/blue/charcoal)
+
+**Phase 6: Content & Polish** (2-3 hours)
+- Refine track descriptions (25% less music critic voice, more employer appeal)
+- Add playlist descriptions (brief, Spotify-style)
+- Implement Spotify-style scrollbars and hover states
+- Create functional "Show All" links and sub-pages
+
+**Total Duration**: 15-20 hours across 6 phases with save points
 
 ## Canvas Feature Specification
 
@@ -247,8 +282,15 @@ src/
 
 ### Additional Future Enhancement Ideas
 *Brainstorming notes for potential far-future development:*
+- **Skills & Technologies Showcase**: Dedicated section displaying all technologies/skills with tag cloud or grid presentation, click-to-filter functionality
 - **Virtual DJ Interface**: Creative presentation of coding skills
 - **Collaborative Playlists**: Showcase team projects differently
 - **Live Coding Sessions**: Stream development work like live music
 - **Portfolio Analytics**: Detailed visitor engagement insights
 - **Interactive Canvas**: Click-through to project demos from canvas area
+
+### Canvas Fallback Animation System
+**Implemented Animation Types**:
+- **Cover Art Color Extraction**: Gradient animations based on dominant colors from project cover art
+- **Default Gradients**: For tracks without cover art, random selection from Spotify green + complementary colors (darker green, blue, charcoal)
+- **Smooth Fallback Chain**: Canvas video → Static cover art → Animated gradient background
