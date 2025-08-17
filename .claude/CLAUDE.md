@@ -1,4 +1,4 @@
-# CLAUDE.md - Joshlify Portfolio Development Guide
+# CLAUDE.md - Joshify Portfolio Development Guide
 
 ## Current Project Status (High-Level)
 

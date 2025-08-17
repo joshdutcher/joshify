@@ -88,7 +88,7 @@
 
 #### Phase 2: Layout & Functionality Fixes
 6. ✅ **TopBar Layout**: Fixed to span full screen width, moved above all content
-7. ✅ **Logo Simplification**: Removed "Spotify" text, kept circular logo + "Joshlify"
+7. ✅ **Logo Simplification**: Removed "Spotify" text, kept circular logo + "Joshify"
 8. ✅ **Bottom Player Positioning**: Moved to actual bottom of screen (desktop view)
 9. ✅ **Auto-Play Setup**: Campbell Zafar loads as default "now playing" on startup
 10. ✅ **Dynamic Greeting**: Time-based greeting (Good morning/afternoon/evening)
@@ -145,7 +145,7 @@
 - **Node.js Environment**: ✅ v23.8.0 (meets requirements >=18.0.0)
 
 ## Technical Implementation Notes
-- **GitHub Repository**: https://github.com/joshdutcher/joshlify (public, ready for deployment)
+- **GitHub Repository**: https://github.com/joshdutcher/joshify (public, ready for deployment)
 - **Canvas Directory**: `/public/canvases/` ready for 9:16 aspect ratio videos/images
 - **GitHub URLs**: Placeholder URLs in data need replacement with real repositories  
 - **Responsive Design**: Layout works across mobile, tablet, and desktop
@@ -161,4 +161,4 @@
 - **GitHub Integration**: Spotify-native styling with hover effects and proper placement
 
 ## Session Summary
-Successfully implemented the complete "Dark Side of the Brew" album system for Joshlify portfolio. Transformed the Beer Fridge project into a beautifully themed album with Pink Floyd-inspired artwork, created dynamic equalizer animations, enhanced play button controls, and integrated album art across all UI components. Established GitHub releases CDN strategy for canvas videos and implemented local development support. The album system is now fully functional with smart fallbacks, authentic Spotify styling, and music critic-style descriptions. All changes committed to GitHub with comprehensive documentation.
+Successfully implemented the complete "Dark Side of the Brew" album system for Joshify portfolio. Transformed the Beer Fridge project into a beautifully themed album with Pink Floyd-inspired artwork, created dynamic equalizer animations, enhanced play button controls, and integrated album art across all UI components. Established GitHub releases CDN strategy for canvas videos and implemented local development support. The album system is now fully functional with smart fallbacks, authentic Spotify styling, and music critic-style descriptions. All changes committed to GitHub with comprehensive documentation.
