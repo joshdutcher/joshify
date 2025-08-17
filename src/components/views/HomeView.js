@@ -61,7 +61,7 @@ const HomeView = ({
                 id: `playlist-${index}`,
                 title: playlist.name,
                 artist: `${playlist.projects.length} projects`,
-                album: 'Playlist'
+                album: 'Collection'
               }}
               showArtist={true}
               currentlyPlaying={currentlyPlaying}

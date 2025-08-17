@@ -1,5 +1,5 @@
 import React from 'react';
-import { Play, Pause, Heart, Volume2, Shuffle, Repeat, SkipBack, SkipForward } from 'lucide-react';
+import { Play, Pause, Volume2, Shuffle, Repeat, SkipBack, SkipForward } from 'lucide-react';
 
 const BottomPlayer = ({ 
   currentlyPlaying, 
@@ -40,7 +40,6 @@ const BottomPlayer = ({
             <p className="text-spotify-primary font-semibold text-base truncate">{currentlyPlaying.title}</p>
             <p className="text-spotify-secondary text-sm truncate">{currentlyPlaying.artist}</p>
           </div>
-          <Heart className="w-5 h-5 text-spotify-secondary hover:text-spotify-primary cursor-pointer flex-shrink-0 hidden md:block" />
         </div>
 
         {/* Center: Player Controls (Desktop Only) */}
