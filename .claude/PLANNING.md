@@ -1,8 +1,8 @@
-# PLANNING.md - Joshlify Portfolio
+# PLANNING.md - Joshify Portfolio
 
 ## Vision
 
-**Joshlify** is a personal portfolio website that reimagines the traditional developer portfolio as a Spotify-like music streaming interface. Each development project becomes an "album" with rich visual presentation, detailed information, and an engaging browsing experience that leverages familiar UI patterns from music streaming platforms.
+**Joshify** is a personal portfolio website that reimagines the traditional developer portfolio as a Spotify-like music streaming interface. Each development project becomes an "album" with rich visual presentation, detailed information, and an engaging browsing experience that leverages familiar UI patterns from music streaming platforms.
 
 **Core Metaphor**: Projects = Albums, Skills = Genres, Experience = Discography
 
@@ -185,7 +185,7 @@ src/
 ### ✅ Layout & UI Fixes Completed
 1. ✅ **TopBar Issue**: TopBar now spans full screen width like authentic Spotify
 2. ✅ **Auto-Play on Load**: Campbell Zafar set as default "now playing" on first load
-3. ✅ **Logo Simplification**: Removed "Spotify" text, kept only circular logo + "Joshlify"
+3. ✅ **Logo Simplification**: Removed "Spotify" text, kept only circular logo + "Joshify"
 4. ✅ **Bottom Player Position**: "Now playing" bar moved to bottom of screen (desktop)
 5. ✅ **Scroll Issue**: Middle column now responds to mouse scroll wheel
 6. ✅ **Dynamic Greeting**: Time-based greeting implemented ("Good morning/afternoon/evening")
