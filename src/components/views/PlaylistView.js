@@ -1,5 +1,5 @@
 import React from 'react';
-import { Play, Heart, MoreHorizontal } from 'lucide-react';
+import { Play, MoreHorizontal } from 'lucide-react';
 
 const PlaylistView = ({ 
   playlist, 
@@ -16,7 +16,7 @@ const PlaylistView = ({
         </span>
       </div>
       <div className="text-center md:text-left">
-        <p className="text-sm font-semibold uppercase">Playlist</p>
+        <p className="text-sm font-semibold uppercase">Collection</p>
         <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-2 md:mb-4">{playlist.name}</h1>
         <p className="text-gray-400">Josh Dutcher • {playlist.projects.length} projects</p>
       </div>
@@ -26,7 +26,6 @@ const PlaylistView = ({
       <button className="w-12 h-12 md:w-14 md:h-14 bg-green-500 rounded-full flex items-center justify-center hover:scale-105 transition-transform">
         <Play className="w-5 h-5 md:w-6 md:h-6 text-black ml-0.5" />
       </button>
-      <Heart className="w-6 h-6 md:w-8 md:h-8 text-gray-400 hover:text-white cursor-pointer" />
       <MoreHorizontal className="w-6 h-6 md:w-8 md:h-8 text-gray-400 hover:text-white cursor-pointer" />
     </div>
 
@@ -35,7 +34,7 @@ const PlaylistView = ({
       <div className="grid grid-cols-12 gap-4 text-gray-400 text-sm border-b border-gray-700 pb-2 mb-4">
         <div className="col-span-1">#</div>
         <div className="col-span-5">Title</div>
-        <div className="col-span-3">Album</div>
+        <div className="col-span-3">Role</div>
         <div className="col-span-2">Year</div>
         <div className="col-span-1">Duration</div>
       </div>

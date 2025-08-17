@@ -41,14 +41,14 @@ const Sidebar = ({
         onClick={() => onNavigateToView('library')}
       >
         <Library className="w-6 h-6" />
-        <span className="font-bold">Your Library</span>
+        <span className="font-bold">My Work</span>
       </button>
     </nav>
 
     <div className="mb-6">
       <button className="flex items-center space-x-3 text-spotify-secondary hover:text-spotify-primary w-full text-left py-3 px-3 rounded-md transition-colors hover:bg-spotify-hover">
         <Plus className="w-6 h-6" />
-        <span className="font-bold">Create Playlist</span>
+        <span className="font-bold">Create Collection</span>
       </button>
     </div>
 
