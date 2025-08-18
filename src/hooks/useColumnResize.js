@@ -2,7 +2,7 @@ import { useState, useCallback, useEffect } from 'react';
 
 const useColumnResize = () => {
   // Left column sizing state
-  const [leftColumnWidth, setLeftColumnWidth] = useState(256); // 16rem = 256px default
+  const [leftColumnWidth, setLeftColumnWidth] = useState(309); // Default to match Spotify (309px)
   const [isLeftResizing, setIsLeftResizing] = useState(false);
   const [leftColumnMode, setLeftColumnMode] = useState('normal'); // 'normal', 'icon-only'
   
@@ -10,13 +10,13 @@ const useColumnResize = () => {
   const [rightColumnWidth, setRightColumnWidth] = useState(320); // 20rem = 320px default
   const [isRightResizing, setIsRightResizing] = useState(false);
   
-  // Constants for column constraints
-  const LEFT_MIN_WIDTH = 200; // Minimum normal mode width
+  // Constants for column constraints (matching Spotify values)
+  const LEFT_MIN_WIDTH = 280; // Minimum normal mode width (increased to match Spotify)
   const LEFT_MAX_WIDTH = 420; // Maximum left column width
   const LEFT_ICON_WIDTH = 72; // Fixed icon mode width
   const LEFT_SNAP_THRESHOLD = 96; // X position threshold for snap trigger
   
-  const RIGHT_MIN_WIDTH = 280; // Minimum right panel width
+  const RIGHT_MIN_WIDTH = 280; // Minimum right panel width  
   const RIGHT_MAX_WIDTH = 400; // Maximum right panel width
 
   // Left column resize handlers
@@ -33,41 +33,38 @@ const useColumnResize = () => {
     const sidebarElement = document.querySelector('[data-sidebar]');
     
     const handleMouseMove = (e) => {
-      const deltaX = e.clientX - startX;
-      const targetWidth = startWidth + deltaX;
+      const mouseX = e.clientX;
       
       let actualWidth;
       let newMode;
       
-      if (currentMode === 'normal') {
-        // In normal mode: resize fluidly until snap threshold
-        if (targetWidth <= LEFT_SNAP_THRESHOLD) {
-          // Snap to icon mode
-          actualWidth = LEFT_ICON_WIDTH;
-          newMode = 'icon-only';
-          currentMode = 'icon-only'; // Update current mode for this drag session
-        } else {
-          // Normal fluid resizing
-          actualWidth = Math.max(LEFT_MIN_WIDTH, Math.min(LEFT_MAX_WIDTH, targetWidth));
-          newMode = 'normal';
-        }
+      // Determine what the current mouse position should result in
+      if (mouseX <= LEFT_SNAP_THRESHOLD) {
+        // Mouse is in icon zone - force icon mode
+        actualWidth = LEFT_ICON_WIDTH;
+        newMode = 'icon-only';
       } else {
-        // In icon mode: stay fixed until snap threshold crossed
-        if (targetWidth > LEFT_SNAP_THRESHOLD) {
-          // Snap back to normal mode - use mouse position as direct width
-          // Get sidebar's left position and calculate width from mouse position
-          const sidebarRect = sidebarElement?.getBoundingClientRect();
-          const mouseBasedWidth = sidebarRect ? e.clientX - sidebarRect.left : targetWidth;
-          console.log('Icon→Normal: targetWidth:', targetWidth, 'mouseBasedWidth:', mouseBasedWidth, 'e.clientX:', e.clientX);
-          // During drag, follow mouse exactly - only apply max constraint
-          actualWidth = Math.min(LEFT_MAX_WIDTH, mouseBasedWidth);
-          newMode = 'normal';
-          currentMode = 'normal'; // Update current mode for this drag session
+        // Mouse is in normal zone - calculate width directly from mouse position
+        // Get the sidebar's left edge to calculate width from current mouse position
+        const sidebarRect = sidebarElement?.getBoundingClientRect();
+        if (sidebarRect) {
+          // Calculate width as distance from left edge of sidebar to mouse
+          const mouseBasedWidth = mouseX - sidebarRect.left;
+          // Apply constraints but prefer the direct mouse-based width
+          actualWidth = Math.max(LEFT_MIN_WIDTH, Math.min(LEFT_MAX_WIDTH, mouseBasedWidth));
         } else {
-          // Stay in icon mode at fixed width
-          actualWidth = LEFT_ICON_WIDTH;
-          newMode = 'icon-only';
+          // Fallback to delta calculation if sidebar rect not available
+          const deltaX = mouseX - startX;
+          const calculatedWidth = startWidth + deltaX;
+          actualWidth = Math.max(LEFT_MIN_WIDTH, Math.min(LEFT_MAX_WIDTH, calculatedWidth));
         }
+        newMode = 'normal';
+      }
+      
+      // Update mode if it changed (for immediate content switching)
+      if (newMode !== currentMode) {
+        currentMode = newMode;
+        setLeftColumnMode(newMode);
       }
       
       // Update DOM directly for smooth performance
@@ -75,10 +72,8 @@ const useColumnResize = () => {
         sidebarElement.style.width = `${actualWidth}px`;
       }
       
-      // Update mode state when it changes
-      if (newMode !== leftColumnMode) {
-        setLeftColumnMode(newMode);
-      }
+      // Also update CSS custom property for system-wide consistency
+      document.documentElement.style.setProperty('--left-sidebar-width', `${actualWidth}px`);
     };
     
     const handleMouseUp = (e) => {
@@ -86,33 +81,29 @@ const useColumnResize = () => {
       document.body.style.cursor = '';
       document.body.style.userSelect = '';
       
-      // Final width calculation
-      const deltaX = e.clientX - startX;
-      const targetWidth = startWidth + deltaX;
+      // Final calculation using the same logic as mousemove
+      const mouseX = e.clientX;
       
       let finalWidth;
       let finalMode;
       
-      if (leftColumnMode === 'normal') {
-        if (targetWidth <= LEFT_SNAP_THRESHOLD) {
-          finalWidth = LEFT_ICON_WIDTH;
-          finalMode = 'icon-only';
-        } else {
-          finalWidth = Math.max(LEFT_MIN_WIDTH, Math.min(LEFT_MAX_WIDTH, targetWidth));
-          finalMode = 'normal';
-        }
+      if (mouseX <= LEFT_SNAP_THRESHOLD) {
+        // Mouse ended in icon zone
+        finalWidth = LEFT_ICON_WIDTH;
+        finalMode = 'icon-only';
       } else {
-        if (targetWidth > LEFT_SNAP_THRESHOLD) {
-          // Same logic as mousemove - use mouse position as direct width
-          const sidebarElement = document.querySelector('[data-sidebar]');
-          const sidebarRect = sidebarElement?.getBoundingClientRect();
-          const mouseBasedWidth = sidebarRect ? e.clientX - sidebarRect.left : targetWidth;
+        // Mouse ended in normal zone - use same calculation as mousemove
+        const sidebarRect = sidebarElement?.getBoundingClientRect();
+        if (sidebarRect) {
+          const mouseBasedWidth = mouseX - sidebarRect.left;
           finalWidth = Math.max(LEFT_MIN_WIDTH, Math.min(LEFT_MAX_WIDTH, mouseBasedWidth));
-          finalMode = 'normal';
         } else {
-          finalWidth = LEFT_ICON_WIDTH;
-          finalMode = 'icon-only';
+          // Fallback to delta calculation
+          const deltaX = mouseX - startX;
+          const calculatedWidth = startWidth + deltaX;
+          finalWidth = Math.max(LEFT_MIN_WIDTH, Math.min(LEFT_MAX_WIDTH, calculatedWidth));
         }
+        finalMode = 'normal';
       }
       
       // Update React state with final values
@@ -147,6 +138,9 @@ const useColumnResize = () => {
       if (rightPanelElement) {
         rightPanelElement.style.width = `${newWidth}px`;
       }
+      
+      // Also update CSS custom property for system-wide consistency
+      document.documentElement.style.setProperty('--right-sidebar-width', `${newWidth}px`);
     };
     
     const handleMouseUp = (e) => {
@@ -171,7 +165,7 @@ const useColumnResize = () => {
 
   // Reset to default widths
   const resetColumnWidths = useCallback(() => {
-    setLeftColumnWidth(256);
+    setLeftColumnWidth(309);
     setRightColumnWidth(320);
     setLeftColumnMode('normal');
   }, []);
@@ -179,10 +173,10 @@ const useColumnResize = () => {
   // Programmatically set left column to icon mode
   const toggleLeftColumnMode = useCallback(() => {
     if (leftColumnMode === 'icon-only') {
-      setLeftColumnWidth(256);
+      setLeftColumnWidth(309);
       setLeftColumnMode('normal');
     } else {
-      setLeftColumnWidth(LEFT_MIN_WIDTH);
+      setLeftColumnWidth(LEFT_ICON_WIDTH);
       setLeftColumnMode('icon-only');
     }
   }, [leftColumnMode]);

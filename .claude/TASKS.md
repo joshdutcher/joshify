@@ -56,10 +56,10 @@
   - [x] Design icon-only width (cover art stack only)
   - [x] Prepare transitions between states for Phase 3 implementation
 
-### Phase 3: Column Resizing System (4-5 hours) ✅ COMPLETED
+### Phase 3: Column Resizing System (4-5 hours) 🔄 95% COMPLETED
 **Scope:** Advanced drag-to-resize functionality for left and right columns
-**Save Point:** Resizing functional, maintains layout integrity
-**Completed:** August 17, 2025 (~3.5 hours)
+**Save Point:** Resizing functional, maintains layout integrity  
+**Status:** August 18, 2025 (~6 hours total) - One critical behavior issue remaining
 
 - [x] **3.1 Left Column Resizing Infrastructure**
   - [x] Create resize handle component with hover states (gray→white transitions)
@@ -78,6 +78,19 @@
   - [x] Add min/max width constraints matching Spotify reference
   - [x] Ensure canvas/content area maintains proper proportions
   - [x] Add same visual feedback patterns as left column
+
+- [x] **3.4 Spotify Design Analysis & Authentication (August 18, 2025)**
+  - [x] Reverse engineer Spotify's authentic resize behavior from design files
+  - [x] Implement Spotify-accurate width constants (72px, 96px, 280px, 309px, 420px)
+  - [x] Add CSS custom properties system matching Spotify architecture
+  - [x] Enhance performance with direct DOM manipulation during resize
+  
+- [ ] **3.5 Critical Issue Resolution (Outstanding)**
+  - [ ] **BUG**: Column doesn't follow mouse when transitioning from icon mode to normal mode
+  - [ ] **Expected**: Column should immediately jump to mouse position and follow during drag
+  - [ ] **Current**: Column stays at fixed width until mouse release
+  - [ ] **Impact**: Breaks single-drag-session mode transitions
+  - [ ] **Priority**: CRITICAL - Must resolve before Phase 4
 
 ### Phase 4: Top Bar & Global Search (3-4 hours)
 **Scope:** Enhanced top bar with comprehensive search functionality
