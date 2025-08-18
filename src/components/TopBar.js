@@ -8,7 +8,7 @@ const TopBar = ({
   onNavigateToProfile, 
   onToggleSidebar 
 }) => (
-  <div className="flex items-center justify-between p-4 bg-black">
+  <div className="flex items-center justify-between px-4 py-2 bg-black">
     <div className="flex items-center space-x-4">
       <button
         className="md:hidden text-spotify-secondary hover:text-spotify-primary"

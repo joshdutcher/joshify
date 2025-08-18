@@ -100,19 +100,25 @@ const Sidebar = ({
     setTimeout(checkScrollButtons, 100);
   }, [activeFilter]);
 
-  // In icon-only mode, hide text-based elements
+  // In icon-only mode, hide text-based elements  
   const isIconMode = mode === 'icon-only';
+  
+  // Force re-render when mode changes
+  const [, forceUpdate] = React.useReducer(x => x + 1, 0);
+  React.useEffect(() => {
+    forceUpdate();
+  }, [mode]);
 
   return (
   <div 
     data-sidebar
-    className={`fixed md:relative inset-y-0 left-0 z-50 bg-spotify-dark ${isIconMode ? 'p-1 md:p-2' : 'p-2 md:p-3'} flex flex-col transform transition-all duration-300 ease-in-out ${
+    className={`fixed md:relative inset-y-0 left-0 z-50 bg-spotify-dark ${isIconMode ? 'pl-1 pr-0 py-2 md:pl-2 md:pr-0 md:py-3' : 'pl-1 pr-0 py-2 md:pl-1.5 md:pr-0 md:py-3'} flex flex-col transform transition-all duration-300 ease-in-out ${
       sidebarOpen ? 'translate-x-0' : '-translate-x-full'
     } md:translate-x-0 md:rounded-t-lg md:h-full`}
     style={{
       ...style,
       minWidth: isIconMode ? '72px' : '200px',
-      transition: 'padding 200ms ease-in-out'
+      // No padding transition to prevent scrollbar animation
     }}
   >
     <div className="flex items-center justify-end mb-6 md:mb-8 md:hidden">
@@ -263,7 +269,7 @@ const Sidebar = ({
 
     {/* Filtered Content List */}
     <div className="flex-1 overflow-y-auto">
-      <div className={isIconMode ? 'space-y-2' : 'space-y-1'}>
+      <div className={isIconMode ? 'space-y-1' : 'space-y-1'}>
         {filteredContent.length > 0 ? (
           filteredContent.map((item, index) => (
             <button

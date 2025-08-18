@@ -24,8 +24,8 @@ const ResizeHandle = ({
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       style={{
-        width: orientation === 'vertical' ? '12px' : '100%',
-        height: orientation === 'vertical' ? '100%' : '12px',
+        width: orientation === 'vertical' ? '6px' : '100%',
+        height: orientation === 'vertical' ? '100%' : '6px',
         userSelect: 'none',
         WebkitUserSelect: 'none',
         MozUserSelect: 'none',

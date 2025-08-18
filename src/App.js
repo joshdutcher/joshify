@@ -73,7 +73,7 @@ const SpotifyResume = () => {
       />
 
       {/* Main Content Area */}
-      <div className="flex flex-1 min-h-0 bg-black pt-2 px-2 gap-2">
+      <div className="flex flex-1 min-h-0 bg-black pt-1" style={{paddingLeft: '2px', paddingRight: '2px'}}>
         {/* Mobile Sidebar Overlay */}
         {sidebarOpen && (
           <div
@@ -85,6 +85,7 @@ const SpotifyResume = () => {
         {/* Sidebar */}
         <div className="flex">
           <Sidebar
+            key={`sidebar-${leftColumnMode}`}
             currentView={currentView}
             sidebarOpen={sidebarOpen}
             onNavigateToView={navigateToView}
