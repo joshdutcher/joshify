@@ -1,13 +1,17 @@
 import React from 'react';
 import usePlayer from './hooks/usePlayer';
+import useColumnResize from './hooks/useColumnResize';
+import useDynamicBackground from './hooks/useDynamicBackground';
 import Sidebar from './components/Sidebar';
 import TopBar from './components/TopBar';
 import BottomPlayer from './components/BottomPlayer';
 import NowPlayingPanel from './components/NowPlayingPanel';
+import ResizeHandle from './components/ResizeHandle';
 import HomeView from './components/views/HomeView';
 import ProfileView from './components/views/ProfileView';
 import PlaylistView from './components/views/PlaylistView';
 import ProjectDetailView from './components/views/ProjectDetailView';
+import { projects } from './data/projects';
 
 const SpotifyResume = () => {
   const {
@@ -24,6 +28,31 @@ const SpotifyResume = () => {
     closeSidebar,
     setIsPlaying
   } = usePlayer();
+
+  const {
+    leftColumnWidth,
+    leftColumnMode,
+    isLeftResizing,
+    startLeftResize,
+    rightColumnWidth,
+    isRightResizing,
+    startRightResize,
+  } = useColumnResize();
+
+  // Determine the image to use for color extraction
+  const getBackgroundImage = () => {
+    // Priority: Currently playing > Selected playlist/project > First recent work
+    if (currentlyPlaying?.image) {
+      return currentlyPlaying.image;
+    }
+    if (selectedPlaylist?.image) {
+      return selectedPlaylist.image;
+    }
+    // Default to first recent work project
+    return projects.recentWork[0]?.image || null;
+  };
+
+  const { backgroundStyle } = useDynamicBackground(getBackgroundImage());
 
   const handleNavigateToProfile = () => {
     navigateToView('profile');
@@ -44,7 +73,7 @@ const SpotifyResume = () => {
       />
 
       {/* Main Content Area */}
-      <div className="flex flex-1 min-h-0">
+      <div className="flex flex-1 min-h-0 bg-black pt-2 px-2 gap-2">
         {/* Mobile Sidebar Overlay */}
         {sidebarOpen && (
           <div
@@ -54,18 +83,39 @@ const SpotifyResume = () => {
         )}
 
         {/* Sidebar */}
-        <Sidebar
-          currentView={currentView}
-          sidebarOpen={sidebarOpen}
-          onNavigateToView={navigateToView}
-          onNavigateToPlaylist={navigateToPlaylist}
-          onCloseSidebar={closeSidebar}
-        />
+        <div className="flex">
+          <Sidebar
+            currentView={currentView}
+            sidebarOpen={sidebarOpen}
+            onNavigateToView={navigateToView}
+            onNavigateToPlaylist={navigateToPlaylist}
+            onCloseSidebar={closeSidebar}
+            width={leftColumnWidth}
+            mode={leftColumnMode}
+            style={isLeftResizing ? {} : { width: `${leftColumnWidth}px` }}
+          />
+          
+          {/* Left Resize Handle - Desktop Only */}
+          <div className="hidden md:block">
+            <ResizeHandle 
+              orientation="vertical"
+              onMouseDown={startLeftResize}
+              isDragging={isLeftResizing}
+            />
+          </div>
+        </div>
 
         {/* Content Area with Right Panel */}
         <div className="flex flex-1 min-w-0">
           {/* Main Content */}
-          <div className="flex-1 overflow-y-auto overflow-x-hidden bg-gradient-to-b from-spotify-dark to-spotify-black" style={{scrollBehavior: 'smooth'}}>
+          <div 
+            className="flex-1 overflow-y-auto overflow-x-hidden rounded-t-lg" 
+            style={{
+              scrollBehavior: 'smooth',
+              background: backgroundStyle.background,
+              transition: 'background 0.8s ease-in-out'
+            }}
+          >
             {currentView === 'home' && (
               <HomeView
                 currentlyPlaying={currentlyPlaying}
@@ -96,10 +146,21 @@ const SpotifyResume = () => {
             {currentView === 'profile' && <ProfileView />}
           </div>
 
+          {/* Right Resize Handle - Desktop Only */}
+          <div className="hidden lg:block">
+            <ResizeHandle 
+              orientation="vertical"
+              onMouseDown={startRightResize}
+              isDragging={isRightResizing}
+            />
+          </div>
+
           {/* Right: Now Playing Panel */}
           <NowPlayingPanel
             currentlyPlaying={currentlyPlaying}
             isPlaying={isPlaying}
+            width={rightColumnWidth}
+            style={isRightResizing ? {} : { width: `${rightColumnWidth}px` }}
           />
         </div>
       </div>

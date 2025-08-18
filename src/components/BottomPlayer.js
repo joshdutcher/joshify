@@ -6,7 +6,7 @@ const BottomPlayer = ({
   isPlaying, 
   onTogglePlay 
 }) => (
-  <div className="h-24 bg-spotify-card flex items-center px-4">
+  <div className="h-24 bg-black flex items-center px-4">
     {currentlyPlaying ? (
       <>
         {/* Left: Now Playing Info */}

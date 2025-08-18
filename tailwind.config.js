@@ -22,6 +22,7 @@ export default {
         'spotify-dark': '#121212',
         'spotify-card': '#181818',
         'spotify-hover': '#282828',
+        'spotify-lightgray': '#282828',
       },
       textColor: {
         'spotify-primary': '#FFFFFF',

@@ -49,6 +49,24 @@ html, body, #root {
   background: #FFFFFF;
 }
 
+/* Resize handle styles */
+.resize-handle {
+  position: relative;
+  z-index: 10;
+}
+
+.resize-handle:hover {
+  opacity: 1;
+}
+
+/* Disable text selection during resize */
+.resizing {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
 /* Firefox scrollbar */
 * {
   scrollbar-width: thin;

@@ -8,7 +8,7 @@ const TopBar = ({
   onNavigateToProfile, 
   onToggleSidebar 
 }) => (
-  <div className="flex items-center justify-between p-4 bg-spotify-dark">
+  <div className="flex items-center justify-between p-4 bg-black">
     <div className="flex items-center space-x-4">
       <button
         className="md:hidden text-spotify-secondary hover:text-spotify-primary"
@@ -20,7 +20,7 @@ const TopBar = ({
     </div>
     <div className="flex items-center space-x-4">
       <button
-        className="bg-spotify-black bg-opacity-70 rounded-full px-3 py-2 font-semibold hover:bg-opacity-80 transition-colors text-base text-spotify-primary flex items-center space-x-3"
+        className="bg-spotify-dark rounded-full px-3 py-2 font-semibold hover:bg-spotify-hover transition-colors text-base text-spotify-primary flex items-center space-x-3"
         onClick={onNavigateToProfile}
       >
         <span>Josh Dutcher</span>

@@ -5,14 +5,24 @@ import ProjectCanvas from './ProjectCanvas';
 const NowPlayingPanel = ({ 
   currentlyPlaying, 
   isPlaying = false,
-  className = "" 
+  className = "",
+  width = 320,
+  style = {}
 }) => {
   if (!currentlyPlaying) {
     return null; // Hide panel when no project is playing
   }
 
   return (
-    <div className={`hidden lg:block w-80 bg-spotify-card ${className}`}>
+    <div 
+      data-right-panel
+      className={`hidden lg:block bg-spotify-card rounded-t-lg ${className}`}
+      style={{
+        ...style,
+        minWidth: '280px',
+        maxWidth: '400px'
+      }}
+    >
       {/* Canvas Background */}
       <div className="relative">
         <ProjectCanvas 
