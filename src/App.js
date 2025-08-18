@@ -63,7 +63,13 @@ const SpotifyResume = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-spotify-black text-spotify-primary overflow-hidden">
+    <div 
+      className="flex flex-col h-screen bg-spotify-black text-spotify-primary overflow-hidden"
+      style={{
+        '--left-sidebar-width': `${leftColumnWidth}px`,
+        '--right-sidebar-width': `${rightColumnWidth}px`
+      }}
+    >
       {/* Top Bar - Full Width */}
       <TopBar
         currentView={currentView}
