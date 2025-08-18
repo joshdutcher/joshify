@@ -29,8 +29,9 @@ const useColumnResize = () => {
     const startWidth = leftColumnWidth;
     let currentMode = leftColumnMode; // Track mode within this drag session
     
-    // Find the sidebar element for direct manipulation
+    // Find the sidebar element for direct manipulation and capture its initial left position
     const sidebarElement = document.querySelector('[data-sidebar]');
+    const sidebarInitialLeft = sidebarElement?.getBoundingClientRect().left || 0;
     
     const handleMouseMove = (e) => {
       const mouseX = e.clientX;
@@ -44,27 +45,30 @@ const useColumnResize = () => {
         actualWidth = LEFT_ICON_WIDTH;
         newMode = 'icon-only';
       } else {
-        // Mouse is in normal zone - calculate width directly from mouse position
-        // Get the sidebar's left edge to calculate width from current mouse position
-        const sidebarRect = sidebarElement?.getBoundingClientRect();
-        if (sidebarRect) {
-          // Calculate width as distance from left edge of sidebar to mouse
-          const mouseBasedWidth = mouseX - sidebarRect.left;
-          // Apply constraints but prefer the direct mouse-based width
-          actualWidth = Math.max(LEFT_MIN_WIDTH, Math.min(LEFT_MAX_WIDTH, mouseBasedWidth));
+        // Mouse is in normal zone - calculate width from initial sidebar position
+        // Use the captured initial left position, not the current dynamic position
+        const mouseBasedWidth = mouseX - sidebarInitialLeft;
+        
+        // When transitioning from icon mode, allow following the mouse even below minimum
+        // This ensures smooth mouse-following behavior when exiting icon mode
+        if (currentMode === 'icon-only') {
+          // Just exited icon mode - follow mouse exactly, constrain only by max
+          actualWidth = Math.min(LEFT_MAX_WIDTH, mouseBasedWidth);
         } else {
-          // Fallback to delta calculation if sidebar rect not available
-          const deltaX = mouseX - startX;
-          const calculatedWidth = startWidth + deltaX;
-          actualWidth = Math.max(LEFT_MIN_WIDTH, Math.min(LEFT_MAX_WIDTH, calculatedWidth));
+          // Normal resizing - apply both min and max constraints
+          actualWidth = Math.max(LEFT_MIN_WIDTH, Math.min(LEFT_MAX_WIDTH, mouseBasedWidth));
         }
         newMode = 'normal';
       }
       
-      // Update mode if it changed (for immediate content switching)
+      // Update mode state only when it actually changes to avoid unnecessary re-renders
       if (newMode !== currentMode) {
         currentMode = newMode;
-        setLeftColumnMode(newMode);
+        // Defer React state update to avoid blocking the drag performance
+        // Use requestAnimationFrame to batch the update with the next render cycle
+        requestAnimationFrame(() => {
+          setLeftColumnMode(newMode);
+        });
       }
       
       // Update DOM directly for smooth performance
@@ -93,16 +97,11 @@ const useColumnResize = () => {
         finalMode = 'icon-only';
       } else {
         // Mouse ended in normal zone - use same calculation as mousemove
-        const sidebarRect = sidebarElement?.getBoundingClientRect();
-        if (sidebarRect) {
-          const mouseBasedWidth = mouseX - sidebarRect.left;
-          finalWidth = Math.max(LEFT_MIN_WIDTH, Math.min(LEFT_MAX_WIDTH, mouseBasedWidth));
-        } else {
-          // Fallback to delta calculation
-          const deltaX = mouseX - startX;
-          const calculatedWidth = startWidth + deltaX;
-          finalWidth = Math.max(LEFT_MIN_WIDTH, Math.min(LEFT_MAX_WIDTH, calculatedWidth));
-        }
+        // Use the same initial left position, not current dynamic position
+        const mouseBasedWidth = mouseX - sidebarInitialLeft;
+        
+        // Apply minimum width constraint on mouse release (not during drag)
+        finalWidth = Math.max(LEFT_MIN_WIDTH, Math.min(LEFT_MAX_WIDTH, mouseBasedWidth));
         finalMode = 'normal';
       }
       

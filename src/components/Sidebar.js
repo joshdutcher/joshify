@@ -102,12 +102,6 @@ const Sidebar = ({
 
   // In icon-only mode, hide text-based elements  
   const isIconMode = mode === 'icon-only';
-  
-  // Force re-render when mode changes
-  const [, forceUpdate] = React.useReducer(x => x + 1, 0);
-  React.useEffect(() => {
-    forceUpdate();
-  }, [mode]);
 
   return (
   <div 
@@ -240,10 +234,10 @@ const Sidebar = ({
                   <button
                     key={filter}
                     onClick={() => setActiveFilter(filter)}
-                    className={`px-2.5 py-1 text-xs font-medium rounded-full transition-colors whitespace-nowrap flex-shrink-0 ${
+                    className={`px-3 py-1.5 text-sm font-medium rounded-full transition-colors whitespace-nowrap flex-shrink-0 ${
                       activeFilter === filter
                         ? 'bg-white text-black'
-                        : 'bg-spotify-hover text-spotify-secondary hover:bg-spotify-lightgray hover:text-spotify-primary'
+                        : 'bg-[#2a2a2a] text-spotify-primary hover:bg-[#333333]'
                     }`}
                   >
                     {filter}
