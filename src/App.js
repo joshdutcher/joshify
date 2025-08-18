@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import usePlayer from './hooks/usePlayer';
 import useColumnResize from './hooks/useColumnResize';
 import useDynamicBackground from './hooks/useDynamicBackground';
@@ -11,6 +11,7 @@ import HomeView from './components/views/HomeView';
 import ProfileView from './components/views/ProfileView';
 import PlaylistView from './components/views/PlaylistView';
 import ProjectDetailView from './components/views/ProjectDetailView';
+import SearchView from './components/views/SearchView';
 import { projects } from './data/projects';
 
 const SpotifyResume = () => {
@@ -54,12 +55,24 @@ const SpotifyResume = () => {
 
   const { backgroundStyle } = useDynamicBackground(getBackgroundImage());
 
+  // Search state
+  const [searchQuery, setSearchQuery] = useState('');
+
   const handleNavigateToProfile = () => {
     navigateToView('profile');
   };
 
   const handleTogglePlay = () => {
     setIsPlaying(!isPlaying);
+  };
+
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+  };
+
+  const handleNavigateToSearch = (query) => {
+    setSearchQuery(query);
+    navigateToView('search');
   };
 
   return (
@@ -76,6 +89,8 @@ const SpotifyResume = () => {
         onNavigateToView={navigateToView}
         onNavigateToProfile={handleNavigateToProfile}
         onToggleSidebar={toggleSidebar}
+        onSearch={handleSearch}
+        onNavigateToSearch={handleNavigateToSearch}
       />
 
       {/* Main Content Area */}
@@ -91,7 +106,6 @@ const SpotifyResume = () => {
         {/* Sidebar */}
         <div className="flex">
           <Sidebar
-            key={`sidebar-${leftColumnMode}`}
             currentView={currentView}
             sidebarOpen={sidebarOpen}
             onNavigateToView={navigateToView}
@@ -151,6 +165,15 @@ const SpotifyResume = () => {
               />
             )}
             {currentView === 'profile' && <ProfileView />}
+            {currentView === 'search' && (
+              <SearchView
+                searchQuery={searchQuery}
+                currentlyPlaying={currentlyPlaying}
+                isPlaying={isPlaying}
+                onPlayProject={handlePlayProject}
+                onNavigateToProject={navigateToProject}
+              />
+            )}
           </div>
 
           {/* Right Resize Handle - Desktop Only */}
