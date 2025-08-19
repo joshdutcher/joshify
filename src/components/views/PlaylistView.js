@@ -1,5 +1,6 @@
 import React from 'react';
 import { Play, MoreHorizontal } from 'lucide-react';
+import ProjectImage from '../ProjectImage';
 
 const PlaylistView = ({ 
   playlist, 
@@ -50,11 +51,11 @@ const PlaylistView = ({
             <Play className="w-4 h-4 hidden group-hover:block cursor-pointer" fill="currentColor" onClick={() => onPlayProject(project, playlist)} />
           </div>
           <div className="col-span-5 flex items-center space-x-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-green-700 rounded flex items-center justify-center">
-              <span className="text-white text-xs font-bold">
-                {project.title.split(' ').map(w => w[0]).join('').slice(0, 2)}
-              </span>
-            </div>
+            <ProjectImage
+              project={project}
+              size="small"
+              shape="rounded"
+            />
             <div className="min-w-0 flex-1">
               <p 
                 className="text-white truncate hover:underline cursor-pointer"
@@ -97,11 +98,11 @@ const PlaylistView = ({
     <div className="md:hidden space-y-2">
       {playlist.projects.map((project, index) => (
         <div key={project.id} className="flex items-center space-x-3 p-3 hover:bg-gray-800 rounded-lg" onClick={() => onNavigateToProject(project)}>
-          <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-green-700 rounded flex items-center justify-center">
-            <span className="text-white text-sm font-bold">
-              {project.title.split(' ').map(w => w[0]).join('').slice(0, 2)}
-            </span>
-          </div>
+          <ProjectImage
+            project={project}
+            size="medium"
+            shape="rounded"
+          />
           <div className="flex-1 min-w-0">
             <p 
               className="text-white font-medium truncate hover:underline cursor-pointer"

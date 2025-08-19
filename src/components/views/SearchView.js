@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Play, Clock } from 'lucide-react';
 import EqualizerIcon from '../EqualizerIcon';
+import ProjectImage from '../ProjectImage';
 import { projects, playlists } from '../../data/projects';
 
 const SearchView = ({ 
@@ -50,14 +51,6 @@ const SearchView = ({
     return `${mins}:${secs.toString().padStart(2, '0')}`;
   };
 
-  const getInitials = (title) => {
-    return title
-      ?.split(' ')
-      .map(word => word.charAt(0))
-      .join('')
-      .substring(0, 2)
-      .toUpperCase() || '';
-  };
 
   const renderPlayButton = (item) => {
     const isCurrentlyPlaying = currentlyPlaying?.id === item.id;
@@ -77,26 +70,11 @@ const SearchView = ({
   };
 
   const renderImage = (item) => (
-    <div className="w-16 h-16 bg-spotify-lightgray rounded-md overflow-hidden flex-shrink-0">
-      {item.image && !item.image.includes('/api/placeholder') ? (
-        <img 
-          src={item.image} 
-          alt={item.title || item.name}
-          className="w-full h-full object-cover"
-          onError={(e) => {
-            e.target.style.display = 'none';
-            e.target.nextSibling.style.display = 'flex';
-          }}
-        />
-      ) : null}
-      <div className={`w-full h-full rounded-md flex items-center justify-center ${
-        item.image && !item.image.includes('/api/placeholder') ? 'hidden' : 'flex'
-      } bg-spotify-green`}>
-        <span className="font-bold text-white text-sm">
-          {getInitials(item.title || item.name)}
-        </span>
-      </div>
-    </div>
+    <ProjectImage
+      project={item}
+      size="large"
+      shape="rounded"
+    />
   );
 
   if (!searchQuery?.trim()) {

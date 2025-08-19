@@ -48,6 +48,9 @@ temp/
 # Design reference files
 designref/
 
+# Raw album art and video files
+track-art/
+
 # Canvas videos (hosted on GitHub Releases)
 public/canvases/*.mp4
 public/canvases/*.webm

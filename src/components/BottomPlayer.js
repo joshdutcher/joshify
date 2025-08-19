@@ -1,5 +1,6 @@
 import React from 'react';
 import { Play, Pause, Volume2, Shuffle, Repeat, SkipBack, SkipForward } from 'lucide-react';
+import ProjectImage from './ProjectImage';
 
 const BottomPlayer = ({ 
   currentlyPlaying, 
@@ -21,31 +22,12 @@ const BottomPlayer = ({
       <>
         {/* Left: Now Playing Info */}
         <div className="flex items-center space-x-4 w-1/4 min-w-0">
-          <div className="relative w-14 h-14 flex-shrink-0">
-            {/* Album art for albums */}
-            {currentlyPlaying.isAlbum && currentlyPlaying.image ? (
-              <img 
-                src={currentlyPlaying.image} 
-                alt={currentlyPlaying.title}
-                className="w-full h-full object-cover rounded"
-                onError={(e) => {
-                  // Fallback to generated thumbnail if album art fails to load
-                  e.target.style.display = 'none';
-                  e.target.nextSibling.style.display = 'flex';
-                }}
-              />
-            ) : null}
-            {/* Generated thumbnail fallback */}
-            <div 
-              className={`w-full h-full bg-gradient-to-br from-spotify-green to-green-700 rounded flex items-center justify-center ${
-                currentlyPlaying.isAlbum && currentlyPlaying.image ? 'hidden' : ''
-              }`}
-            >
-              <span className="text-white font-bold text-sm">
-                {currentlyPlaying.title.split(' ').map(w => w[0]).join('').slice(0, 2)}
-              </span>
-            </div>
-          </div>
+          <ProjectImage
+            project={currentlyPlaying}
+            size="custom"
+            className="w-14 h-14"
+            shape="rounded"
+          />
           <div className="min-w-0 flex-1">
             <p 
               className="text-spotify-primary font-semibold text-base truncate hover:underline cursor-pointer"

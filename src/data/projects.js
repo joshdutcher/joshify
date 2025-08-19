@@ -30,7 +30,7 @@ export const projects = {
       artist: 'Software Engineer - DDx',
       album: '2024 Presidential Election',
       duration: '8 months',
-      image: '/api/placeholder/300/300',
+      image: '/album-art/election-data-pipeline.png',
       year: '2024',
       plays: '20.4M',
       description: 'High-impact election data infrastructure delivering 20.4 million voter records during the critical final 2 months of the 2024 presidential election. Architected scalable Python ETL pipelines utilizing AWS Lambda for serverless processing, DynamoDB for real-time data storage, and SNS/SQS for reliable message queuing. Integrated with Snowflake data warehouse for analytics and reporting. The system handled massive data volumes under tight deadlines while maintaining data integrity and performance. This project demonstrates expertise in high-stakes, time-sensitive data engineering with enterprise-grade cloud architecture.',
@@ -39,10 +39,11 @@ export const projects = {
       githubUrl: null,
       canvas: {
         video: '/canvases/ddx-election.mp4',
-        image: '/canvases/ddx-election.jpg',
-        fallback: '/canvases/default.jpg'
+        image: '/album-art/election-data-pipeline.png',
+        fallback: '/album-art/election-data-pipeline.png'
       },
-      featured: true
+      featured: true,
+      isAlbum: true
     }
   ],
   topHits: [
@@ -59,11 +60,7 @@ export const projects = {
       skills: ['Python', 'ETL', 'APIs', 'High Availability', 'Healthcare'],
       demoUrl: null,
       githubUrl: null,
-      canvas: {
-        video: '/canvases/healthcare-etl.mp4',
-        image: '/canvases/healthcare-etl.jpg',
-        fallback: '/canvases/default.jpg'
-      },
+      canvas: null,
       featured: true
     },
     {
@@ -170,33 +167,33 @@ export const projects = {
 };
 
 export const playlists = [
-  { 
-    name: 'Recently Played', 
-    icon: Clock, 
+  {
+    name: 'Recently Played',
+    icon: Clock,
     projects: projects.recentWork,
     description: 'The latest work and projects from 2024-2025'
   },
-  { 
-    name: 'Top Hits', 
-    icon: Heart, 
+  {
+    name: 'Top Hits',
+    icon: Heart,
     projects: projects.topHits,
     description: 'Career highlights and high-impact engineering projects'
   },
-  { 
-    name: 'Side Projects', 
-    icon: User, 
+  {
+    name: 'Side Projects',
+    icon: User,
     projects: projects.sideProjects,
     description: 'Personal projects and creative technical experiments'
   },
-  { 
-    name: 'Full Stack Development', 
-    icon: Plus, 
+  {
+    name: 'Full Stack Development',
+    icon: Plus,
     projects: [...projects.topHits, ...projects.sideProjects.slice(0, 2)],
     description: 'End-to-end development projects from frontend to backend'
   },
-  { 
-    name: 'Data Engineering', 
-    icon: Plus, 
+  {
+    name: 'Data Engineering',
+    icon: Plus,
     projects: [projects.recentWork[1], projects.topHits[0]],
     description: 'High-volume data pipelines and ETL systems'
   }

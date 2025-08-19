@@ -1,6 +1,7 @@
 import React from 'react';
 import { Play, Pause } from 'lucide-react';
 import EqualizerIcon from './EqualizerIcon';
+import ProjectImage from './ProjectImage';
 
 const GitHubIcon = ({ className }) => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" className={className}>
@@ -27,29 +28,13 @@ const ProjectCard = ({
     }`}
     onClick={() => onProjectClick && onProjectClick(project)}>
       {/* Album art (no play button overlay for large size) */}
-      <div className={`relative ${size === 'large' ? 'w-12 h-12 md:w-16 md:h-16 flex-shrink-0' : 'w-full aspect-square'} ${size === 'large' ? 'mb-0' : 'mb-3'}`}>
-        {/* Album art */}
-        {project.isAlbum && project.image ? (
-          <img 
-            src={project.image} 
-            alt={project.title}
-            className="w-full h-full object-cover rounded-md shadow-lg"
-            onError={(e) => {
-              // Fallback to generated thumbnail if album art fails to load
-              e.target.style.display = 'none';
-              e.target.nextSibling.style.display = 'flex';
-            }}
-          />
-        ) : null}
-        <div 
-          className={`w-full h-full bg-gradient-to-br from-spotify-green to-green-700 rounded-md flex items-center justify-center shadow-lg ${
-            project.isAlbum && project.image ? 'hidden' : ''
-          }`}
-        >
-          <span className="text-white font-bold text-lg">
-            {project.title.split(' ').map(w => w[0]).join('').slice(0, 2)}
-          </span>
-        </div>
+      <div className={`relative ${size === 'large' ? 'mb-0' : 'mb-3'}`}>
+        <ProjectImage
+          project={project}
+          size={size === 'large' ? 'custom' : 'custom'}
+          className={`${size === 'large' ? 'w-12 h-12 md:w-16 md:h-16' : 'w-full aspect-square'} shadow-lg`}
+          shape="rounded"
+        />
         {/* Play button for small/medium cards only */}
         {size !== 'large' && (
           <button
