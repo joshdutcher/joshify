@@ -1,6 +1,7 @@
 import React from 'react';
 import { User } from 'lucide-react';
 import ProjectCard from '../ProjectCard';
+import HorizontalCardSection from '../HorizontalCardSection';
 import { projects, playlists } from '../../data/projects';
 
 const getTimeBasedGreeting = () => {
@@ -13,6 +14,7 @@ const getTimeBasedGreeting = () => {
 const HomeView = ({ 
   currentlyPlaying, 
   isPlaying, 
+  currentPlaylist,
   onPlayProject, 
   onNavigateToProject, 
   onNavigateToPlaylist, 
@@ -68,29 +70,20 @@ const HomeView = ({
           Show all
         </button>
       </div>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-4">
-        {playlists.slice(0, 5).map((playlist, index) => (
-          <div key={index} className="cursor-pointer" onClick={() => onNavigateToPlaylist(playlist)}>
-            <ProjectCard
-              project={{
-                id: `playlist-${index}`,
-                title: playlist.name,
-                artist: `${playlist.projects.length} projects`,
-                album: 'Collection'
-              }}
-              showArtist={true}
-              currentlyPlaying={currentlyPlaying}
-              isPlaying={isPlaying}
-              onPlayProject={() => {
-                // Play the first track in the playlist
-                if (playlist.projects && playlist.projects.length > 0) {
-                  onPlayProject(playlist.projects[0], playlist);
-                }
-              }}
-            />
-          </div>
-        ))}
-      </div>
+      <HorizontalCardSection
+        items={playlists.slice(0, 5)}
+        type="playlist"
+        currentlyPlaying={currentlyPlaying}
+        isPlaying={isPlaying}
+        currentPlaylist={currentPlaylist}
+        onPlay={(playlist) => {
+          // Play the first track in the playlist
+          if (playlist.projects && playlist.projects.length > 0) {
+            onPlayProject(playlist.projects[0], playlist);
+          }
+        }}
+        onClick={onNavigateToPlaylist}
+      />
     </section>
 
     {/* Top Hits Section */}
@@ -104,20 +97,14 @@ const HomeView = ({
           Show all
         </button>
       </div>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-4">
-        {projects.topHits.map((project) => (
-          <ProjectCard 
-            key={project.id} 
-            project={project} 
-            currentlyPlaying={currentlyPlaying}
-            isPlaying={isPlaying}
-            onPlayProject={onPlayProject}
-            onProjectClick={onNavigateToProject}
-            onNavigateToCompany={onNavigateToCompany}
-            onNavigateToDomain={onNavigateToDomain}
-          />
-        ))}
-      </div>
+      <HorizontalCardSection
+        items={projects.topHits}
+        type="project"
+        currentlyPlaying={currentlyPlaying}
+        isPlaying={isPlaying}
+        onPlay={onPlayProject}
+        onClick={onNavigateToProject}
+      />
     </section>
 
     {/* Side Projects Section */}
@@ -131,20 +118,14 @@ const HomeView = ({
           Show all
         </button>
       </div>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-4">
-        {projects.sideProjects.map((project) => (
-          <ProjectCard 
-            key={project.id} 
-            project={project} 
-            currentlyPlaying={currentlyPlaying}
-            isPlaying={isPlaying}
-            onPlayProject={onPlayProject}
-            onProjectClick={onNavigateToProject}
-            onNavigateToCompany={onNavigateToCompany}
-            onNavigateToDomain={onNavigateToDomain}
-          />
-        ))}
-      </div>
+      <HorizontalCardSection
+        items={projects.sideProjects}
+        type="project"
+        currentlyPlaying={currentlyPlaying}
+        isPlaying={isPlaying}
+        onPlay={onPlayProject}
+        onClick={onNavigateToProject}
+      />
     </section>
   </div>
 );

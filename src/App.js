@@ -50,15 +50,20 @@ const SpotifyResume = () => {
 
   // Determine the image to use for color extraction
   const getBackgroundImage = () => {
-    // Priority: Currently playing > Selected playlist/project > First recent work
-    if (currentlyPlaying?.image) {
-      return currentlyPlaying.image;
+    // Priority: Currently playing > Selected playlist/project > No gradient
+    if (currentlyPlaying) {
+      // If there's a canvas image, use that; otherwise use the project's main image
+      if (currentlyPlaying.canvas?.image) {
+        return currentlyPlaying.canvas.image;
+      } else if (currentlyPlaying.image) {
+        return currentlyPlaying.image;
+      }
     }
     if (selectedPlaylist?.image) {
       return selectedPlaylist.image;
     }
-    // Default to first recent work project
-    return projects.recentWork[0]?.image || null;
+    // No gradient when nothing is playing
+    return null;
   };
 
   const { backgroundStyle } = useDynamicBackground(getBackgroundImage());
@@ -149,6 +154,7 @@ const SpotifyResume = () => {
               <HomeView
                 currentlyPlaying={currentlyPlaying}
                 isPlaying={isPlaying}
+                currentPlaylist={currentPlaylist}
                 onPlayProject={handlePlayProject}
                 onNavigateToProject={navigateToProject}
                 onNavigateToPlaylist={navigateToPlaylist}

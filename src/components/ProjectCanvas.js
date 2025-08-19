@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { getCachedCanvasConfig } from '../utils/canvasUtils';
 
 // Animated gradient color sets for fallbacks
 const gradientSets = [
@@ -35,11 +36,40 @@ const ProjectCanvas = ({
   className = "",
   showFallback = true 
 }) => {
+  const [canvasConfig, setCanvasConfig] = useState(null);
   const [hasError, setHasError] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const videoRef = useRef(null);
 
-  // Reset error state when project changes
+  // Dynamically detect canvas files when project changes
+  useEffect(() => {
+    const loadCanvasConfig = async () => {
+      if (!project) {
+        setCanvasConfig(null);
+        return;
+      }
+
+      try {
+        const config = await getCachedCanvasConfig(project);
+        setCanvasConfig(config);
+        setHasError(false);
+        setIsLoaded(false);
+        
+        console.log('Canvas config loaded:', {
+          projectId: project.id,
+          projectTitle: project.title,
+          config
+        });
+      } catch (error) {
+        console.error('Error loading canvas config:', error);
+        setCanvasConfig({ video: null, image: null, fallback: project?.image || null, hasCanvas: false });
+      }
+    };
+
+    loadCanvasConfig();
+  }, [project?.id]);
+
+  // Reset error state and handle video when project changes
   useEffect(() => {
     setHasError(false);
     setIsLoaded(false);
@@ -51,26 +81,7 @@ const ProjectCanvas = ({
       // Force reload by resetting src
       videoRef.current.load();
     }
-  }, [project?.id]);
-
-  const canvas = project?.canvas;
-  
-  // Debug logging
-  useEffect(() => {
-    if (project) {
-      console.log('ProjectCanvas Debug:', {
-        projectTitle: project.title,
-        hasCanvas: !!canvas,
-        videoUrl: canvas?.video,
-        imageUrl: canvas?.image,
-        isPlaying,
-        hasError,
-        isLoaded,
-        shouldShowVideo: !!(canvas?.video && !hasError),
-        shouldShowImage: !!((canvas?.image && hasError) || (!canvas?.video && canvas?.image))
-      });
-    }
-  }, [project, canvas, isPlaying, hasError, isLoaded]);
+  }, [project?.id, canvasConfig]);
   
   useEffect(() => {
     if (videoRef.current && isPlaying && isLoaded) {
@@ -94,7 +105,7 @@ const ProjectCanvas = ({
       errorMessage: error?.message,
       networkState: e.target.networkState,
       readyState: e.target.readyState,
-      videoUrl: canvas?.video
+      videoUrl: canvasConfig?.video
     });
     setHasError(true);
     setIsLoaded(false);
@@ -105,14 +116,46 @@ const ProjectCanvas = ({
     setHasError(true);
   };
 
-  // If no canvas data, show animated fallback or nothing
-  if (!canvas) {
+  // Loading state while detecting canvas files
+  if (!canvasConfig) {
+    return (
+      <div className={`relative overflow-hidden bg-spotify-card rounded-lg ${className}`}>
+        <div className="aspect-square flex items-center justify-center animate-pulse">
+          <span className="text-white font-bold text-6xl opacity-20">
+            {project?.title?.split(' ').map(w => w[0]).join('').slice(0, 2) || '??'}
+          </span>
+        </div>
+      </div>
+    );
+  }
+
+  // If no canvas files detected, show project image or animated gradient
+  if (!canvasConfig.hasCanvas) {
+    if (canvasConfig.fallback) {
+      return (
+        <div className={`relative overflow-hidden bg-spotify-card rounded-lg ${className}`}>
+          <img
+            src={canvasConfig.fallback}
+            alt={`${project.title} canvas`}
+            className="w-full h-auto object-contain"
+            onError={(e) => {
+              console.error('Project image fallback error:', e.target.src);
+              setHasError(true);
+            }}
+            onLoad={() => console.log('Project image loaded successfully:', canvasConfig.fallback)}
+            key={`project-image-${project?.id}`}
+          />
+        </div>
+      );
+    }
+    
+    // Final fallback to animated gradient
     const gradientColors = getProjectGradient(project?.id);
     const gradientStyle = createAnimatedGradient(gradientColors, isPlaying);
     
     return showFallback ? (
       <div 
-        className={`aspect-canvas flex items-center justify-center ${className}`}
+        className={`aspect-square flex items-center justify-center rounded-lg ${className}`}
         style={gradientStyle}
       >
         <span className="text-white font-bold text-6xl opacity-20">
@@ -122,10 +165,11 @@ const ProjectCanvas = ({
     ) : null;
   }
 
+  // Canvas files detected - use 9:16 aspect ratio container
   return (
     <div className={`relative aspect-canvas overflow-hidden bg-spotify-card ${className}`}>
       {/* Video Canvas */}
-      {canvas.video && !hasError && (
+      {canvasConfig.video && !hasError && (
         <video
           ref={videoRef}
           className="absolute inset-0 w-full h-full object-cover"
@@ -135,27 +179,27 @@ const ProjectCanvas = ({
           preload="metadata"
           onLoadedData={handleVideoLoad}
           onError={handleVideoError}
-          onLoadStart={() => console.log('Video loading started:', canvas.video)}
-          onCanPlay={() => console.log('Video can play:', canvas.video)}
+          onLoadStart={() => console.log('Video loading started:', canvasConfig.video)}
+          onCanPlay={() => console.log('Video can play:', canvasConfig.video)}
           key={`video-${project?.id}`} // Force remount when project changes
         >
-          <source src={canvas.video} type="video/mp4" />
+          <source src={canvasConfig.video} type="video/mp4" />
         </video>
       )}
       
-      {/* Image Canvas (fallback or primary) */}
-      {((canvas.image && hasError) || (!canvas.video && canvas.image)) && (
+      {/* Image Canvas (only show if no video or video has error) */}
+      {(!canvasConfig.video || hasError) && canvasConfig.image && (
         <img
-          src={canvas.image}
+          src={canvasConfig.image}
           alt={`${project.title} canvas`}
           className="absolute inset-0 w-full h-full object-cover"
           onError={handleImageError}
-          onLoad={() => console.log('Image loaded successfully:', canvas.image)}
+          onLoad={() => console.log('Canvas image loaded successfully:', canvasConfig.image)}
           key={`image-${project?.id}`} // Force remount when project changes
         />
       )}
       
-      {/* Final fallback with animated gradient */}
+      {/* Final fallback with animated gradient (only if both video and image fail) */}
       {hasError && showFallback && (() => {
         const gradientColors = getProjectGradient(project?.id);
         const gradientStyle = createAnimatedGradient(gradientColors, isPlaying);
@@ -173,7 +217,7 @@ const ProjectCanvas = ({
       })()}
       
       {/* Loading overlay */}
-      {!isLoaded && canvas.video && !hasError && (
+      {!isLoaded && canvasConfig.video && !hasError && (
         <div className="absolute inset-0 bg-spotify-card animate-pulse" />
       )}
     </div>

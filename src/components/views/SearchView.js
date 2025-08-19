@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Play, Clock } from 'lucide-react';
 import EqualizerIcon from '../EqualizerIcon';
 import ProjectImage from '../ProjectImage';
+import PlaylistCoverArt from '../PlaylistCoverArt';
 import { projects, playlists } from '../../data/projects';
 
 const SearchView = ({ 
@@ -69,13 +70,25 @@ const SearchView = ({
     );
   };
 
-  const renderImage = (item) => (
-    <ProjectImage
-      project={item}
-      size="large"
-      shape="rounded"
-    />
-  );
+  const renderImage = (item) => {
+    if (item.type === 'collection') {
+      return (
+        <PlaylistCoverArt
+          playlist={item}
+          size="custom"
+          className="w-16 h-16"
+          shape="rounded"
+        />
+      );
+    }
+    return (
+      <ProjectImage
+        project={item}
+        size="large"
+        shape="rounded"
+      />
+    );
+  };
 
   if (!searchQuery?.trim()) {
     return (

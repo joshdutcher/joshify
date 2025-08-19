@@ -2,6 +2,7 @@ import React from 'react';
 import { Play, Pause } from 'lucide-react';
 import EqualizerIcon from './EqualizerIcon';
 import ProjectImage from './ProjectImage';
+import PlaylistCoverArt from './PlaylistCoverArt';
 
 const GitHubIcon = ({ className }) => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" className={className}>
@@ -9,34 +10,63 @@ const GitHubIcon = ({ className }) => (
   </svg>
 );
 
-const ProjectCard = ({ 
-  project, 
-  size = 'medium', 
-  showArtist = true, 
+const MediaCard = ({ 
+  // Content props
+  item, // Can be a project or playlist
+  type = 'project', // 'project' or 'playlist'
+  
+  // Display props
+  size = 'medium', // 'small', 'medium', 'large' 
+  showArtist = true,
+  cardWidth, // Optional fixed width for horizontal scrolling cards
+  
+  // State props
   currentlyPlaying, 
   isPlaying, 
-  onPlayProject, 
-  onProjectClick,
+  currentPlaylist, // Added to track playlist context
+  
+  // Handlers
+  onPlay, // onPlayProject or onPlayPlaylist
+  onClick, // onProjectClick or onPlaylistClick
   onNavigateToCompany,
   onNavigateToDomain
 }) => {
-  const isCurrentlyPlaying = currentlyPlaying?.id === project.id && isPlaying;
+  // Determine if this item is currently playing
+  const isCurrentlyPlaying = type === 'project' 
+    ? (currentlyPlaying?.id === item.id && isPlaying)
+    : (item.projects && item.projects.some(project => currentlyPlaying?.id === project.id) && isPlaying && currentPlaylist?.name === item.name);
+
+  // For playlist cards in horizontal scroll, we want a fixed width
+  const cardStyle = cardWidth ? { width: cardWidth } : {};
 
   return (
-    <div className={`group relative bg-spotify-card rounded-lg p-4 hover:bg-spotify-hover transition-all duration-300 cursor-pointer ${
-      size === 'large' ? 'flex items-center space-x-4' : ''
-    }`}
-    onClick={() => onProjectClick && onProjectClick(project)}>
-      {/* Album art (no play button overlay for large size) */}
+    <div 
+      className={`group relative bg-transparent rounded-lg p-4 hover:bg-white/10 transition-all duration-300 cursor-pointer ${
+        size === 'large' ? 'flex items-center space-x-4' : ''
+      }`}
+      style={cardStyle}
+      onClick={() => onClick && onClick(item)}
+    >
+      {/* Cover Art */}
       <div className={`relative ${size === 'large' ? 'mb-0' : 'mb-3'}`}>
-        <ProjectImage
-          project={project}
-          size={size === 'large' ? 'custom' : 'custom'}
-          className={`${size === 'large' ? 'w-12 h-12 md:w-16 md:h-16' : 'w-32 h-32'} shadow-lg`}
-          shape="rounded"
-          showFallback={size === 'large'} // Only show fallback background for large cards
-        />
-        {/* Play button for small/medium cards only */}
+        {type === 'playlist' ? (
+          <PlaylistCoverArt
+            playlist={item}
+            size="custom"
+            className={`${size === 'large' ? 'w-12 h-12 md:w-16 md:h-16' : 'w-[171px] h-[171px]'} shadow-lg`}
+            shape="rounded"
+          />
+        ) : (
+          <ProjectImage
+            project={item}
+            size="custom"
+            className={`${size === 'large' ? 'w-12 h-12 md:w-16 md:h-16' : 'w-32 h-32'} shadow-lg`}
+            shape="rounded"
+            showFallback={size === 'large'} // Only show fallback background for large cards
+          />
+        )}
+        
+        {/* Play button for small/medium cards only - positioned within cover art area */}
         {size !== 'large' && (
           <button
             className={`absolute bottom-2 right-2 w-12 h-12 bg-spotify-green rounded-full flex items-center justify-center shadow-xl transition-all duration-200 ease-out hover:scale-105 ${
@@ -44,7 +74,7 @@ const ProjectCard = ({
             }`}
             onClick={(e) => {
               e.stopPropagation();
-              onPlayProject && onPlayProject(project);
+              onPlay && onPlay(item);
             }}
           >
             {isCurrentlyPlaying ?
@@ -56,49 +86,64 @@ const ProjectCard = ({
       </div>
 
       {/* Text content */}
-      <div className={size === 'large' ? 'flex-1 min-w-0' : ''}>
+      <div className={`${size === 'large' ? 'flex-1 min-w-0' : 'w-full'}`}>
         <h3 
           className="text-spotify-primary font-semibold truncate mb-1 text-base hover:underline cursor-pointer"
           onClick={(e) => {
             e.stopPropagation();
-            onProjectClick && onProjectClick(project);
+            onClick && onClick(item);
           }}
         >
-          {project.title}
+          {type === 'playlist' ? item.name : item.title}
         </h3>
-        {showArtist && project.artist && (
+        
+        {showArtist && (
           <p className="text-spotify-secondary text-sm truncate">
-            {project.artist.includes(' - ') ? (
-              <>
-                {project.artist.split(' - ')[0]} - 
-                <span 
-                  className="hover:underline cursor-pointer hover:text-spotify-primary"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    const company = project.artist.split(' - ')[1];
-                    onNavigateToCompany && onNavigateToCompany(company);
-                  }}
-                >
-                  {project.artist.split(' - ')[1]}
-                </span>
-              </>
+            {type === 'playlist' ? (
+              // For playlists, show track count
+              item.projects ? `${item.projects.length} track${item.projects.length !== 1 ? 's' : ''}` : 'Collection'
             ) : (
-              project.artist
+              // For projects, show artist with clickable company names
+              item.artist && item.artist.includes(' - ') ? (
+                <>
+                  {item.artist.split(' - ')[0]} - 
+                  <span 
+                    className="hover:underline cursor-pointer hover:text-spotify-primary"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      const company = item.artist.split(' - ')[1];
+                      onNavigateToCompany && onNavigateToCompany(company);
+                    }}
+                  >
+                    {item.artist.split(' - ')[1]}
+                  </span>
+                </>
+              ) : (
+                item.artist
+              )
             )}
           </p>
         )}
-        {size === 'large' && (
+        
+        {/* Additional content for large cards */}
+        {size === 'large' && type === 'playlist' && item.description && (
+          <p className="text-spotify-secondary text-xs mt-1 truncate">
+            {item.description}
+          </p>
+        )}
+        
+        {size === 'large' && type === 'project' && (
           <div className="flex items-center justify-between mt-2">
             <div className="flex items-center space-x-3 text-spotify-secondary text-sm">
-              <span>{project.year}</span>
+              <span>{item.year}</span>
               <span>•</span>
-              <span className="hidden sm:inline">{project.duration}</span>
+              <span className="hidden sm:inline">{item.duration}</span>
               <span className="hidden sm:inline">•</span>
-              <span className="text-spotify-green">{project.plays} plays</span>
+              <span className="text-spotify-green">{item.plays} plays</span>
             </div>
-            {project.githubUrl && (
+            {item.githubUrl && (
               <a
-                href={project.githubUrl}
+                href={item.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-spotify-secondary hover:text-spotify-green transition-colors"
@@ -116,32 +161,32 @@ const ProjectCard = ({
       {size === 'large' && (
         <div className="relative w-12 h-12 flex items-center justify-center flex-shrink-0">
           {/* Equalizer - shown when playing and mouse is not hovering */}
-          {currentlyPlaying?.id === project.id && isPlaying && (
+          {isCurrentlyPlaying && (
             <div className="group-hover:opacity-0 transition-opacity duration-200">
               <EqualizerIcon />
             </div>
           )}
           
-          {/* Play button - shown on hover when not currently playing this project */}
-          {(!currentlyPlaying || currentlyPlaying?.id !== project.id || !isPlaying) && (
+          {/* Play button - shown on hover when not currently playing */}
+          {!isCurrentlyPlaying && (
             <button
               className="absolute inset-0 w-12 h-12 bg-spotify-green rounded-full flex items-center justify-center shadow-xl transition-all duration-200 ease-out hover:scale-105 opacity-0 group-hover:opacity-100"
               onClick={(e) => {
                 e.stopPropagation();
-                onPlayProject && onPlayProject(project);
+                onPlay && onPlay(item);
               }}
             >
               <Play className="w-5 h-5 text-black ml-0.5" fill="currentColor" />
             </button>
           )}
           
-          {/* Pause button - shown on hover when currently playing this project */}
-          {currentlyPlaying?.id === project.id && isPlaying && (
+          {/* Pause button - shown on hover when currently playing */}
+          {isCurrentlyPlaying && (
             <button
               className="absolute inset-0 w-12 h-12 bg-spotify-green rounded-full flex items-center justify-center shadow-xl transition-all duration-200 ease-out hover:scale-105 opacity-0 group-hover:opacity-100"
               onClick={(e) => {
                 e.stopPropagation();
-                onPlayProject && onPlayProject(project);
+                onPlay && onPlay(item);
               }}
             >
               <Pause className="w-5 h-5 text-black" fill="currentColor" />
@@ -153,4 +198,4 @@ const ProjectCard = ({
   );
 };
 
-export default ProjectCard;
+export default MediaCard;
