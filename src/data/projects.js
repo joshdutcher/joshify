@@ -12,7 +12,7 @@ export const projects = {
       image: '/album-art/campbell-zafar.png',
       year: '2025',
       plays: '∞',
-      description: 'Look, I\'ve heard plenty of startup tracks that promise the world and deliver elevator music. But this Campbell Zafar joint? It\'s the real deal—no filler, all killer. What you get here is eight months of straight-up hustle distilled into pure operational gold. The producer doesn\'t waste time on flashy solos; instead, they lay down a foundation so solid you could build a skyscraper on it. Google Workspace integration hits harder than a bass drop, while the Squarespace build flows smoother than Sunday morning jazz. But here\'s where it gets interesting: the vendor management game is absolutely *chef\'s kiss*. Photographers, designers, tech suppliers—everyone stays in their lane while contributing to something bigger. The S-Corp formation breakdown? Pure technical wizardry that most artists wouldn\'t even attempt. By the final track, you\'ve got SOPs that read like a producer\'s notebook—every detail documented for the next generation. This isn\'t just business operations; it\'s a masterpiece of getting stuff done.',
+      description: 'Founding operations role at legal tech startup delivering comprehensive business infrastructure in 8 months. Built the operational foundation with Google Workspace integration, professional Squarespace website, and streamlined vendor management across photographers, designers, and tech suppliers. Led S-Corp formation and established detailed SOPs for sustainable growth. The result: a scalable business framework that supports rapid expansion while maintaining operational efficiency. This project showcases end-to-end business operations expertise, from technical implementation to strategic documentation, proving that strong operational foundations are essential for startup success.',
       skills: ['Business Operations', 'Google Workspace', 'Squarespace', 'Project Management'],
       demoUrl: null,
       githubUrl: null,
@@ -33,7 +33,7 @@ export const projects = {
       image: '/api/placeholder/300/300',
       year: '2024',
       plays: '20.4M',
-      description: 'Delivered 20.4M voter records in final 2 months. Built Python ETL pipelines with AWS Lambda, DynamoDB, SNS, SQS, and Snowflake.',
+      description: 'High-impact election data infrastructure delivering 20.4 million voter records during the critical final 2 months of the 2024 presidential election. Architected scalable Python ETL pipelines utilizing AWS Lambda for serverless processing, DynamoDB for real-time data storage, and SNS/SQS for reliable message queuing. Integrated with Snowflake data warehouse for analytics and reporting. The system handled massive data volumes under tight deadlines while maintaining data integrity and performance. This project demonstrates expertise in high-stakes, time-sensitive data engineering with enterprise-grade cloud architecture.',
       skills: ['Python', 'AWS', 'Snowflake', 'ETL', 'High-Volume Data'],
       demoUrl: null,
       githubUrl: null,
@@ -55,7 +55,7 @@ export const projects = {
       image: '/api/placeholder/300/300',
       year: '2019-2023',
       plays: '982K',
-      description: 'Built high-volume ETL pipelines processing millions of daily health insurance records. 100% uptime during Open Enrollment (80K requests/min).',
+      description: 'Mission-critical healthcare data infrastructure processing millions of daily health insurance records for Medicare.gov. Engineered high-volume ETL pipelines that maintained 100% uptime during Open Enrollment periods, handling peak loads of 80,000 requests per minute. Built robust, fault-tolerant systems ensuring seamless access to healthcare information for millions of Americans during critical enrollment windows. This role required deep expertise in government compliance, healthcare data standards, and building systems that never fail when people need them most.',
       skills: ['Python', 'ETL', 'APIs', 'High Availability', 'Healthcare'],
       demoUrl: null,
       githubUrl: null,
@@ -75,7 +75,7 @@ export const projects = {
       image: '/api/placeholder/300/300',
       year: '2018-2019',
       plays: '1000%',
-      description: 'Built replacement API backend achieving 1000% speed increase. Automated vendor data ETL via Azure functions.',
+      description: 'Complete API backend rebuild delivering a 1000% performance improvement for automotive mobile applications. Replaced legacy systems with modern, scalable architecture while automating vendor data integration through Azure Functions. The new system dramatically improved user experience and operational efficiency, demonstrating expertise in performance optimization and cloud-native development. This project showcases the ability to modernize critical business systems while maintaining data integrity and minimizing downtime.',
       skills: ['API Development', 'Azure', 'Performance Optimization', 'ETL'],
       demoUrl: null,
       githubUrl: null,
@@ -94,7 +94,7 @@ export const projects = {
       image: '/api/placeholder/300/300',
       year: '2015-2017',
       plays: '$18K',
-      description: 'Revamped PHP data-fetching engine, reducing API calls by 98% and saving $18,000 monthly while enhancing data precision.',
+      description: 'Led comprehensive optimization of PHP data-fetching engine, achieving a 98% reduction in API calls and generating $18,000 in monthly cost savings while simultaneously enhancing data precision. As Lead Software Engineer, architected intelligent caching and batching strategies that transformed system efficiency without compromising accuracy. This project demonstrates leadership in both technical innovation and business impact, showing how strategic engineering decisions can deliver significant ROI while improving system performance.',
       skills: ['PHP', 'API Optimization', 'Cost Reduction', 'Team Leadership'],
       demoUrl: null,
       githubUrl: null,
@@ -115,7 +115,7 @@ export const projects = {
       image: '/album-art/dark-side-of-the-brew.png',
       year: '2025',
       plays: '53MB',
-      description: 'A masterfully crafted Android opus currently in studio production, refracting the mundane task of collection management through a prismatic lens of technical excellence. This ambitious 53MB composition layers Material Design 3 harmonics over a robust MVVM architecture, creating an experience that feels as polished as a Google first-party release. The standout track "Intelligent Beer Lookup" showcases sophisticated fuzzy matching algorithms, while "Smart Duplicate Detection" demonstrates the artist\'s maturity in UX design. Like Pink Floyd\'s original masterpiece, this work reveals new depths with each interaction—from the seamless CameraX integration to the whisper-quiet Room database performance. A rare gem that proves mobile development can be both technically ambitious and beautifully accessible.',
+      description: 'Advanced Android application for personal collection management currently in development. Features modern Material Design 3 interface built on robust MVVM architecture with Hilt dependency injection. Key highlights include intelligent fuzzy matching for item lookup, smart duplicate detection, and seamless CameraX integration for quick item scanning. Utilizes Room database for efficient local storage with whisper-quiet performance. The app demonstrates expertise in contemporary Android development patterns while delivering an intuitive user experience that rivals Google first-party applications. This project showcases the ability to balance technical sophistication with accessibility, proving that complex functionality can be elegantly simplified.',
       skills: ['Android', 'Kotlin', 'Material Design 3', 'CameraX', 'Room Database', 'MVVM', 'Hilt DI'],
       demoUrl: null,
       githubUrl: 'https://github.com/username/beer-fridge-app',
@@ -136,7 +136,7 @@ export const projects = {
       image: '/api/placeholder/300/300',
       year: '2024',
       plays: 'Live',
-      description: 'Minimalist web app answering one question: "Did Kansas Win?" for Jayhawks basketball. Real-time ESPN API integration with live game monitoring.',
+      description: 'Elegant single-purpose web application providing real-time Kansas Jayhawks basketball results. Built with Node.js and Express, featuring live ESPN API integration and responsive design. The project demonstrates clean, focused development principles and API integration skills while solving a specific user need with minimal complexity. Sometimes the best solutions are the simplest ones, and this project showcases the ability to deliver exactly what users want without unnecessary features.',
       skills: ['Node.js', 'Express', 'ESPN API', 'Responsive Design'],
       demoUrl: 'https://www.didkansaswin.com',
       githubUrl: 'https://github.com/username/did-kansas-win',
@@ -156,7 +156,7 @@ export const projects = {
       image: '/api/placeholder/300/300',
       year: '2024',
       plays: 'Live',
-      description: 'Go-based weather monitoring dashboard aggregating real-time radar and satellite imagery for Wichita, KS. Features auto-refresh and mobile-responsive design.',
+      description: 'Real-time weather monitoring dashboard built with Go, aggregating live radar and satellite imagery specifically for Wichita, KS. Features automatic data refresh, mobile-responsive design using PureCSS, and efficient API integration with weather services. This project showcases Go programming skills and the ability to create practical, location-specific applications that serve real user needs. The clean, performant architecture demonstrates expertise in backend development and responsive web design.',
       skills: ['Go', 'HTML Templating', 'Weather APIs', 'PureCSS'],
       demoUrl: 'https://wichitaradar.com',
       githubUrl: 'https://github.com/username/wichita-radar',
@@ -170,11 +170,36 @@ export const projects = {
 };
 
 export const playlists = [
-  { name: 'Recently Played', icon: Clock, projects: projects.recentWork },
-  { name: 'Top Hits', icon: Heart, projects: projects.topHits },
-  { name: 'Side Projects', icon: User, projects: projects.sideProjects },
-  { name: 'Full Stack Development', icon: Plus, projects: [...projects.topHits, ...projects.sideProjects.slice(0, 2)] },
-  { name: 'Data Engineering', icon: Plus, projects: [projects.recentWork[1], projects.topHits[0]] }
+  { 
+    name: 'Recently Played', 
+    icon: Clock, 
+    projects: projects.recentWork,
+    description: 'The latest work and projects from 2024-2025'
+  },
+  { 
+    name: 'Top Hits', 
+    icon: Heart, 
+    projects: projects.topHits,
+    description: 'Career highlights and high-impact engineering projects'
+  },
+  { 
+    name: 'Side Projects', 
+    icon: User, 
+    projects: projects.sideProjects,
+    description: 'Personal projects and creative technical experiments'
+  },
+  { 
+    name: 'Full Stack Development', 
+    icon: Plus, 
+    projects: [...projects.topHits, ...projects.sideProjects.slice(0, 2)],
+    description: 'End-to-end development projects from frontend to backend'
+  },
+  { 
+    name: 'Data Engineering', 
+    icon: Plus, 
+    projects: [projects.recentWork[1], projects.topHits[0]],
+    description: 'High-volume data pipelines and ETL systems'
+  }
 ];
 
 export const skills = [

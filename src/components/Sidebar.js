@@ -262,7 +262,7 @@ const Sidebar = ({
     </div>
 
     {/* Filtered Content List */}
-    <div className="flex-1 overflow-y-auto">
+    <div className="flex-1 overflow-y-auto spotify-scrollbar">
       <div className={isIconMode ? 'space-y-1' : 'space-y-1'}>
         {filteredContent.length > 0 ? (
           filteredContent.map((item, index) => (

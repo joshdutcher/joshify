@@ -33,22 +33,61 @@ html, body, #root {
   height: 100%;
 }
 
-/* Spotify-style scrollbar */
-::-webkit-scrollbar {
-  width: 12px;
+/* Hide all scrollbars by default */
+* {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
 }
 
-::-webkit-scrollbar-track {
+*::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
+}
+
+/* Spotify-style scrollbar - overlay style that doesn't affect layout */
+.spotify-scrollbar {
+  scrollbar-width: none; /* Hidden by default in Firefox */
+  scrollbar-color: transparent transparent;
+}
+
+.spotify-scrollbar::-webkit-scrollbar {
+  width: 12px;
   background: transparent;
 }
 
-::-webkit-scrollbar-thumb {
-  background: #B3B3B3;
-  border-radius: 6px;
+.spotify-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: #FFFFFF;
+.spotify-scrollbar::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 6px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+  transition: background-color 0.2s ease;
+}
+
+.spotify-scrollbar::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+.spotify-scrollbar::-webkit-scrollbar-button {
+  display: none;
+}
+
+/* Show scrollbar on hover */
+.spotify-scrollbar:hover {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(179, 179, 179, 0.6) transparent;
+}
+
+.spotify-scrollbar:hover::-webkit-scrollbar-thumb {
+  background: rgba(179, 179, 179, 0.6);
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+.spotify-scrollbar:hover::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.8);
 }
 
 /* Resize handle styles */
@@ -69,8 +108,17 @@ html, body, #root {
   -ms-user-select: none;
 }
 
-/* Firefox scrollbar */
-* {
-  scrollbar-width: thin;
-  scrollbar-color: #B3B3B3 transparent;
+/* Note: Global scrollbar styles handled above with more specific selectors */
+
+/* Animated gradient fallback for canvas */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }

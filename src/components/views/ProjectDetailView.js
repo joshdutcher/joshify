@@ -46,8 +46,8 @@ const ProjectDetailView = ({
         onClick={() => onPlayProject(project)}
       >
         {currentlyPlaying?.id === project.id && isPlaying ?
-          <Pause className="w-5 h-5 md:w-6 md:h-6 text-black" /> :
-          <Play className="w-5 h-5 md:w-6 md:h-6 text-black ml-0.5" />
+          <Pause className="w-5 h-5 md:w-6 md:h-6 text-black" fill="currentColor" /> :
+          <Play className="w-5 h-5 md:w-6 md:h-6 text-black ml-0.5" fill="currentColor" />
         }
       </button>
       <Heart className="w-6 h-6 md:w-8 md:h-8 text-gray-400 hover:text-white cursor-pointer" />

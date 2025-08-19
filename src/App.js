@@ -138,7 +138,7 @@ const SpotifyResume = () => {
         <div className="flex flex-1 min-w-0">
           {/* Main Content */}
           <div 
-            className="flex-1 overflow-y-auto overflow-x-hidden rounded-t-lg" 
+            className="flex-1 overflow-y-auto overflow-x-hidden rounded-t-lg spotify-scrollbar" 
             style={{
               scrollBehavior: 'smooth',
               background: backgroundStyle.background,
