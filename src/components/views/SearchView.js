@@ -157,7 +157,10 @@ const SearchView = ({
                 <div className="flex items-start space-x-4">
                   {renderImage(topResult)}
                   <div className="flex-1 min-w-0">
-                    <h3 className="text-2xl font-bold text-spotify-primary mb-1 truncate">
+                    <h3 
+                      className="text-2xl font-bold text-spotify-primary mb-1 truncate hover:underline cursor-pointer"
+                      onClick={() => onNavigateToProject(topResult)}
+                    >
                       {topResult.title || topResult.name}
                     </h3>
                     <p className="text-spotify-secondary text-sm mb-3">

@@ -6,7 +6,9 @@ const PlaylistView = ({
   currentlyPlaying, 
   isPlaying, 
   onPlayProject, 
-  onNavigateToProject 
+  onNavigateToProject,
+  onNavigateToCompany,
+  onNavigateToDomain
 }) => (
   <div className="text-white p-4 md:p-6">
     <div className="flex flex-col md:flex-row md:items-end space-y-4 md:space-y-0 md:space-x-6 mb-6 md:mb-8">
@@ -23,7 +25,10 @@ const PlaylistView = ({
     </div>
 
     <div className="flex items-center space-x-4 md:space-x-6 mb-6 md:mb-8">
-      <button className="w-12 h-12 md:w-14 md:h-14 bg-green-500 rounded-full flex items-center justify-center hover:scale-105 transition-transform">
+      <button 
+        className="w-12 h-12 md:w-14 md:h-14 bg-green-500 rounded-full flex items-center justify-center hover:scale-105 transition-transform"
+        onClick={() => playlist.projects.length > 0 && onPlayProject(playlist.projects[0], playlist)}
+      >
         <Play className="w-5 h-5 md:w-6 md:h-6 text-black ml-0.5" />
       </button>
       <MoreHorizontal className="w-6 h-6 md:w-8 md:h-8 text-gray-400 hover:text-white cursor-pointer" />
@@ -42,7 +47,7 @@ const PlaylistView = ({
         <div key={project.id} className="grid grid-cols-12 gap-4 items-center py-2 hover:bg-gray-800 rounded-lg px-2 group">
           <div className="col-span-1 text-gray-400 text-sm">
             <span className="group-hover:hidden">{index + 1}</span>
-            <Play className="w-4 h-4 hidden group-hover:block cursor-pointer" onClick={() => onPlayProject(project)} />
+            <Play className="w-4 h-4 hidden group-hover:block cursor-pointer" onClick={() => onPlayProject(project, playlist)} />
           </div>
           <div className="col-span-5 flex items-center space-x-3">
             <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-green-700 rounded flex items-center justify-center">
@@ -51,8 +56,34 @@ const PlaylistView = ({
               </span>
             </div>
             <div className="min-w-0 flex-1">
-              <p className="text-white truncate">{project.title}</p>
-              <p className="text-gray-400 text-sm truncate">{project.artist}</p>
+              <p 
+                className="text-white truncate hover:underline cursor-pointer"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onNavigateToProject && onNavigateToProject(project);
+                }}
+              >
+                {project.title}
+              </p>
+              <p className="text-gray-400 text-sm truncate">
+                {project.artist && project.artist.includes(' - ') ? (
+                  <>
+                    {project.artist.split(' - ')[0]} - 
+                    <span 
+                      className="hover:underline cursor-pointer hover:text-white"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        const company = project.artist.split(' - ')[1];
+                        onNavigateToCompany && onNavigateToCompany(company);
+                      }}
+                    >
+                      {project.artist.split(' - ')[1]}
+                    </span>
+                  </>
+                ) : (
+                  project.artist
+                )}
+              </p>
             </div>
           </div>
           <div className="col-span-3 text-gray-400 text-sm truncate">{project.album}</div>
@@ -72,12 +103,38 @@ const PlaylistView = ({
             </span>
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-white font-medium truncate">{project.title}</p>
-            <p className="text-gray-400 text-sm truncate">{project.artist}</p>
+            <p 
+              className="text-white font-medium truncate hover:underline cursor-pointer"
+              onClick={(e) => {
+                e.stopPropagation();
+                onNavigateToProject && onNavigateToProject(project);
+              }}
+            >
+              {project.title}
+            </p>
+            <p className="text-gray-400 text-sm truncate">
+              {project.artist && project.artist.includes(' - ') ? (
+                <>
+                  {project.artist.split(' - ')[0]} - 
+                  <span 
+                    className="hover:underline cursor-pointer hover:text-white"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      const company = project.artist.split(' - ')[1];
+                      onNavigateToCompany && onNavigateToCompany(company);
+                    }}
+                  >
+                    {project.artist.split(' - ')[1]}
+                  </span>
+                </>
+              ) : (
+                project.artist
+              )}
+            </p>
           </div>
           <button onClick={(e) => {
             e.stopPropagation();
-            onPlayProject(project);
+            onPlayProject(project, playlist);
           }}>
             <Play className="w-5 h-5 text-gray-400" />
           </button>

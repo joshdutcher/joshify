@@ -4,8 +4,18 @@ import { Play, Pause, Volume2, Shuffle, Repeat, SkipBack, SkipForward } from 'lu
 const BottomPlayer = ({ 
   currentlyPlaying, 
   isPlaying, 
-  onTogglePlay 
-}) => (
+  onTogglePlay,
+  onNavigateToProject,
+  onNextTrack,
+  onPreviousTrack,
+  currentPlaylist,
+  currentTrackIndex
+}) => {
+  // Determine if next/previous buttons should be enabled
+  const canGoPrevious = currentPlaylist && currentTrackIndex > 0;
+  const canGoNext = currentPlaylist && currentTrackIndex < (currentPlaylist.projects?.length - 1);
+
+  return (
   <div className="h-24 bg-black flex items-center px-4">
     {currentlyPlaying ? (
       <>
@@ -37,7 +47,12 @@ const BottomPlayer = ({
             </div>
           </div>
           <div className="min-w-0 flex-1">
-            <p className="text-spotify-primary font-semibold text-base truncate">{currentlyPlaying.title}</p>
+            <p 
+              className="text-spotify-primary font-semibold text-base truncate hover:underline cursor-pointer"
+              onClick={() => onNavigateToProject && onNavigateToProject(currentlyPlaying)}
+            >
+              {currentlyPlaying.title}
+            </p>
             <p className="text-spotify-secondary text-sm truncate">{currentlyPlaying.artist}</p>
           </div>
         </div>
@@ -46,14 +61,28 @@ const BottomPlayer = ({
         <div className="hidden md:flex flex-col items-center w-1/2 max-w-2xl mx-auto">
           <div className="flex items-center space-x-6 mb-2">
             <Shuffle className="w-4 h-4 text-spotify-secondary hover:text-spotify-primary cursor-pointer" />
-            <SkipBack className="w-4 h-4 text-spotify-secondary hover:text-spotify-primary cursor-pointer" />
+            <SkipBack 
+              className={`w-4 h-4 cursor-pointer transition-colors ${
+                canGoPrevious 
+                  ? 'text-spotify-secondary hover:text-spotify-primary' 
+                  : 'text-gray-600 cursor-not-allowed'
+              }`}
+              onClick={canGoPrevious ? onPreviousTrack : undefined}
+            />
             <button
               className="w-8 h-8 bg-white rounded-full flex items-center justify-center hover:scale-105 transition-transform"
               onClick={onTogglePlay}
             >
               {isPlaying ? <Pause className="w-5 h-5 text-black" /> : <Play className="w-5 h-5 text-black ml-0.5" />}
             </button>
-            <SkipForward className="w-4 h-4 text-spotify-secondary hover:text-spotify-primary cursor-pointer" />
+            <SkipForward 
+              className={`w-4 h-4 cursor-pointer transition-colors ${
+                canGoNext 
+                  ? 'text-spotify-secondary hover:text-spotify-primary' 
+                  : 'text-gray-600 cursor-not-allowed'
+              }`}
+              onClick={canGoNext ? onNextTrack : undefined}
+            />
             <Repeat className="w-4 h-4 text-spotify-secondary hover:text-spotify-primary cursor-pointer" />
           </div>
           <div className="flex items-center space-x-2 w-full max-w-md">
@@ -92,6 +121,7 @@ const BottomPlayer = ({
       </div>
     )}
   </div>
-);
+  );
+};
 
 export default BottomPlayer;

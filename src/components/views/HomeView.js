@@ -16,7 +16,9 @@ const HomeView = ({
   onPlayProject, 
   onNavigateToProject, 
   onNavigateToPlaylist, 
-  onNavigateToProfile 
+  onNavigateToProfile,
+  onNavigateToCompany,
+  onNavigateToDomain
 }) => (
   <div className="text-spotify-primary p-6">
     <h1 className="text-3xl font-bold mb-6">{getTimeBasedGreeting()}</h1>
@@ -33,6 +35,8 @@ const HomeView = ({
           isPlaying={isPlaying}
           onPlayProject={onPlayProject}
           onProjectClick={onNavigateToProject}
+          onNavigateToCompany={onNavigateToCompany}
+          onNavigateToDomain={onNavigateToDomain}
         />
       ))}
       <ProjectCard 
@@ -44,6 +48,8 @@ const HomeView = ({
         isPlaying={isPlaying}
         onPlayProject={onPlayProject}
         onProjectClick={onNavigateToProject}
+        onNavigateToCompany={onNavigateToCompany}
+        onNavigateToDomain={onNavigateToDomain}
       />
     </div>
 
@@ -66,7 +72,12 @@ const HomeView = ({
               showArtist={true}
               currentlyPlaying={currentlyPlaying}
               isPlaying={isPlaying}
-              onPlayProject={onPlayProject}
+              onPlayProject={() => {
+                // Play the first track in the playlist
+                if (playlist.projects && playlist.projects.length > 0) {
+                  onPlayProject(playlist.projects[0], playlist);
+                }
+              }}
             />
           </div>
         ))}
@@ -88,6 +99,8 @@ const HomeView = ({
             isPlaying={isPlaying}
             onPlayProject={onPlayProject}
             onProjectClick={onNavigateToProject}
+            onNavigateToCompany={onNavigateToCompany}
+            onNavigateToDomain={onNavigateToDomain}
           />
         ))}
       </div>
@@ -108,6 +121,8 @@ const HomeView = ({
             isPlaying={isPlaying}
             onPlayProject={onPlayProject}
             onProjectClick={onNavigateToProject}
+            onNavigateToCompany={onNavigateToCompany}
+            onNavigateToDomain={onNavigateToDomain}
           />
         ))}
       </div>

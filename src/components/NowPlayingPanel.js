@@ -7,7 +7,8 @@ const NowPlayingPanel = ({
   isPlaying = false,
   className = "",
   width = 320,
-  style = {}
+  style = {},
+  onNavigateToProject
 }) => {
   if (!currentlyPlaying) {
     return null; // Hide panel when no project is playing
@@ -36,7 +37,10 @@ const NowPlayingPanel = ({
         
         {/* Project title overlay */}
         <div className="absolute bottom-4 left-4 right-4">
-          <h2 className="text-white font-bold text-xl mb-1 drop-shadow-lg">
+          <h2 
+            className="text-white font-bold text-xl mb-1 drop-shadow-lg hover:underline cursor-pointer"
+            onClick={() => onNavigateToProject && onNavigateToProject(currentlyPlaying)}
+          >
             {currentlyPlaying.title}
           </h2>
           <p className="text-white/90 text-sm drop-shadow-md">

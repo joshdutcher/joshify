@@ -15,7 +15,9 @@ const ProjectCard = ({
   currentlyPlaying, 
   isPlaying, 
   onPlayProject, 
-  onProjectClick 
+  onProjectClick,
+  onNavigateToCompany,
+  onNavigateToDomain
 }) => {
   const isCurrentlyPlaying = currentlyPlaying?.id === project.id && isPlaying;
 
@@ -69,8 +71,36 @@ const ProjectCard = ({
 
       {/* Text content */}
       <div className={size === 'large' ? 'flex-1 min-w-0' : ''}>
-        <h3 className="text-spotify-primary font-semibold truncate mb-1 text-base">{project.title}</h3>
-        {showArtist && <p className="text-spotify-secondary text-sm truncate">{project.artist}</p>}
+        <h3 
+          className="text-spotify-primary font-semibold truncate mb-1 text-base hover:underline cursor-pointer"
+          onClick={(e) => {
+            e.stopPropagation();
+            onProjectClick && onProjectClick(project);
+          }}
+        >
+          {project.title}
+        </h3>
+        {showArtist && project.artist && (
+          <p className="text-spotify-secondary text-sm truncate">
+            {project.artist.includes(' - ') ? (
+              <>
+                {project.artist.split(' - ')[0]} - 
+                <span 
+                  className="hover:underline cursor-pointer hover:text-spotify-primary"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    const company = project.artist.split(' - ')[1];
+                    onNavigateToCompany && onNavigateToCompany(company);
+                  }}
+                >
+                  {project.artist.split(' - ')[1]}
+                </span>
+              </>
+            ) : (
+              project.artist
+            )}
+          </p>
+        )}
         {size === 'large' && (
           <div className="flex items-center justify-between mt-2">
             <div className="flex items-center space-x-3 text-spotify-secondary text-sm">
