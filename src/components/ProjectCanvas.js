@@ -14,6 +14,14 @@ const ProjectCanvas = ({
   useEffect(() => {
     setHasError(false);
     setIsLoaded(false);
+    
+    // Clear previous video when project changes
+    if (videoRef.current) {
+      videoRef.current.pause();
+      videoRef.current.currentTime = 0;
+      // Force reload by resetting src
+      videoRef.current.load();
+    }
   }, [project?.id]);
 
   const canvas = project?.canvas;
@@ -94,6 +102,7 @@ const ProjectCanvas = ({
           onError={handleVideoError}
           onLoadStart={() => console.log('Video loading started:', canvas.video)}
           onCanPlay={() => console.log('Video can play:', canvas.video)}
+          key={`video-${project?.id}`} // Force remount when project changes
         >
           <source src={canvas.video} type="video/mp4" />
         </video>
@@ -107,6 +116,7 @@ const ProjectCanvas = ({
           className="absolute inset-0 w-full h-full object-cover"
           onError={handleImageError}
           onLoad={() => console.log('Image loaded successfully:', canvas.image)}
+          key={`image-${project?.id}`} // Force remount when project changes
         />
       )}
       

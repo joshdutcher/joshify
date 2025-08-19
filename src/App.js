@@ -12,6 +12,8 @@ import ProfileView from './components/views/ProfileView';
 import PlaylistView from './components/views/PlaylistView';
 import ProjectDetailView from './components/views/ProjectDetailView';
 import SearchView from './components/views/SearchView';
+import CompanyView from './components/views/CompanyView';
+import DomainView from './components/views/DomainView';
 import { projects } from './data/projects';
 
 const SpotifyResume = () => {
@@ -21,10 +23,16 @@ const SpotifyResume = () => {
     currentView,
     selectedPlaylist,
     sidebarOpen,
+    currentPlaylist,
+    currentTrackIndex,
     handlePlayProject,
+    playNextTrack,
+    playPreviousTrack,
     navigateToView,
     navigateToProject,
     navigateToPlaylist,
+    navigateToCompany,
+    navigateToDomain,
     toggleSidebar,
     closeSidebar,
     setIsPlaying
@@ -145,6 +153,8 @@ const SpotifyResume = () => {
                 onNavigateToProject={navigateToProject}
                 onNavigateToPlaylist={navigateToPlaylist}
                 onNavigateToProfile={handleNavigateToProfile}
+                onNavigateToCompany={navigateToCompany}
+                onNavigateToDomain={navigateToDomain}
               />
             )}
             {currentView === 'playlist' && selectedPlaylist && (
@@ -154,6 +164,8 @@ const SpotifyResume = () => {
                 isPlaying={isPlaying}
                 onPlayProject={handlePlayProject}
                 onNavigateToProject={navigateToProject}
+                onNavigateToCompany={navigateToCompany}
+                onNavigateToDomain={navigateToDomain}
               />
             )}
             {currentView === 'project' && selectedPlaylist && (
@@ -168,6 +180,24 @@ const SpotifyResume = () => {
             {currentView === 'search' && (
               <SearchView
                 searchQuery={searchQuery}
+                currentlyPlaying={currentlyPlaying}
+                isPlaying={isPlaying}
+                onPlayProject={handlePlayProject}
+                onNavigateToProject={navigateToProject}
+              />
+            )}
+            {currentView === 'company' && selectedPlaylist?.company && (
+              <CompanyView
+                company={selectedPlaylist.company}
+                currentlyPlaying={currentlyPlaying}
+                isPlaying={isPlaying}
+                onPlayProject={handlePlayProject}
+                onNavigateToProject={navigateToProject}
+              />
+            )}
+            {currentView === 'domain' && selectedPlaylist?.domain && (
+              <DomainView
+                domain={selectedPlaylist.domain}
                 currentlyPlaying={currentlyPlaying}
                 isPlaying={isPlaying}
                 onPlayProject={handlePlayProject}
@@ -190,6 +220,7 @@ const SpotifyResume = () => {
             currentlyPlaying={currentlyPlaying}
             isPlaying={isPlaying}
             width={rightColumnWidth}
+            onNavigateToProject={navigateToProject}
             style={isRightResizing ? {} : { width: `${rightColumnWidth}px` }}
           />
         </div>
@@ -200,6 +231,11 @@ const SpotifyResume = () => {
         currentlyPlaying={currentlyPlaying}
         isPlaying={isPlaying}
         onTogglePlay={handleTogglePlay}
+        onNavigateToProject={navigateToProject}
+        onNextTrack={playNextTrack}
+        onPreviousTrack={playPreviousTrack}
+        currentPlaylist={currentPlaylist}
+        currentTrackIndex={currentTrackIndex}
       />
     </div>
   );
