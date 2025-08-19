@@ -1,6 +1,8 @@
 import React, { useState, useRef } from 'react';
 import { Library, X, Search, ChevronLeft, ChevronRight } from 'lucide-react';
 import { playlists, projects } from '../data/projects';
+import PlaylistCoverArt from './PlaylistCoverArt';
+import ProjectImage from './ProjectImage';
 
 const Sidebar = ({ 
   currentView, 
@@ -275,36 +277,20 @@ const Sidebar = ({
               title={isIconMode ? (item.name || item.title) : undefined}
             >
               {item.type === 'collection' ? (
-                <div className={`bg-spotify-green rounded flex items-center justify-center flex-shrink-0 ${
-                  isIconMode ? 'w-10 h-10' : 'w-8 h-8'
-                }`}>
-                  <span className={`font-bold text-white ${isIconMode ? 'text-sm' : 'text-xs'}`}>
-                    {getInitials(item.name)}
-                  </span>
-                </div>
+                <PlaylistCoverArt
+                  playlist={item}
+                  size="custom"
+                  className={isIconMode ? 'w-10 h-10' : 'w-8 h-8'}
+                  shape="rounded"
+                />
               ) : (
-                <div className={`bg-spotify-lightgray rounded flex-shrink-0 overflow-hidden relative ${
-                  isIconMode ? 'w-10 h-10' : 'w-8 h-8'
-                }`}>
-                  {item.image && !item.image.includes('/api/placeholder') ? (
-                    <img 
-                      src={item.image} 
-                      alt={item.title}
-                      className="w-full h-full object-cover"
-                      onError={(e) => {
-                        e.target.style.display = 'none';
-                        e.target.nextSibling.style.display = 'flex';
-                      }}
-                    />
-                  ) : null}
-                  <div className={`w-full h-full rounded flex items-center justify-center absolute inset-0 ${
-                    item.image && !item.image.includes('/api/placeholder') ? 'hidden' : 'flex'
-                  } bg-spotify-green`}>
-                    <span className={`font-bold text-white ${isIconMode ? 'text-sm' : 'text-xs'}`}>
-                      {getInitials(item.title)}
-                    </span>
-                  </div>
-                </div>
+                <ProjectImage
+                  project={item}
+                  size="custom"
+                  className={isIconMode ? 'w-10 h-10' : 'w-8 h-8'}
+                  shape="rounded"
+                  showFallback={true}
+                />
               )}
               {!isIconMode && (
                 <div className="flex-1 min-w-0">

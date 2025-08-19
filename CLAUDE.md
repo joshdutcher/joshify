@@ -1,0 +1,1 @@
+- Always run the test server on port 3000 and hot reload. Try not to open the site in a new tab every time the server restarts. Do not increment the port number.

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Play, MoreHorizontal } from 'lucide-react';
 import ProjectImage from '../ProjectImage';
+import PlaylistCoverArt from '../PlaylistCoverArt';
 
 const PlaylistView = ({ 
   playlist, 
@@ -13,15 +14,21 @@ const PlaylistView = ({
 }) => (
   <div className="text-white p-4 md:p-6">
     <div className="flex flex-col md:flex-row md:items-end space-y-4 md:space-y-0 md:space-x-6 mb-6 md:mb-8">
-      <div className="w-48 h-48 md:w-64 md:h-64 mx-auto md:mx-0 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center shadow-2xl">
-        <span className="text-white font-bold text-3xl md:text-4xl">
-          {playlist.name.split(' ').map(w => w[0]).join('')}
-        </span>
+      <div className="w-48 h-48 md:w-64 md:h-64 mx-auto md:mx-0 shadow-2xl">
+        <PlaylistCoverArt
+          playlist={playlist}
+          size="custom"
+          className="w-full h-full"
+          shape="rounded"
+        />
       </div>
       <div className="text-center md:text-left">
         <p className="text-sm font-semibold uppercase">Collection</p>
         <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-2 md:mb-4">{playlist.name}</h1>
-        <p className="text-gray-400">Josh Dutcher • {playlist.projects.length} projects</p>
+        <p className="text-gray-400 mb-2">Josh Dutcher • {playlist.projects.length} projects</p>
+        {playlist.description && (
+          <p className="text-gray-300 text-sm">{playlist.description}</p>
+        )}
       </div>
     </div>
 

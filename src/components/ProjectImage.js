@@ -71,15 +71,14 @@ const ProjectImage = ({
       )}
       
       {/* Fallback with Initials */}
-      {showFallback && (
+      {!hasValidImage && (
         <div 
-          className={`w-full h-full bg-gradient-to-br from-spotify-green to-green-700 flex items-center justify-center ${shapeClass} ${
-            hasValidImage ? 'hidden' : 'flex'
+          className={`w-full h-full flex items-center justify-center ${shapeClass} ${
+            showFallback ? 'bg-gradient-to-br from-spotify-green to-green-700' : 'bg-spotify-card border border-spotify-hover'
           }`}
-          style={{ display: hasValidImage ? 'none' : 'flex' }}
         >
           <span 
-            className={`text-white font-bold ${
+            className={`font-bold ${showFallback ? 'text-white' : 'text-spotify-secondary'} ${
               size === 'tiny' ? 'text-xs' :
               size === 'small' ? 'text-xs' :
               size === 'medium' ? 'text-sm' :
