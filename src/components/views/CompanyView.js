@@ -49,7 +49,7 @@ const CompanyView = ({
           className="w-12 h-12 md:w-14 md:h-14 bg-green-500 rounded-full flex items-center justify-center hover:scale-105 transition-transform"
           onClick={() => companyProjects[0] && onPlayProject(companyProjects[0], { projects: companyProjects })}
         >
-          <Play className="w-5 h-5 md:w-6 md:h-6 text-black ml-0.5" />
+          <Play className="w-5 h-5 md:w-6 md:h-6 text-black ml-0.5" fill="currentColor" />
         </button>
         <MoreHorizontal className="w-6 h-6 md:w-8 md:h-8 text-gray-400 hover:text-white cursor-pointer" />
       </div>
@@ -67,7 +67,7 @@ const CompanyView = ({
           <div key={project.id} className="grid grid-cols-12 gap-4 items-center py-2 hover:bg-gray-800 rounded-lg px-2 group">
             <div className="col-span-1 text-gray-400 text-sm">
               <span className="group-hover:hidden">{index + 1}</span>
-              <Play className="w-4 h-4 hidden group-hover:block cursor-pointer" onClick={() => onPlayProject(project, { projects: companyProjects })} />
+              <Play className="w-4 h-4 hidden group-hover:block cursor-pointer" fill="currentColor" onClick={() => onPlayProject(project, { projects: companyProjects })} />
             </div>
             <div className="col-span-5 flex items-center space-x-3">
               <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-green-700 rounded flex items-center justify-center">
@@ -120,7 +120,7 @@ const CompanyView = ({
               e.stopPropagation();
               onPlayProject(project, { projects: companyProjects });
             }}>
-              <Play className="w-5 h-5 text-gray-400" />
+              <Play className="w-5 h-5 text-gray-400" fill="currentColor" />
             </button>
           </div>
         ))}

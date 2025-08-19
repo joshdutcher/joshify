@@ -57,7 +57,16 @@ const HomeView = ({
     <section className="mb-8">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-2xl font-bold">Made for you</h2>
-        <button className="text-spotify-secondary hover:text-spotify-primary text-sm font-semibold">Show all</button>
+        <button 
+          className="text-spotify-secondary hover:text-spotify-primary text-sm font-semibold"
+          onClick={() => onNavigateToPlaylist({ 
+            name: 'Made for You', 
+            projects: playlists.slice(0, 10).map(p => p.projects[0]).filter(Boolean), 
+            description: 'Curated collections and playlists just for you' 
+          })}
+        >
+          Show all
+        </button>
       </div>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-4">
         {playlists.slice(0, 5).map((playlist, index) => (
@@ -88,7 +97,12 @@ const HomeView = ({
     <section className="mb-8">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-2xl font-bold">Top hits</h2>
-        <button className="text-spotify-secondary hover:text-spotify-primary text-sm font-semibold">Show all</button>
+        <button 
+          className="text-spotify-secondary hover:text-spotify-primary text-sm font-semibold"
+          onClick={() => onNavigateToPlaylist(playlists.find(p => p.name === 'Top Hits'))}
+        >
+          Show all
+        </button>
       </div>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-4">
         {projects.topHits.map((project) => (
@@ -110,7 +124,12 @@ const HomeView = ({
     <section>
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-2xl font-bold">Side projects</h2>
-        <button className="text-spotify-secondary hover:text-spotify-primary text-sm font-semibold">Show all</button>
+        <button 
+          className="text-spotify-secondary hover:text-spotify-primary text-sm font-semibold"
+          onClick={() => onNavigateToPlaylist(playlists.find(p => p.name === 'Side Projects'))}
+        >
+          Show all
+        </button>
       </div>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-4">
         {projects.sideProjects.map((project) => (

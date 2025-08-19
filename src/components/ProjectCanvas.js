@@ -1,5 +1,34 @@
 import React, { useState, useRef, useEffect } from 'react';
 
+// Animated gradient color sets for fallbacks
+const gradientSets = [
+  ['#1DB954', '#0f7a31'], // Spotify green variations
+  ['#1e3a8a', '#1e40af'], // Deep blue variations
+  ['#374151', '#4b5563'], // Charcoal gray variations
+  ['#0f766e', '#134e4a'], // Dark teal variations
+  ['#7c2d12', '#991b1b'], // Dark red variations
+  ['#581c87', '#6b21a8'], // Dark purple variations
+];
+
+// Get a consistent gradient set for a project based on its ID
+const getProjectGradient = (projectId) => {
+  if (!projectId) return gradientSets[0];
+  const index = projectId.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) % gradientSets.length;
+  return gradientSets[index];
+};
+
+// Create animated gradient CSS for fallbacks
+const createAnimatedGradient = (colors, isPlaying = false) => {
+  const [color1, color2] = colors;
+  const animationSpeed = isPlaying ? '3s' : '6s';
+  
+  return {
+    background: `linear-gradient(-45deg, ${color1}, ${color2}, ${color1}40, ${color2}60)`,
+    backgroundSize: '400% 400%',
+    animation: `gradientShift ${animationSpeed} ease-in-out infinite`
+  };
+};
+
 const ProjectCanvas = ({ 
   project, 
   isPlaying = false, 
@@ -76,10 +105,16 @@ const ProjectCanvas = ({
     setHasError(true);
   };
 
-  // If no canvas data, show fallback or nothing
+  // If no canvas data, show animated fallback or nothing
   if (!canvas) {
+    const gradientColors = getProjectGradient(project?.id);
+    const gradientStyle = createAnimatedGradient(gradientColors, isPlaying);
+    
     return showFallback ? (
-      <div className={`aspect-canvas bg-gradient-to-br from-spotify-green to-green-700 flex items-center justify-center ${className}`}>
+      <div 
+        className={`aspect-canvas flex items-center justify-center ${className}`}
+        style={gradientStyle}
+      >
         <span className="text-white font-bold text-6xl opacity-20">
           {project?.title?.split(' ').map(w => w[0]).join('').slice(0, 2) || '??'}
         </span>
@@ -120,14 +155,22 @@ const ProjectCanvas = ({
         />
       )}
       
-      {/* Final fallback */}
-      {hasError && showFallback && (
-        <div className="absolute inset-0 bg-gradient-to-br from-spotify-green to-green-700 flex items-center justify-center">
-          <span className="text-white font-bold text-6xl opacity-30">
-            {project?.title?.split(' ').map(w => w[0]).join('').slice(0, 2) || '??'}
-          </span>
-        </div>
-      )}
+      {/* Final fallback with animated gradient */}
+      {hasError && showFallback && (() => {
+        const gradientColors = getProjectGradient(project?.id);
+        const gradientStyle = createAnimatedGradient(gradientColors, isPlaying);
+        
+        return (
+          <div 
+            className="absolute inset-0 flex items-center justify-center"
+            style={gradientStyle}
+          >
+            <span className="text-white font-bold text-6xl opacity-30">
+              {project?.title?.split(' ').map(w => w[0]).join('').slice(0, 2) || '??'}
+            </span>
+          </div>
+        );
+      })()}
       
       {/* Loading overlay */}
       {!isLoaded && canvas.video && !hasError && (

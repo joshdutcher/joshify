@@ -62,8 +62,8 @@ const ProjectCard = ({
             }}
           >
             {isCurrentlyPlaying ?
-              <Pause className="w-5 h-5 text-black" /> :
-              <Play className="w-5 h-5 text-black ml-0.5" />
+              <Pause className="w-5 h-5 text-black" fill="currentColor" /> :
+              <Play className="w-5 h-5 text-black ml-0.5" fill="currentColor" />
             }
           </button>
         )}
@@ -145,7 +145,7 @@ const ProjectCard = ({
                 onPlayProject && onPlayProject(project);
               }}
             >
-              <Play className="w-5 h-5 text-black ml-0.5" />
+              <Play className="w-5 h-5 text-black ml-0.5" fill="currentColor" />
             </button>
           )}
           
@@ -158,7 +158,7 @@ const ProjectCard = ({
                 onPlayProject && onPlayProject(project);
               }}
             >
-              <Pause className="w-5 h-5 text-black" />
+              <Pause className="w-5 h-5 text-black" fill="currentColor" />
             </button>
           )}
         </div>
