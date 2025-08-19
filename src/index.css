@@ -33,25 +33,26 @@ html, body, #root {
   height: 100%;
 }
 
-/* Hide all scrollbars by default */
-* {
+/* Hide scrollbars for non-Spotify scrollbar elements */
+body, html, #root {
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE and Edge */
 }
 
-*::-webkit-scrollbar {
+body::-webkit-scrollbar, html::-webkit-scrollbar, #root::-webkit-scrollbar {
   display: none; /* Chrome, Safari and Opera */
 }
 
-/* Spotify-style scrollbar - overlay style that doesn't affect layout */
+/* Spotify-style scrollbar - authentic implementation matching their design */
 .spotify-scrollbar {
-  scrollbar-width: none; /* Hidden by default in Firefox */
-  scrollbar-color: transparent transparent;
+  /* Firefox - always visible subtle scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: hsla(0,0%,100%,.3) transparent;
 }
 
+/* Webkit scrollbar styling for Chrome/Safari - authentic Spotify appearance */
 .spotify-scrollbar::-webkit-scrollbar {
-  width: 12px;
-  background: transparent;
+  width: 16px; /* Match Spotify's exact width */
 }
 
 .spotify-scrollbar::-webkit-scrollbar-track {
@@ -59,11 +60,17 @@ html, body, #root {
 }
 
 .spotify-scrollbar::-webkit-scrollbar-thumb {
-  background: transparent;
-  border-radius: 6px;
-  border: 2px solid transparent;
-  background-clip: content-box;
-  transition: background-color 0.2s ease;
+  background-color: hsla(0,0%,100%,.3); /* Exact Spotify translucent white */
+  border-radius: 0px; /* Spotify uses rectangular blocks */
+  min-height: 30px;
+}
+
+/* macOS-style enhancement (Spotify uses this for mac) */
+.spotify-scrollbar::-webkit-scrollbar-thumb {
+  background-clip: padding-box;
+  border: 3px solid transparent;
+  border-radius: 8px;
+  min-height: 30px;
 }
 
 .spotify-scrollbar::-webkit-scrollbar-corner {
@@ -71,23 +78,12 @@ html, body, #root {
 }
 
 .spotify-scrollbar::-webkit-scrollbar-button {
-  display: none;
+  display: none; /* Remove arrows */
 }
 
-/* Show scrollbar on hover */
-.spotify-scrollbar:hover {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(179, 179, 179, 0.6) transparent;
-}
-
-.spotify-scrollbar:hover::-webkit-scrollbar-thumb {
-  background: rgba(179, 179, 179, 0.6);
-  border: 2px solid transparent;
-  background-clip: content-box;
-}
-
-.spotify-scrollbar:hover::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.8);
+/* Hover state - slightly more visible */
+.spotify-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: hsla(0,0%,100%,.5); /* Slightly more opaque on hover */
 }
 
 /* Resize handle styles */

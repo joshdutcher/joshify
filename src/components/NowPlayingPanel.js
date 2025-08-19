@@ -17,7 +17,7 @@ const NowPlayingPanel = ({
   return (
     <div 
       data-right-panel
-      className={`hidden lg:block bg-spotify-card rounded-t-lg ${className}`}
+      className={`hidden lg:block bg-spotify-card rounded-t-lg overflow-y-auto spotify-scrollbar ${className}`}
       style={{
         ...style,
         minWidth: '280px',
