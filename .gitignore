@@ -52,6 +52,7 @@ designref/
 track-art/
 
 # Canvas videos (hosted on GitHub Releases)
-public/canvases/*.mp4
-public/canvases/*.webm
-public/canvases/*.mov
+**/*.mp4
+**/*.webm  
+**/*.mov
+**/*.avi

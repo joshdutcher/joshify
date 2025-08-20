@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Library, X, Search, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Library, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { playlists, projects } from '../data/projects';
 import PlaylistCoverArt from './PlaylistCoverArt';
 import ProjectImage from './ProjectImage';
@@ -14,11 +14,7 @@ const Sidebar = ({
   mode = 'normal',
   style = {}
 }) => {
-  const [searchQuery, setSearchQuery] = useState('');
   const [activeFilter, setActiveFilter] = useState('All');
-  const [searchExpanded, setSearchExpanded] = useState(false);
-  const [searchHovered, setSearchHovered] = useState(false);
-  const [userHasTyped, setUserHasTyped] = useState(false);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
   const scrollContainerRef = useRef(null);
@@ -26,7 +22,7 @@ const Sidebar = ({
   // Get all projects for filtering
   const allProjects = [...projects.recentWork, ...projects.topHits, ...projects.sideProjects];
   
-  // Filter content based on search query and active filter
+  // Filter content based on active filter
   const getFilteredContent = () => {
     let content = [];
     
@@ -36,17 +32,6 @@ const Sidebar = ({
     
     if (activeFilter === 'All' || activeFilter === 'Projects') {
       content = content.concat(allProjects.map(project => ({ ...project, type: 'project' })));
-    }
-    
-    if (searchQuery.trim() && userHasTyped) {
-      const query = searchQuery.toLowerCase();
-      content = content.filter(item => 
-        item.name?.toLowerCase().includes(query) ||
-        item.title?.toLowerCase().includes(query) ||
-        item.artist?.toLowerCase().includes(query) ||
-        item.album?.toLowerCase().includes(query) ||
-        item.skills?.some(skill => skill.toLowerCase().includes(query))
-      );
     }
     
     return content;
@@ -132,61 +117,7 @@ const Sidebar = ({
       {/* Header - Hidden in icon mode */}
       {!isIconMode && (
         <div className="px-2 py-2 mb-3">
-          <h2 className="font-bold text-spotify-primary text-base">My Work</h2>
-        </div>
-      )}
-      
-      {/* Search - Progressive States - Hidden in icon mode */}
-      {!isIconMode && (
-        <div className="mb-4 px-2">
-          {!searchExpanded ? (
-            /* Search Icon State */
-            <div className="relative">
-              <button
-                className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-200 ${
-                  searchHovered ? 'bg-spotify-hover' : 'bg-transparent'
-                }`}
-                onClick={() => setSearchExpanded(true)}
-                onMouseEnter={() => setSearchHovered(true)}
-                onMouseLeave={() => setSearchHovered(false)}
-                title="Search My Work"
-              >
-                <Search className="w-4 h-4 text-spotify-secondary" />
-              </button>
-            </div>
-          ) : (
-            /* Expanded Search Bar State */
-            <div className="relative bg-spotify-hover rounded-md transition-all duration-200">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-spotify-secondary" />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => {
-                  setSearchQuery(e.target.value);
-                  if (!userHasTyped && e.target.value.length > 0) {
-                    setUserHasTyped(true);
-                  }
-                }}
-                onFocus={(e) => {
-                  e.target.setSelectionRange(0, 0); // Set cursor to start
-                }}
-                onBlur={() => {
-                  if (!searchQuery.trim()) {
-                    setSearchExpanded(false);
-                    setUserHasTyped(false);
-                  }
-                }}
-                className="w-full bg-transparent pl-10 pr-4 py-2 text-sm text-spotify-primary focus:outline-none"
-                autoFocus
-              />
-              {/* Placeholder text overlay */}
-              {!userHasTyped && searchQuery === '' && (
-                <div className="absolute left-10 top-1/2 transform -translate-y-1/2 text-sm text-spotify-secondary pointer-events-none">
-                  Search My Work
-                </div>
-              )}
-            </div>
-          )}
+          <h2 className="font-bold text-spotify-primary text-lg">My Work</h2>
         </div>
       )}
       
@@ -280,30 +211,30 @@ const Sidebar = ({
                 <PlaylistCoverArt
                   playlist={item}
                   size="custom"
-                  className={isIconMode ? 'w-10 h-10' : 'w-8 h-8'}
+                  className={isIconMode ? 'w-12 h-12' : 'w-12 h-12'}
                   shape="rounded"
                 />
               ) : (
                 <ProjectImage
                   project={item}
                   size="custom"
-                  className={isIconMode ? 'w-10 h-10' : 'w-8 h-8'}
+                  className={isIconMode ? 'w-12 h-12' : 'w-12 h-12'}
                   shape="rounded"
                   showFallback={true}
                 />
               )}
               {!isIconMode && (
                 <div className="flex-1 min-w-0">
-                  <div className="text-sm font-medium text-spotify-primary truncate group-hover:text-spotify-primary">
+                  <div className="text-base font-medium text-spotify-primary truncate group-hover:text-spotify-primary">
                     {item.name || item.title}
                   </div>
                   {item.type === 'project' && (
-                    <div className="text-xs text-spotify-secondary truncate">
+                    <div className="text-sm text-spotify-secondary truncate">
                       {item.artist}
                     </div>
                   )}
                   {item.type === 'collection' && (
-                    <div className="text-xs text-spotify-secondary">
+                    <div className="text-sm text-spotify-secondary">
                       Collection • {item.projects.length} track{item.projects.length !== 1 ? 's' : ''}
                     </div>
                   )}
@@ -314,8 +245,8 @@ const Sidebar = ({
         ) : (
           !isIconMode && (
             <div className="px-2 py-4 text-center">
-              <div className="text-spotify-secondary text-sm">
-                {searchQuery ? 'No results found' : 'No items to display'}
+              <div className="text-spotify-secondary text-base">
+                No items to display
               </div>
             </div>
           )

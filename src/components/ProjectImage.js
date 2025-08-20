@@ -36,7 +36,7 @@ const ProjectImage = ({
   // Shape classes
   const shapeClasses = {
     square: 'rounded-none',
-    rounded: 'rounded-md',
+    rounded: 'rounded-sm',
     circle: 'rounded-full'
   };
 

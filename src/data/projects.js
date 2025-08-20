@@ -95,7 +95,7 @@ export const projects = {
       description: 'Elegant single-purpose web application providing real-time Kansas Jayhawks basketball results. Built with Node.js and Express, featuring live ESPN API integration and responsive design. The project demonstrates clean, focused development principles and API integration skills while solving a specific user need with minimal complexity. Sometimes the best solutions are the simplest ones, and this project showcases the ability to deliver exactly what users want without unnecessary features.',
       skills: ['Node.js', 'Express', 'ESPN API', 'Responsive Design'],
       demoUrl: 'https://www.didkansaswin.com',
-      githubUrl: 'https://github.com/username/did-kansas-win',
+      githubUrl: null,
       featured: true,
       isAlbum: true
     },
@@ -131,7 +131,6 @@ export const campbellZafarProjects = [
     skills: ['Business Operations', 'Google Workspace', 'Squarespace', 'Vendor Management'],
     demoUrl: null,
     githubUrl: null,
-    canvas: '/canvases/campbell-zafar.mp4', // Uses Campbell Zafar canvas video
     featured: true,
     isAlbum: false
   },
@@ -148,7 +147,6 @@ export const campbellZafarProjects = [
     skills: ['Corporate Structure', 'Documentation', 'Process Design', 'Legal Compliance'],
     demoUrl: null,
     githubUrl: null,
-    canvas: '/canvases/campbell-zafar.mp4', // Uses Campbell Zafar canvas video
     featured: true,
     isAlbum: false
   }

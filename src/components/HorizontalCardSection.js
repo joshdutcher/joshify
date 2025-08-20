@@ -20,7 +20,7 @@ const HorizontalCard = ({
 
   return (
     <div 
-      className="group relative bg-transparent rounded-lg p-4 hover:bg-white/10 transition-all duration-300 cursor-pointer"
+      className="group relative bg-transparent rounded p-4 hover:bg-white/10 transition-all duration-300 cursor-pointer"
       style={{ width: '203px' }} // Fixed width for horizontal scrolling
       onClick={() => onClick && onClick(item)}
     >
@@ -97,7 +97,7 @@ const HorizontalCardSection = ({
   }
 
   return (
-    <div className="flex overflow-x-auto">
+    <div className="flex overflow-x-auto -ml-4">
       {items.map((item, index) => {
         if (!item) return null;
         
