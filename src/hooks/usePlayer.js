@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { projects } from '../data/projects';
+import { projects, campbellZafarProjects } from '../data/projects';
 
 const usePlayer = () => {
   const [currentlyPlaying, setCurrentlyPlaying] = useState(null);
@@ -11,11 +11,10 @@ const usePlayer = () => {
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0); // Track position in playlist
   const audioRef = useRef(null);
 
-  // Set Campbell Zafar as default "now playing" on load
+  // Set first Campbell Zafar project as default "now playing" on load
   useEffect(() => {
-    const campbellZafar = projects.recentWork.find(project => project.id === 'campbell-zafar');
-    if (campbellZafar && !currentlyPlaying) {
-      setCurrentlyPlaying(campbellZafar);
+    if (campbellZafarProjects.length > 0 && !currentlyPlaying) {
+      setCurrentlyPlaying(campbellZafarProjects[0]);
       setIsPlaying(true);
     }
   }, [currentlyPlaying]);
