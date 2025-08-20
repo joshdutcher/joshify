@@ -4,22 +4,6 @@ import { Clock, Heart, User, Plus } from 'lucide-react';
 export const projects = {
   recentWork: [
     {
-      id: 'campbell-zafar',
-      title: 'Campbell Zafar Law',
-      artist: 'Founding Operations & Technology Manager',
-      album: 'Legal Tech Startup',
-      duration: '8 months',
-      image: '/album-art/campbell-zafar.png',
-      year: '2025',
-      plays: '∞',
-      description: 'Founding operations role at legal tech startup delivering comprehensive business infrastructure in 8 months. Built the operational foundation with Google Workspace integration, professional Squarespace website, and streamlined vendor management across photographers, designers, and tech suppliers. Led S-Corp formation and established detailed SOPs for sustainable growth. The result: a scalable business framework that supports rapid expansion while maintaining operational efficiency. This project showcases end-to-end business operations expertise, from technical implementation to strategic documentation, proving that strong operational foundations are essential for startup success.',
-      skills: ['Business Operations', 'Google Workspace', 'Squarespace', 'Project Management'],
-      demoUrl: null,
-      githubUrl: null,
-      featured: true,
-      isAlbum: true
-    },
-    {
       id: 'ddx-election',
       title: 'Election Data Pipeline',
       artist: 'Software Engineer - DDx',
@@ -132,11 +116,49 @@ export const projects = {
   ]
 };
 
+// Campbell Zafar specific projects (tracks within the Campbell Zafar playlist)
+export const campbellZafarProjects = [
+  {
+    id: 'cz-operations-setup',
+    title: 'Operations Infrastructure',
+    artist: 'Founding Operations & Technology Manager',
+    album: 'Campbell Zafar Law',
+    duration: '3 months',
+    image: null, // Will use Campbell Zafar tiled fallback
+    year: '2025',
+    plays: 'Foundation',
+    description: 'Built comprehensive business infrastructure for legal tech startup from the ground up. Established Google Workspace integration, professional Squarespace website, and streamlined vendor management across photographers, designers, and tech suppliers. Created scalable operational framework supporting rapid expansion while maintaining efficiency.',
+    skills: ['Business Operations', 'Google Workspace', 'Squarespace', 'Vendor Management'],
+    demoUrl: null,
+    githubUrl: null,
+    canvas: '/canvases/campbell-zafar.mp4', // Uses Campbell Zafar canvas video
+    featured: true,
+    isAlbum: false
+  },
+  {
+    id: 'cz-corp-formation',
+    title: 'S-Corp Formation & SOPs',
+    artist: 'Founding Operations & Technology Manager',
+    album: 'Campbell Zafar Law',
+    duration: '2 months',
+    image: null, // Will use Campbell Zafar tiled fallback
+    year: '2025',
+    plays: 'Structured',
+    description: 'Led S-Corp formation and established detailed Standard Operating Procedures for sustainable growth. Created comprehensive documentation and operational frameworks that enable the business to scale efficiently. This foundational work ensures consistent operations and smooth onboarding of future team members.',
+    skills: ['Corporate Structure', 'Documentation', 'Process Design', 'Legal Compliance'],
+    demoUrl: null,
+    githubUrl: null,
+    canvas: '/canvases/campbell-zafar.mp4', // Uses Campbell Zafar canvas video
+    featured: true,
+    isAlbum: false
+  }
+];
+
 export const playlists = [
   {
     name: 'Recently Played',
     icon: Clock,
-    projects: projects.recentWork,
+    projects: [projects.recentWork[0], ...campbellZafarProjects], // DDx + Campbell Zafar projects
     description: 'The latest work and projects from 2024-2025'
   },
   {
@@ -152,6 +174,14 @@ export const playlists = [
     description: 'Personal projects and creative technical experiments'
   },
   {
+    name: 'Campbell Zafar Law',
+    icon: Plus,
+    projects: campbellZafarProjects,
+    description: 'Operations and technology work at legal tech startup',
+    image: '/album-art/campbell-zafar.png', // Custom playlist cover art
+    employer: true // Flag to identify this as an employer playlist
+  },
+  {
     name: 'Full Stack Development',
     icon: Plus,
     projects: [...projects.topHits, ...projects.sideProjects.slice(0, 2)],
@@ -160,7 +190,7 @@ export const playlists = [
   {
     name: 'Data Engineering',
     icon: Plus,
-    projects: [projects.recentWork[1], projects.topHits[0]],
+    projects: [projects.recentWork[0], projects.topHits[0]],
     description: 'High-volume data pipelines and ETL systems'
   }
 ];
