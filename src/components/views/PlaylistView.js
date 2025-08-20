@@ -23,7 +23,7 @@ const PlaylistView = ({
         />
       </div>
       <div className="text-center md:text-left">
-        <p className="text-sm font-semibold uppercase">Collection</p>
+        <p className="text-sm font-semibold uppercase">{playlist.employer ? 'Workplace' : 'Collection'}</p>
         <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-2 md:mb-4">{playlist.name}</h1>
         <p className="text-gray-400 mb-2">Josh Dutcher • {playlist.projects.length} projects</p>
         {playlist.description && (

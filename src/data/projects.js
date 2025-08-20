@@ -17,7 +17,23 @@ export const projects = {
       demoUrl: null,
       githubUrl: null,
       featured: true,
-      isAlbum: true
+      isAlbum: true,
+      albumArtBasedOn: 'Tubular Bells by Mike Oldfield'
+    },
+    {
+      id: 'aws-infrastructure',
+      title: 'AWS Infrastructure Automation',
+      artist: 'Software Engineer - DDx',
+      album: 'Cloud Infrastructure',
+      duration: '8 months',
+      image: null,
+      year: '2024',
+      plays: 'Scalable',
+      description: 'Architected and implemented comprehensive AWS infrastructure supporting high-volume election data processing pipelines. Built resilient serverless architecture utilizing Lambda functions, DynamoDB tables, and sophisticated IAM policies for secure data access. Implemented SNS and SQS messaging systems for reliable, fault-tolerant data flow across distributed components. This infrastructure handled massive election data loads while maintaining security, scalability, and cost efficiency. Demonstrates expertise in cloud-native architecture and the ability to design systems that scale automatically under pressure.',
+      skills: ['AWS', 'Lambda', 'DynamoDB', 'IAM', 'Infrastructure as Code', 'Python'],
+      demoUrl: null,
+      githubUrl: null,
+      featured: true
     }
   ],
   topHits: [
@@ -51,7 +67,23 @@ export const projects = {
       demoUrl: null,
       githubUrl: null,
       featured: true,
-      isAlbum: true
+      isAlbum: true,
+      albumArtBasedOn: 'Run The Jewels 2 by Run The Jewels'
+    },
+    {
+      id: 'healthcare-api-extensions',
+      title: 'Healthcare API Extensions',
+      artist: 'Software Engineer III - Ad Hoc',
+      album: 'Government Healthcare',
+      duration: '3.5 years',
+      image: null,
+      year: '2019-2023',
+      plays: 'Critical',
+      description: 'Extended and automated critical healthcare APIs to meet evolving client requirements while maintaining 100% system reliability. Led rapid response efforts to diagnose and resolve production incidents, ensuring uninterrupted access to healthcare services. Fostered seamless communication between engineering and product teams, translating complex technical concepts for non-technical stakeholders. This role required balancing technical excellence with clear communication, demonstrating the ability to deliver robust solutions while building bridges across organizational boundaries in high-stakes government healthcare systems.',
+      skills: ['API Development', 'Healthcare', 'Production Support', 'Process Automation', 'Cross-functional Collaboration'],
+      demoUrl: null,
+      githubUrl: null,
+      featured: true
     },
     {
       id: 'php-optimization',
@@ -83,7 +115,8 @@ export const projects = {
       demoUrl: null,
       githubUrl: 'https://github.com/joshdutcher/BeerFridge',
       featured: true,
-      isAlbum: true
+      isAlbum: true,
+      albumArtBasedOn: 'Dark Side of the Moon by Pink Floyd'
     },
     {
       id: 'did-kansas-win',
@@ -99,7 +132,8 @@ export const projects = {
       demoUrl: 'https://www.didkansaswin.com',
       githubUrl: null,
       featured: true,
-      isAlbum: true
+      isAlbum: true,
+      albumArtBasedOn: 'Graduation by Kanye West'
     },
     {
       id: 'wichita-radar',
@@ -184,14 +218,15 @@ export const playlists = [
   {
     name: 'DDx',
     icon: Plus,
-    projects: [projects.recentWork[0]], // Election Data Pipeline
+    projects: [projects.recentWork[0], projects.recentWork[1]], // Election Data Pipeline, AWS Infrastructure Automation
     description: 'High-stakes election data infrastructure for 2024 presidential cycle',
+    image: '/album-art/ddx.png', // Custom playlist cover art
     employer: true // Flag to identify this as an employer playlist
   },
   {
     name: 'Ad Hoc',
     icon: Plus,
-    projects: [projects.topHits[0]], // Medicare.gov ETL
+    projects: [projects.topHits[0], projects.topHits[1]], // Medicare.gov ETL, Healthcare API Extensions
     description: 'Government healthcare technology serving millions of Americans',
     employer: true // Flag to identify this as an employer playlist
   },

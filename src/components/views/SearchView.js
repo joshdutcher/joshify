@@ -156,7 +156,7 @@ const SearchView = ({
                     </h3>
                     <p className="text-spotify-secondary text-sm mb-3">
                       {topResult.type === 'collection' 
-                        ? `Collection • ${topResult.projects?.length || 0} tracks`
+                        ? `${topResult.employer ? 'Workplace' : 'Collection'} • ${topResult.projects?.length || 0} tracks`
                         : `${topResult.type} • ${topResult.artist || topResult.album}`
                       }
                     </p>
@@ -195,7 +195,7 @@ const SearchView = ({
                         </div>
                         <p className="text-spotify-secondary text-sm truncate">
                           {item.type === 'collection' 
-                            ? `Collection • ${item.projects?.length || 0} tracks`
+                            ? `${item.employer ? 'Workplace' : 'Collection'} • ${item.projects?.length || 0} tracks`
                             : `${item.artist || item.album}`
                           }
                         </p>

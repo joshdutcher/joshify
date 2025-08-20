@@ -235,7 +235,7 @@ const Sidebar = ({
                   )}
                   {item.type === 'collection' && (
                     <div className="text-sm text-spotify-secondary">
-                      Collection • {item.projects.length} track{item.projects.length !== 1 ? 's' : ''}
+                      {item.employer ? 'Workplace' : 'Collection'} • {item.projects.length} track{item.projects.length !== 1 ? 's' : ''}
                     </div>
                   )}
                 </div>
