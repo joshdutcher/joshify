@@ -85,6 +85,12 @@ const ProjectDetailView = ({
             <p className="text-gray-400 text-sm">Album</p>
             <p className="text-white font-semibold">{project.album}</p>
           </div>
+          {project.albumArtBasedOn && (
+            <div>
+              <p className="text-gray-400 text-sm">Album Art based on</p>
+              <p className="text-white font-semibold">{project.albumArtBasedOn}</p>
+            </div>
+          )}
         </div>
       </div>
     </div>

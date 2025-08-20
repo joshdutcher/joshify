@@ -25,6 +25,22 @@
   - [x] Enhance playlist context detection logic across all components
   - [x] Ensure authentic Spotify-like playlist behavior
 
+### Workplace & Attribution Enhancements ✅ COMPLETED (August 20, 2025)
+- [x] **Workplace Terminology System**
+  - [x] Update Sidebar.js to display "Workplace" for employer playlists based on `employer` flag
+  - [x] Update SearchView.js to maintain consistency across search results
+  - [x] Apply to Campbell Zafar Law, DDx, and Ad Hoc playlists
+- [x] **Workplace Content Expansion**
+  - [x] Add "Healthcare API Extensions" track to Ad Hoc workplace (2 tracks total)
+  - [x] Add "AWS Infrastructure Automation" track to DDx workplace (2 tracks total)
+  - [x] Base track content on actual resume.md experience and achievements
+  - [x] Update workplace playlists to include new tracks with proper indexing
+- [x] **Album Art Attribution System**
+  - [x] Add `albumArtBasedOn` field to project data structure
+  - [x] Populate attribution for 4 projects with cover art (Election Data Pipeline: "Tubular Bells by Mike Oldfield", Mobile API Rebuild: "Run The Jewels 2 by Run The Jewels", Beer Fridge: "Dark Side of the Moon by Pink Floyd", Did Kansas Win?: "Graduation by Kanye West")
+  - [x] Update ProjectDetailView.js to display attribution in Project Stats section
+  - [x] Implement conditional rendering (only shows when field exists)
+
 ### Phase 1: Terminology & Data Structure Updates (1-2 hours) ✅ COMPLETED
 **Scope:** Foundation changes to support new conceptual model
 **Save Point:** Core data model updated, site functional
