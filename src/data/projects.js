@@ -43,13 +43,15 @@ export const projects = {
       artist: 'Software Developer - BG Products',
       album: 'Automotive Tech',
       duration: '1.5 years',
-      image: null,
+      image: '/album-art/mobile-api.png',
       year: '2018-2019',
       plays: '1000%',
       description: 'Complete API backend rebuild delivering a 1000% performance improvement for automotive mobile applications. Replaced legacy systems with modern, scalable architecture while automating vendor data integration through Azure Functions. The new system dramatically improved user experience and operational efficiency, demonstrating expertise in performance optimization and cloud-native development. This project showcases the ability to modernize critical business systems while maintaining data integrity and minimizing downtime.',
       skills: ['API Development', 'Azure', 'Performance Optimization', 'ETL'],
       demoUrl: null,
       githubUrl: null,
+      featured: true,
+      isAlbum: true
     },
     {
       id: 'php-optimization',
@@ -79,7 +81,7 @@ export const projects = {
       description: 'Advanced Android application for personal collection management currently in development. Features modern Material Design 3 interface built on robust MVVM architecture with Hilt dependency injection. Key highlights include intelligent fuzzy matching for item lookup, smart duplicate detection, and seamless CameraX integration for quick item scanning. Utilizes Room database for efficient local storage with whisper-quiet performance. The app demonstrates expertise in contemporary Android development patterns while delivering an intuitive user experience that rivals Google first-party applications. This project showcases the ability to balance technical sophistication with accessibility, proving that complex functionality can be elegantly simplified.',
       skills: ['Android', 'Kotlin', 'Material Design 3', 'CameraX', 'Room Database', 'MVVM', 'Hilt DI'],
       demoUrl: null,
-      githubUrl: 'https://github.com/username/beer-fridge-app',
+      githubUrl: 'https://github.com/joshdutcher/BeerFridge',
       featured: true,
       isAlbum: true
     },
@@ -111,7 +113,7 @@ export const projects = {
       description: 'Real-time weather monitoring dashboard built with Go, aggregating live radar and satellite imagery specifically for Wichita, KS. Features automatic data refresh, mobile-responsive design using PureCSS, and efficient API integration with weather services. This project showcases Go programming skills and the ability to create practical, location-specific applications that serve real user needs. The clean, performant architecture demonstrates expertise in backend development and responsive web design.',
       skills: ['Go', 'HTML Templating', 'Weather APIs', 'PureCSS'],
       demoUrl: 'https://wichitaradar.com',
-      githubUrl: 'https://github.com/username/wichita-radar',
+      githubUrl: 'https://github.com/joshdutcher/wichitaradar',
     }
   ]
 };
@@ -177,6 +179,20 @@ export const playlists = [
     projects: campbellZafarProjects,
     description: 'Operations and technology work at legal tech startup',
     image: '/album-art/campbell-zafar.png', // Custom playlist cover art
+    employer: true // Flag to identify this as an employer playlist
+  },
+  {
+    name: 'DDx',
+    icon: Plus,
+    projects: [projects.recentWork[0]], // Election Data Pipeline
+    description: 'High-stakes election data infrastructure for 2024 presidential cycle',
+    employer: true // Flag to identify this as an employer playlist
+  },
+  {
+    name: 'Ad Hoc',
+    icon: Plus,
+    projects: [projects.topHits[0]], // Medicare.gov ETL
+    description: 'Government healthcare technology serving millions of Americans',
     employer: true // Flag to identify this as an employer playlist
   },
   {
