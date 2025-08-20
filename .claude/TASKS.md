@@ -239,11 +239,31 @@
 
 ---
 
+## 🔧 OUTSTANDING TASKS & CONFIGURATION ISSUES
+
+### Critical Configuration Issues
+- **ESLint Configuration Missing**: ESLint is installed but needs .eslintrc.js setup
+  - `npm run lint` command fails due to missing configuration file  
+  - Need to run `npm init @eslint/config` or create manual configuration
+  - Affects code quality and CI/CD pipeline setup
+
+### Data & Content Issues  
+- **Placeholder GitHub URLs**: Replace placeholder URLs with real repository links
+  - `beer-fridge-app`: Currently `https://github.com/username/beer-fridge-app`
+  - `wichita-radar`: Currently `https://github.com/username/wichita-radar`
+  - 7 total projects have `githubUrl: null` that could have real repository links
+
+### Repository Cleanup
+- **Canvas Videos in Git**: Videos present in repo despite .gitignore exclusion
+  - `public/canvases/*.mp4` files are tracked but should be hosted via GitHub Releases
+  - Current videos: `beer-fridge.mp4`, `cz-corp-formation.mp4`, `cz-operations-setup.mp4`
+  - Need to remove from git, upload to GitHub Releases, update URLs
+
 ## 🔮 FUTURE ENHANCEMENTS
 
 ### Immediate Future Features (Post-Implementation)
 - **Skills & Technologies Showcase**: Dedicated section displaying all technologies/skills with tag cloud or grid presentation, click-to-filter functionality
-- **Production Deployment**: Deploy to Railway/Vercel with GitHub Releases video hosting strategy
+- **Production Deployment**: Deploy to Railway/Vercel with GitHub Releases video hosting strategy  
 - **Mobile Responsive Design**: Adapt all new features for mobile and tablet interfaces
 
 ### Long-term Feature Ideas

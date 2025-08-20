@@ -27,7 +27,7 @@ const PlaylistCoverArt = ({
   // If playlist has custom cover art, display it instead of tiled layout
   if (hasCustomCoverArt) {
     return (
-      <div className={`${containerSize} ${shape === 'rounded' ? 'rounded-lg' : shape === 'circle' ? 'rounded-full' : ''} overflow-hidden bg-spotify-dark relative`}>
+      <div className={`${containerSize} ${shape === 'rounded' ? 'rounded' : shape === 'circle' ? 'rounded-full' : ''} overflow-hidden bg-spotify-dark relative`}>
         <img 
           src={playlist.image}
           alt={`${playlist.name} cover art`}
@@ -106,7 +106,7 @@ const PlaylistCoverArt = ({
   
   // Default tiled layout when no custom cover art
   return (
-    <div className={`${containerSize} ${shape === 'rounded' ? 'rounded-lg' : shape === 'circle' ? 'rounded-full' : ''} overflow-hidden bg-spotify-dark relative`}>
+    <div className={`${containerSize} ${shape === 'rounded' ? 'rounded' : shape === 'circle' ? 'rounded-full' : ''} overflow-hidden bg-spotify-dark relative`}>
       <div className="w-full h-full grid grid-cols-2 grid-rows-2 gap-0">
         {/* Top Left */}
         <div className="relative overflow-hidden">
