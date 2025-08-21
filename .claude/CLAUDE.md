@@ -45,6 +45,14 @@ npm run preview  # Preview build locally
 npm run lint     # Code linting (✅ ESLint configured - 40 warnings, 0 errors)
 ```
 
+**Testing & Browser Automation:**
+- ✅ **Playwright MCP**: Chromium browser installed and functional in WSL2
+- Available for E2E testing, visual regression testing, and browser automation
+- Can access local development server (localhost:3000) for live testing
+- ⚡ **HEADLESS MODE REQUIRED**: Always use headless mode for Claude AI testing (no browser windows)
+- Use `--play` flag or Playwright MCP tools for browser-based testing workflows
+- 📋 **Documentation**: See `.claude/PLAYWRIGHT_MCP.md` for complete API reference and usage guide
+
 **Requirements:**
 - Portfolio showcasing projects as "tracks" with album-like rich metadata
 - Spotify-authentic user interface and navigation patterns
@@ -72,6 +80,7 @@ npm run lint     # Code linting (✅ ESLint configured - 40 warnings, 0 errors)
 ## Testing Checklist
 
 ### UI/UX Testing
+**Available Tools**: ✅ Playwright MCP (Chromium browser) for automated testing
 - [ ] Spotify-authentic navigation and layout with proper terminology
 - [ ] Left column resizing behavior (min/max/icon-only modes)
 - [ ] Right column resizing functionality
@@ -155,6 +164,37 @@ npm run lint     # Code linting (✅ ESLint configured - 40 warnings, 0 errors)
 - Potential employers and collaborators
 - Fellow developers
 - Anyone interested in technical projects
+
+## Claude AI Testing Guidelines
+
+### ⚡ Headless Browser Testing Requirements
+**CRITICAL**: When Claude AI performs UI testing or browser automation:
+
+1. **Always Use Headless Mode**: Never spawn visible browser windows
+   - Use `--headless` flag in all Playwright MCP operations
+   - Configure MCP server with headless arguments
+   - Prevents interruption of user's desktop environment
+
+2. **Testing Workflow**:
+   ```
+   Step 1: Start dev server (if needed): npm run dev
+   Step 2: Use headless Playwright MCP for all browser operations
+   Step 3: Capture screenshots/snapshots for validation
+   Step 4: Report results without opening browser windows
+   ```
+
+3. **Headless Testing Benefits**:
+   - Non-intrusive testing during development
+   - Better performance and resource usage
+   - Maintains full functionality (screenshots, interactions, validation)
+   - Professional development workflow
+
+### Automated Testing Protocols
+- UI component validation via headless browser snapshots
+- Column resizing behavior testing without visual disruption
+- Search functionality verification through accessibility tree
+- Responsive design testing across viewport sizes
+- Performance monitoring via network/console analysis
 
 ## Questions to Ask User
 - What projects should be included as initial "albums"?
