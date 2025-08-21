@@ -48,7 +48,7 @@ const MediaCard = ({
           <PlaylistCoverArt
             playlist={item}
             size="custom"
-            className={`${size === 'large' ? 'w-12 h-12 md:w-16 md:h-16' : 'w-[171px] h-[171px]'} shadow-lg`}
+            className={`${size === 'large' ? 'w-12 h-12 md:w-16 md:h-16' : 'w-[108px] h-[108px] sm:w-[123px] sm:h-[123px] md:w-[138px] md:h-[138px] lg:w-[156px] lg:h-[156px]'} shadow-lg`}
             shape="rounded"
           />
         ) : (

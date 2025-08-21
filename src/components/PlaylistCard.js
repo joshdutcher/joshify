@@ -20,12 +20,13 @@ const PlaylistCard = ({
     currentPlaylist?.name === playlist.name;
 
   // For small/medium cards, we want a fixed width container based on cover art + padding
-  const cardStyle = size === 'large' ? {} : { width: '203px' }; // 171px (cover art) + 16*2 (p-4)
+  // Progressive responsive width handled by className, no inline style needed for small/medium cards
+  const cardStyle = size === 'large' ? {} : {};
 
   return (
     <div 
       className={`group relative bg-transparent rounded-lg p-4 hover:bg-white/10 transition-all duration-300 cursor-pointer ${
-        size === 'large' ? 'flex items-center space-x-4' : ''
+        size === 'large' ? 'flex items-center space-x-4' : 'w-[140px] sm:w-[155px] md:w-[170px] lg:w-[188px]'
       }`}
       style={cardStyle}
       onClick={() => onPlaylistClick && onPlaylistClick(playlist)}
@@ -35,7 +36,7 @@ const PlaylistCard = ({
         <PlaylistCoverArt
           playlist={playlist}
           size="custom"
-          className={`${size === 'large' ? 'w-12 h-12 md:w-16 md:h-16' : 'w-[171px] h-[171px]'} shadow-lg`}
+          className={`${size === 'large' ? 'w-12 h-12 md:w-16 md:h-16' : 'w-[108px] h-[108px] sm:w-[123px] sm:h-[123px] md:w-[138px] md:h-[138px] lg:w-[156px] lg:h-[156px]'} shadow-lg`}
           shape="rounded"
         />
         
