@@ -50,7 +50,7 @@ export const projects = {
       skills: ['Python', 'ETL', 'APIs', 'High Availability', 'Healthcare'],
       demoUrl: null,
       githubUrl: null,
-      canvas: null,
+      canvas: '/canvases/did-kansas-win.mp4',
       featured: true,
       isAlbum: true,
       albumArtBasedOn: 'Ready to Die by The Notorious B.I.G.'
@@ -88,18 +88,21 @@ export const projects = {
       featured: true
     },
     {
-      id: 'php-optimization',
-      title: 'PHP Engine Optimization',
+      id: 'api-optimization',
+      title: 'API Engine Optimization',
       artist: 'Lead Software Engineer - SNT Media',
       album: 'Media Technology',
       duration: '2 years',
-      image: null,
+      image: '/album-art/api-engine.png',
       year: '2015-2017',
       plays: '$18K',
-      description: 'Led comprehensive optimization of PHP data-fetching engine, achieving a 98% reduction in API calls and generating $18,000 in monthly cost savings while simultaneously enhancing data precision. As Lead Software Engineer, architected intelligent caching and batching strategies that transformed system efficiency without compromising accuracy. This project demonstrates leadership in both technical innovation and business impact, showing how strategic engineering decisions can deliver significant ROI while improving system performance.',
-      skills: ['PHP', 'API Optimization', 'Cost Reduction', 'Team Leadership'],
+      description: 'Led comprehensive optimization of API data-fetching engine, achieving a 98% reduction in API calls and generating $18,000 in monthly cost savings while simultaneously enhancing data precision. As Lead Software Engineer, architected intelligent caching and batching strategies that transformed system efficiency without compromising accuracy. This project demonstrates leadership in both technical innovation and business impact, showing how strategic engineering decisions can deliver significant ROI while improving system performance.',
+      skills: ['API Optimization', 'Cost Reduction', 'Team Leadership', 'Performance Engineering'],
       demoUrl: null,
       githubUrl: null,
+      featured: true,
+      isAlbum: true,
+      albumArtBasedOn: 'Nevermind the Bollocks, Here\'s the Sex Pistols by The Sex Pistols'
     }
   ],
   sideProjects: [
@@ -230,6 +233,7 @@ export const playlists = [
     icon: Plus,
     projects: [projects.topHits[0], projects.topHits[1]], // Medicare.gov ETL, Healthcare API Extensions
     description: 'Software Engineer III powering Medicare.gov for millions of Americans. 3.5 years of healthcare tech.',
+    image: '/album-art/ad-hoc.png', // Custom playlist cover art
     employer: true // Flag to identify this as an employer playlist
   },
   {

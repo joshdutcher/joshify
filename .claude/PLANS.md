@@ -18,7 +18,7 @@ We're going to move away from calling them "albums" on the site. They'll be "tra
 
 ## Tracks
 
-- A "track" is an individual piece of content we want to be able to talk about and feature on the website as one of my portfolio items. It can be a side project, a work history entry, or a specific project from a place I've worked. For example, "Did Kansas Win?", "PHP Engine Optimization", and "Campbell Zafar Law" are all tracks.
+- A "track" is an individual piece of content we want to be able to talk about and feature on the website as one of my portfolio items. It can be a side project, a work history entry, or a specific project from a place I've worked. For example, "Did Kansas Win?", "API Engine Optimization", and "Campbell Zafar Law" are all tracks.
 - A track is anything that is an individual piece of content that cannot be considered a collection or playlist.
 - I would like to preserve the idea that each track has rich metadata about it, the way albums currently do.
 - When the project is finished, each track should have its own cover art and canvas video. There will be times especially during development (but potentially also in production) when not every track has cover art and/or a canvas video.
@@ -34,7 +34,7 @@ We're going to move away from calling them "albums" on the site. They'll be "tra
 
 - Personal projects and work history entries like "Did Kansas Win" and "Campbell Zafar Law" are tracks.
 - Categories of work (like "Full Stack Engineering", "Data Engineering", etc) are playlists.
-- Individual projects (like "Mobile API rebuild" or "PHP Engine Optimization") are tracks.
+- Individual projects (like "Mobile API rebuild" or "API Engine Optimization") are tracks.
 - Collections like "Recently Played", "Top Hits", and "Side Projects" are playlists.
 - You have freedom to generate playlists as you have been doing. What you've done with that so far makes sense.
 
