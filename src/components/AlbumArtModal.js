@@ -114,17 +114,6 @@ const AlbumArtModal = ({ isOpen, onClose, project }) => {
               style={displayStyle}
               onClick={(e) => e.stopPropagation()} // Prevent closing when clicking image
             />
-            
-            {/* Image Info Overlay */}
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/50 to-transparent rounded-b-lg p-4">
-              <h3 className="text-white font-bold text-lg mb-1">{project.title}</h3>
-              <p className="text-gray-300 text-sm mb-1">{project.artist}</p>
-              {project.albumArtBasedOn && (
-                <p className="text-gray-400 text-xs">
-                  Album art based on {project.albumArtBasedOn}
-                </p>
-              )}
-            </div>
           </div>
         ) : (
           <div 
