@@ -43,7 +43,7 @@ export const projects = {
       artist: 'Software Engineer III - Ad Hoc',
       album: 'Government Healthcare',
       duration: '3.5 years',
-      image: null,
+      image: '/album-art/healthcare-etl.png',
       year: '2019-2023',
       plays: '982K',
       description: 'Mission-critical healthcare data infrastructure processing millions of daily health insurance records for Medicare.gov. Engineered high-volume ETL pipelines that maintained 100% uptime during Open Enrollment periods, handling peak loads of 80,000 requests per minute. Built robust, fault-tolerant systems ensuring seamless access to healthcare information for millions of Americans during critical enrollment windows. This role required deep expertise in government compliance, healthcare data standards, and building systems that never fail when people need them most.',
@@ -51,7 +51,9 @@ export const projects = {
       demoUrl: null,
       githubUrl: null,
       canvas: null,
-      featured: true
+      featured: true,
+      isAlbum: true,
+      albumArtBasedOn: 'Ready to Die by The Notorious B.I.G.'
     },
     {
       id: 'mobile-api',
@@ -193,25 +195,25 @@ export const playlists = [
     name: 'Recently Played',
     icon: Clock,
     projects: [projects.recentWork[0], ...campbellZafarProjects], // DDx + Campbell Zafar projects
-    description: 'The latest work and projects from 2024-2025'
+    description: 'Fresh out the studio. Latest work from 2024-2025.'
   },
   {
     name: 'Top Hits',
     icon: Heart,
     projects: projects.topHits,
-    description: 'Career highlights and high-impact engineering projects'
+    description: 'The classics that made the cut. Career-defining engineering.'
   },
   {
     name: 'Side Projects',
     icon: User,
     projects: projects.sideProjects,
-    description: 'Personal projects and creative technical experiments'
+    description: 'After hours creativity. Personal passion projects and experiments.'
   },
   {
     name: 'Campbell Zafar Law',
     icon: Plus,
     projects: campbellZafarProjects,
-    description: 'Operations and technology work at legal tech startup',
+    description: 'Founding Operations & Technology Manager building startup infrastructure from the ground up.',
     image: '/album-art/campbell-zafar.png', // Custom playlist cover art
     employer: true // Flag to identify this as an employer playlist
   },
@@ -219,7 +221,7 @@ export const playlists = [
     name: 'DDx',
     icon: Plus,
     projects: [projects.recentWork[0], projects.recentWork[1]], // Election Data Pipeline, AWS Infrastructure Automation
-    description: 'High-stakes election data infrastructure for 2024 presidential cycle',
+    description: 'Software Engineer delivering election data infrastructure for 20.4M voters during 2024 presidential cycle.',
     image: '/album-art/ddx.png', // Custom playlist cover art
     employer: true // Flag to identify this as an employer playlist
   },
@@ -227,20 +229,20 @@ export const playlists = [
     name: 'Ad Hoc',
     icon: Plus,
     projects: [projects.topHits[0], projects.topHits[1]], // Medicare.gov ETL, Healthcare API Extensions
-    description: 'Government healthcare technology serving millions of Americans',
+    description: 'Software Engineer III powering Medicare.gov for millions of Americans. 3.5 years of healthcare tech.',
     employer: true // Flag to identify this as an employer playlist
   },
   {
     name: 'Full Stack Development',
     icon: Plus,
     projects: [...projects.topHits, ...projects.sideProjects.slice(0, 2)],
-    description: 'End-to-end development projects from frontend to backend'
+    description: 'Frontend to backend. The complete engineering experience.'
   },
   {
     name: 'Data Engineering',
     icon: Plus,
     projects: [projects.recentWork[0], projects.topHits[0]],
-    description: 'High-volume data pipelines and ETL systems'
+    description: 'Moving millions of records. High-volume pipelines and ETL mastery.'
   }
 ];
 

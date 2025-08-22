@@ -1,24 +1,43 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Play, Pause, Heart, ExternalLink } from 'lucide-react';
 import ProjectImage from '../ProjectImage';
+import AlbumArtModal from '../AlbumArtModal';
 
 const ProjectDetailView = ({ 
   project, 
   currentlyPlaying, 
   isPlaying, 
   onPlayProject 
-}) => (
+}) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleAlbumArtClick = () => {
+    // Only open modal if the project has valid album art
+    if (project?.isAlbum && project?.image && !project.image.includes('/api/placeholder')) {
+      setIsModalOpen(true);
+    }
+  };
+
+  return (
   <div className="text-white p-4 md:p-6">
     <div className="flex flex-col md:flex-row md:items-end space-y-4 md:space-y-0 md:space-x-6 mb-6 md:mb-8">
-      <ProjectImage
-        project={project}
-        size="custom"
-        className="w-48 h-48 md:w-64 md:h-64 mx-auto md:mx-0 shadow-2xl"
-        shape="rounded"
-        customStyle={{
-          fontSize: '3rem' // Override the text size for large display
-        }}
-      />
+      <div 
+        onClick={handleAlbumArtClick}
+        className={`${project?.isAlbum && project?.image && !project.image.includes('/api/placeholder') 
+          ? 'cursor-pointer hover:scale-105 transition-transform' 
+          : ''
+        }`}
+      >
+        <ProjectImage
+          project={project}
+          size="custom"
+          className="w-48 h-48 md:w-64 md:h-64 mx-auto md:mx-0 shadow-2xl"
+          shape="rounded"
+          customStyle={{
+            fontSize: '3rem' // Override the text size for large display
+          }}
+        />
+      </div>
       <div className="text-center md:text-left">
         <p className="text-sm font-semibold uppercase">Project</p>
         <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-2 md:mb-4">{project.title}</h1>
@@ -94,7 +113,15 @@ const ProjectDetailView = ({
         </div>
       </div>
     </div>
+
+    {/* Album Art Modal */}
+    <AlbumArtModal 
+      isOpen={isModalOpen}
+      onClose={() => setIsModalOpen(false)}
+      project={project}
+    />
   </div>
-);
+  );
+};
 
 export default ProjectDetailView;
