@@ -37,7 +37,7 @@ const HorizontalCard = ({
             size="custom"
             className="w-[108px] h-[108px] sm:w-[123px] sm:h-[123px] md:w-[138px] md:h-[138px] lg:w-[156px] lg:h-[156px] shadow-lg"
             shape="rounded"
-            showFallback={false}
+            showFallback={true}
           />
         )}
         

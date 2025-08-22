@@ -21,21 +21,21 @@ const BottomPlayer = ({
     {currentlyPlaying ? (
       <>
         {/* Left: Now Playing Info */}
-        <div className="flex items-center space-x-4 w-1/4 min-w-0">
+        <div className="flex items-center space-x-3 sm:space-x-4 w-full md:w-1/4 min-w-0">
           <ProjectImage
             project={currentlyPlaying}
             size="custom"
-            className="w-14 h-14"
+            className="w-12 h-12 sm:w-14 sm:h-14"
             shape="rounded"
           />
           <div className="min-w-0 flex-1">
             <p 
-              className="text-spotify-primary font-semibold text-base truncate hover:underline cursor-pointer"
+              className="text-spotify-primary font-semibold text-sm sm:text-base truncate hover:underline cursor-pointer"
               onClick={() => onNavigateToProject && onNavigateToProject(currentlyPlaying)}
             >
               {currentlyPlaying.title}
             </p>
-            <p className="text-spotify-secondary text-sm truncate">{currentlyPlaying.artist}</p>
+            <p className="text-spotify-secondary text-xs sm:text-sm truncate">{currentlyPlaying.artist}</p>
           </div>
         </div>
 
