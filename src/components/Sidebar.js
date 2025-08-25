@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { Library, X, ChevronLeft, ChevronRight } from 'lucide-react';
-import { playlists, projects } from '../data/projects';
+import { playlists, projects, campbellZafarProjects } from '../data/projects';
 import PlaylistCoverArt from './PlaylistCoverArt';
 import ProjectImage from './ProjectImage';
 
@@ -20,7 +20,7 @@ const Sidebar = ({
   const scrollContainerRef = useRef(null);
 
   // Get all projects for filtering
-  const allProjects = [...projects.recentWork, ...projects.topHits, ...projects.sideProjects];
+  const allProjects = [...projects.recentWork, ...projects.topHits, ...projects.sideProjects, ...campbellZafarProjects];
   
   // Filter content based on active filter
   const getFilteredContent = () => {

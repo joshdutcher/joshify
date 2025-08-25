@@ -78,14 +78,16 @@ export const projects = {
       artist: 'Software Engineer III - Ad Hoc',
       album: 'Government Healthcare',
       duration: '3.5 years',
-      image: null,
+      image: '/album-art/healthcare-api-extensions.png',
       year: '2019-2023',
       plays: 'Critical',
       description: 'Extended and automated critical healthcare APIs to meet evolving client requirements while maintaining 100% system reliability. Led rapid response efforts to diagnose and resolve production incidents, ensuring uninterrupted access to healthcare services. Fostered seamless communication between engineering and product teams, translating complex technical concepts for non-technical stakeholders. This role required balancing technical excellence with clear communication, demonstrating the ability to deliver robust solutions while building bridges across organizational boundaries in high-stakes government healthcare systems.',
       skills: ['API Development', 'Healthcare', 'Production Support', 'Process Automation', 'Cross-functional Collaboration'],
       demoUrl: null,
       githubUrl: null,
-      featured: true
+      featured: true,
+      isAlbum: true,
+      albumArtBasedOn: 'The Low End Theory by A Tribe Called Quest'
     },
     {
       id: 'api-optimization',
@@ -177,7 +179,7 @@ export const campbellZafarProjects = [
   },
   {
     id: 'cz-corp-formation',
-    title: 'S-Corp Formation & SOPs',
+    title: 'Business Operations Blueprint',
     artist: 'Founding Operations & Technology Manager',
     album: 'Campbell Zafar Law',
     duration: '2 months',
@@ -197,7 +199,7 @@ export const playlists = [
   {
     name: 'Recently Played',
     icon: Clock,
-    projects: [projects.recentWork[0], ...campbellZafarProjects], // DDx + Campbell Zafar projects
+    projects: [projects.recentWork[0], ...campbellZafarProjects, projects.sideProjects[1], projects.sideProjects[0]], // DDx + Campbell Zafar + Did Kansas Win + Beer Fridge
     description: 'Fresh out the studio. Latest work from 2024-2025.'
   },
   {
@@ -231,21 +233,21 @@ export const playlists = [
   {
     name: 'Ad Hoc',
     icon: Plus,
-    projects: [projects.topHits[0], projects.topHits[1]], // Medicare.gov ETL, Healthcare API Extensions
+    projects: [projects.topHits[0], projects.topHits[2]], // Medicare.gov ETL, Healthcare API Extensions
     description: 'Software Engineer III powering Medicare.gov for millions of Americans. 3.5 years of healthcare tech.',
     image: '/album-art/ad-hoc.png', // Custom playlist cover art
     employer: true // Flag to identify this as an employer playlist
   },
   {
-    name: 'Full Stack Development',
+    name: 'Backend Development',
     icon: Plus,
     projects: [...projects.topHits, ...projects.sideProjects.slice(0, 2)],
-    description: 'Frontend to backend. The complete engineering experience.'
+    description: 'Server-side mastery. APIs, databases, and scalable systems.'
   },
   {
     name: 'Data Engineering',
     icon: Plus,
-    projects: [projects.recentWork[0], projects.topHits[0]],
+    projects: [projects.recentWork[0], projects.topHits[0], projects.topHits[2]], // Election Data Pipeline, Medicare.gov ETL, Healthcare API Extensions
     description: 'Moving millions of records. High-volume pipelines and ETL mastery.'
   }
 ];

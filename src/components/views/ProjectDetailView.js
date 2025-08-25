@@ -78,7 +78,7 @@ const ProjectDetailView = ({
         <h3 className="text-lg md:text-xl font-bold mb-3">Technologies Used</h3>
         <div className="flex flex-wrap gap-2">
           {project.skills.map(skill => (
-            <span key={skill} className="px-3 py-1 bg-gray-800 rounded-full text-xs md:text-sm">
+            <span key={skill} className="px-3 py-1 bg-white text-black rounded-full text-xs md:text-sm font-medium">
               {skill}
             </span>
           ))}
