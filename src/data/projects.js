@@ -21,19 +21,21 @@ export const projects = {
       albumArtBasedOn: 'Tubular Bells by Mike Oldfield'
     },
     {
-      id: 'aws-infrastructure',
-      title: 'AWS Infrastructure Automation',
-      artist: 'Software Engineer - DDx',
-      album: 'Cloud Infrastructure',
-      duration: '8 months',
-      image: null,
-      year: '2024',
-      plays: 'Scalable',
-      description: 'Architected and implemented comprehensive AWS infrastructure supporting high-volume election data processing pipelines. Built resilient serverless architecture utilizing Lambda functions, DynamoDB tables, and sophisticated IAM policies for secure data access. Implemented SNS and SQS messaging systems for reliable, fault-tolerant data flow across distributed components. This infrastructure handled massive election data loads while maintaining security, scalability, and cost efficiency. Demonstrates expertise in cloud-native architecture and the ability to design systems that scale automatically under pressure.',
-      skills: ['AWS', 'Lambda', 'DynamoDB', 'IAM', 'Infrastructure as Code', 'Python'],
+      id: 'mobile-api',
+      title: 'Mobile API Rebuild',
+      artist: 'Software Developer - BG Products',
+      album: 'Automotive Tech',
+      duration: '1.5 years',
+      image: '/album-art/mobile-api.png',
+      year: '2019',
+      plays: '1000%',
+      description: 'Complete API backend rebuild delivering a 1000% performance improvement for automotive mobile applications. Replaced legacy systems with modern, scalable architecture while automating vendor data integration through Azure Functions. The new system dramatically improved user experience and operational efficiency, demonstrating expertise in performance optimization and cloud-native development. This project showcases the ability to modernize critical business systems while maintaining data integrity and minimizing downtime.',
+      skills: ['API Development', 'Azure', 'Performance Optimization', 'ETL'],
       demoUrl: null,
       githubUrl: null,
-      featured: true
+      featured: true,
+      isAlbum: true,
+      albumArtBasedOn: 'Run The Jewels 2 by Run The Jewels'
     }
   ],
   topHits: [
@@ -44,7 +46,7 @@ export const projects = {
       album: 'Government Healthcare',
       duration: '3.5 years',
       image: '/album-art/healthcare-etl.png',
-      year: '2019-2023',
+      year: '2023',
       plays: '982K',
       description: 'Mission-critical healthcare data infrastructure processing millions of daily health insurance records for Medicare.gov. Engineered high-volume ETL pipelines that maintained 100% uptime during Open Enrollment periods, handling peak loads of 80,000 requests per minute. Built robust, fault-tolerant systems ensuring seamless access to healthcare information for millions of Americans during critical enrollment windows. This role required deep expertise in government compliance, healthcare data standards, and building systems that never fail when people need them most.',
       skills: ['Python', 'ETL', 'APIs', 'High Availability', 'Healthcare'],
@@ -56,21 +58,19 @@ export const projects = {
       albumArtBasedOn: 'Ready to Die by The Notorious B.I.G.'
     },
     {
-      id: 'mobile-api',
-      title: 'Mobile API Rebuild',
-      artist: 'Software Developer - BG Products',
-      album: 'Automotive Tech',
-      duration: '1.5 years',
-      image: '/album-art/mobile-api.png',
-      year: '2018-2019',
-      plays: '1000%',
-      description: 'Complete API backend rebuild delivering a 1000% performance improvement for automotive mobile applications. Replaced legacy systems with modern, scalable architecture while automating vendor data integration through Azure Functions. The new system dramatically improved user experience and operational efficiency, demonstrating expertise in performance optimization and cloud-native development. This project showcases the ability to modernize critical business systems while maintaining data integrity and minimizing downtime.',
-      skills: ['API Development', 'Azure', 'Performance Optimization', 'ETL'],
+      id: 'aws-infrastructure',
+      title: 'Democracy Engine',
+      artist: 'Software Engineer - DDx',
+      album: 'Cloud Infrastructure',
+      duration: '8 months',
+      image: null,
+      year: '2024',
+      plays: 'Scalable',
+      description: 'Architected and implemented comprehensive AWS infrastructure supporting high-volume election data processing pipelines. Built resilient serverless architecture utilizing Lambda functions, DynamoDB tables, and sophisticated IAM policies for secure data access. Implemented SNS and SQS messaging systems for reliable, fault-tolerant data flow across distributed components. This infrastructure handled massive election data loads while maintaining security, scalability, and cost efficiency. Demonstrates expertise in cloud-native architecture and the ability to design systems that scale automatically under pressure.',
+      skills: ['AWS', 'Lambda', 'DynamoDB', 'IAM', 'Infrastructure as Code', 'Python'],
       demoUrl: null,
       githubUrl: null,
-      featured: true,
-      isAlbum: true,
-      albumArtBasedOn: 'Run The Jewels 2 by Run The Jewels'
+      featured: true
     },
     {
       id: 'healthcare-api-extensions',
@@ -79,7 +79,7 @@ export const projects = {
       album: 'Government Healthcare',
       duration: '3.5 years',
       image: '/album-art/healthcare-api-extensions.png',
-      year: '2019-2023',
+      year: '2023',
       plays: 'Critical',
       description: 'Extended and automated critical healthcare APIs to meet evolving client requirements while maintaining 100% system reliability. Led rapid response efforts to diagnose and resolve production incidents, ensuring uninterrupted access to healthcare services. Fostered seamless communication between engineering and product teams, translating complex technical concepts for non-technical stakeholders. This role required balancing technical excellence with clear communication, demonstrating the ability to deliver robust solutions while building bridges across organizational boundaries in high-stakes government healthcare systems.',
       skills: ['API Development', 'Healthcare', 'Production Support', 'Process Automation', 'Cross-functional Collaboration'],
@@ -96,7 +96,7 @@ export const projects = {
       album: 'Media Technology',
       duration: '2 years',
       image: '/album-art/api-engine.png',
-      year: '2015-2017',
+      year: '2017',
       plays: '$18K',
       description: 'Led comprehensive optimization of API data-fetching engine, achieving a 98% reduction in API calls and generating $18,000 in monthly cost savings while simultaneously enhancing data precision. As Lead Software Engineer, architected intelligent caching and batching strategies that transformed system efficiency without compromising accuracy. This project demonstrates leadership in both technical innovation and business impact, showing how strategic engineering decisions can deliver significant ROI while improving system performance.',
       skills: ['API Optimization', 'Cost Reduction', 'Team Leadership', 'Performance Engineering'],
@@ -148,13 +148,15 @@ export const projects = {
       artist: 'Personal Project',
       album: 'Go Development',
       duration: '1 month',
-      image: null,
+      image: '/album-art/wichita-radar.png',
       year: '2024',
       plays: 'Live',
       description: 'Real-time weather monitoring dashboard built with Go, aggregating live radar and satellite imagery specifically for Wichita, KS. Features automatic data refresh, mobile-responsive design using PureCSS, and efficient API integration with weather services. This project showcases Go programming skills and the ability to create practical, location-specific applications that serve real user needs. The clean, performant architecture demonstrates expertise in backend development and responsive web design.',
       skills: ['Go', 'HTML Templating', 'Weather APIs', 'PureCSS'],
       demoUrl: 'https://wichitaradar.com',
       githubUrl: 'https://github.com/joshdutcher/wichitaradar',
+      isAlbum: true,
+      albumArtBasedOn: 'Discovery by Daft Punk'
     }
   ]
 };
@@ -162,36 +164,37 @@ export const projects = {
 // Campbell Zafar specific projects (tracks within the Campbell Zafar playlist)
 export const campbellZafarProjects = [
   {
-    id: 'cz-operations-setup',
-    title: 'Operations Infrastructure',
+    id: 'cz-launch-management',
+    title: 'Launch Project Management',
+    artist: 'Founding Operations & Technology Manager',
+    album: 'Campbell Zafar Law',
+    duration: '4 months',
+    image: '/album-art/cz-launch-management.png',
+    year: '2025',
+    plays: 'Coordinated',
+    description: 'Orchestrated the complex launch of a boutique law firm through multi-vendor project management and timeline coordination. Served as primary liaison managing photographers, designers, signage vendors, and printing services while ensuring brand assets, signage, and marketing collateral were delivered on schedule for launch day. Successfully coordinated office setup logistics including furniture procurement, equipment installation, and workflow design. This project demonstrates expertise in managing multiple concurrent deliverables with tight interdependencies, ensuring a seamless launch experience that allowed the attorneys to focus on client service from day one.',
+    skills: ['Project Management', 'Vendor Coordination', 'Timeline Management', 'Procurement', 'Launch Strategy'],
+    demoUrl: null,
+    githubUrl: null,
+    featured: true,
+    isAlbum: true,
+    albumArtBasedOn: 'BRAT by Charli xcx'
+  },
+  {
+    id: 'cz-technology-infrastructure',
+    title: 'Technology Infrastructure & Systems',
     artist: 'Founding Operations & Technology Manager',
     album: 'Campbell Zafar Law',
     duration: '3 months',
     image: null, // Will use Campbell Zafar tiled fallback
     year: '2025',
-    plays: 'Foundation',
-    description: 'Built comprehensive business infrastructure for legal tech startup from the ground up. Established Google Workspace integration, professional Squarespace website, and streamlined vendor management across photographers, designers, and tech suppliers. Created scalable operational framework supporting rapid expansion while maintaining efficiency.',
-    skills: ['Business Operations', 'Google Workspace', 'Squarespace', 'Vendor Management'],
+    plays: 'Configured',
+    description: 'Architected and implemented comprehensive technology infrastructure for a legal startup from the ground up. Configured Google Workspace with domain-wide settings, user permissions, and security policies while building the firm\'s professional website on Squarespace with integrated SEO strategy. Implemented VoIP phone systems, mesh Wi-Fi networking, and cross-device printer configuration ensuring seamless office connectivity. Led hands-on technical setup of computers, peripherals, and office networking infrastructure. This project showcases the ability to translate business requirements into technical solutions while maintaining security best practices and operational efficiency in a professional services environment.',
+    skills: ['Google Workspace Administration', 'Network Configuration', 'VoIP Systems', 'Web Development', 'SEO Strategy', 'Hardware Setup'],
     demoUrl: null,
     githubUrl: null,
     featured: true,
-    isAlbum: false
-  },
-  {
-    id: 'cz-corp-formation',
-    title: 'Business Operations Blueprint',
-    artist: 'Founding Operations & Technology Manager',
-    album: 'Campbell Zafar Law',
-    duration: '2 months',
-    image: null, // Will use Campbell Zafar tiled fallback
-    year: '2025',
-    plays: 'Structured',
-    description: 'Led S-Corp formation and established detailed Standard Operating Procedures for sustainable growth. Created comprehensive documentation and operational frameworks that enable the business to scale efficiently. This foundational work ensures consistent operations and smooth onboarding of future team members.',
-    skills: ['Corporate Structure', 'Documentation', 'Process Design', 'Legal Compliance'],
-    demoUrl: null,
-    githubUrl: null,
-    featured: true,
-    isAlbum: false
+    isAlbum: true
   }
 ];
 
@@ -225,7 +228,7 @@ export const playlists = [
   {
     name: 'DDx',
     icon: Plus,
-    projects: [projects.recentWork[0], projects.recentWork[1]], // Election Data Pipeline, AWS Infrastructure Automation
+    projects: [projects.recentWork[0], projects.topHits[1]], // Election Data Pipeline, Democracy Engine
     description: 'Software Engineer delivering election data infrastructure for 20.4M voters during 2024 presidential cycle.',
     image: '/album-art/ddx.png', // Custom playlist cover art
     employer: true // Flag to identify this as an employer playlist

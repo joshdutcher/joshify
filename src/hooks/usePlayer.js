@@ -11,10 +11,11 @@ const usePlayer = () => {
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0); // Track position in playlist
   const audioRef = useRef(null);
 
-  // Set first Campbell Zafar project as default "now playing" on load
+  // Set "Did Kansas Win?" as default "now playing" on load
   useEffect(() => {
-    if (campbellZafarProjects.length > 0 && !currentlyPlaying) {
-      setCurrentlyPlaying(campbellZafarProjects[0]);
+    const didKansasWin = projects.sideProjects.find(p => p.id === 'did-kansas-win');
+    if (didKansasWin && !currentlyPlaying) {
+      setCurrentlyPlaying(didKansasWin);
       setIsPlaying(true);
     }
   }, [currentlyPlaying]);
