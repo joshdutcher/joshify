@@ -42,6 +42,10 @@ coverage/
 tmp/
 temp/
 
+# Development tool caches and artifacts
+.vite/
+.playwright-mcp/
+
 # Claude Code local settings (keep project config)
 .claude/settings.local.json
 
