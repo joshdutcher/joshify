@@ -9,7 +9,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Joshify - Josh's Developer Portfolio</title>
     <meta name="description" content="Josh's developer portfolio designed as a Spotify-like music streaming interface, showcasing projects as albums." />
-  </head>
+
+    <!-- Matomo -->
+    <script>
+        var _paq = window._paq = window._paq || [];
+        /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+        (function() {
+        var u="//analytics.joshdutcher.com/";
+        _paq.push(['setTrackerUrl', u+'matomo.php']);
+        _paq.push(['setSiteId', '2']);
+        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+        g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+        })();
+    </script>
+    <!-- End Matomo Code -->
+
+</head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
