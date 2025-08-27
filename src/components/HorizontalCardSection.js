@@ -19,11 +19,11 @@ const HorizontalCard = ({
 
   return (
     <div 
-      className="group relative bg-transparent rounded p-4 hover:bg-white/10 transition-all duration-300 cursor-pointer w-[140px] sm:w-[155px] md:w-[170px] lg:w-[188px]"
+      className="group relative bg-transparent rounded p-2 hover:bg-white/10 transition-all duration-300 cursor-pointer w-[140px] sm:w-[155px] md:w-[170px] lg:w-[188px]"
       onClick={() => onClick && onClick(item)}
     >
       {/* Cover Art */}
-      <div className="relative mb-3">
+      <div className="relative mb-2">
         {type === 'playlist' ? (
           <PlaylistCoverArt
             playlist={item}

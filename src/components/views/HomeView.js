@@ -2,6 +2,7 @@ import React from 'react';
 import { User } from 'lucide-react';
 import ProjectCard from '../ProjectCard';
 import HorizontalCardSection from '../HorizontalCardSection';
+import AdaptiveCardGrid from '../AdaptiveCardGrid';
 import { projects, playlists } from '../../data/projects';
 
 const getTimeBasedGreeting = () => {
@@ -25,8 +26,8 @@ const HomeView = ({
   <div className="text-spotify-primary p-6">
     <h1 className="text-3xl font-bold mb-5">{getTimeBasedGreeting()}</h1>
 
-    {/* Recently Played Grid */}
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 mb-5 md:mb-7">
+    {/* Recently Played Grid - Maximum 2 rows with horizontal scroll fallback */}
+    <AdaptiveCardGrid className="mb-5 md:mb-7" maxRows={2} cardWidth={188}>
       {projects.recentWork.map((project) => (
         <ProjectCard 
           key={project.id} 
@@ -53,7 +54,7 @@ const HomeView = ({
         onNavigateToCompany={onNavigateToCompany}
         onNavigateToDomain={onNavigateToDomain}
       />
-    </div>
+    </AdaptiveCardGrid>
 
     {/* Made for You Section */}
     <section className="mb-7">
