@@ -43,7 +43,7 @@ const MediaCard = ({
       onClick={() => onClick && onClick(item)}
     >
       {/* Cover Art */}
-      <div className={`relative ${size === 'large' ? 'mb-0' : 'mb-2'}`}>
+      <div className={`relative ${size === 'large' ? 'mb-0' : 'mb-1'}`}>
         {type === 'playlist' ? (
           <PlaylistCoverArt
             playlist={item}
@@ -83,7 +83,7 @@ const MediaCard = ({
       {/* Text content */}
       <div className={`${size === 'large' ? 'flex-1 min-w-0' : 'w-full'}`}>
         <h3 
-          className="text-spotify-primary font-semibold truncate mb-1 text-base hover:underline cursor-pointer"
+          className="text-spotify-primary font-semibold truncate mb-0.5 text-base hover:underline cursor-pointer"
           onClick={(e) => {
             e.stopPropagation();
             onClick && onClick(item);
@@ -122,13 +122,13 @@ const MediaCard = ({
         
         {/* Additional content for large cards */}
         {size === 'large' && type === 'playlist' && item.description && (
-          <p className="text-spotify-secondary text-xs mt-1 truncate">
+          <p className="text-spotify-secondary text-xs mt-0.5 truncate">
             {item.description}
           </p>
         )}
         
         {size === 'large' && type === 'project' && (
-          <div className="flex items-center justify-between mt-2">
+          <div className="flex items-center justify-between mt-1">
             <div className="flex items-center space-x-3 text-spotify-secondary text-sm">
               <span>{item.year}</span>
               <span>•</span>
