@@ -36,14 +36,14 @@ const MediaCard = ({
 
   return (
     <div 
-      className={`group relative bg-transparent rounded-lg p-4 hover:bg-white/10 transition-all duration-300 cursor-pointer ${
+      className={`group relative bg-transparent rounded-lg p-2 hover:bg-white/10 transition-all duration-300 cursor-pointer ${
         size === 'large' ? 'flex items-center space-x-4' : 'w-[140px] sm:w-[155px] md:w-[170px] lg:w-[188px]'
       }`}
       style={cardStyle}
       onClick={() => onClick && onClick(item)}
     >
       {/* Cover Art */}
-      <div className={`relative ${size === 'large' ? 'mb-0' : 'mb-3'}`}>
+      <div className={`relative ${size === 'large' ? 'mb-0' : 'mb-2'}`}>
         {type === 'playlist' ? (
           <PlaylistCoverArt
             playlist={item}

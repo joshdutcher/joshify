@@ -21,11 +21,11 @@ const ProjectCard = ({
     <div className={`group relative cursor-pointer ${
       size === 'large' 
         ? 'flex items-center bg-white/10 rounded overflow-hidden transition-all duration-300' 
-        : 'bg-spotify-card rounded p-4 hover:bg-spotify-hover transition-all duration-300 w-[140px] sm:w-[155px] md:w-[170px] lg:w-[188px]'
+        : 'bg-spotify-card rounded p-2 hover:bg-spotify-hover transition-all duration-300 w-[140px] sm:w-[155px] md:w-[170px] lg:w-[188px]'
     }`}
     onClick={() => onProjectClick && onProjectClick(project)}>
       {/* Album art (no play button overlay for large size) */}
-      <div className={`relative ${size === 'large' ? 'mb-0' : 'mb-3'}`}>
+      <div className={`relative ${size === 'large' ? 'mb-0' : 'mb-2'}`}>
         <ProjectImage
           project={project}
           size={size === 'large' ? 'custom' : 'custom'}
