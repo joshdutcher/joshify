@@ -251,10 +251,16 @@ Authentic card sizing and progressive responsive design:
 5. ✅ **Scroll Issue**: Middle column now responds to mouse scroll wheel
 6. ✅ **Dynamic Greeting**: Time-based greeting implemented ("Good morning/afternoon/evening")
 
-## NEW: Spotify UI Polish Phase Implementation Plan
+## NEW: Spotify UI Polish Phase - GitHub Issues Implementation
 
-### 3-Phase Final UI Polish Project
-*Targeted improvements for complete Spotify authenticity using Playwright MCP testing*
+### 3-Phase Final UI Polish Project  
+*Targeted improvements for complete Spotify authenticity using Playwright MCP testing*  
+**Status**: ✅ **GitHub Issues Created** (August 27, 2025) - Ready for development workflow
+
+**GitHub Issues**:
+- [Issue #2: Phase A - Vertical Card Height Optimization](https://github.com/joshdutcher/joshify/issues/2)
+- [Issue #3: Phase B - Authentic Scrollbar Behavior](https://github.com/joshdutcher/joshify/issues/3)  
+- [Issue #4: Phase C - Horizontal Navigation Enhancement](https://github.com/joshdutcher/joshify/issues/4)
 
 **Phase A: Vertical Card Height Optimization** (1.5-2 hours)
 - **Current Issue**: Cards feel too tall compared to authentic Spotify
