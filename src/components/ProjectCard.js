@@ -25,7 +25,7 @@ const ProjectCard = ({
     }`}
     onClick={() => onProjectClick && onProjectClick(project)}>
       {/* Album art (no play button overlay for large size) */}
-      <div className={`relative ${size === 'large' ? 'mb-0' : 'mb-2'}`}>
+      <div className={`relative ${size === 'large' ? 'mb-0' : 'mb-1'}`}>
         <ProjectImage
           project={project}
           size={size === 'large' ? 'custom' : 'custom'}
@@ -55,7 +55,7 @@ const ProjectCard = ({
       {/* Text content */}
       <div className={size === 'large' ? 'flex-1 min-w-0 px-4 flex flex-col justify-center h-16' : ''}>
         <h3 
-          className="text-spotify-primary font-semibold truncate mb-1 text-base hover:underline cursor-pointer"
+          className="text-spotify-primary font-semibold truncate mb-0.5 text-base hover:underline cursor-pointer"
           onClick={(e) => {
             e.stopPropagation();
             onProjectClick && onProjectClick(project);
@@ -85,7 +85,7 @@ const ProjectCard = ({
           </p>
         )}
         {size === 'large' && (
-          <div className="flex items-center space-x-2 mt-1 text-spotify-secondary text-sm">
+          <div className="flex items-center space-x-2 mt-0.5 text-spotify-secondary text-sm">
             <span>{project.year}</span>
             <span>•</span>
             <span className="whitespace-nowrap">{project.duration}</span>
