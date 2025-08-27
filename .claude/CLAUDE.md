@@ -52,6 +52,10 @@ npm run lint     # Code linting (✅ ESLint configured - 40 warnings, 0 errors)
 - ⚡ **HEADLESS MODE REQUIRED**: Always use headless mode for Claude AI testing (no browser windows)
 - Use `--play` flag or Playwright MCP tools for browser-based testing workflows
 - 📋 **Documentation**: See `.claude/PLAYWRIGHT_MCP.md` for complete API reference and usage guide
+- 🤖 **CI/CD Integration**: GitHub Actions enhanced with Playwright MCP (commit 15a42fa)
+  - Automated browser testing capabilities for Claude in CI/CD pipeline
+  - Headless Chromium with full dependency support in GitHub Actions
+  - Enables automated validation of UI changes through pull requests and issues
 
 **Requirements:**
 - Portfolio showcasing projects as "tracks" with album-like rich metadata
