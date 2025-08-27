@@ -1,43 +1,36 @@
 # TASKS.md - Development Tasks
 
-## 🎯 CURRENT PRIORITY: Spotify UI Polish Phase (August 25, 2025)
+## 🎯 CURRENT PRIORITY: GitHub Issues Implementation (August 27, 2025)
 
-**Project Focus**: Final Spotify-authentic improvements using Playwright MCP testing
-**Duration**: 4-6 hours across 3 targeted phases
-**Status**: Ready to begin implementation
+**Project Focus**: Spotify UI Polish Phase - Now tracked via GitHub Issues
+**Duration**: 5-6.5 hours across 3 GitHub issues  
+**Status**: ✅ **Issues Created** - Ready for development workflow
 
-### Phase A: Vertical Card Height Optimization ⏳ PENDING
+### 🚀 GitHub Issues Created
+**Repository**: [joshdutcher/joshify](https://github.com/joshdutcher/joshify)  
+**Labels**: `enhancement`, `ui/ux`, `spotify-polish`
+
+#### Issue #2: Phase A - Vertical Card Height Optimization 
+**URL**: https://github.com/joshdutcher/joshify/issues/2  
+**Duration**: 1.5-2 hours | **Status**: Open  
 **Objective**: Reduce card heights to match authentic Spotify proportions
-**Duration**: 1.5-2 hours | **Tools**: Component analysis, Playwright MCP testing
 
-- [ ] **Current State Analysis**: Document current card heights and spacing in HorizontalCard components
-- [ ] **Spotify Comparison**: Compare current vs. authentic Spotify card proportions using Playwright
-- [ ] **Height Reduction**: Reduce card padding from `p-4` to `p-2` or `p-3` for tighter layout
-- [ ] **Text Layout Optimization**: Adjust text spacing and margins for compact design
-- [ ] **Responsive Testing**: Validate all viewport sizes (320px, 375px, 768px, 1440px) with Playwright MCP
-- [ ] **Cross-Component Updates**: Ensure consistency across PlaylistCard, MediaCard, ProjectCard
-
-### Phase B: Authentic Scrollbar Behavior ⏳ PENDING  
+#### Issue #3: Phase B - Authentic Scrollbar Behavior
+**URL**: https://github.com/joshdutcher/joshify/issues/3  
+**Duration**: 2-2.5 hours | **Status**: Open  
 **Objective**: Implement hover-to-appear scrollbars with fade transitions
-**Duration**: 2-2.5 hours | **Tools**: CSS modifications, JavaScript hover detection, Playwright testing
 
-- [ ] **CSS Modification**: Update `.spotify-scrollbar` to hide by default (opacity: 0)
-- [ ] **Hover Detection**: Add JavaScript hover listeners for scrollable areas
-- [ ] **Fade Transitions**: Implement smooth fade-in/fade-out (opacity 0 → 0.3)
-- [ ] **Three-Area Application**: Apply to sidebar, main content, and right column
-- [ ] **Behavior Testing**: Validate hover timing and fade behavior with Playwright MCP
-- [ ] **Cross-Browser Validation**: Test scrollbar behavior across different browsers
-
-### Phase C: Horizontal Navigation Enhancement ⏳ PENDING
+#### Issue #4: Phase C - Horizontal Navigation Enhancement  
+**URL**: https://github.com/joshdutcher/joshify/issues/4  
+**Duration**: 1.5-2 hours | **Status**: Open  
 **Objective**: Replace horizontal scrollbars with right-arrow navigation
-**Duration**: 1.5-2 hours | **Tools**: Component updates, scroll behavior, Playwright validation
 
-- [ ] **Arrow Navigation**: Add right arrow buttons to HorizontalCardSection components  
-- [ ] **Scroll Functionality**: Implement smooth scroll-to-next-section behavior
-- [ ] **Scrollbar Hiding**: Hide horizontal scrollbars on card sections
-- [ ] **Visual States**: Add hover states and visual feedback for navigation arrows
-- [ ] **Mobile Adaptation**: Ensure touch-friendly navigation on mobile devices
-- [ ] **Navigation Testing**: Validate smooth scrolling with Playwright MCP
+### 🔧 Implementation Details
+- **Development Workflow**: Each issue contains comprehensive implementation checklists
+- **Testing Strategy**: All phases integrated with Playwright MCP for headless browser validation
+- **Success Criteria**: Clearly defined completion requirements for each phase
+- **Dependencies**: Minimal - phases can be implemented in suggested order (A → B → C)
+- **Labels Created**: `ui/ux` and `spotify-polish` custom labels for project organization
 
 ---
 
