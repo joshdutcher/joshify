@@ -23,7 +23,7 @@ const HorizontalCard = ({
       onClick={() => onClick && onClick(item)}
     >
       {/* Cover Art */}
-      <div className="relative mb-2">
+      <div className="relative mb-1">
         {type === 'playlist' ? (
           <PlaylistCoverArt
             playlist={item}
@@ -61,7 +61,7 @@ const HorizontalCard = ({
       {/* Text content - constrained to card width */}
       <div className="w-full">
         <h3 
-          className="text-spotify-primary font-semibold truncate mb-1 text-base hover:underline cursor-pointer"
+          className="text-spotify-primary font-semibold truncate mb-0.5 text-base hover:underline cursor-pointer"
           onClick={(e) => {
             e.stopPropagation();
             onClick && onClick(item);
