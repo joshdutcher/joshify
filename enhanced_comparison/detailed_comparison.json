@@ -1,0 +1,595 @@
+{
+  "timestamp": "2025-08-28T13:48:16.143Z",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "analysis": {
+    "joshify": {
+      "url": "http://localhost:3001",
+      "measurements": {
+        "mainSections": [
+          {
+            "index": 8,
+            "width": 737,
+            "height": 64,
+            "className": "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6 gap-3 md:gap-4 mb-5 md:mb-7",
+            "tagName": "DIV"
+          },
+          {
+            "index": 9,
+            "width": 737,
+            "height": 277,
+            "className": "mb-7",
+            "tagName": "SECTION"
+          },
+          {
+            "index": 10,
+            "width": 156,
+            "height": 156,
+            "className": "w-full h-full grid grid-cols-2 grid-rows-2 gap-0",
+            "tagName": "DIV"
+          },
+          {
+            "index": 11,
+            "width": 156,
+            "height": 156,
+            "className": "w-full h-full grid grid-cols-2 grid-rows-2 gap-0",
+            "tagName": "DIV"
+          },
+          {
+            "index": 12,
+            "width": 156,
+            "height": 156,
+            "className": "w-full h-full grid grid-cols-2 grid-rows-2 gap-0",
+            "tagName": "DIV"
+          },
+          {
+            "index": 15,
+            "width": 737,
+            "height": 262,
+            "className": "mb-7",
+            "tagName": "SECTION"
+          },
+          {
+            "index": 16,
+            "width": 737,
+            "height": 262,
+            "className": "",
+            "tagName": "SECTION"
+          }
+        ],
+        "cardContainers": [
+          {
+            "selector": ".grid > div",
+            "index": 32,
+            "width": 172,
+            "height": 64,
+            "ratio": "2.69",
+            "aspectRatio": "auto",
+            "padding": "0px",
+            "margin": "0px",
+            "className": "group relative cursor-pointer flex items-center bg-white/10 rounded overflow-hidden transition-all duration-300",
+            "textContent": "Election Data Pipeline2024•8 months•20.4M plays..."
+          },
+          {
+            "selector": ".grid > div",
+            "index": 33,
+            "width": 172,
+            "height": 64,
+            "ratio": "2.69",
+            "aspectRatio": "auto",
+            "padding": "0px",
+            "margin": "0px",
+            "className": "group relative cursor-pointer flex items-center bg-white/10 rounded overflow-hidden transition-all duration-300",
+            "textContent": "Mobile API Rebuild2019•1.5 years•1000% plays..."
+          },
+          {
+            "selector": ".grid > div",
+            "index": 34,
+            "width": 172,
+            "height": 64,
+            "ratio": "2.69",
+            "aspectRatio": "auto",
+            "padding": "0px",
+            "margin": "0px",
+            "className": "group relative cursor-pointer flex items-center bg-white/10 rounded overflow-hidden transition-all duration-300",
+            "textContent": "Did Kansas Win?2024•2 weeks•Live plays\n        @ke..."
+          },
+          {
+            "selector": ".grid > div",
+            "index": 35,
+            "width": 78,
+            "height": 78,
+            "ratio": "1.00",
+            "aspectRatio": "auto",
+            "padding": "0px",
+            "margin": "0px",
+            "className": "relative overflow-hidden",
+            "textContent": "..."
+          },
+          {
+            "selector": ".grid > div",
+            "index": 36,
+            "width": 78,
+            "height": 78,
+            "ratio": "1.00",
+            "aspectRatio": "auto",
+            "padding": "0px",
+            "margin": "0px",
+            "className": "relative overflow-hidden",
+            "textContent": "..."
+          },
+          {
+            "selector": ".grid > div",
+            "index": 37,
+            "width": 78,
+            "height": 78,
+            "ratio": "1.00",
+            "aspectRatio": "auto",
+            "padding": "0px",
+            "margin": "0px",
+            "className": "relative overflow-hidden",
+            "textContent": "TI..."
+          },
+          {
+            "selector": ".grid > div",
+            "index": 38,
+            "width": 78,
+            "height": 78,
+            "ratio": "1.00",
+            "aspectRatio": "auto",
+            "padding": "0px",
+            "margin": "0px",
+            "className": "relative overflow-hidden",
+            "textContent": "..."
+          },
+          {
+            "selector": ".grid > div",
+            "index": 39,
+            "width": 78,
+            "height": 78,
+            "ratio": "1.00",
+            "aspectRatio": "auto",
+            "padding": "0px",
+            "margin": "0px",
+            "className": "relative overflow-hidden",
+            "textContent": "..."
+          },
+          {
+            "selector": ".grid > div",
+            "index": 40,
+            "width": 78,
+            "height": 78,
+            "ratio": "1.00",
+            "aspectRatio": "auto",
+            "padding": "0px",
+            "margin": "0px",
+            "className": "relative overflow-hidden",
+            "textContent": "DE..."
+          },
+          {
+            "selector": ".grid > div",
+            "index": 41,
+            "width": 78,
+            "height": 78,
+            "ratio": "1.00",
+            "aspectRatio": "auto",
+            "padding": "0px",
+            "margin": "0px",
+            "className": "relative overflow-hidden",
+            "textContent": "..."
+          },
+          {
+            "selector": ".grid > div",
+            "index": 42,
+            "width": 78,
+            "height": 78,
+            "ratio": "1.00",
+            "aspectRatio": "auto",
+            "padding": "0px",
+            "margin": "0px",
+            "className": "relative overflow-hidden",
+            "textContent": "..."
+          },
+          {
+            "selector": ".grid > div",
+            "index": 43,
+            "width": 78,
+            "height": 78,
+            "ratio": "1.00",
+            "aspectRatio": "auto",
+            "padding": "0px",
+            "margin": "0px",
+            "className": "relative overflow-hidden",
+            "textContent": "..."
+          },
+          {
+            "selector": ".grid > div",
+            "index": 44,
+            "width": 78,
+            "height": 78,
+            "ratio": "1.00",
+            "aspectRatio": "auto",
+            "padding": "0px",
+            "margin": "0px",
+            "className": "relative overflow-hidden",
+            "textContent": "..."
+          },
+          {
+            "selector": ".grid > div",
+            "index": 45,
+            "width": 78,
+            "height": 78,
+            "ratio": "1.00",
+            "aspectRatio": "auto",
+            "padding": "0px",
+            "margin": "0px",
+            "className": "relative overflow-hidden",
+            "textContent": "..."
+          },
+          {
+            "selector": ".grid > div",
+            "index": 46,
+            "width": 78,
+            "height": 78,
+            "ratio": "1.00",
+            "aspectRatio": "auto",
+            "padding": "0px",
+            "margin": "0px",
+            "className": "relative overflow-hidden",
+            "textContent": "..."
+          },
+          {
+            "selector": "[class*=\"card\"]",
+            "index": 8,
+            "width": 78,
+            "height": 78,
+            "ratio": "1.00",
+            "aspectRatio": "auto",
+            "padding": "0px",
+            "margin": "0px",
+            "className": "w-full h-full bg-spotify-card",
+            "textContent": "..."
+          },
+          {
+            "selector": "[class*=\"card\"]",
+            "index": 13,
+            "width": 320,
+            "height": 740,
+            "ratio": "0.43",
+            "aspectRatio": "auto",
+            "padding": "0px",
+            "margin": "0px",
+            "className": "hidden lg:block bg-spotify-card rounded-t-lg overflow-y-auto spotify-scrollbar ",
+            "textContent": "Did Kansas Win?Personal Project20242 weeksAbout th..."
+          },
+          {
+            "selector": "[class*=\"card\"]",
+            "index": 14,
+            "width": 310,
+            "height": 310,
+            "ratio": "1.00",
+            "aspectRatio": "auto",
+            "padding": "0px",
+            "margin": "0px",
+            "className": "relative overflow-hidden bg-spotify-card rounded-lg rounded-t-lg",
+            "textContent": "..."
+          },
+          {
+            "selector": ".rounded-md",
+            "index": 0,
+            "width": 293,
+            "height": 64,
+            "ratio": "4.58",
+            "aspectRatio": "auto",
+            "padding": "8px",
+            "margin": "0px",
+            "className": "flex items-center w-full text-left rounded-md hover:bg-spotify-hover transition-colors group space-x-3 py-2 px-2",
+            "textContent": "TIRecently PlayedCollection • 5 tracks..."
+          },
+          {
+            "selector": ".rounded-md",
+            "index": 1,
+            "width": 293,
+            "height": 64,
+            "ratio": "4.58",
+            "aspectRatio": "auto",
+            "padding": "8px",
+            "margin": "4px 0px 0px",
+            "className": "flex items-center w-full text-left rounded-md hover:bg-spotify-hover transition-colors group space-x-3 py-2 px-2",
+            "textContent": "DETop HitsCollection • 4 tracks..."
+          },
+          {
+            "selector": ".rounded-md",
+            "index": 2,
+            "width": 293,
+            "height": 64,
+            "ratio": "4.58",
+            "aspectRatio": "auto",
+            "padding": "8px",
+            "margin": "4px 0px 0px",
+            "className": "flex items-center w-full text-left rounded-md hover:bg-spotify-hover transition-colors group space-x-3 py-2 px-2",
+            "textContent": "Side ProjectsCollection • 3 tracks..."
+          },
+          {
+            "selector": ".rounded-md",
+            "index": 3,
+            "width": 293,
+            "height": 64,
+            "ratio": "4.58",
+            "aspectRatio": "auto",
+            "padding": "8px",
+            "margin": "4px 0px 0px",
+            "className": "flex items-center w-full text-left rounded-md hover:bg-spotify-hover transition-colors group space-x-3 py-2 px-2",
+            "textContent": "TICampbell Zafar LawWorkplace • 2 tracks..."
+          },
+          {
+            "selector": ".rounded-md",
+            "index": 4,
+            "width": 293,
+            "height": 64,
+            "ratio": "4.58",
+            "aspectRatio": "auto",
+            "padding": "8px",
+            "margin": "4px 0px 0px",
+            "className": "flex items-center w-full text-left rounded-md hover:bg-spotify-hover transition-colors group space-x-3 py-2 px-2",
+            "textContent": "DEDDxWorkplace • 2 tracks..."
+          },
+          {
+            "selector": ".rounded-md",
+            "index": 5,
+            "width": 293,
+            "height": 64,
+            "ratio": "4.58",
+            "aspectRatio": "auto",
+            "padding": "8px",
+            "margin": "4px 0px 0px",
+            "className": "flex items-center w-full text-left rounded-md hover:bg-spotify-hover transition-colors group space-x-3 py-2 px-2",
+            "textContent": "Ad HocWorkplace • 2 tracks..."
+          },
+          {
+            "selector": ".rounded-md",
+            "index": 6,
+            "width": 293,
+            "height": 64,
+            "ratio": "4.58",
+            "aspectRatio": "auto",
+            "padding": "8px",
+            "margin": "4px 0px 0px",
+            "className": "flex items-center w-full text-left rounded-md hover:bg-spotify-hover transition-colors group space-x-3 py-2 px-2",
+            "textContent": "DEBackend DevelopmentCollection • 6 tracks..."
+          },
+          {
+            "selector": ".rounded-md",
+            "index": 7,
+            "width": 293,
+            "height": 64,
+            "ratio": "4.58",
+            "aspectRatio": "auto",
+            "padding": "8px",
+            "margin": "4px 0px 0px",
+            "className": "flex items-center w-full text-left rounded-md hover:bg-spotify-hover transition-colors group space-x-3 py-2 px-2",
+            "textContent": "Data EngineeringCollection • 3 tracks..."
+          },
+          {
+            "selector": ".rounded-md",
+            "index": 8,
+            "width": 293,
+            "height": 64,
+            "ratio": "4.58",
+            "aspectRatio": "auto",
+            "padding": "8px",
+            "margin": "4px 0px 0px",
+            "className": "flex items-center w-full text-left rounded-md hover:bg-spotify-hover transition-colors group space-x-3 py-2 px-2",
+            "textContent": "Election Data PipelineSoftware Engineer - DDx..."
+          },
+          {
+            "selector": ".rounded-md",
+            "index": 9,
+            "width": 293,
+            "height": 64,
+            "ratio": "4.58",
+            "aspectRatio": "auto",
+            "padding": "8px",
+            "margin": "4px 0px 0px",
+            "className": "flex items-center w-full text-left rounded-md hover:bg-spotify-hover transition-colors group space-x-3 py-2 px-2",
+            "textContent": "Mobile API RebuildSoftware Developer - BG Products..."
+          },
+          {
+            "selector": ".rounded-md",
+            "index": 10,
+            "width": 293,
+            "height": 64,
+            "ratio": "4.58",
+            "aspectRatio": "auto",
+            "padding": "8px",
+            "margin": "4px 0px 0px",
+            "className": "flex items-center w-full text-left rounded-md hover:bg-spotify-hover transition-colors group space-x-3 py-2 px-2",
+            "textContent": "Medicare.gov ETLSoftware Engineer III - Ad Hoc..."
+          },
+          {
+            "selector": ".rounded-md",
+            "index": 11,
+            "width": 293,
+            "height": 64,
+            "ratio": "4.58",
+            "aspectRatio": "auto",
+            "padding": "8px",
+            "margin": "4px 0px 0px",
+            "className": "flex items-center w-full text-left rounded-md hover:bg-spotify-hover transition-colors group space-x-3 py-2 px-2",
+            "textContent": "DEDemocracy EngineSoftware Engineer - DDx..."
+          },
+          {
+            "selector": ".rounded-md",
+            "index": 12,
+            "width": 293,
+            "height": 64,
+            "ratio": "4.58",
+            "aspectRatio": "auto",
+            "padding": "8px",
+            "margin": "4px 0px 0px",
+            "className": "flex items-center w-full text-left rounded-md hover:bg-spotify-hover transition-colors group space-x-3 py-2 px-2",
+            "textContent": "Healthcare API ExtensionsSoftware Engineer III - A..."
+          },
+          {
+            "selector": ".rounded-md",
+            "index": 13,
+            "width": 293,
+            "height": 64,
+            "ratio": "4.58",
+            "aspectRatio": "auto",
+            "padding": "8px",
+            "margin": "4px 0px 0px",
+            "className": "flex items-center w-full text-left rounded-md hover:bg-spotify-hover transition-colors group space-x-3 py-2 px-2",
+            "textContent": "API Engine OptimizationLead Software Engineer - SN..."
+          },
+          {
+            "selector": ".rounded-md",
+            "index": 14,
+            "width": 293,
+            "height": 64,
+            "ratio": "4.58",
+            "aspectRatio": "auto",
+            "padding": "8px",
+            "margin": "4px 0px 0px",
+            "className": "flex items-center w-full text-left rounded-md hover:bg-spotify-hover transition-colors group space-x-3 py-2 px-2",
+            "textContent": "Beer FridgePersonal Project..."
+          },
+          {
+            "selector": ".rounded-md",
+            "index": 15,
+            "width": 293,
+            "height": 64,
+            "ratio": "4.58",
+            "aspectRatio": "auto",
+            "padding": "8px",
+            "margin": "4px 0px 0px",
+            "className": "flex items-center w-full text-left rounded-md hover:bg-spotify-hover transition-colors group space-x-3 py-2 px-2",
+            "textContent": "Did Kansas Win?Personal Project..."
+          },
+          {
+            "selector": ".rounded-md",
+            "index": 16,
+            "width": 293,
+            "height": 64,
+            "ratio": "4.58",
+            "aspectRatio": "auto",
+            "padding": "8px",
+            "margin": "4px 0px 0px",
+            "className": "flex items-center w-full text-left rounded-md hover:bg-spotify-hover transition-colors group space-x-3 py-2 px-2",
+            "textContent": "Wichita RadarPersonal Project..."
+          },
+          {
+            "selector": ".rounded-md",
+            "index": 17,
+            "width": 293,
+            "height": 64,
+            "ratio": "4.58",
+            "aspectRatio": "auto",
+            "padding": "8px",
+            "margin": "4px 0px 0px",
+            "className": "flex items-center w-full text-left rounded-md hover:bg-spotify-hover transition-colors group space-x-3 py-2 px-2",
+            "textContent": "Launch Project ManagementFounding Operations & Tec..."
+          },
+          {
+            "selector": ".rounded-md",
+            "index": 18,
+            "width": 293,
+            "height": 64,
+            "ratio": "4.58",
+            "aspectRatio": "auto",
+            "padding": "8px",
+            "margin": "4px 0px 0px",
+            "className": "flex items-center w-full text-left rounded-md hover:bg-spotify-hover transition-colors group space-x-3 py-2 px-2",
+            "textContent": "TITechnology Infrastructure & SystemsFounding Oper..."
+          }
+        ],
+        "individualCards": []
+      }
+    },
+    "spotify": {
+      "url": "https://open.spotify.com",
+      "measurements": {
+        "mainSections": [
+          {
+            "index": 0,
+            "width": 1005,
+            "height": 269,
+            "className": "iKwGKEfAfW7Rkx2_Ba4E Z4InHgCs2uhk0MU93y_a deJGxfMNXUc8uApEGgoQ fJTotRs7ANTq1nrBwlqA",
+            "testId": "grid-container"
+          },
+          {
+            "index": 1,
+            "width": 1005,
+            "height": 269,
+            "className": "iKwGKEfAfW7Rkx2_Ba4E Z4InHgCs2uhk0MU93y_a deJGxfMNXUc8uApEGgoQ fJTotRs7ANTq1nrBwlqA",
+            "testId": "grid-container"
+          },
+          {
+            "index": 2,
+            "width": 1005,
+            "height": 269,
+            "className": "iKwGKEfAfW7Rkx2_Ba4E Z4InHgCs2uhk0MU93y_a deJGxfMNXUc8uApEGgoQ fJTotRs7ANTq1nrBwlqA",
+            "testId": "grid-container"
+          },
+          {
+            "index": 3,
+            "width": 1005,
+            "height": 269,
+            "className": "iKwGKEfAfW7Rkx2_Ba4E Z4InHgCs2uhk0MU93y_a deJGxfMNXUc8uApEGgoQ fJTotRs7ANTq1nrBwlqA",
+            "testId": "grid-container"
+          },
+          {
+            "index": 4,
+            "width": 1005,
+            "height": 269,
+            "className": "iKwGKEfAfW7Rkx2_Ba4E Z4InHgCs2uhk0MU93y_a deJGxfMNXUc8uApEGgoQ fJTotRs7ANTq1nrBwlqA",
+            "testId": "grid-container"
+          },
+          {
+            "index": 5,
+            "width": 1005,
+            "height": 269,
+            "className": "iKwGKEfAfW7Rkx2_Ba4E Z4InHgCs2uhk0MU93y_a deJGxfMNXUc8uApEGgoQ fJTotRs7ANTq1nrBwlqA",
+            "testId": "grid-container"
+          }
+        ],
+        "cardContainers": [
+          {
+            "index": 1,
+            "width": 1085,
+            "height": 256,
+            "ratio": "4.24",
+            "className": "S4OmZ_IZexmZ5dasPqW5",
+            "href": "N/A",
+            "textContent": "..."
+          }
+        ]
+      }
+    }
+  },
+  "summary": {
+    "joshifyCardCount": 37,
+    "spotifyCardCount": 1,
+    "analysis": [],
+    "joshify": {
+      "avgWidth": 209,
+      "avgHeight": 94,
+      "avgRatio": "2.96",
+      "cardCount": 37
+    },
+    "spotify": {
+      "avgWidth": 1085,
+      "avgHeight": 256,
+      "avgRatio": "4.24",
+      "cardCount": 1
+    },
+    "differences": {
+      "widthDifference": -876,
+      "heightDifference": -162,
+      "ratioDifference": "-1.28",
+      "analysis": "Spotify cards are wider"
+    }
+  }
+}
