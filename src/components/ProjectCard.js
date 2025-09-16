@@ -21,11 +21,11 @@ const ProjectCard = ({
     <div className={`group relative cursor-pointer ${
       size === 'large' 
         ? 'flex items-center bg-white/10 rounded overflow-hidden transition-all duration-300' 
-        : 'bg-spotify-card rounded p-2 hover:bg-spotify-hover transition-all duration-300 w-[140px] sm:w-[155px] md:w-[170px] lg:w-[188px]'
+        : 'bg-spotify-card rounded p-1.5 hover:bg-spotify-hover transition-all duration-300 w-[140px] sm:w-[155px] md:w-[170px] lg:w-[188px]'
     }`}
     onClick={() => onProjectClick && onProjectClick(project)}>
       {/* Album art (no play button overlay for large size) */}
-      <div className={`relative ${size === 'large' ? 'mb-0' : 'mb-1'}`}>
+      <div className={`relative ${size === 'large' ? 'mb-0' : 'mb-0.5'}`}>
         <ProjectImage
           project={project}
           size={size === 'large' ? 'custom' : 'custom'}
@@ -55,7 +55,7 @@ const ProjectCard = ({
       {/* Text content */}
       <div className={size === 'large' ? 'flex-1 min-w-0 px-4 flex flex-col justify-center h-16' : ''}>
         <h3 
-          className="text-spotify-primary font-semibold truncate mb-0.5 text-base hover:underline cursor-pointer"
+          className="text-spotify-primary font-semibold truncate mb-0 text-base hover:underline cursor-pointer"
           onClick={(e) => {
             e.stopPropagation();
             onProjectClick && onProjectClick(project);
