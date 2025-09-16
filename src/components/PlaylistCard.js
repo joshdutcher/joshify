@@ -25,14 +25,14 @@ const PlaylistCard = ({
 
   return (
     <div 
-      className={`group relative bg-transparent rounded-lg p-2 hover:bg-white/10 transition-all duration-300 cursor-pointer ${
+      className={`group relative bg-transparent rounded-lg p-1.5 hover:bg-white/10 transition-all duration-300 cursor-pointer ${
         size === 'large' ? 'flex items-center space-x-4' : 'w-[140px] sm:w-[155px] md:w-[170px] lg:w-[188px]'
       }`}
       style={cardStyle}
       onClick={() => onPlaylistClick && onPlaylistClick(playlist)}
     >
       {/* Playlist cover art (no play button overlay for large size) */}
-      <div className={`relative ${size === 'large' ? 'mb-0' : 'mb-1'}`}>
+      <div className={`relative ${size === 'large' ? 'mb-0' : 'mb-0.5'}`}>
         <PlaylistCoverArt
           playlist={playlist}
           size="custom"
@@ -62,7 +62,7 @@ const PlaylistCard = ({
       {/* Text content - constrained to card width */}
       <div className={size === 'large' ? 'flex-1 min-w-0' : 'w-full'}>
         <h3 
-          className="text-spotify-primary font-semibold truncate mb-0.5 text-base hover:underline cursor-pointer"
+          className="text-spotify-primary font-semibold truncate mb-0 text-base hover:underline cursor-pointer"
           onClick={(e) => {
             e.stopPropagation();
             onPlaylistClick && onPlaylistClick(playlist);

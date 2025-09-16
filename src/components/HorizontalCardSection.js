@@ -18,12 +18,12 @@ const HorizontalCard = ({
     : (currentlyPlaying?.id === item.id && isPlaying);
 
   return (
-    <div 
-      className="group relative bg-transparent rounded p-2 hover:bg-white/10 transition-all duration-300 cursor-pointer w-[140px] sm:w-[155px] md:w-[170px] lg:w-[188px]"
+    <div
+      className="group relative bg-transparent rounded p-1.5 hover:bg-white/10 transition-all duration-300 cursor-pointer w-[140px] sm:w-[155px] md:w-[170px] lg:w-[188px]"
       onClick={() => onClick && onClick(item)}
     >
       {/* Cover Art */}
-      <div className="relative mb-1">
+      <div className="relative mb-0.5">
         {type === 'playlist' ? (
           <PlaylistCoverArt
             playlist={item}
@@ -60,8 +60,8 @@ const HorizontalCard = ({
 
       {/* Text content - constrained to card width */}
       <div className="w-full">
-        <h3 
-          className="text-spotify-primary font-semibold truncate mb-0.5 text-base hover:underline cursor-pointer"
+        <h3
+          className="text-spotify-primary font-semibold truncate mb-0 text-base hover:underline cursor-pointer"
           onClick={(e) => {
             e.stopPropagation();
             onClick && onClick(item);
