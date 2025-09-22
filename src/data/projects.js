@@ -1,261 +1,276 @@
 import { Clock, Heart, User, Plus } from 'lucide-react';
 
 // Project data structure
-export const projects = {
-  recentWork: [
+export const projects = [
     {
-      id: 'ddx-election',
-      title: 'Election Data Pipeline',
-      artist: 'Software Engineer - DDx',
-      album: '2024 Presidential Election',
-      duration: '8 months',
-      image: '/album-art/ddx-election.png',
-      year: '2024',
-      plays: '20.4M',
-      description: 'High-impact election data infrastructure delivering 20.4 million voter records during the critical final 2 months of the 2024 presidential election. Architected scalable Python ETL pipelines utilizing AWS Lambda for serverless processing, DynamoDB for real-time data storage, and SNS/SQS for reliable message queuing. Integrated with Snowflake data warehouse for analytics and reporting. The system handled massive data volumes under tight deadlines while maintaining data integrity and performance. This project demonstrates expertise in high-stakes, time-sensitive data engineering with enterprise-grade cloud architecture.',
-      skills: ['Python', 'AWS', 'Snowflake', 'ETL', 'High-Volume Data'],
-      demoUrl: null,
-      githubUrl: null,
-      featured: true,
-      isAlbum: true,
-      albumArtBasedOn: 'Tubular Bells by Mike Oldfield'
+        id: 'election-data-pipeline',
+        title: 'Election Data Pipeline',
+        artist: 'Project - DDx',
+        album: '2024 Presidential Election',
+        duration: '8 months',
+        image: '/album-art/ddx-election.png',
+        year: '2024',
+        plays: '20.4M',
+        description: 'High-impact election data infrastructure delivering 20.4 million voter records during the critical final 2 months of the 2024 presidential election. Architected scalable Python ETL pipelines utilizing AWS Lambda for serverless processing, DynamoDB for real-time data storage, and SNS/SQS for reliable message queuing. Integrated with Snowflake data warehouse for analytics and reporting. The system handled massive data volumes under tight deadlines while maintaining data integrity and performance. This project demonstrates expertise in high-stakes, time-sensitive data engineering with enterprise-grade cloud architecture.',
+        skills: ['Python', 'AWS', 'Snowflake', 'ETL', 'High-Volume Data'],
+        demoUrl: null,
+        githubUrl: null,
+        canvas: null,
+        featured: true,
+        albumArtBasedOn: 'Tubular Bells by Mike Oldfield'
     },
     {
-      id: 'mobile-api',
-      title: 'Mobile API Rebuild',
-      artist: 'Software Developer - BG Products',
-      album: 'Automotive Tech',
-      duration: '1.5 years',
-      image: '/album-art/mobile-api.png',
-      year: '2019',
-      plays: '1000%',
-      description: 'Complete API backend rebuild delivering a 1000% performance improvement for automotive mobile applications. Replaced legacy systems with modern, scalable architecture while automating vendor data integration through Azure Functions. The new system dramatically improved user experience and operational efficiency, demonstrating expertise in performance optimization and cloud-native development. This project showcases the ability to modernize critical business systems while maintaining data integrity and minimizing downtime.',
-      skills: ['API Development', 'Azure', 'Performance Optimization', 'ETL'],
-      demoUrl: null,
-      githubUrl: null,
-      featured: true,
-      isAlbum: true,
-      albumArtBasedOn: 'Run The Jewels 2 by Run The Jewels'
+        id: 'mobile-api-rebuild',
+        title: 'Mobile API Rebuild',
+        artist: 'Project - BG Products',
+        album: 'Automotive Tech',
+        duration: '1.5 years',
+        image: '/album-art/mobile-api.png',
+        year: '2019',
+        plays: '1000%',
+        description: 'Complete API backend rebuild delivering a 1000% performance improvement for automotive mobile applications. Replaced legacy systems with modern, scalable architecture while automating vendor data integration through Azure Functions. The new system dramatically improved user experience and operational efficiency, demonstrating expertise in performance optimization and cloud-native development. This project showcases the ability to modernize critical business systems while maintaining data integrity and minimizing downtime.',
+        skills: ['API Development', 'Azure', 'Performance Optimization', 'ETL'],
+        demoUrl: null,
+        githubUrl: null,
+        canvas: null,
+        featured: true,
+        albumArtBasedOn: 'Run The Jewels 2 by Run The Jewels'
+    },
+    {
+        id: 'healthcare-etl',
+        title: 'Medicare.gov ETL',
+        artist: 'Project - Ad Hoc',
+        album: 'Government Healthcare',
+        duration: '3.5 years',
+        image: '/album-art/healthcare-etl.png',
+        year: '2023',
+        plays: '982K',
+        description: 'Mission-critical healthcare data infrastructure processing millions of daily health insurance records for Medicare.gov. Engineered high-volume ETL pipelines that maintained 100% uptime during Open Enrollment periods, handling peak loads of 80,000 requests per minute. Built robust, fault-tolerant systems ensuring seamless access to healthcare information for millions of Americans during critical enrollment windows. This role required deep expertise in government compliance, healthcare data standards, and building systems that never fail when people need them most.',
+        skills: ['Python', 'ETL', 'APIs', 'High Availability', 'Healthcare'],
+        demoUrl: null,
+        githubUrl: null,
+        canvas: '/canvases/did-kansas-win.mp4',
+        featured: true,
+        albumArtBasedOn: 'Ready to Die by The Notorious B.I.G.'
+    },
+    {
+        id: 'democracy-engine',
+        title: 'Democracy Engine',
+        artist: 'Project - DDx',
+        album: 'Cloud Infrastructure',
+        duration: '8 months',
+        image: null,
+        year: '2024',
+        plays: 'Scalable',
+        description: 'Architected and implemented comprehensive AWS infrastructure supporting high-volume election data processing pipelines. Built resilient serverless architecture utilizing Lambda functions, DynamoDB tables, and sophisticated IAM policies for secure data access. Implemented SNS and SQS messaging systems for reliable, fault-tolerant data flow across distributed components. This infrastructure handled massive election data loads while maintaining security, scalability, and cost efficiency. Demonstrates expertise in cloud-native architecture and the ability to design systems that scale automatically under pressure.',
+        skills: ['AWS', 'Lambda', 'DynamoDB', 'IAM', 'Infrastructure as Code', 'Python'],
+        demoUrl: null,
+        githubUrl: null,
+        canvas: null,
+        featured: true,
+        albumArtBasedOn: null
+    },
+    {
+        id: 'healthcare-api-extensions',
+        title: 'Healthcare API Extensions',
+        artist: 'Project - Ad Hoc',
+        album: 'Government Healthcare',
+        duration: '3.5 years',
+        image: '/album-art/healthcare-api-extensions.png',
+        year: '2023',
+        plays: 'Critical',
+        description: 'Extended and automated critical healthcare APIs to meet evolving client requirements while maintaining 100% system reliability. Led rapid response efforts to diagnose and resolve production incidents, ensuring uninterrupted access to healthcare services. Fostered seamless communication between engineering and product teams, translating complex technical concepts for non-technical stakeholders. This role required balancing technical excellence with clear communication, demonstrating the ability to deliver robust solutions while building bridges across organizational boundaries in high-stakes government healthcare systems.',
+        skills: ['API Development', 'Healthcare', 'Production Support', 'Process Automation', 'Cross-functional Collaboration'],
+        demoUrl: null,
+        githubUrl: null,
+        canvas: null,
+        featured: true,
+        albumArtBasedOn: 'The Low End Theory by A Tribe Called Quest'
+    },
+    {
+        id: 'api-optimization',
+        title: 'API Engine Optimization',
+        artist: 'Project - SNT Media',
+        album: 'Media Technology',
+        duration: '2 years',
+        image: '/album-art/api-engine.png',
+        year: '2017',
+        plays: '$18K',
+        description: 'Led comprehensive optimization of API data-fetching engine, achieving a 98% reduction in API calls and generating $18,000 in monthly cost savings while simultaneously enhancing data precision. As Lead Software Engineer, architected intelligent caching and batching strategies that transformed system efficiency without compromising accuracy. This project demonstrates leadership in both technical innovation and business impact, showing how strategic engineering decisions can deliver significant ROI while improving system performance.',
+        skills: ['API Optimization', 'Cost Reduction', 'Team Leadership', 'Performance Engineering'],
+        demoUrl: null,
+        githubUrl: null,
+        canvas: null,
+        featured: true,
+        albumArtBasedOn: 'Nevermind the Bollocks, Here\'s the Sex Pistols by The Sex Pistols'
+    },
+    {
+        id: 'beer-fridge',
+        title: 'Beer Fridge',
+        artist: 'Project',
+        album: 'Android Development',
+        duration: 'In Progress',
+        image: '/album-art/beer-fridge.png',
+        year: '2025',
+        plays: '53MB',
+        description: 'Advanced Android application for personal collection management currently in development. Features modern Material Design 3 interface built on robust MVVM architecture with Hilt dependency injection. Key highlights include intelligent fuzzy matching for item lookup, smart duplicate detection, and seamless CameraX integration for quick item scanning. Utilizes Room database for efficient local storage with whisper-quiet performance. The app demonstrates expertise in contemporary Android development patterns while delivering an intuitive user experience that rivals Google first-party applications. This project showcases the ability to balance technical sophistication with accessibility, proving that complex functionality can be elegantly simplified.',
+        skills: ['Android', 'Kotlin', 'Material Design 3', 'CameraX', 'Room Database', 'MVVM', 'Hilt DI'],
+        demoUrl: null,
+        githubUrl: 'https://github.com/joshdutcher/BeerFridge',
+        canvas: null,
+        featured: true,
+        albumArtBasedOn: 'Dark Side of the Moon by Pink Floyd'
+    },
+    {
+        id: 'did-kansas-win',
+        title: 'Did Kansas Win?',
+        artist: 'Project',
+        album: 'Web Development',
+        duration: '2 weeks',
+        image: '/album-art/did-kansas-win.png',
+        year: '2024',
+        plays: 'Live',
+        description: 'Elegant single-purpose web application providing real-time Kansas Jayhawks basketball results. Built with Node.js and Express, featuring live ESPN API integration and responsive design. The project demonstrates clean, focused development principles and API integration skills while solving a specific user need with minimal complexity. Sometimes the best solutions are the simplest ones, and this project showcases the ability to deliver exactly what users want without unnecessary features.',
+        skills: ['Node.js', 'Express', 'ESPN API', 'Responsive Design'],
+        demoUrl: 'https://www.didkansaswin.com',
+        githubUrl: null,
+        canvas: null,
+        featured: true,
+        albumArtBasedOn: 'Graduation by Kanye West'
+    },
+    {
+        id: 'wichita-radar',
+        title: 'Wichita Radar',
+        artist: 'Project',
+        album: 'Go Development',
+        duration: '1 month',
+        image: '/album-art/wichita-radar.png',
+        year: '2024',
+        plays: 'Live',
+        description: 'Real-time weather monitoring dashboard built with Go, aggregating live radar and satellite imagery specifically for Wichita, KS. Features automatic data refresh, mobile-responsive design using PureCSS, and efficient API integration with weather services. This project showcases Go programming skills and the ability to create practical, location-specific applications that serve real user needs. The clean, performant architecture demonstrates expertise in backend development and responsive web design.',
+        skills: ['Go', 'HTML Templating', 'Weather APIs', 'PureCSS'],
+        demoUrl: 'https://wichitaradar.com',
+        githubUrl: 'https://github.com/joshdutcher/wichitaradar',
+        canvas: '/canvases/wichitaradar.mp4',
+        albumArtBasedOn: 'Discovery by Daft Punk'
+    },
+    {
+        id: 'cz-launch-management',
+        title: 'Launch Project Management',
+        artist: 'Project - Campbell Zafar Law',
+        album: 'Campbell Zafar Law',
+        duration: '4 months',
+        image: '/album-art/cz-launch-management.png',
+        year: '2025',
+        plays: 'Coordinated',
+        description: 'Orchestrated the complex launch of a boutique law firm through multi-vendor project management and timeline coordination. Served as primary liaison managing photographers, designers, signage vendors, and printing services while ensuring brand assets, signage, and marketing collateral were delivered on schedule for launch day. Successfully coordinated office setup logistics including furniture procurement, equipment installation, and workflow design. This project demonstrates expertise in managing multiple concurrent deliverables with tight interdependencies, ensuring a seamless launch experience that allowed the attorneys to focus on client service from day one.',
+        skills: ['Project Management', 'Vendor Coordination', 'Timeline Management', 'Procurement', 'Launch Strategy'],
+        demoUrl: null,
+        githubUrl: null,
+        canvas: null,
+        featured: true,
+        albumArtBasedOn: 'BRAT by Charli xcx'
+    },
+    {
+        id: 'cz-technology-infrastructure',
+        title: 'Technology Infrastructure & Systems',
+        artist: 'Project - Campbell Zafar Law',
+        album: 'Campbell Zafar Law',
+        duration: '3 months',
+        image: null, // Will use Campbell Zafar tiled fallback
+        year: '2025',
+        plays: 'Configured',
+        description: 'Architected and implemented comprehensive technology infrastructure for a legal startup from the ground up. Configured Google Workspace with domain-wide settings, user permissions, and security policies while building the firm\'s professional website on Squarespace with integrated SEO strategy. Implemented VoIP phone systems, mesh Wi-Fi networking, and cross-device printer configuration ensuring seamless office connectivity. Led hands-on technical setup of computers, peripherals, and office networking infrastructure. This project showcases the ability to translate business requirements into technical solutions while maintaining security best practices and operational efficiency in a professional services environment.',
+        skills: ['Google Workspace Administration', 'Network Configuration', 'VoIP Systems', 'Web Development', 'SEO Strategy', 'Hardware Setup'],
+        demoUrl: null,
+        githubUrl: null,
+        canvas: null,
+        featured: true,
+        albumArtBasedOn: null
     }
-  ],
-  topHits: [
-    {
-      id: 'healthcare-etl',
-      title: 'Medicare.gov ETL',
-      artist: 'Software Engineer III - Ad Hoc',
-      album: 'Government Healthcare',
-      duration: '3.5 years',
-      image: '/album-art/healthcare-etl.png',
-      year: '2023',
-      plays: '982K',
-      description: 'Mission-critical healthcare data infrastructure processing millions of daily health insurance records for Medicare.gov. Engineered high-volume ETL pipelines that maintained 100% uptime during Open Enrollment periods, handling peak loads of 80,000 requests per minute. Built robust, fault-tolerant systems ensuring seamless access to healthcare information for millions of Americans during critical enrollment windows. This role required deep expertise in government compliance, healthcare data standards, and building systems that never fail when people need them most.',
-      skills: ['Python', 'ETL', 'APIs', 'High Availability', 'Healthcare'],
-      demoUrl: null,
-      githubUrl: null,
-      canvas: '/canvases/did-kansas-win.mp4',
-      featured: true,
-      isAlbum: true,
-      albumArtBasedOn: 'Ready to Die by The Notorious B.I.G.'
-    },
-    {
-      id: 'aws-infrastructure',
-      title: 'Democracy Engine',
-      artist: 'Software Engineer - DDx',
-      album: 'Cloud Infrastructure',
-      duration: '8 months',
-      image: null,
-      year: '2024',
-      plays: 'Scalable',
-      description: 'Architected and implemented comprehensive AWS infrastructure supporting high-volume election data processing pipelines. Built resilient serverless architecture utilizing Lambda functions, DynamoDB tables, and sophisticated IAM policies for secure data access. Implemented SNS and SQS messaging systems for reliable, fault-tolerant data flow across distributed components. This infrastructure handled massive election data loads while maintaining security, scalability, and cost efficiency. Demonstrates expertise in cloud-native architecture and the ability to design systems that scale automatically under pressure.',
-      skills: ['AWS', 'Lambda', 'DynamoDB', 'IAM', 'Infrastructure as Code', 'Python'],
-      demoUrl: null,
-      githubUrl: null,
-      featured: true
-    },
-    {
-      id: 'healthcare-api-extensions',
-      title: 'Healthcare API Extensions',
-      artist: 'Software Engineer III - Ad Hoc',
-      album: 'Government Healthcare',
-      duration: '3.5 years',
-      image: '/album-art/healthcare-api-extensions.png',
-      year: '2023',
-      plays: 'Critical',
-      description: 'Extended and automated critical healthcare APIs to meet evolving client requirements while maintaining 100% system reliability. Led rapid response efforts to diagnose and resolve production incidents, ensuring uninterrupted access to healthcare services. Fostered seamless communication between engineering and product teams, translating complex technical concepts for non-technical stakeholders. This role required balancing technical excellence with clear communication, demonstrating the ability to deliver robust solutions while building bridges across organizational boundaries in high-stakes government healthcare systems.',
-      skills: ['API Development', 'Healthcare', 'Production Support', 'Process Automation', 'Cross-functional Collaboration'],
-      demoUrl: null,
-      githubUrl: null,
-      featured: true,
-      isAlbum: true,
-      albumArtBasedOn: 'The Low End Theory by A Tribe Called Quest'
-    },
-    {
-      id: 'api-optimization',
-      title: 'API Engine Optimization',
-      artist: 'Lead Software Engineer - SNT Media',
-      album: 'Media Technology',
-      duration: '2 years',
-      image: '/album-art/api-engine.png',
-      year: '2017',
-      plays: '$18K',
-      description: 'Led comprehensive optimization of API data-fetching engine, achieving a 98% reduction in API calls and generating $18,000 in monthly cost savings while simultaneously enhancing data precision. As Lead Software Engineer, architected intelligent caching and batching strategies that transformed system efficiency without compromising accuracy. This project demonstrates leadership in both technical innovation and business impact, showing how strategic engineering decisions can deliver significant ROI while improving system performance.',
-      skills: ['API Optimization', 'Cost Reduction', 'Team Leadership', 'Performance Engineering'],
-      demoUrl: null,
-      githubUrl: null,
-      featured: true,
-      isAlbum: true,
-      albumArtBasedOn: 'Nevermind the Bollocks, Here\'s the Sex Pistols by The Sex Pistols'
-    }
-  ],
-  sideProjects: [
-    {
-      id: 'beer-fridge',
-      title: 'Beer Fridge',
-      artist: 'Personal Project',
-      album: 'Android Development',
-      duration: 'In Progress',
-      image: '/album-art/beer-fridge.png',
-      year: '2025',
-      plays: '53MB',
-      description: 'Advanced Android application for personal collection management currently in development. Features modern Material Design 3 interface built on robust MVVM architecture with Hilt dependency injection. Key highlights include intelligent fuzzy matching for item lookup, smart duplicate detection, and seamless CameraX integration for quick item scanning. Utilizes Room database for efficient local storage with whisper-quiet performance. The app demonstrates expertise in contemporary Android development patterns while delivering an intuitive user experience that rivals Google first-party applications. This project showcases the ability to balance technical sophistication with accessibility, proving that complex functionality can be elegantly simplified.',
-      skills: ['Android', 'Kotlin', 'Material Design 3', 'CameraX', 'Room Database', 'MVVM', 'Hilt DI'],
-      demoUrl: null,
-      githubUrl: 'https://github.com/joshdutcher/BeerFridge',
-      featured: true,
-      isAlbum: true,
-      albumArtBasedOn: 'Dark Side of the Moon by Pink Floyd'
-    },
-    {
-      id: 'did-kansas-win',
-      title: 'Did Kansas Win?',
-      artist: 'Personal Project',
-      album: 'Web Development',
-      duration: '2 weeks',
-      image: '/album-art/did-kansas-win.png',
-      year: '2024',
-      plays: 'Live',
-      description: 'Elegant single-purpose web application providing real-time Kansas Jayhawks basketball results. Built with Node.js and Express, featuring live ESPN API integration and responsive design. The project demonstrates clean, focused development principles and API integration skills while solving a specific user need with minimal complexity. Sometimes the best solutions are the simplest ones, and this project showcases the ability to deliver exactly what users want without unnecessary features.',
-      skills: ['Node.js', 'Express', 'ESPN API', 'Responsive Design'],
-      demoUrl: 'https://www.didkansaswin.com',
-      githubUrl: null,
-      featured: true,
-      isAlbum: true,
-      albumArtBasedOn: 'Graduation by Kanye West'
-    },
-    {
-      id: 'wichita-radar',
-      title: 'Wichita Radar',
-      artist: 'Personal Project',
-      album: 'Go Development',
-      duration: '1 month',
-      image: '/album-art/wichita-radar.png',
-      year: '2024',
-      plays: 'Live',
-      description: 'Real-time weather monitoring dashboard built with Go, aggregating live radar and satellite imagery specifically for Wichita, KS. Features automatic data refresh, mobile-responsive design using PureCSS, and efficient API integration with weather services. This project showcases Go programming skills and the ability to create practical, location-specific applications that serve real user needs. The clean, performant architecture demonstrates expertise in backend development and responsive web design.',
-      skills: ['Go', 'HTML Templating', 'Weather APIs', 'PureCSS'],
-      demoUrl: 'https://wichitaradar.com',
-      githubUrl: 'https://github.com/joshdutcher/wichitaradar',
-      isAlbum: true,
-      albumArtBasedOn: 'Discovery by Daft Punk'
-    }
-  ]
-};
-
-// Campbell Zafar specific projects (tracks within the Campbell Zafar playlist)
-export const campbellZafarProjects = [
-  {
-    id: 'cz-launch-management',
-    title: 'Launch Project Management',
-    artist: 'Founding Operations & Technology Manager',
-    album: 'Campbell Zafar Law',
-    duration: '4 months',
-    image: '/album-art/cz-launch-management.png',
-    year: '2025',
-    plays: 'Coordinated',
-    description: 'Orchestrated the complex launch of a boutique law firm through multi-vendor project management and timeline coordination. Served as primary liaison managing photographers, designers, signage vendors, and printing services while ensuring brand assets, signage, and marketing collateral were delivered on schedule for launch day. Successfully coordinated office setup logistics including furniture procurement, equipment installation, and workflow design. This project demonstrates expertise in managing multiple concurrent deliverables with tight interdependencies, ensuring a seamless launch experience that allowed the attorneys to focus on client service from day one.',
-    skills: ['Project Management', 'Vendor Coordination', 'Timeline Management', 'Procurement', 'Launch Strategy'],
-    demoUrl: null,
-    githubUrl: null,
-    featured: true,
-    isAlbum: true,
-    albumArtBasedOn: 'BRAT by Charli xcx'
-  },
-  {
-    id: 'cz-technology-infrastructure',
-    title: 'Technology Infrastructure & Systems',
-    artist: 'Founding Operations & Technology Manager',
-    album: 'Campbell Zafar Law',
-    duration: '3 months',
-    image: null, // Will use Campbell Zafar tiled fallback
-    year: '2025',
-    plays: 'Configured',
-    description: 'Architected and implemented comprehensive technology infrastructure for a legal startup from the ground up. Configured Google Workspace with domain-wide settings, user permissions, and security policies while building the firm\'s professional website on Squarespace with integrated SEO strategy. Implemented VoIP phone systems, mesh Wi-Fi networking, and cross-device printer configuration ensuring seamless office connectivity. Led hands-on technical setup of computers, peripherals, and office networking infrastructure. This project showcases the ability to translate business requirements into technical solutions while maintaining security best practices and operational efficiency in a professional services environment.',
-    skills: ['Google Workspace Administration', 'Network Configuration', 'VoIP Systems', 'Web Development', 'SEO Strategy', 'Hardware Setup'],
-    demoUrl: null,
-    githubUrl: null,
-    featured: true,
-    isAlbum: true
-  }
 ];
 
+// Helper function to get project objects by IDs
+const getProjectsByIds = (ids) => ids.map(id => projects.find(p => p.id === id)).filter(Boolean);
+
+export const campbellZafarProjects = getProjectsByIds(['cz-launch-management', 'cz-technology-infrastructure']);
+export const ddxProjects = getProjectsByIds(['election-data-pipeline', 'democracy-engine']);
+export const adHocProjects = getProjectsByIds(['healthcare-etl', 'healthcare-api-extensions']);
+export const backendDevelopmentProjects = getProjectsByIds(['mobile-api-rebuild', 'api-optimization']);
+export const dataEngineeringProjects = getProjectsByIds(['election-data-pipeline', 'healthcare-etl', 'healthcare-api-extensions']);
+export const recentWork = getProjectsByIds(['election-data-pipeline', 'mobile-api-rebuild', 'healthcare-etl', 'democracy-engine', 'healthcare-api-extensions', 'api-optimization', 'beer-fridge', 'did-kansas-win', 'wichita-radar']);
+export const topHits = getProjectsByIds(['election-data-pipeline', 'democracy-engine', 'healthcare-api-extensions']);
+export const sideProjects = getProjectsByIds(['beer-fridge', 'did-kansas-win', 'wichita-radar']);
+export const defaultNowPlaying = getProjectsByIds(['did-kansas-win']);
+
 export const playlists = [
-  {
-    name: 'Recently Played',
-    icon: Clock,
-    projects: [projects.recentWork[0], ...campbellZafarProjects, projects.sideProjects[1], projects.sideProjects[0]], // DDx + Campbell Zafar + Did Kansas Win + Beer Fridge
-    description: 'Fresh out the studio. Latest work from 2024-2025.'
-  },
-  {
-    name: 'Top Hits',
-    icon: Heart,
-    projects: projects.topHits,
-    description: 'The classics that made the cut. Career-defining engineering.'
-  },
-  {
-    name: 'Side Projects',
-    icon: User,
-    projects: projects.sideProjects,
-    description: 'After hours creativity. Personal passion projects and experiments.'
-  },
-  {
-    name: 'Campbell Zafar Law',
-    icon: Plus,
-    projects: campbellZafarProjects,
-    description: 'Founding Operations & Technology Manager building startup infrastructure from the ground up.',
-    image: '/album-art/campbell-zafar.png', // Custom playlist cover art
-    employer: true // Flag to identify this as an employer playlist
-  },
-  {
-    name: 'DDx',
-    icon: Plus,
-    projects: [projects.recentWork[0], projects.topHits[1]], // Election Data Pipeline, Democracy Engine
-    description: 'Software Engineer delivering election data infrastructure for 20.4M voters during 2024 presidential cycle.',
-    image: '/album-art/ddx.png', // Custom playlist cover art
-    employer: true // Flag to identify this as an employer playlist
-  },
-  {
-    name: 'Ad Hoc',
-    icon: Plus,
-    projects: [projects.topHits[0], projects.topHits[2]], // Medicare.gov ETL, Healthcare API Extensions
-    description: 'Software Engineer III powering Medicare.gov for millions of Americans. 3.5 years of healthcare tech.',
-    image: '/album-art/ad-hoc.png', // Custom playlist cover art
-    employer: true // Flag to identify this as an employer playlist
-  },
-  {
-    name: 'Backend Development',
-    icon: Plus,
-    projects: [...projects.topHits, ...projects.sideProjects.slice(0, 2)],
-    description: 'Server-side mastery. APIs, databases, and scalable systems.'
-  },
-  {
-    name: 'Data Engineering',
-    icon: Plus,
-    projects: [projects.recentWork[0], projects.topHits[0], projects.topHits[2]], // Election Data Pipeline, Medicare.gov ETL, Healthcare API Extensions
-    description: 'Moving millions of records. High-volume pipelines and ETL mastery.'
-  }
+    {
+        name: 'Recently Played',
+        icon: Clock,
+        projects: recentWork,
+        description: 'Fresh out the studio. Latest work from 2024-2025.',
+        image: null,
+        employer: false
+    },
+    {
+        name: 'Top Hits',
+        icon: Heart,
+        projects: topHits,
+        description: 'The classics that made the cut. Career-defining engineering.',
+        image: null,
+        employer: false
+    },
+    {
+        name: 'Side Projects',
+        icon: User,
+        projects: sideProjects,
+        description: 'After hours creativity. Personal passion projects and experiments.',
+        image: null,
+        employer: false
+    },
+    {
+        name: 'Campbell Zafar Law',
+        icon: Plus,
+        projects: campbellZafarProjects,
+        description: 'Founding Operations & Technology Manager building startup infrastructure from the ground up.',
+        image: '/album-art/campbell-zafar.png', // Custom playlist cover art
+        employer: true // Flag to identify this as an employer playlist
+    },
+    {
+        name: 'DDx',
+        icon: Plus,
+        projects: ddxProjects, // Election Data Pipeline, Democracy Engine
+        description: 'Software Engineer delivering election data infrastructure for 20.4M voters during 2024 presidential cycle.',
+        image: '/album-art/ddx.png', // Custom playlist cover art
+        employer: true // Flag to identify this as an employer playlist
+    },
+    {
+        name: 'Ad Hoc',
+        icon: Plus,
+        projects: adHocProjects, // Medicare.gov ETL, Healthcare API Extensions
+        description: 'Software Engineer III powering Medicare.gov for millions of Americans. 3.5 years of healthcare tech.',
+        image: '/album-art/ad-hoc.png', // Custom playlist cover art
+        employer: true // Flag to identify this as an employer playlist
+    },
+    {
+        name: 'Backend Development',
+        icon: Plus,
+        projects: backendDevelopmentProjects,
+        description: 'Server-side mastery. APIs, databases, and scalable systems.',
+        image: null,
+        employer: false
+    },
+    {
+        name: 'Data Engineering',
+        icon: Plus,
+        projects: dataEngineeringProjects,
+        description: 'Moving millions of records. High-volume pipelines and ETL mastery.',
+        image: null,
+        employer: false
+    }
 ];
 
 export const skills = [
-  'Python', 'Go', 'JavaScript', 'AWS', 'Snowflake', 'ETL Pipelines',
-  'API Development', 'Android/Kotlin', 'PHP', 'Docker', 'CI/CD'
+    'Python', 'Go', 'JavaScript', 'AWS', 'Snowflake', 'ETL Pipelines',
+    'API Development', 'Android/Kotlin', 'PHP', 'Docker', 'CI/CD'
 ];

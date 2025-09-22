@@ -1,29 +1,29 @@
 import React, { useState } from 'react';
 
 const ResizeHandle = ({ 
-  orientation = 'vertical', 
-  onMouseDown, 
-  className = '',
-  isDragging = false 
+    orientation = 'vertical', 
+    onMouseDown, 
+    className = '',
+    isDragging = false 
 }) => {
-  const [isHovered, setIsHovered] = useState(false);
+    const [isHovered, setIsHovered] = useState(false);
 
-  const handleMouseDown = (e) => {
-    e.preventDefault();
-    onMouseDown(e);
-  };
+    const handleMouseDown = (e) => {
+        e.preventDefault();
+        onMouseDown(e);
+    };
 
-  return (
-    <div 
-      className={`
+    return (
+        <div 
+            className={`
         resize-handle relative
         ${orientation === 'vertical' ? 'cursor-col-resize' : 'cursor-row-resize'}
         ${className}
       `}
-      onMouseDown={handleMouseDown}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      style={{
+            onMouseDown={handleMouseDown}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            style={{
         width: orientation === 'vertical' ? '6px' : '100%',
         height: orientation === 'vertical' ? '100%' : '6px',
         userSelect: 'none',
@@ -31,14 +31,14 @@ const ResizeHandle = ({
         MozUserSelect: 'none',
       }}
     >
-      {/* 1px visual line positioned in center */}
-      <div 
-        className={`
+            {/* 1px visual line positioned in center */}
+            <div 
+                className={`
           absolute
           ${isHovered || isDragging ? 'bg-white' : 'bg-transparent'}
           transition-colors duration-200
         `}
-        style={{
+                style={{
           width: orientation === 'vertical' ? '1px' : '100%',
           height: orientation === 'vertical' ? '100%' : '1px',
           left: orientation === 'vertical' ? '50%' : '0',
@@ -46,8 +46,8 @@ const ResizeHandle = ({
           transform: orientation === 'vertical' ? 'translateX(-50%)' : 'translateY(-50%)'
         }}
       />
-    </div>
-  );
+        </div>
+    );
 };
 
 export default ResizeHandle;
