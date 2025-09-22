@@ -14,15 +14,15 @@
  * @returns {Promise<boolean>} - True if file exists and loads successfully
  */
 const checkFileExists = async (url) => {
-  try {
-    const response = await fetch(url, { 
-      method: 'HEAD',
-      cache: 'no-cache'
-    });
-    return response.ok;
-  } catch (error) {
-    return false;
-  }
+    try {
+        const response = await fetch(url, { 
+            method: 'HEAD',
+            cache: 'no-cache'
+        });
+        return response.ok;
+    } catch (error) {
+        return false;
+    }
 };
 
 /**
@@ -31,12 +31,12 @@ const checkFileExists = async (url) => {
  * @returns {Promise<boolean>} - True if image loads successfully
  */
 const checkImageExists = (url) => {
-  return new Promise((resolve) => {
-    const img = new Image();
-    img.onload = () => resolve(true);
-    img.onerror = () => resolve(false);
-    img.src = url;
-  });
+    return new Promise((resolve) => {
+        const img = new Image();
+        img.onload = () => resolve(true);
+        img.onerror = () => resolve(false);
+        img.src = url;
+    });
 };
 
 /**
@@ -45,12 +45,12 @@ const checkImageExists = (url) => {
  * @returns {Promise<boolean>} - True if video can be loaded
  */
 const checkVideoExists = (url) => {
-  return new Promise((resolve) => {
-    const video = document.createElement('video');
-    video.onloadedmetadata = () => resolve(true);
-    video.onerror = () => resolve(false);
-    video.src = url;
-  });
+    return new Promise((resolve) => {
+        const video = document.createElement('video');
+        video.onloadedmetadata = () => resolve(true);
+        video.onerror = () => resolve(false);
+        video.src = url;
+    });
 };
 
 /**
@@ -59,12 +59,12 @@ const checkVideoExists = (url) => {
  * @returns {object} - Object containing potential video and image paths
  */
 const getCanvasPaths = (projectId) => {
-  if (!projectId) return { video: null, image: null };
+    if (!projectId) return { video: null, image: null };
   
-  return {
-    video: `/canvases/${projectId}.mp4`,
-    image: `/canvases/${projectId}.jpg`
-  };
+    return {
+        video: `/canvases/${projectId}.mp4`,
+        image: `/canvases/${projectId}.jpg`
+    };
 };
 
 /**
@@ -73,43 +73,58 @@ const getCanvasPaths = (projectId) => {
  * @returns {Promise<object>} - Canvas configuration with available files
  */
 export const detectCanvasFiles = async (project) => {
-  if (!project?.id) {
-    return {
-      video: null,
-      image: null,
-      fallback: project?.image || null,
-      hasCanvas: false
+    if (!project?.id) {
+        return {
+            video: null,
+            image: null,
+            fallback: project?.image || null,
+            hasCanvas: false
+        };
+    }
+
+    // First check if project has explicit canvas path
+    const explicitVideo = project?.canvas;
+    let videoPath = null;
+    let hasVideo = false;
+
+    if (explicitVideo) {
+        // Use explicit canvas path from project data
+        hasVideo = await checkVideoExists(explicitVideo);
+        videoPath = hasVideo ? explicitVideo : null;
+    }
+
+    // If no explicit path or explicit path failed, try auto-generated path
+    if (!hasVideo) {
+        const paths = getCanvasPaths(project.id);
+        hasVideo = await checkVideoExists(paths.video);
+        videoPath = hasVideo ? paths.video : null;
+    }
+
+    // Check for canvas image file (always auto-generated for now)
+    const paths = getCanvasPaths(project.id);
+    const hasCanvasImage = await checkImageExists(paths.image);
+
+    // Determine final configuration
+    const config = {
+        video: videoPath,
+        image: hasCanvasImage ? paths.image : null,
+        fallback: project?.image || null,
+        hasCanvas: hasVideo || hasCanvasImage
     };
-  }
 
-  const paths = getCanvasPaths(project.id);
-  
-  // Check for video file
-  const hasVideo = await checkVideoExists(paths.video);
-  
-  // Check for canvas image file
-  const hasCanvasImage = await checkImageExists(paths.image);
-  
-  // Determine final configuration
-  const config = {
-    video: hasVideo ? paths.video : null,
-    image: hasCanvasImage ? paths.image : null,
-    fallback: project?.image || null,
-    hasCanvas: hasVideo || hasCanvasImage
-  };
+    // Debug logging
+    console.log('Dynamic canvas detection:', {
+        projectId: project.id,
+        projectTitle: project.title,
+        explicitCanvas: explicitVideo,
+        checkedVideo: videoPath,
+        hasVideo,
+        checkedImage: paths.image,
+        hasCanvasImage,
+        finalConfig: config
+    });
 
-  // Debug logging
-  console.log('Dynamic canvas detection:', {
-    projectId: project.id,
-    projectTitle: project.title,
-    checkedVideo: paths.video,
-    hasVideo,
-    checkedImage: paths.image,
-    hasCanvasImage,
-    finalConfig: config
-  });
-
-  return config;
+    return config;
 };
 
 /**
@@ -123,30 +138,30 @@ const canvasCache = new Map();
  * @returns {Promise<object>} - Cached or newly detected canvas configuration
  */
 export const getCachedCanvasConfig = async (project) => {
-  if (!project?.id) return { video: null, image: null, fallback: null, hasCanvas: false };
+    if (!project?.id) return { video: null, image: null, fallback: null, hasCanvas: false };
   
-  const cacheKey = project.id;
+    const cacheKey = project.id;
   
-  if (canvasCache.has(cacheKey)) {
-    return canvasCache.get(cacheKey);
-  }
+    if (canvasCache.has(cacheKey)) {
+        return canvasCache.get(cacheKey);
+    }
   
-  const config = await detectCanvasFiles(project);
-  canvasCache.set(cacheKey, config);
+    const config = await detectCanvasFiles(project);
+    canvasCache.set(cacheKey, config);
   
-  return config;
+    return config;
 };
 
 /**
  * Clear canvas cache (useful when files are added/removed during development)
  */
 export const clearCanvasCache = () => {
-  canvasCache.clear();
-  console.log('Canvas cache cleared');
+    canvasCache.clear();
+    console.log('Canvas cache cleared');
 };
 
 export default {
-  detectCanvasFiles,
-  getCachedCanvasConfig,
-  clearCanvasCache
+    detectCanvasFiles,
+    getCachedCanvasConfig,
+    clearCanvasCache
 };

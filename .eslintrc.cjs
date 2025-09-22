@@ -30,13 +30,19 @@ module.exports = {
       { allowConstantExport: true }
     ],
     'react/prop-types': 'off', // Turn off prop-types as we're not using TypeScript
-    'no-unused-vars': ['warn', { 
+    'no-unused-vars': ['warn', {
       varsIgnorePattern: '^_|^React$',
-      argsIgnorePattern: '^_' 
+      argsIgnorePattern: '^_'
     }],
     'react/jsx-uses-react': 'off',
     'react/react-in-jsx-scope': 'off',
     'react/no-unescaped-entities': 'warn', // Allow quotes in JSX text
-    'react-hooks/exhaustive-deps': 'warn' // Warn instead of error for dependency array
+    'react-hooks/exhaustive-deps': 'warn', // Warn instead of error for dependency array
+    'indent': ['error', 4, {
+      'SwitchCase': 1,
+      'ignoredNodes': ['JSXElement *', 'JSXElement']
+    }],
+    'react/jsx-indent': ['error', 4],
+    'react/jsx-indent-props': ['error', 4]
   }
 };

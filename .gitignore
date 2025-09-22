@@ -45,6 +45,8 @@ temp/
 # Development tool caches and artifacts
 .vite/
 .playwright-mcp/
+enhanced_comparison/
+screenshots/
 
 # Claude Code local settings (keep project config)
 .claude/settings.local.json
@@ -52,11 +54,14 @@ temp/
 # Design reference files
 designref/
 
-# Raw album art and video files
-track-art/
-
 # Canvas videos (hosted on GitHub Releases)
-**/*.mp4
-**/*.webm  
-**/*.mov
-**/*.avi
+public/canvases/*.mp4
+public/canvases/*.webm
+public/canvases/*.mov
+public/canvases/*.avi
+
+# Screenshots and temporary test files
+screenshot*.png
+comparison_screenshots/
+*.test.png
+test-*.png
