@@ -2,7 +2,7 @@ import React from 'react';
 import ProjectCard from '../ProjectCard';
 import HorizontalCardSection from '../HorizontalCardSection';
 import AdaptiveCardGrid from '../AdaptiveCardGrid';
-import { projects, playlists, recentWork, topHits, sideProjects, defaultNowPlaying } from '../../data/projects';
+import { playlists, recentWork, topHits, sideProjects, defaultNowPlaying, madeForYou } from '../../data/projects';
 
 const getTimeBasedGreeting = () => {
     const hour = new Date().getHours();
@@ -65,7 +65,7 @@ const HomeView = ({
                     className="text-spotify-secondary hover:text-spotify-primary text-sm font-semibold"
                     onClick={() => onNavigateToPlaylist({
             name: 'Made for You',
-            projects: playlists.slice(0, 10).map(p => p.projects[0]).filter(Boolean),
+            projects: madeForYou.flatMap(p => p.projects).slice(0, 20),
             description: 'Curated collections and playlists just for you'
           })}
         >
@@ -73,7 +73,7 @@ const HomeView = ({
                 </button>
             </div>
             <HorizontalCardSection
-                items={playlists.slice(0, 5)}
+                items={madeForYou}
                 type="playlist"
                 currentlyPlaying={currentlyPlaying}
                 isPlaying={isPlaying}

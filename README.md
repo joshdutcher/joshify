@@ -26,14 +26,14 @@ Joshify transforms the traditional developer portfolio into an engaging Spotify-
 
 ### 📱 Modern Development Stack
 - **React + Vite**: Fast development with modern tooling
-- **Tailwind CSS**: Utility-first styling with responsive design system  
+- **Tailwind CSS**: Utility-first styling with responsive design system
 - **Lucide Icons**: Consistent iconography matching Spotify aesthetic
 - **Playwright Testing**: Automated UI validation and cross-browser testing
 
 ## 🚀 Quick Start
 
 ### Prerequisites
-- Node.js 18+ 
+- Node.js 18+
 - npm/yarn/pnpm
 
 ### Installation & Development
@@ -115,7 +115,7 @@ Each project follows a consistent album-like structure:
   albumArt: "/album-art/project-id.png",
   canvas: {
     video: "/canvases/project-id.mp4",
-    image: "/canvases/project-id.jpg"
+    image: "/canvases/project-id.png"
   },
   // ... additional metadata
 }
@@ -139,7 +139,7 @@ Each project follows a consistent album-like structure:
 
 ### Breakpoint Strategy
 - **Mobile (320px-640px)**: Compact cards, touch-optimized navigation
-- **Tablet (640px-1024px)**: Medium cards, hybrid interaction patterns  
+- **Tablet (640px-1024px)**: Medium cards, hybrid interaction patterns
 - **Desktop (1024px+)**: Full-size cards, hover states, column resizing
 
 ### Card Sizing (Progressive)
@@ -184,7 +184,7 @@ npm run preview # Test production build
 
 ### Project Documentation (`.claude/` directory)
 - **PLANNING.md**: Architecture, design specifications, implementation status
-- **TASKS.md**: Current development priorities and completed milestones  
+- **TASKS.md**: Current development priorities and completed milestones
 - **CLAUDE.md**: Development guide, standards, and environment setup
 - **SESSION.md**: Current session state and immediate context
 
@@ -210,6 +210,6 @@ This project is intended for portfolio demonstration purposes. Spotify's design 
 
 ---
 
-**Live Demo**: [Coming Soon - Deployment Pending]  
-**Developer**: Josh Dutcher  
+**Live Demo**: [Coming Soon - Deployment Pending]
+**Developer**: Josh Dutcher
 **Last Updated**: September 22, 2025
