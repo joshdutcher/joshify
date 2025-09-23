@@ -11,46 +11,43 @@ export const projects = [
         image: '/album-art/ddx-election.png',
         year: '2024',
         plays: '20.4M',
-        description: 'High-impact election data infrastructure delivering 20.4 million voter records during the critical final 2 months of the 2024 presidential election. Architected scalable Python ETL pipelines utilizing AWS Lambda for serverless processing, DynamoDB for real-time data storage, and SNS/SQS for reliable message queuing. Integrated with Snowflake data warehouse for analytics and reporting. The system handled massive data volumes under tight deadlines while maintaining data integrity and performance. This project demonstrates expertise in high-stakes, time-sensitive data engineering with enterprise-grade cloud architecture.',
-        skills: ['Python', 'AWS', 'Snowflake', 'ETL', 'High-Volume Data'],
+        description: 'Mission-critical data engineering delivering 20.4 million voter engagement records to Democratic campaign systems during the final two months of the 2024 presidential election. Built sophisticated Python ETL pipelines that transformed and routed survey data from multiple sources into Snowflake data warehouse for real-time analytics. Implemented automated Snowpipe ingestion workflows and structured staging logic to handle massive data volumes under extreme time pressure. The system maintained perfect data integrity while processing millions of records daily, enabling critical voter outreach efforts during the most consequential election period. This project showcases expertise in high-stakes data engineering where accuracy and speed directly impact democratic processes.',
+        skills: ['Python', 'Snowflake', 'ETL Pipelines', 'Data Transformation', 'Campaign Data Systems'],
         demoUrl: null,
         githubUrl: null,
         canvas: null,
-        featured: true,
         albumArtBasedOn: 'Tubular Bells by Mike Oldfield'
     },
     {
         id: 'mobile-api-rebuild',
         title: 'Mobile API Rebuild',
         artist: 'Project - BG Products',
-        album: 'Automotive Tech',
-        duration: '1.5 years',
+        album: 'API Development',
+        duration: '2 weeks',
         image: '/album-art/mobile-api.png',
         year: '2019',
         plays: '1000%',
-        description: 'Complete API backend rebuild delivering a 1000% performance improvement for automotive mobile applications. Replaced legacy systems with modern, scalable architecture while automating vendor data integration through Azure Functions. The new system dramatically improved user experience and operational efficiency, demonstrating expertise in performance optimization and cloud-native development. This project showcases the ability to modernize critical business systems while maintaining data integrity and minimizing downtime.',
-        skills: ['API Development', 'Azure', 'Performance Optimization', 'ETL'],
+        description: 'Complete API backend rebuild in 2 weeks delivering a 1000% performance improvement for automotive mobile applications. Replaced legacy systems with modern, scalable architecture while automating vendor data integration through Azure Functions. The new system dramatically improved user experience and operational efficiency, demonstrating expertise in performance optimization and cloud-native development. This project showcases the ability to modernize critical business systems while maintaining data integrity and minimizing downtime.',
+        skills: ['API Development', 'PHP Lumen', 'Performance Optimization'],
         demoUrl: null,
         githubUrl: null,
         canvas: null,
-        featured: true,
         albumArtBasedOn: 'Run The Jewels 2 by Run The Jewels'
     },
     {
         id: 'healthcare-etl',
         title: 'Medicare.gov ETL',
         artist: 'Project - Ad Hoc',
-        album: 'Government Healthcare',
+        album: 'API Development',
         duration: '3.5 years',
         image: '/album-art/healthcare-etl.png',
         year: '2023',
         plays: '982K',
-        description: 'Mission-critical healthcare data infrastructure processing millions of daily health insurance records for Medicare.gov. Engineered high-volume ETL pipelines that maintained 100% uptime during Open Enrollment periods, handling peak loads of 80,000 requests per minute. Built robust, fault-tolerant systems ensuring seamless access to healthcare information for millions of Americans during critical enrollment windows. This role required deep expertise in government compliance, healthcare data standards, and building systems that never fail when people need them most.',
-        skills: ['Python', 'ETL', 'APIs', 'High Availability', 'Healthcare'],
+        description: 'Mission-critical healthcare data infrastructure processing millions of daily health insurance records for Medicare.gov. Engineered high-volume ETL pipelines that maintained 100% uptime during Open Enrollment periods, handling peak loads of 80,000 requests per minute and enabling 982,000 people to sign up for Medicare. Built robust, fault-tolerant systems ensuring seamless access to healthcare information for millions of Americans during critical enrollment windows. This role required deep expertise in government compliance, healthcare data standards, and building systems that never fail when people need them most.',
+        skills: ['Python', 'ETL Pipelines', 'API Development', 'High Availability', 'Data Transformation'],
         demoUrl: null,
         githubUrl: null,
-        canvas: '/canvases/did-kansas-win.mp4',
-        featured: true,
+        canvas: null,
         albumArtBasedOn: 'Ready to Die by The Notorious B.I.G.'
     },
     {
@@ -59,16 +56,15 @@ export const projects = [
         artist: 'Project - DDx',
         album: 'Cloud Infrastructure',
         duration: '8 months',
-        image: null,
+        image: '/album-art/democracy-engine.png',
         year: '2024',
         plays: 'Scalable',
-        description: 'Architected and implemented comprehensive AWS infrastructure supporting high-volume election data processing pipelines. Built resilient serverless architecture utilizing Lambda functions, DynamoDB tables, and sophisticated IAM policies for secure data access. Implemented SNS and SQS messaging systems for reliable, fault-tolerant data flow across distributed components. This infrastructure handled massive election data loads while maintaining security, scalability, and cost efficiency. Demonstrates expertise in cloud-native architecture and the ability to design systems that scale automatically under pressure.',
-        skills: ['AWS', 'Lambda', 'DynamoDB', 'IAM', 'Infrastructure as Code', 'Python'],
+        description: 'Developed and enhanced serverless applications within existing AWS infrastructure supporting high-volume election data operations. Created new Lambda functions and updated existing ones to process voter engagement data, working with DynamoDB for data storage and SNS/SQS messaging systems for reliable data flow. Built robust Python-based serverless functions that automatically handled variable election data loads while maintaining performance and reliability. Leveraged existing IAM policies and cloud architecture to deliver scalable data processing solutions under tight deadlines. This project demonstrates expertise in serverless development and the ability to build efficient applications within established cloud environments.',
+        skills: ['AWS Lambda', 'Python', 'Serverless Development', 'DynamoDB', 'SNS/SQS Messaging'],
         demoUrl: null,
         githubUrl: null,
         canvas: null,
-        featured: true,
-        albumArtBasedOn: null
+        albumArtBasedOn: 'Born This Way by Lady Gaga'
     },
     {
         id: 'healthcare-api-extensions',
@@ -84,24 +80,22 @@ export const projects = [
         demoUrl: null,
         githubUrl: null,
         canvas: null,
-        featured: true,
         albumArtBasedOn: 'The Low End Theory by A Tribe Called Quest'
     },
     {
-        id: 'api-optimization',
+        id: 'snt-finance-api',
         title: 'API Engine Optimization',
         artist: 'Project - SNT Media',
         album: 'Media Technology',
         duration: '2 years',
-        image: '/album-art/api-engine.png',
+        image: '/album-art/snt-finance-api.png',
         year: '2017',
         plays: '$18K',
-        description: 'Led comprehensive optimization of API data-fetching engine, achieving a 98% reduction in API calls and generating $18,000 in monthly cost savings while simultaneously enhancing data precision. As Lead Software Engineer, architected intelligent caching and batching strategies that transformed system efficiency without compromising accuracy. This project demonstrates leadership in both technical innovation and business impact, showing how strategic engineering decisions can deliver significant ROI while improving system performance.',
+        description: 'Executed comprehensive optimization of API data-fetching engine, achieving a 98% reduction in API calls and generating $18,000 in monthly cost savings while simultaneously enhancing data precision. As Lead Software Engineer, architected intelligent caching and batching strategies that transformed system efficiency without compromising accuracy. This project demonstrates leadership in both technical innovation and business impact, showing how strategic engineering decisions can deliver significant ROI while improving system performance.',
         skills: ['API Optimization', 'Cost Reduction', 'Team Leadership', 'Performance Engineering'],
         demoUrl: null,
         githubUrl: null,
         canvas: null,
-        featured: true,
         albumArtBasedOn: 'Nevermind the Bollocks, Here\'s the Sex Pistols by The Sex Pistols'
     },
     {
@@ -112,13 +106,12 @@ export const projects = [
         duration: 'In Progress',
         image: '/album-art/beer-fridge.png',
         year: '2025',
-        plays: '53MB',
+        plays: null,
         description: 'Advanced Android application for personal collection management currently in development. Features modern Material Design 3 interface built on robust MVVM architecture with Hilt dependency injection. Key highlights include intelligent fuzzy matching for item lookup, smart duplicate detection, and seamless CameraX integration for quick item scanning. Utilizes Room database for efficient local storage with whisper-quiet performance. The app demonstrates expertise in contemporary Android development patterns while delivering an intuitive user experience that rivals Google first-party applications. This project showcases the ability to balance technical sophistication with accessibility, proving that complex functionality can be elegantly simplified.',
-        skills: ['Android', 'Kotlin', 'Material Design 3', 'CameraX', 'Room Database', 'MVVM', 'Hilt DI'],
+        skills: ['AI-Assisted Development', 'Android', 'Kotlin', 'Material Design 3', 'CameraX', 'Room Database', 'MVVM', 'Hilt DI'],
         demoUrl: null,
         githubUrl: 'https://github.com/joshdutcher/BeerFridge',
-        canvas: null,
-        featured: true,
+        canvas: '/canvases/beer-fridge.mp4',
         albumArtBasedOn: 'Dark Side of the Moon by Pink Floyd'
     },
     {
@@ -130,12 +123,11 @@ export const projects = [
         image: '/album-art/did-kansas-win.png',
         year: '2024',
         plays: 'Live',
-        description: 'Elegant single-purpose web application providing real-time Kansas Jayhawks basketball results. Built with Node.js and Express, featuring live ESPN API integration and responsive design. The project demonstrates clean, focused development principles and API integration skills while solving a specific user need with minimal complexity. Sometimes the best solutions are the simplest ones, and this project showcases the ability to deliver exactly what users want without unnecessary features.',
+        description: 'Barebones single-purpose web application providing real-time Kansas Jayhawks basketball results. Built with Node.js and Express, featuring live ESPN API integration and responsive design. The project demonstrates clean, focused development principles and API integration skills while solving a specific user need with minimal complexity. Sometimes the best solutions are the simplest ones, and this project showcases the ability to deliver exactly what users want without unnecessary features.',
         skills: ['Node.js', 'Express', 'ESPN API', 'Responsive Design'],
         demoUrl: 'https://www.didkansaswin.com',
-        githubUrl: null,
-        canvas: null,
-        featured: true,
+        githubUrl: 'https://github.com/joshdutcher/didkansaswin',
+        canvas: '/canvases/did-kansas-win.mp4',
         albumArtBasedOn: 'Graduation by Kanye West'
     },
     {
@@ -143,7 +135,7 @@ export const projects = [
         title: 'Wichita Radar',
         artist: 'Project',
         album: 'Go Development',
-        duration: '1 month',
+        duration: 'decades',
         image: '/album-art/wichita-radar.png',
         year: '2024',
         plays: 'Live',
@@ -155,12 +147,12 @@ export const projects = [
         albumArtBasedOn: 'Discovery by Daft Punk'
     },
     {
-        id: 'cz-launch-management',
-        title: 'Launch Project Management',
+        id: 'law-firm-startup-operations',
+        title: 'Law Firm Startup Operations',
         artist: 'Project - Campbell Zafar Law',
         album: 'Campbell Zafar Law',
         duration: '4 months',
-        image: '/album-art/cz-launch-management.png',
+        image: '/album-art/law-firm-startup-operations.png',
         year: '2025',
         plays: 'Coordinated',
         description: 'Orchestrated the complex launch of a boutique law firm through multi-vendor project management and timeline coordination. Served as primary liaison managing photographers, designers, signage vendors, and printing services while ensuring brand assets, signage, and marketing collateral were delivered on schedule for launch day. Successfully coordinated office setup logistics including furniture procurement, equipment installation, and workflow design. This project demonstrates expertise in managing multiple concurrent deliverables with tight interdependencies, ensuring a seamless launch experience that allowed the attorneys to focus on client service from day one.',
@@ -168,16 +160,15 @@ export const projects = [
         demoUrl: null,
         githubUrl: null,
         canvas: null,
-        featured: true,
         albumArtBasedOn: 'BRAT by Charli xcx'
     },
     {
-        id: 'cz-technology-infrastructure',
-        title: 'Technology Infrastructure & Systems',
+        id: 'startup-technology-infrastructure',
+        title: 'Startup Technology Infrastructure',
         artist: 'Project - Campbell Zafar Law',
         album: 'Campbell Zafar Law',
-        duration: '3 months',
-        image: null, // Will use Campbell Zafar tiled fallback
+        duration: '5 months',
+        image: '/album-art/startup-technology-infrastructure.png',
         year: '2025',
         plays: 'Configured',
         description: 'Architected and implemented comprehensive technology infrastructure for a legal startup from the ground up. Configured Google Workspace with domain-wide settings, user permissions, and security policies while building the firm\'s professional website on Squarespace with integrated SEO strategy. Implemented VoIP phone systems, mesh Wi-Fi networking, and cross-device printer configuration ensuring seamless office connectivity. Led hands-on technical setup of computers, peripherals, and office networking infrastructure. This project showcases the ability to translate business requirements into technical solutions while maintaining security best practices and operational efficiency in a professional services environment.',
@@ -185,7 +176,22 @@ export const projects = [
         demoUrl: null,
         githubUrl: null,
         canvas: null,
-        featured: true,
+        albumArtBasedOn: 'Computer World by Kraftwerk'
+    },
+    {
+        id: 'joshify',
+        title: 'Joshify',
+        artist: 'Project',
+        album: 'Web Development',
+        duration: '6 months',
+        image: null,
+        year: '2025',
+        plays: 'Meta',
+        description: 'Experimental portfolio project exploring AI-assisted development ("vibe coding", but I hate that term) by transforming my traditional developer resume into an immersive Spotify clone, intended to stand out in a crowded field. I used Claude Code almost exclusively for the code, and a combination of AI image and video generating tools for the album art images and canvas videos. I did give Claude Code specific instructions on some of the code architecture and principles. This site features authentic Spotify UI patterns including advanced column resizing, comprehensive search functionality, and canvas video backgrounds. The site presents development projects as "tracks" with rich metadata, playlists for different work categories, and a fully functional "now playing" system. Sadly, the site does not actually play any music. Yet.',
+        skills: ['Claude Code', 'MCP Server Integration', 'AI Prompt Engineering', 'Component Architecture', 'AI-Assisted Development'],
+        demoUrl: null,
+        githubUrl: 'https://github.com/joshdutcher/joshify',
+        canvas: null,
         albumArtBasedOn: null
     }
 ];
@@ -193,14 +199,13 @@ export const projects = [
 // Helper function to get project objects by IDs
 const getProjectsByIds = (ids) => ids.map(id => projects.find(p => p.id === id)).filter(Boolean);
 
-export const campbellZafarProjects = getProjectsByIds(['cz-launch-management', 'cz-technology-infrastructure']);
+export const campbellZafarProjects = getProjectsByIds(['law-firm-startup-operations', 'startup-technology-infrastructure']);
 export const ddxProjects = getProjectsByIds(['election-data-pipeline', 'democracy-engine']);
 export const adHocProjects = getProjectsByIds(['healthcare-etl', 'healthcare-api-extensions']);
-export const backendDevelopmentProjects = getProjectsByIds(['mobile-api-rebuild', 'api-optimization']);
 export const dataEngineeringProjects = getProjectsByIds(['election-data-pipeline', 'healthcare-etl', 'healthcare-api-extensions']);
-export const recentWork = getProjectsByIds(['election-data-pipeline', 'mobile-api-rebuild', 'healthcare-etl', 'democracy-engine', 'healthcare-api-extensions', 'api-optimization', 'beer-fridge', 'did-kansas-win', 'wichita-radar']);
-export const topHits = getProjectsByIds(['election-data-pipeline', 'democracy-engine', 'healthcare-api-extensions']);
-export const sideProjects = getProjectsByIds(['beer-fridge', 'did-kansas-win', 'wichita-radar']);
+export const recentWork = getProjectsByIds(['joshify', 'startup-technology-infrastructure', 'law-firm-startup-operations', 'election-data-pipeline', 'democracy-engine', 'beer-fridge', 'did-kansas-win', 'wichita-radar']);
+export const topHits = getProjectsByIds(['law-firm-startup-operations', 'election-data-pipeline', 'snt-finance-api', 'healthcare-etl', 'healthcare-api-extensions', 'mobile-api-rebuild']);
+export const sideProjects = getProjectsByIds(['joshify', 'beer-fridge', 'did-kansas-win', 'wichita-radar']);
 export const defaultNowPlaying = getProjectsByIds(['did-kansas-win']);
 
 export const playlists = [
@@ -216,7 +221,7 @@ export const playlists = [
         name: 'Top Hits',
         icon: Heart,
         projects: topHits,
-        description: 'The classics that made the cut. Career-defining engineering.',
+        description: 'The classics that made the cut. Career-defining work.',
         image: null,
         employer: false
     },
@@ -253,14 +258,6 @@ export const playlists = [
         employer: true // Flag to identify this as an employer playlist
     },
     {
-        name: 'Backend Development',
-        icon: Plus,
-        projects: backendDevelopmentProjects,
-        description: 'Server-side mastery. APIs, databases, and scalable systems.',
-        image: null,
-        employer: false
-    },
-    {
         name: 'Data Engineering',
         icon: Plus,
         projects: dataEngineeringProjects,
@@ -269,6 +266,15 @@ export const playlists = [
         employer: false
     }
 ];
+
+// Made for You section configuration
+export const madeForYou = [
+    playlists.find(p => p.name === 'Recently Played'),
+    playlists.find(p => p.name === 'Top Hits'),
+    playlists.find(p => p.name === 'Side Projects'),
+    playlists.find(p => p.name === 'Campbell Zafar Law'),
+    playlists.find(p => p.name === 'DDx')
+].filter(Boolean);
 
 export const skills = [
     'Python', 'Go', 'JavaScript', 'AWS', 'Snowflake', 'ETL Pipelines',
