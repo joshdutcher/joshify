@@ -230,7 +230,7 @@ src/
 Comprehensive redesign achieving authentic Spotify UI patterns:
 
 1. ✅ **Phase 1: Terminology & Data Structure Updates** - Foundation changes and UI terminology
-2. ✅ **Phase 2: Left Column Complete Redesign** - "My Work" header, search, and filter functionality  
+2. ✅ **Phase 2: Left Column Complete Redesign** - "My Work" header, search, and filter functionality
 3. ✅ **Phase 3: Column Resizing System** - Advanced drag-to-resize with Spotify-authentic behavior
 4. ✅ **Phase 4: Top Bar & Global Search** - Enhanced search with comprehensive results page
 5. ✅ **Phase 5: Navigation & Canvas Enhancements** - Clickable navigation and canvas improvements
@@ -253,19 +253,19 @@ Authentic card sizing and progressive responsive design:
 
 ## NEW: Spotify UI Polish Phase - GitHub Issues Implementation
 
-### 3-Phase Final UI Polish Project  
-*Targeted improvements for complete Spotify authenticity using Playwright MCP testing*  
+### 3-Phase Final UI Polish Project
+*Targeted improvements for complete Spotify authenticity using Playwright MCP testing*
 **Status**: ✅ **GitHub Issues Created** (August 27, 2025) - Ready for development workflow
 
 **GitHub Issues**:
 - [Issue #2: Phase A - Vertical Card Height Optimization](https://github.com/joshdutcher/joshify/issues/2)
-- [Issue #3: Phase B - Authentic Scrollbar Behavior](https://github.com/joshdutcher/joshify/issues/3)  
+- [Issue #3: Phase B - Authentic Scrollbar Behavior](https://github.com/joshdutcher/joshify/issues/3)
 - [Issue #4: Phase C - Horizontal Navigation Enhancement](https://github.com/joshdutcher/joshify/issues/4)
 
 **Phase A: Vertical Card Height Optimization** (1.5-2 hours)
 - **Current Issue**: Cards feel too tall compared to authentic Spotify
 - **Target**: Reduce card height while maintaining visual hierarchy
-- **Implementation**: 
+- **Implementation**:
   - Analyze current padding and spacing in HorizontalCard components
   - Reduce card padding from `p-4` to `p-2` or `p-3` for tighter layout
   - Optimize text spacing and margins for compact design
@@ -325,7 +325,7 @@ Authentic card sizing and progressive responsive design:
   "title": "Project Name",
   "canvas": {
     "video": "/canvases/project-id.mp4",
-    "image": "/canvases/project-id.jpg",
+    "image": "/album-art/project-id.png",
     "fallback": "/canvases/default.jpg"
   }
 }
