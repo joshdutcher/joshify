@@ -11,6 +11,7 @@ module.exports = {
     'plugin:react-hooks/recommended'
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
+  parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
@@ -23,13 +24,13 @@ module.exports = {
       version: 'detect'
     }
   },
-  plugins: ['react-refresh'],
+  plugins: ['react-refresh', '@typescript-eslint'],
   rules: {
     'react-refresh/only-export-components': [
       'warn',
       { allowConstantExport: true }
     ],
-    'react/prop-types': 'off', // Turn off prop-types as we're not using TypeScript
+    'react/prop-types': 'off', // Turn off prop-types as we're using TypeScript
     'no-unused-vars': ['warn', {
       varsIgnorePattern: '^_|^React$',
       argsIgnorePattern: '^_'
