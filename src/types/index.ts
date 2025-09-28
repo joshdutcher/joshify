@@ -9,13 +9,11 @@ export enum Skill {
   PYTHON = 'Python',
   JAVASCRIPT = 'JavaScript',
   GO = 'Go',
-  KOTLIN = 'Kotlin',
   PHP_LUMEN = 'PHP Lumen',
 
   // Development Areas
   API_DEVELOPMENT = 'API Development',
   WEB_DEVELOPMENT = 'Web Development',
-  ANDROID_DEVELOPMENT = 'Android',
   SERVERLESS_DEVELOPMENT = 'Serverless Development',
   AI_ASSISTED_DEVELOPMENT = 'AI-Assisted Development',
 
@@ -31,14 +29,9 @@ export enum Skill {
   NODE_JS = 'Node.js',
   EXPRESS = 'Express',
   MATERIAL_DESIGN_3 = 'Material Design 3',
-  CAMERAX = 'CameraX',
-  ROOM_DATABASE = 'Room Database',
-  MVVM = 'MVVM',
-  HILT_DI = 'Hilt DI',
   PURECSS = 'PureCSS',
 
   // APIs & Integration
-  ESPN_API = 'ESPN API',
   WEATHER_APIS = 'Weather APIs',
   CAMPAIGN_DATA_SYSTEMS = 'Campaign Data Systems',
   HTML_TEMPLATING = 'HTML Templating',
@@ -107,7 +100,7 @@ export interface Project {
   readonly duration: string;
   readonly image: string;
   readonly year: string;
-  readonly plays: string | number | null;
+  readonly impact: string | number | null;
   readonly description: string;
   readonly skills: readonly Skill[];
   readonly demoUrl: string | null;

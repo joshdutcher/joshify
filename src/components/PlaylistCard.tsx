@@ -73,8 +73,8 @@ const PlaylistCard = ({
 
             {/* Text content - constrained to card width */}
             <div className={size === 'large' ? 'flex-1 min-w-0' : 'w-full'}>
-                <h3 
-                    className="text-spotify-primary font-semibold truncate mb-0 text-base hover:underline cursor-pointer"
+                <h3
+                    className="text-spotify-primary font-semibold truncate mb-0 text-base cursor-pointer"
                     onClick={(e) => {
             e.stopPropagation();
             onPlaylistClick && onPlaylistClick(playlist);

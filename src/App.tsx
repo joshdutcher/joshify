@@ -132,6 +132,7 @@ const SpotifyResume = () => {
                         sidebarOpen={sidebarOpen}
                         onNavigateToView={navigateToView}
                         onNavigateToPlaylist={navigateToPlaylist}
+                        onNavigateToProject={navigateToProject}
                         onCloseSidebar={closeSidebar}
                         width={leftColumnWidth}
                         mode={leftColumnMode}

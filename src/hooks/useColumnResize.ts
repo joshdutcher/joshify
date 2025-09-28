@@ -21,7 +21,7 @@ const useColumnResize = () => {
     const RIGHT_MAX_WIDTH = 400; // Maximum right panel width
 
     // Left column resize handlers
-    const startLeftResize = useCallback((e: ReactMouseEvent) => {
+    const startLeftResize = useCallback((_e: ReactMouseEvent) => {
         setIsLeftResizing(true);
         document.body.style.cursor = 'col-resize';
         document.body.style.userSelect = 'none';

@@ -2,13 +2,21 @@ import { useState } from 'react';
 import { Play, Pause, Heart, ExternalLink } from 'lucide-react';
 import ProjectImage from '../ProjectImage';
 import AlbumArtModal from '../AlbumArtModal';
+import type { Project } from '../../types';
+
+interface ProjectDetailViewProps {
+    project: Project;
+    currentlyPlaying: Project | null;
+    isPlaying: boolean;
+    onPlayProject: (project: Project) => void;
+}
 
 const ProjectDetailView = ({
     project,
     currentlyPlaying,
     isPlaying,
     onPlayProject
-}) => {
+}: ProjectDetailViewProps) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleAlbumArtClick = () => {
@@ -42,7 +50,7 @@ const ProjectDetailView = ({
                     <p className="text-sm font-semibold uppercase">Project</p>
                     <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-2 md:mb-4">{project.title}</h1>
                     <p className="text-gray-400 mb-2">{project.artist}</p>
-                    <p className="text-gray-400">{project.year} • {project.duration} • {project.plays} plays</p>
+                    <p className="text-gray-400">{project.year} • {project.duration}{project.impact ? ` • ${project.impact}` : ''}</p>
                 </div>
             </div>
 
@@ -96,10 +104,12 @@ const ProjectDetailView = ({
                             <p className="text-gray-400 text-sm">Year</p>
                             <p className="text-white font-semibold">{project.year}</p>
                         </div>
+                        {project.impact && (
                         <div>
                             <p className="text-gray-400 text-sm">Impact</p>
-                            <p className="text-white font-semibold">{project.plays} plays</p>
+                            <p className="text-white font-semibold">{project.impact}</p>
                         </div>
+                        )}
                         <div>
                             <p className="text-gray-400 text-sm">Album</p>
                             <p className="text-white font-semibold">{project.album}</p>

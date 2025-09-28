@@ -1,19 +1,21 @@
 
 import ProjectImage from './ProjectImage';
-import type { Playlist } from '../types';
+import type { Playlist, Project } from '../types';
 
 interface PlaylistCoverArtProps {
   playlist: Playlist;
   size?: string;
   className?: string;
   shape?: string;
+  onNavigateToProject?: (project: Project) => void;
 }
 
 const PlaylistCoverArt = ({
     playlist,
     size = 'custom',
     className = '',
-    shape = 'rounded'
+    shape = 'rounded',
+    onNavigateToProject
 }: PlaylistCoverArtProps) => {
     // Check if playlist has custom cover art
     const hasCustomCoverArt = playlist.image;
@@ -56,61 +58,81 @@ const PlaylistCoverArt = ({
                     {/* Top Left */}
                     <div className="relative overflow-hidden">
                         {coverTracks[0] ? (
-                            <ProjectImage
-                                project={coverTracks[0]}
-                                size="custom"
-                                className="w-full h-full"
-                                shape="square"
-                                showFallback={true}
-              />
-            ) : (
-                <div className="w-full h-full bg-spotify-card"></div>
-            )}
+                            <div
+                                className="w-full h-full cursor-pointer hover:opacity-80 transition-opacity"
+                                onClick={() => onNavigateToProject && onNavigateToProject(coverTracks[0])}
+                            >
+                                <ProjectImage
+                                    project={coverTracks[0]}
+                                    size="custom"
+                                    className="w-full h-full"
+                                    shape="square"
+                                    showFallback={true}
+                                />
+                            </div>
+                        ) : (
+                            <div className="w-full h-full bg-spotify-card"></div>
+                        )}
                     </div>
-          
+
                     {/* Top Right */}
                     <div className="relative overflow-hidden">
                         {coverTracks[1] ? (
-                            <ProjectImage
-                                project={coverTracks[1]}
-                                size="custom"
-                                className="w-full h-full"
-                                shape="square"
-                                showFallback={true}
-              />
-            ) : (
-                <div className="w-full h-full bg-spotify-card"></div>
-            )}
+                            <div
+                                className="w-full h-full cursor-pointer hover:opacity-80 transition-opacity"
+                                onClick={() => onNavigateToProject && onNavigateToProject(coverTracks[1])}
+                            >
+                                <ProjectImage
+                                    project={coverTracks[1]}
+                                    size="custom"
+                                    className="w-full h-full"
+                                    shape="square"
+                                    showFallback={true}
+                                />
+                            </div>
+                        ) : (
+                            <div className="w-full h-full bg-spotify-card"></div>
+                        )}
                     </div>
-          
+
                     {/* Bottom Left */}
                     <div className="relative overflow-hidden">
                         {coverTracks[2] ? (
-                            <ProjectImage
-                                project={coverTracks[2]}
-                                size="custom"
-                                className="w-full h-full"
-                                shape="square"
-                                showFallback={true}
-              />
-            ) : (
-                <div className="w-full h-full bg-spotify-card"></div>
-            )}
+                            <div
+                                className="w-full h-full cursor-pointer hover:opacity-80 transition-opacity"
+                                onClick={() => onNavigateToProject && onNavigateToProject(coverTracks[2])}
+                            >
+                                <ProjectImage
+                                    project={coverTracks[2]}
+                                    size="custom"
+                                    className="w-full h-full"
+                                    shape="square"
+                                    showFallback={true}
+                                />
+                            </div>
+                        ) : (
+                            <div className="w-full h-full bg-spotify-card"></div>
+                        )}
                     </div>
-          
+
                     {/* Bottom Right */}
                     <div className="relative overflow-hidden">
                         {coverTracks[3] ? (
-                            <ProjectImage
-                                project={coverTracks[3]}
-                                size="custom"
-                                className="w-full h-full"
-                                shape="square"
-                                showFallback={true}
-              />
-            ) : (
-                <div className="w-full h-full bg-spotify-card"></div>
-            )}
+                            <div
+                                className="w-full h-full cursor-pointer hover:opacity-80 transition-opacity"
+                                onClick={() => onNavigateToProject && onNavigateToProject(coverTracks[3])}
+                            >
+                                <ProjectImage
+                                    project={coverTracks[3]}
+                                    size="custom"
+                                    className="w-full h-full"
+                                    shape="square"
+                                    showFallback={true}
+                                />
+                            </div>
+                        ) : (
+                            <div className="w-full h-full bg-spotify-card"></div>
+                        )}
                     </div>
                 </div>
             </div>
@@ -124,61 +146,81 @@ const PlaylistCoverArt = ({
                 {/* Top Left */}
                 <div className="relative overflow-hidden">
                     {coverTracks[0] ? (
-                        <ProjectImage
-                            project={coverTracks[0]}
-                            size="custom"
-                            className="w-full h-full"
-                            shape="square"
-                            showFallback={true}
-            />
-          ) : (
-              <div className="w-full h-full bg-spotify-card"></div>
-          )}
+                        <div
+                            className="w-full h-full cursor-pointer hover:opacity-80 transition-opacity"
+                            onClick={() => onNavigateToProject && onNavigateToProject(coverTracks[0])}
+                        >
+                            <ProjectImage
+                                project={coverTracks[0]}
+                                size="custom"
+                                className="w-full h-full"
+                                shape="square"
+                                showFallback={true}
+                            />
+                        </div>
+                    ) : (
+                        <div className="w-full h-full bg-spotify-card"></div>
+                    )}
                 </div>
-        
+
                 {/* Top Right */}
                 <div className="relative overflow-hidden">
                     {coverTracks[1] ? (
-                        <ProjectImage
-                            project={coverTracks[1]}
-                            size="custom"
-                            className="w-full h-full"
-                            shape="square"
-                            showFallback={true}
-            />
-          ) : (
-              <div className="w-full h-full bg-spotify-card"></div>
-          )}
+                        <div
+                            className="w-full h-full cursor-pointer hover:opacity-80 transition-opacity"
+                            onClick={() => onNavigateToProject && onNavigateToProject(coverTracks[1])}
+                        >
+                            <ProjectImage
+                                project={coverTracks[1]}
+                                size="custom"
+                                className="w-full h-full"
+                                shape="square"
+                                showFallback={true}
+                            />
+                        </div>
+                    ) : (
+                        <div className="w-full h-full bg-spotify-card"></div>
+                    )}
                 </div>
-        
+
                 {/* Bottom Left */}
                 <div className="relative overflow-hidden">
                     {coverTracks[2] ? (
-                        <ProjectImage
-                            project={coverTracks[2]}
-                            size="custom"
-                            className="w-full h-full"
-                            shape="square"
-                            showFallback={true}
-            />
-          ) : (
-              <div className="w-full h-full bg-spotify-card"></div>
-          )}
+                        <div
+                            className="w-full h-full cursor-pointer hover:opacity-80 transition-opacity"
+                            onClick={() => onNavigateToProject && onNavigateToProject(coverTracks[2])}
+                        >
+                            <ProjectImage
+                                project={coverTracks[2]}
+                                size="custom"
+                                className="w-full h-full"
+                                shape="square"
+                                showFallback={true}
+                            />
+                        </div>
+                    ) : (
+                        <div className="w-full h-full bg-spotify-card"></div>
+                    )}
                 </div>
-        
+
                 {/* Bottom Right */}
                 <div className="relative overflow-hidden">
                     {coverTracks[3] ? (
-                        <ProjectImage
-                            project={coverTracks[3]}
-                            size="custom"
-                            className="w-full h-full"
-                            shape="square"
-                            showFallback={true}
-            />
-          ) : (
-              <div className="w-full h-full bg-spotify-card"></div>
-          )}
+                        <div
+                            className="w-full h-full cursor-pointer hover:opacity-80 transition-opacity"
+                            onClick={() => onNavigateToProject && onNavigateToProject(coverTracks[3])}
+                        >
+                            <ProjectImage
+                                project={coverTracks[3]}
+                                size="custom"
+                                className="w-full h-full"
+                                shape="square"
+                                showFallback={true}
+                            />
+                        </div>
+                    ) : (
+                        <div className="w-full h-full bg-spotify-card"></div>
+                    )}
                 </div>
             </div>
         </div>

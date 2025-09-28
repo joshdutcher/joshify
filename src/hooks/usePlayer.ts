@@ -85,6 +85,10 @@ const usePlayer = () => {
         setCurrentView('project');
         setSelectedPlaylist(project);
         setSidebarOpen(false);
+
+        // Automatically set this project as "now playing" when viewing its detail page
+        setCurrentlyPlaying(project);
+        setIsPlaying(true);
     };
 
     const navigateToPlaylist = (playlist: Playlist) => {

@@ -136,7 +136,11 @@ const ProfileView = () => {
 };
 
 // Contact Modal Component
-const ContactModal = ({ onClose }) => {
+interface ContactModalProps {
+    onClose: () => void;
+}
+
+const ContactModal = ({ onClose }: ContactModalProps) => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -145,16 +149,16 @@ const ContactModal = ({ onClose }) => {
         honeypot: '' // Hidden field for bot detection
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [submitStatus, setSubmitStatus] = useState(null);
+    const [submitStatus, setSubmitStatus] = useState<'success' | 'error' | null>(null);
 
-    const handleChange = (e) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setFormData({
             ...formData,
             [e.target.name]: e.target.value
         });
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         // Honeypot check - if filled, it's likely a bot
@@ -208,7 +212,7 @@ const ContactModal = ({ onClose }) => {
                                 value={formData.honeypot}
                                 onChange={handleChange}
                                 style={{ display: 'none' }}
-                                tabIndex="-1"
+                                tabIndex={-1}
                                 autoComplete="off"
                             />
 
@@ -263,7 +267,7 @@ const ContactModal = ({ onClose }) => {
                                     value={formData.message}
                                     onChange={handleChange}
                                     required
-                                    rows="4"
+                                    rows={4}
                                     className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-green-500"
                                 />
                             </div>
