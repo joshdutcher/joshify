@@ -26,10 +26,10 @@ const getProjectGradient = (projectId: string): string[] => {
 };
 
 // Create animated gradient CSS for fallbacks
-const createAnimatedGradient = (colors: string[], isPlaying = false) => {
-    const [color1, color2] = colors;
+const createAnimatedGradient = (colors: string[] | undefined, isPlaying = false) => {
+    const [color1, color2] = colors || ['#1DB954', '#0f7a31'];
     const animationSpeed = isPlaying ? '3s' : '6s';
-  
+
     return {
         background: `linear-gradient(-45deg, ${color1}, ${color2}, ${color1}40, ${color2}60)`,
         backgroundSize: '400% 400%',
