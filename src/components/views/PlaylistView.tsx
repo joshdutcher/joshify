@@ -8,7 +8,7 @@ interface PlaylistViewProps {
   playlist: Playlist;
   currentlyPlaying: Project | null;
   isPlaying: boolean;
-  onPlayProject: (project: Project) => void;
+  onPlayProject: (project: Project, playlist?: Playlist | null) => void;
   onNavigateToProject: (project: Project) => void;
   onNavigateToCompany?: (companyName: string) => void;
   onNavigateToDomain?: (domainName: string) => void;
@@ -31,7 +31,8 @@ const PlaylistView = ({
                     size="custom"
                     className="w-full h-full"
                     shape="rounded"
-        />
+                    onNavigateToProject={onNavigateToProject}
+                />
             </div>
             <div className="text-center md:text-left">
                 <p className="text-sm font-semibold uppercase">{playlist.employer ? 'Workplace' : 'Collection'}</p>
@@ -46,7 +47,14 @@ const PlaylistView = ({
         <div className="flex items-center space-x-4 md:space-x-6 mb-6 md:mb-8">
             <button 
                 className="w-12 h-12 md:w-14 md:h-14 bg-green-500 rounded-full flex items-center justify-center hover:scale-105 transition-transform"
-                onClick={() => playlist.projects.length > 0 && onPlayProject(playlist.projects[0], playlist)}
+                onClick={() => {
+          if (playlist.projects.length > 0) {
+            const firstProject = playlist.projects[0];
+            if (firstProject) {
+              onPlayProject(firstProject, playlist);
+            }
+          }
+        }}
       >
                 <Play className="w-5 h-5 md:w-6 md:h-6 text-black ml-0.5" fill="currentColor" />
             </button>
@@ -87,16 +95,18 @@ const PlaylistView = ({
                             <p className="text-gray-400 text-sm truncate">
                                 {project.artist && project.artist.includes(' - ') ? (
                                     <>
-                                        {project.artist.split(' - ')[0]} - 
+                                        {project.artist?.split(' - ')[0]} - 
                                         <span 
                                             className="hover:underline cursor-pointer hover:text-white"
                                             onClick={(e) => {
                         e.stopPropagation();
-                        const company = project.artist.split(' - ')[1];
-                        onNavigateToCompany && onNavigateToCompany(company);
+                        const company = project.artist?.split(' - ')[1];
+                        if (company && onNavigateToCompany) {
+                          onNavigateToCompany(company);
+                        }
                       }}
                     >
-                                            {project.artist.split(' - ')[1]}
+                                            {project.artist?.split(' - ')[1]}
                                         </span>
                                     </>
                 ) : (
@@ -114,7 +124,7 @@ const PlaylistView = ({
 
         {/* Mobile List View */}
         <div className="md:hidden space-y-2">
-            {playlist.projects.map((project, index) => (
+            {playlist.projects.map((project, _index) => (
                 <div key={project.id} className="flex items-center space-x-3 p-3 hover:bg-gray-800 rounded-lg" onClick={() => onNavigateToProject(project)}>
                     <ProjectImage
                         project={project}
@@ -139,11 +149,13 @@ const PlaylistView = ({
                                         className="hover:underline cursor-pointer hover:text-white"
                                         onClick={(e) => {
                       e.stopPropagation();
-                      const company = project.artist.split(' - ')[1];
-                      onNavigateToCompany && onNavigateToCompany(company);
+                      const company = project.artist?.split(' - ')[1];
+                      if (company && onNavigateToCompany) {
+                        onNavigateToCompany(company);
+                      }
                     }}
                   >
-                                        {project.artist.split(' - ')[1]}
+                                        {project.artist?.split(' - ')[1]}
                                     </span>
                                 </>
               ) : (

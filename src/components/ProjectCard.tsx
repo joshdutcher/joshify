@@ -32,7 +32,7 @@ const ProjectCard = ({
     return (
         <div className={`group relative cursor-pointer ${
       size === 'large'
-        ? 'flex items-center bg-white/10 rounded overflow-hidden transition-all duration-300 h-14'
+        ? 'flex items-center bg-white/10 hover:bg-white/15 rounded overflow-hidden transition-all duration-200 h-14'
         : 'bg-spotify-card rounded p-1.5 hover:bg-spotify-hover transition-all duration-300 w-[140px] sm:w-[155px] md:w-[170px] lg:w-[188px]'
     }`}
             onClick={() => onProjectClick && onProjectClick(project)}>
@@ -65,10 +65,10 @@ const ProjectCard = ({
             </div>
 
             {/* Text content */}
-            <div className={size === 'large' ? 'flex-1 min-w-0 px-4 flex flex-col justify-center' : ''}>
+            <div className={size === 'large' ? 'flex-1 min-w-0 pl-4 pr-2 flex flex-col justify-center' : ''}>
                 <h3
-                    className={`text-spotify-primary font-semibold mb-0 hover:underline cursor-pointer ${
-            size === 'large' ? 'text-sm leading-tight' : 'text-base truncate'
+                    className={`text-spotify-primary font-bold mb-0 no-underline hover:no-underline cursor-pointer ${
+            size === 'large' ? 'text-sm leading-tight line-clamp-2' : 'text-base truncate'
           }`}
                     onClick={(e) => {
             e.stopPropagation();
@@ -104,7 +104,7 @@ const ProjectCard = ({
 
             {/* Play/Pause/Equalizer controls for large (horizontal) cards - positioned on the right */}
             {size === 'large' && (
-            <div className="relative w-10 h-full flex items-center justify-center flex-shrink-0 mr-3">
+            <div className="relative w-8 h-full flex items-center justify-center flex-shrink-0 mr-2">
                 {/* Equalizer - shown when playing and mouse is not hovering */}
                 {currentlyPlaying?.id === project.id && isPlaying && (
                 <div className="group-hover:opacity-0 transition-opacity duration-200">

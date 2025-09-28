@@ -8,6 +8,7 @@ interface SidebarProps {
   sidebarOpen: boolean;
   onNavigateToView: (view: string, item?: any) => void;
   onNavigateToPlaylist: (playlist: Playlist) => void;
+  onNavigateToProject: (project: any) => void;
   onCloseSidebar: () => void;
   width?: number;
   mode?: string;
@@ -21,6 +22,7 @@ const Sidebar = ({
     sidebarOpen,
     onNavigateToView,
     onNavigateToPlaylist,
+    onNavigateToProject,
     onCloseSidebar,
     width: _width = 256,
     mode = 'normal',
@@ -55,8 +57,8 @@ const Sidebar = ({
         if (item.type === 'collection') {
             onNavigateToPlaylist(item);
         } else {
-            // Navigate to project detail
-            onNavigateToView('project', item);
+            // Navigate to project detail and set as now playing
+            onNavigateToProject(item);
         }
     };
 

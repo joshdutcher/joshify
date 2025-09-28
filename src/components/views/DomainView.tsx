@@ -72,7 +72,7 @@ const DomainView = ({
                 {domainProjects.map((project, _index) => (
                     <div key={project.id} className="grid grid-cols-12 gap-4 items-center py-2 hover:bg-gray-800 rounded-lg px-2 group">
                         <div className="col-span-1 text-gray-400 text-sm">
-                            <span className="group-hover:hidden">{index + 1}</span>
+                            <span className="group-hover:hidden">{_index + 1}</span>
                             <Play className="w-4 h-4 hidden group-hover:block cursor-pointer" fill="currentColor" onClick={() => onPlayProject(project, { projects: domainProjects })} />
                         </div>
                         <div className="col-span-5 flex items-center space-x-3">

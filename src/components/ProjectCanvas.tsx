@@ -9,7 +9,7 @@ interface ProjectCanvasProps {
 }
 
 // Animated gradient color sets for fallbacks
-const gradientSets = [
+const gradientSets: string[][] = [
     ['#1DB954', '#0f7a31'], // Spotify green variations
     ['#1e3a8a', '#1e40af'], // Deep blue variations
     ['#374151', '#4b5563'], // Charcoal gray variations
@@ -19,10 +19,10 @@ const gradientSets = [
 ];
 
 // Get a consistent gradient set for a project based on its ID
-const getProjectGradient = (projectId: string) => {
-    if (!projectId) return gradientSets[0];
+const getProjectGradient = (projectId: string): string[] => {
+    if (!projectId) return gradientSets[0] || ['#1DB954', '#0f7a31'];
     const index = projectId.split('').reduce((acc: number, char: string) => acc + char.charCodeAt(0), 0) % gradientSets.length;
-    return gradientSets[index];
+    return gradientSets[index] || ['#1DB954', '#0f7a31'];
 };
 
 // Create animated gradient CSS for fallbacks
@@ -45,12 +45,14 @@ const ProjectCanvas = ({
 }: ProjectCanvasProps) => {
     const [hasError, setHasError] = useState(false);
     const [isLoaded, setIsLoaded] = useState(false);
+    const [albumArtError, setAlbumArtError] = useState(false);
     const videoRef = useRef<HTMLVideoElement>(null);
 
     // Reset error state and handle video when project changes
     useEffect(() => {
         setHasError(false);
         setIsLoaded(false);
+        setAlbumArtError(false);
 
         // Clear previous video when project changes
         if (videoRef.current) {
@@ -90,18 +92,35 @@ const ProjectCanvas = ({
         setIsLoaded(false);
     };
 
-    // If no canvas video configured, show animated gradient fallback
+    // If no canvas video configured, check for album art
     if (!project?.canvas) {
+        // If album art exists, show that instead of animated gradient
+        if (project?.image && !albumArtError) {
+            return showFallback ? (
+                <div className={`relative aspect-canvas overflow-hidden bg-spotify-card ${className}`}>
+                    <img
+                        src={project.image}
+                        alt={project.title || 'Project cover art'}
+                        className="absolute inset-0 w-full h-full object-cover"
+                        onError={() => {
+                            setAlbumArtError(true);
+                        }}
+                    />
+                </div>
+            ) : null;
+        }
+
+        // No canvas video and (no album art OR album art failed) - show animated gradient fallback
         const gradientColors = getProjectGradient(project?.id || '');
         const gradientStyle = createAnimatedGradient(gradientColors, isPlaying);
 
         return showFallback ? (
             <div
-                className={`aspect-square flex items-center justify-center rounded-lg ${className}`}
+                className={`aspect-canvas flex items-center justify-center ${className}`}
                 style={gradientStyle}
             >
                 <span className="text-white font-bold text-6xl opacity-20">
-                    {project?.title?.split(' ').map((w: string) => w[0]).join('').slice(0, 2) || '??'}
+                    {project?.title ? project.title.split(' ').map((w: string) => w[0]).join('').slice(0, 2) : '??'}
                 </span>
             </div>
         ) : null;
@@ -127,8 +146,23 @@ const ProjectCanvas = ({
                 </video>
             )}
 
-            {/* Fallback with animated gradient (if video fails to load) */}
+            {/* Fallback: album art first, then animated gradient (if video fails to load) */}
             {hasError && showFallback && (() => {
+                // If album art exists and hasn't failed, try to show that first
+                if (project?.image && !albumArtError) {
+                    return (
+                        <img
+                            src={project.image}
+                            alt={project.title || 'Project cover art'}
+                            className="absolute inset-0 w-full h-full object-cover"
+                            onError={() => {
+                                setAlbumArtError(true);
+                            }}
+                        />
+                    );
+                }
+
+                // No album art available or album art failed, show animated gradient
                 const gradientColors = getProjectGradient(project?.id || '');
                 const gradientStyle = createAnimatedGradient(gradientColors, isPlaying);
 
@@ -138,7 +172,7 @@ const ProjectCanvas = ({
                         style={gradientStyle}
                     >
                         <span className="text-white font-bold text-6xl opacity-30">
-                            {project?.title?.split(' ').map((w: string) => w[0]).join('').slice(0, 2) || '??'}
+                            {project?.title ? project.title.split(' ').map((w: string) => w[0]).join('').slice(0, 2) : '??'}
                         </span>
                     </div>
                 );

@@ -2,6 +2,7 @@ import { Play, Pause } from 'lucide-react';
 import ProjectImage from './ProjectImage';
 import PlaylistCoverArt from './PlaylistCoverArt';
 import type { Project, Playlist } from '../types';
+import { isProject, isPlaylist } from '../utils/typeGuards';
 
 interface HorizontalCardProps {
     item: Project | Playlist;
@@ -23,25 +24,25 @@ const HorizontalCard = ({
     onClick
 }: HorizontalCardProps) => {
     // Check if this item is currently playing
-    const isCurrentlyPlaying = type === 'playlist'
-        ? ('projects' in item && item.projects && item.projects.some((project: Project) => currentlyPlaying?.id === project.id) && isPlaying && 'name' in item && currentPlaylist?.name === item.name)
-        : ('id' in item && currentlyPlaying?.id === item.id && isPlaying);
+    const isCurrentlyPlaying = type === 'playlist' && isPlaylist(item)
+        ? (item.projects.some((project: Project) => currentlyPlaying?.id === project.id) && isPlaying && currentPlaylist?.name === item.name)
+        : (isProject(item) && currentlyPlaying?.id === item.id && isPlaying);
 
     return (
         <div
-            className="group relative bg-transparent rounded p-1.5 hover:bg-white/10 transition-all duration-300 cursor-pointer w-[140px] sm:w-[155px] md:w-[170px] lg:w-[188px]"
+            className="group relative bg-transparent rounded p-1.5 hover:bg-white/5 transition-all duration-200 cursor-pointer w-[140px] sm:w-[155px] md:w-[170px] lg:w-[188px]"
             onClick={() => onClick && onClick(item)}
     >
             {/* Cover Art */}
             <div className="relative mb-0.5">
-                {type === 'playlist' ? (
+                {type === 'playlist' && isPlaylist(item) ? (
                     <PlaylistCoverArt
                         playlist={item}
                         size="custom"
                         className="w-[108px] h-[108px] sm:w-[123px] sm:h-[123px] md:w-[138px] md:h-[138px] lg:w-[156px] lg:h-[156px] shadow-lg"
                         shape="rounded"
           />
-        ) : (
+        ) : isProject(item) ? (
             <ProjectImage
                 project={item}
                 size="custom"
@@ -49,7 +50,7 @@ const HorizontalCard = ({
                 shape="rounded"
                 showFallback={true}
           />
-        )}
+        ) : null}
         
                 {/* Play button positioned within cover art area */}
                 <button
@@ -71,20 +72,20 @@ const HorizontalCard = ({
             {/* Text content - constrained to card width */}
             <div className="w-full">
                 <h3
-                    className="text-spotify-primary font-semibold truncate mb-0 text-base hover:underline cursor-pointer"
+                    className="text-spotify-primary font-semibold truncate mb-0 text-base cursor-pointer no-underline hover:no-underline"
                     onClick={(e) => {
             e.stopPropagation();
             onClick && onClick(item);
           }}
         >
-                    {type === 'playlist' ? ('name' in item ? item.name : 'Playlist') : ('title' in item ? item.title : 'Track')}
+                    {type === 'playlist' && isPlaylist(item) ? item.name : isProject(item) ? item.title : 'Unknown'}
                 </h3>
                 <p className="text-spotify-secondary text-sm truncate">
-                    {type === 'playlist' ? (
-            ('projects' in item && item.projects) ? `${item.projects.length} track${item.projects.length !== 1 ? 's' : ''}` : 'Collection'
-          ) : (
-            ('artist' in item ? item.artist : null) || 'Track'
-          )}
+                    {type === 'playlist' && isPlaylist(item) ? (
+            `${item.projects.length} track${item.projects.length !== 1 ? 's' : ''}`
+          ) : isProject(item) ? (
+            item.artist
+          ) : 'Unknown'}
                 </p>
             </div>
         </div>
@@ -121,7 +122,7 @@ const HorizontalCardSection = ({
         
         return (
             <HorizontalCard
-                key={type === 'playlist' ? `playlist-${index}` : `project-${'id' in item ? item.id : index}`}
+                key={type === 'playlist' ? `playlist-${index}` : `project-${isProject(item) ? item.id : index}`}
                 item={item}
                 type={type}
                 currentlyPlaying={currentlyPlaying}

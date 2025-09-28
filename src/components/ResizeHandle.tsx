@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 interface ResizeHandleProps {
   orientation?: string;
@@ -21,7 +21,7 @@ const ResizeHandle = ({
     };
 
     return (
-        <div 
+        <div
             className={`
         resize-handle relative
         ${orientation === 'vertical' ? 'cursor-col-resize' : 'cursor-row-resize'}
@@ -39,7 +39,7 @@ const ResizeHandle = ({
       }}
     >
             {/* 1px visual line positioned in center */}
-            <div 
+            <div
                 className={`
           absolute
           ${isHovered || isDragging ? 'bg-white' : 'bg-transparent'}

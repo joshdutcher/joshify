@@ -3,7 +3,9 @@ import ProjectCard from '../ProjectCard';
 import HorizontalCardSection from '../HorizontalCardSection';
 import AdaptiveCardGrid from '../AdaptiveCardGrid';
 import { playlists, recentWork, topHits, sideProjects, defaultNowPlaying, madeForYou } from '../../data/projects';
-import { HomeViewProps } from '../../types';
+import { HomeViewProps, Playlist } from '../../types';
+import { isProject, isPlaylist } from '../../utils/typeGuards';
+import { Music } from 'lucide-react';
 
 const getTimeBasedGreeting = () => {
     const hour = new Date().getHours();
@@ -68,26 +70,36 @@ const HomeView = ({
                     className="text-spotify-secondary hover:text-spotify-primary text-sm font-semibold"
                     onClick={() => onNavigateToPlaylist({
             name: 'Made for You',
-            projects: madeForYou.flatMap(p => p.projects).slice(0, 20),
-            description: 'Curated collections and playlists just for you'
+            projects: madeForYou.filter((p): p is Playlist => p !== undefined).flatMap(p => p.projects).slice(0, 20),
+            description: 'Curated collections and playlists just for you',
+            icon: Music,
+            image: null,
+            employer: false
           })}
         >
                     Show all
                 </button>
             </div>
             <HorizontalCardSection
-                items={[...madeForYou]}
+                items={madeForYou.filter((p): p is Playlist => p !== undefined)}
                 type="playlist"
                 currentlyPlaying={currentlyPlaying}
                 isPlaying={isPlaying}
                 currentPlaylist={currentPlaylist}
-                onPlay={(playlist) => {
-          // Play the first track in the playlist
-          if ('projects' in playlist && playlist.projects && playlist.projects.length > 0) {
-            onPlayProject(playlist.projects[0], playlist);
+                onPlay={(item) => {
+            // Play the first track in the playlist
+            if (isPlaylist(item) && item.projects && item.projects.length > 0) {
+              const firstProject = item.projects[0];
+              if (firstProject) {
+                onPlayProject(firstProject, item);
+              }
+            }
+        }}
+                onClick={(item) => {
+          if (isPlaylist(item)) {
+            onNavigateToPlaylist(item);
           }
         }}
-                onClick={onNavigateToPlaylist}
       />
         </section>
 
@@ -97,7 +109,12 @@ const HomeView = ({
                 <h2 className="text-2xl font-bold">Top hits</h2>
                 <button
                     className="text-spotify-secondary hover:text-spotify-primary text-sm font-semibold"
-                    onClick={() => onNavigateToPlaylist(playlists.find(p => p.name === 'Top Hits'))}
+                    onClick={() => {
+            const playlist = playlists.find(p => p.name === 'Top Hits');
+            if (playlist) {
+              onNavigateToPlaylist(playlist);
+            }
+          }}
         >
                     Show all
                 </button>
@@ -107,8 +124,17 @@ const HomeView = ({
                 type="project"
                 currentlyPlaying={currentlyPlaying}
                 isPlaying={isPlaying}
-                onPlay={onPlayProject}
-                onClick={onNavigateToProject}
+                currentPlaylist={currentPlaylist}
+                onPlay={(item, playlist) => {
+          if (isProject(item)) {
+            onPlayProject(item, playlist);
+          }
+        }}
+                onClick={(item) => {
+          if (isProject(item)) {
+            onNavigateToProject(item);
+          }
+        }}
       />
         </section>
 
@@ -118,7 +144,12 @@ const HomeView = ({
                 <h2 className="text-2xl font-bold">Side projects</h2>
                 <button
                     className="text-spotify-secondary hover:text-spotify-primary text-sm font-semibold"
-                    onClick={() => onNavigateToPlaylist(playlists.find(p => p.name === 'Side Projects'))}
+                    onClick={() => {
+            const playlist = playlists.find(p => p.name === 'Side Projects');
+            if (playlist) {
+              onNavigateToPlaylist(playlist);
+            }
+          }}
         >
                     Show all
                 </button>
@@ -128,8 +159,17 @@ const HomeView = ({
                 type="project"
                 currentlyPlaying={currentlyPlaying}
                 isPlaying={isPlaying}
-                onPlay={onPlayProject}
-                onClick={onNavigateToProject}
+                currentPlaylist={currentPlaylist}
+                onPlay={(item, playlist) => {
+          if (isProject(item)) {
+            onPlayProject(item, playlist);
+          }
+        }}
+                onClick={(item) => {
+          if (isProject(item)) {
+            onNavigateToProject(item);
+          }
+        }}
       />
         </section>
     </div>

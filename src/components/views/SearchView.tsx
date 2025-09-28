@@ -4,14 +4,24 @@ import EqualizerIcon from '../EqualizerIcon';
 import ProjectImage from '../ProjectImage';
 import PlaylistCoverArt from '../PlaylistCoverArt';
 import { projects, playlists } from '../../data/projects';
+import { isProject, isPlaylist } from '../../utils/typeGuards';
+import type { Project, Playlist } from '../../types';
 
-const SearchView = ({ 
-    searchQuery, 
-    currentlyPlaying, 
-    isPlaying, 
-    onPlayProject, 
-    onNavigateToProject 
-}) => {
+interface SearchViewProps {
+    searchQuery: string;
+    currentlyPlaying: Project | null;
+    isPlaying: boolean;
+    onPlayProject: (project: Project, playlist?: Playlist | null) => void;
+    onNavigateToProject: (project: Project) => void;
+}
+
+const SearchView = ({
+    searchQuery,
+    currentlyPlaying,
+    isPlaying,
+    onPlayProject,
+    onNavigateToProject
+}: SearchViewProps) => {
     const [activeFilter, setActiveFilter] = useState('All');
 
     // Get all projects for searching
@@ -46,20 +56,19 @@ const SearchView = ({
     const topResult = searchResults[0];
     const otherResults = searchResults.slice(1);
 
-    const formatDuration = (seconds) => {
-        const mins = Math.floor(seconds / 60);
-        const secs = seconds % 60;
-        return `${mins}:${secs.toString().padStart(2, '0')}`;
-    };
 
 
-    const renderPlayButton = (item) => {
-        const isCurrentlyPlaying = currentlyPlaying?.id === item.id;
-    
+    const renderPlayButton = (item: Project | Playlist) => {
+        const isCurrentlyPlaying = isProject(item) && currentlyPlaying?.id === item.id;
+
         return (
             <button
                 className="w-12 h-12 rounded-full bg-spotify-green hover:bg-spotify-green-light transition-colors flex items-center justify-center group"
-                onClick={() => onPlayProject(item)}
+                onClick={() => {
+          if (isProject(item)) {
+            onPlayProject(item);
+          }
+        }}
       >
                 {isCurrentlyPlaying && isPlaying ? (
                     <EqualizerIcon className="w-5 h-5 text-black" />
@@ -70,8 +79,8 @@ const SearchView = ({
         );
     };
 
-    const renderImage = (item) => {
-        if (item.type === 'collection') {
+    const renderImage = (item: Project | Playlist) => {
+        if (isPlaylist(item)) {
             return (
                 <PlaylistCoverArt
                     playlist={item}
@@ -81,13 +90,16 @@ const SearchView = ({
         />
             );
         }
-        return (
-            <ProjectImage
-                project={item}
-                size="large"
-                shape="rounded"
-      />
-        );
+        if (isProject(item)) {
+            return (
+                <ProjectImage
+                    project={item}
+                    size="large"
+                    shape="rounded"
+          />
+            );
+        }
+        return null;
     };
 
     if (!searchQuery?.trim()) {
@@ -150,14 +162,20 @@ const SearchView = ({
                           <div className="flex-1 min-w-0">
                               <h3 
                                   className="text-2xl font-bold text-spotify-primary mb-1 truncate hover:underline cursor-pointer"
-                                  onClick={() => onNavigateToProject(topResult)}
+                                  onClick={() => {
+                                      if (isProject(topResult)) {
+                                          onNavigateToProject(topResult);
+                                      }
+                                  }}
                     >
-                                  {topResult.title || topResult.name}
+                                  {isProject(topResult) ? topResult.title : topResult.name}
                               </h3>
                               <p className="text-spotify-secondary text-sm mb-3">
-                                  {topResult.type === 'collection' 
+                                  {isPlaylist(topResult)
                         ? `${topResult.employer ? 'Workplace' : 'Collection'} • ${topResult.projects?.length || 0} tracks`
-                        : `${topResult.type} • ${topResult.artist || topResult.album}`
+                        : isProject(topResult)
+                        ? `${topResult.type} • ${topResult.artist || topResult.album}`
+                        : ''
                       }
                               </p>
                               <div className="opacity-0 group-hover:opacity-100 transition-opacity">
@@ -178,7 +196,7 @@ const SearchView = ({
                   <div className="space-y-2">
                       {otherResults.map((item, index) => (
                           <div
-                              key={`${item.type}-${item.id}-${index}`}
+                              key={`${item.type}-${isProject(item) ? item.id : item.name}-${index}`}
                               className="flex items-center space-x-4 p-2 rounded-md hover:bg-spotify-hover group transition-colors"
                   >
                               <div className="flex items-center space-x-4 flex-1 min-w-0">
@@ -186,17 +204,23 @@ const SearchView = ({
                       
                                   <div className="flex-1 min-w-0">
                                       <div className="flex items-center space-x-2">
-                                          <h3 
+                                          <h3
                                               className="text-spotify-primary font-medium truncate hover:underline cursor-pointer"
-                                              onClick={() => onNavigateToProject(item)}
+                                              onClick={() => {
+                                                  if (isProject(item)) {
+                                                      onNavigateToProject(item);
+                                                  }
+                                              }}
                           >
-                                              {item.title || item.name}
+                                              {isProject(item) ? item.title : item.name}
                                           </h3>
                                       </div>
                                       <p className="text-spotify-secondary text-sm truncate">
-                                          {item.type === 'collection' 
+                                          {isPlaylist(item)
                             ? `${item.employer ? 'Workplace' : 'Collection'} • ${item.projects?.length || 0} tracks`
-                            : `${item.artist || item.album}`
+                            : isProject(item)
+                            ? `${item.artist || item.album}`
+                            : ''
                           }
                                       </p>
                                   </div>
@@ -209,9 +233,9 @@ const SearchView = ({
                                       <Clock className="w-4 h-4" />
                                   </div>
                       
-                                  {item.type === 'project' && item.duration && (
+                                  {isProject(item) && item.duration && (
                                   <div className="text-spotify-secondary text-sm w-12 text-right">
-                                      {formatDuration(item.duration)}
+                                      {item.duration}
                                   </div>
                       )}
                               </div>

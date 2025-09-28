@@ -133,7 +133,7 @@ const NowPlayingPanel = ({
                 <div className="pt-4 border-t border-spotify-hover">
                     <div className="flex items-center justify-between text-sm">
                         <span className="text-spotify-secondary">Project views</span>
-                        <span className="text-spotify-green font-semibold">{currentlyPlaying.plays}</span>
+                        <span className="text-spotify-green font-semibold">{currentlyPlaying.impact}</span>
                     </div>
                 </div>
             </div>

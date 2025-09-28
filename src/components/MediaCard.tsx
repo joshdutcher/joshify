@@ -3,6 +3,7 @@ import EqualizerIcon from './EqualizerIcon';
 import ProjectImage from './ProjectImage';
 import PlaylistCoverArt from './PlaylistCoverArt';
 import type { Project, Playlist } from '../types';
+import { isProject, isPlaylist } from '../utils/typeGuards';
 
 
 interface MediaCardProps {
@@ -33,9 +34,9 @@ const MediaCard = ({
     onNavigateToCompany
 }: MediaCardProps) => {
     // Determine if this item is currently playing
-    const isCurrentlyPlaying = type === 'project'
-        ? ('id' in item && currentlyPlaying?.id === item.id && isPlaying)
-        : ('projects' in item && item.projects && item.projects.some((project: Project) => currentlyPlaying?.id === project.id) && isPlaying && 'name' in item && currentPlaylist?.name === item.name);
+    const isCurrentlyPlaying = type === 'project' && isProject(item)
+        ? (currentlyPlaying?.id === item.id && isPlaying)
+        : (type === 'playlist' && isPlaylist(item) && item.projects.some((project: Project) => currentlyPlaying?.id === project.id) && isPlaying && currentPlaylist?.name === item.name);
 
     // For playlist cards in horizontal scroll, we want a fixed width
     const cardStyle = cardWidth ? { width: cardWidth } : {};
@@ -50,14 +51,14 @@ const MediaCard = ({
     >
             {/* Cover Art */}
             <div className={`relative ${size === 'large' ? 'mb-0' : 'mb-0.5'}`}>
-                {type === 'playlist' ? (
+                {type === 'playlist' && isPlaylist(item) ? (
                     <PlaylistCoverArt
                         playlist={item}
                         size="custom"
                         className={`${size === 'large' ? 'w-12 h-12 md:w-16 md:h-16' : 'w-[108px] h-[108px] sm:w-[123px] sm:h-[123px] md:w-[138px] md:h-[138px] lg:w-[156px] lg:h-[156px]'} shadow-lg`}
                         shape="rounded"
           />
-        ) : (
+        ) : isProject(item) ? (
             <ProjectImage
                 project={item}
                 size="custom"
@@ -65,7 +66,7 @@ const MediaCard = ({
                 shape="rounded"
                 showFallback={size === 'large'} // Only show fallback background for large cards
           />
-        )}
+        ) : null}
         
                 {/* Play button for small/medium cards only - positioned within cover art area */}
                 {size !== 'large' && (
@@ -88,48 +89,48 @@ const MediaCard = ({
 
             {/* Text content */}
             <div className={`${size === 'large' ? 'flex-1 min-w-0' : 'w-full'}`}>
-                <h3 
-                    className="text-spotify-primary font-semibold truncate mb-0 text-base hover:underline cursor-pointer"
+                <h3
+                    className="text-spotify-primary font-semibold truncate mb-0 text-base cursor-pointer"
                     onClick={(e) => {
             e.stopPropagation();
             onClick && onClick(item);
           }}
         >
-                    {type === 'playlist' ? ('name' in item ? item.name : 'Playlist') : ('title' in item ? item.title : 'Track')}
+                    {type === 'playlist' && isPlaylist(item) ? item.name : isProject(item) ? item.title : 'Unknown'}
                 </h3>
         
                 {showArtist && (
                 <p className="text-spotify-secondary text-sm truncate">
-                    {type === 'playlist' ? (
+                    {type === 'playlist' && isPlaylist(item) ? (
               // For playlists, show track count
-              ('projects' in item && item.projects) ? `${item.projects.length} track${item.projects.length !== 1 ? 's' : ''}` : 'Collection'
-            ) : (
+              `${item.projects.length} track${item.projects.length !== 1 ? 's' : ''}`
+            ) : isProject(item) ? (
               // For projects, show artist with clickable company names
-              ('artist' in item && item.artist && item.artist.includes(' - ')) ? (
+              (item.artist && item.artist.includes(' - ')) ? (
                   <>
-                      {'artist' in item && item.artist ? item.artist.split(' - ')[0] : ''} - 
-                      <span 
+                      {item.artist.split(' - ')[0]} -
+                      <span
                           className="hover:underline cursor-pointer hover:text-spotify-primary"
                           onClick={(e) => {
                       e.stopPropagation();
-                      const company = 'artist' in item && item.artist ? item.artist.split(' - ')[1] : '';
+                      const company = item.artist.split(' - ')[1];
                       if (company && onNavigateToCompany) {
                         onNavigateToCompany(company);
                       }
                     }}
                   >
-                          {'artist' in item && item.artist ? item.artist.split(' - ')[1] : ''}
+                          {item.artist.split(' - ')[1]}
                       </span>
                   </>
               ) : (
-                ('artist' in item ? item.artist : null)
+                item.artist
               )
-            )}
+            ) : 'Unknown'}
                 </p>
         )}
         
                 {/* Additional content for large cards */}
-                {size === 'large' && type === 'playlist' && item.description && (
+                {size === 'large' && type === 'playlist' && isPlaylist(item) && item.description && (
                 <p className="text-spotify-secondary text-xs mt-0.5 truncate">
                     {item.description}
                 </p>
@@ -142,7 +143,7 @@ const MediaCard = ({
                         <span>•</span>
                         <span className="hidden sm:inline">{'duration' in item ? item.duration : ''}</span>
                         <span className="hidden sm:inline">•</span>
-                        <span className="text-spotify-green">{'plays' in item ? item.plays : 0} plays</span>
+                        <span className="text-spotify-green">{'impact' in item ? item.impact : 0}</span>
                     </div>
                 </div>
         )}
