@@ -70,9 +70,9 @@ const HomeView = ({
                     className="text-spotify-secondary hover:text-spotify-primary text-sm font-semibold"
                     onClick={() => onNavigateToPlaylist({
             name: 'Made for You',
+            icon: Music,
             projects: madeForYou.filter((p): p is Playlist => p !== undefined).flatMap(p => p.projects).slice(0, 20),
             description: 'Curated collections and playlists just for you',
-            icon: Music,
             image: null,
             employer: false
           })}
@@ -86,12 +86,12 @@ const HomeView = ({
                 currentlyPlaying={currentlyPlaying}
                 isPlaying={isPlaying}
                 currentPlaylist={currentPlaylist}
-                onPlay={(item) => {
+                onPlay={(item, playlist) => {
             // Play the first track in the playlist
             if (isPlaylist(item) && item.projects && item.projects.length > 0) {
               const firstProject = item.projects[0];
               if (firstProject) {
-                onPlayProject(firstProject, item);
+                onPlayProject(firstProject, playlist || item);
               }
             }
         }}

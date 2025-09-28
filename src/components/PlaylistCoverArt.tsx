@@ -60,7 +60,7 @@ const PlaylistCoverArt = ({
                         {coverTracks[0] ? (
                             <div
                                 className="w-full h-full cursor-pointer hover:opacity-80 transition-opacity"
-                                onClick={() => onNavigateToProject && onNavigateToProject(coverTracks[0])}
+                                onClick={() => onNavigateToProject && coverTracks[0] && onNavigateToProject(coverTracks[0])}
                             >
                                 <ProjectImage
                                     project={coverTracks[0]}
@@ -80,7 +80,7 @@ const PlaylistCoverArt = ({
                         {coverTracks[1] ? (
                             <div
                                 className="w-full h-full cursor-pointer hover:opacity-80 transition-opacity"
-                                onClick={() => onNavigateToProject && onNavigateToProject(coverTracks[1])}
+                                onClick={() => onNavigateToProject && coverTracks[1] && onNavigateToProject(coverTracks[1])}
                             >
                                 <ProjectImage
                                     project={coverTracks[1]}
@@ -100,7 +100,7 @@ const PlaylistCoverArt = ({
                         {coverTracks[2] ? (
                             <div
                                 className="w-full h-full cursor-pointer hover:opacity-80 transition-opacity"
-                                onClick={() => onNavigateToProject && onNavigateToProject(coverTracks[2])}
+                                onClick={() => onNavigateToProject && coverTracks[2] && onNavigateToProject(coverTracks[2])}
                             >
                                 <ProjectImage
                                     project={coverTracks[2]}
@@ -120,7 +120,7 @@ const PlaylistCoverArt = ({
                         {coverTracks[3] ? (
                             <div
                                 className="w-full h-full cursor-pointer hover:opacity-80 transition-opacity"
-                                onClick={() => onNavigateToProject && onNavigateToProject(coverTracks[3])}
+                                onClick={() => onNavigateToProject && coverTracks[3] && onNavigateToProject(coverTracks[3])}
                             >
                                 <ProjectImage
                                     project={coverTracks[3]}
@@ -148,7 +148,7 @@ const PlaylistCoverArt = ({
                     {coverTracks[0] ? (
                         <div
                             className="w-full h-full cursor-pointer hover:opacity-80 transition-opacity"
-                            onClick={() => onNavigateToProject && onNavigateToProject(coverTracks[0])}
+                            onClick={() => onNavigateToProject && coverTracks[0] && onNavigateToProject(coverTracks[0])}
                         >
                             <ProjectImage
                                 project={coverTracks[0]}
@@ -168,7 +168,7 @@ const PlaylistCoverArt = ({
                     {coverTracks[1] ? (
                         <div
                             className="w-full h-full cursor-pointer hover:opacity-80 transition-opacity"
-                            onClick={() => onNavigateToProject && onNavigateToProject(coverTracks[1])}
+                            onClick={() => onNavigateToProject && coverTracks[1] && onNavigateToProject(coverTracks[1])}
                         >
                             <ProjectImage
                                 project={coverTracks[1]}
@@ -188,7 +188,7 @@ const PlaylistCoverArt = ({
                     {coverTracks[2] ? (
                         <div
                             className="w-full h-full cursor-pointer hover:opacity-80 transition-opacity"
-                            onClick={() => onNavigateToProject && onNavigateToProject(coverTracks[2])}
+                            onClick={() => onNavigateToProject && coverTracks[2] && onNavigateToProject(coverTracks[2])}
                         >
                             <ProjectImage
                                 project={coverTracks[2]}
@@ -208,7 +208,7 @@ const PlaylistCoverArt = ({
                     {coverTracks[3] ? (
                         <div
                             className="w-full h-full cursor-pointer hover:opacity-80 transition-opacity"
-                            onClick={() => onNavigateToProject && onNavigateToProject(coverTracks[3])}
+                            onClick={() => onNavigateToProject && coverTracks[3] && onNavigateToProject(coverTracks[3])}
                         >
                             <ProjectImage
                                 project={coverTracks[3]}

@@ -53,14 +53,14 @@ const MediaCard = ({
             <div className={`relative ${size === 'large' ? 'mb-0' : 'mb-0.5'}`}>
                 {type === 'playlist' && isPlaylist(item) ? (
                     <PlaylistCoverArt
-                        playlist={item}
+                        playlist={item as Playlist}
                         size="custom"
                         className={`${size === 'large' ? 'w-12 h-12 md:w-16 md:h-16' : 'w-[108px] h-[108px] sm:w-[123px] sm:h-[123px] md:w-[138px] md:h-[138px] lg:w-[156px] lg:h-[156px]'} shadow-lg`}
                         shape="rounded"
           />
         ) : isProject(item) ? (
             <ProjectImage
-                project={item}
+                project={item as Project}
                 size="custom"
                 className={`${size === 'large' ? 'w-12 h-12 md:w-16 md:h-16' : 'w-[108px] h-[108px] sm:w-[123px] sm:h-[123px] md:w-[138px] md:h-[138px] lg:w-[156px] lg:h-[156px]'} shadow-lg`}
                 shape="rounded"

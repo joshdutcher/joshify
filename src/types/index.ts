@@ -14,6 +14,7 @@ export enum Skill {
   // Development Areas
   API_DEVELOPMENT = 'API Development',
   WEB_DEVELOPMENT = 'Web Development',
+  ANDROID_DEVELOPMENT = 'Android Development',
   SERVERLESS_DEVELOPMENT = 'Serverless Development',
   AI_ASSISTED_DEVELOPMENT = 'AI-Assisted Development',
 

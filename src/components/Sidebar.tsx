@@ -20,7 +20,7 @@ import ProjectImage from './ProjectImage';
 const Sidebar = ({
     currentView: _currentView,
     sidebarOpen,
-    onNavigateToView,
+    onNavigateToView: _onNavigateToView,
     onNavigateToPlaylist,
     onNavigateToProject,
     onCloseSidebar,

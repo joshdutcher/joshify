@@ -1,0 +1,21 @@
+[build]
+builder = "NIXPACKS"
+
+[deploy]
+startCommand = "npm run preview"
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 10
+
+# Environment variables
+[env]
+NODE_ENV = "production"
+PORT = "3000"
+
+# Build configuration
+[build.nixpacksConfig]
+aptPkgs = ["nodejs", "npm"]
+npmConfigProduction = false
+
+# Service configuration
+[service]
+# Railway will automatically handle this
