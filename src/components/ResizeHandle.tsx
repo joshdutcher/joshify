@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 interface ResizeHandleProps {
   orientation?: string;
-  onMouseDown: (e: React.MouseEvent) => void;
+  onMouseDown: (_e: React.MouseEvent) => void;
   className?: string;
   isDragging?: boolean;
 }

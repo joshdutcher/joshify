@@ -10,10 +10,10 @@ interface ProjectCardProps {
   showArtist?: boolean;
   currentlyPlaying: Project | null;
   isPlaying: boolean;
-  onPlayProject: (project: Project) => void;
-  onProjectClick: (project: Project) => void;
-  onNavigateToCompany?: (companyName: string) => void;
-  onNavigateToDomain?: (domainName: string) => void;
+  onPlayProject: (_project: Project) => void;
+  onProjectClick: (_project: Project) => void;
+  onNavigateToCompany?: (_companyName: string) => void;
+  onNavigateToDomain?: (_domainName: string) => void;
 }
 
 

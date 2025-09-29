@@ -8,7 +8,7 @@ interface ProjectDetailViewProps {
     project: Project;
     currentlyPlaying: Project | null;
     isPlaying: boolean;
-    onPlayProject: (project: Project) => void;
+    onPlayProject: (_project: Project) => void;
 }
 
 const ProjectDetailView = ({

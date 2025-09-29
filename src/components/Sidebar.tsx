@@ -6,9 +6,9 @@ import type { Playlist } from '../types';
 interface SidebarProps {
   currentView: string;
   sidebarOpen: boolean;
-  onNavigateToView: (view: string, item?: any) => void;
-  onNavigateToPlaylist: (playlist: Playlist) => void;
-  onNavigateToProject: (project: any) => void;
+  onNavigateToView: (_view: string, _item?: any) => void;
+  onNavigateToPlaylist: (_playlist: Playlist) => void;
+  onNavigateToProject: (_project: any) => void;
   onCloseSidebar: () => void;
   width?: number;
   mode?: string;

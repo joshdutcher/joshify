@@ -15,8 +15,9 @@ build/
 .env.test.local
 .env.production.local
 
-# Editor directories and files
-.vscode/
+# Editor directories and files - keep workspace config, ignore personal settings
+.vscode/settings.local.json
+.vscode/*.code-workspace
 .idea/
 *.swp
 *.swo

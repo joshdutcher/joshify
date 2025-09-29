@@ -11,7 +11,7 @@ interface RGBColor {
 }
 
 class ColorExtractor {
-    static extractColors(imageUrl: string | null, callback: (colors: ColorResult) => void) {
+    static extractColors(imageUrl: string | null, callback: (_colors: ColorResult) => void) {
         if (!imageUrl) {
             callback(this.getDefaultColors());
             return;

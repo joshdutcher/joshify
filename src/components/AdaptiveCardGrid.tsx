@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, Children } from 'react';
+import React, { useState, useEffect, useRef, useCallback, Children } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface AdaptiveCardGridProps {
@@ -22,32 +22,32 @@ const AdaptiveCardGrid = ({
     const containerRef = useRef<HTMLDivElement>(null);
     const scrollRef = useRef<HTMLDivElement>(null);
 
-    const checkScrollNeeded = () => {
+    const checkScrollNeeded = useCallback(() => {
         if (!containerRef.current) return;
-    
+
         const containerWidth = containerRef.current.offsetWidth;
         const itemCount = Children.count(children);
-    
+
         // Calculate how many cards can fit in one row
         const cardsPerRow = Math.floor((containerWidth + gap) / (cardWidth + gap));
         const maxVisibleCards = cardsPerRow * maxRows;
-    
+
         // Show horizontal scroll if we have more cards than can fit in maxRows
         const needsHorizontalScroll = itemCount > maxVisibleCards;
         setShowHorizontalScroll(needsHorizontalScroll);
-    
+
         if (needsHorizontalScroll && scrollRef.current) {
             updateScrollButtons();
         }
-    };
+    }, [children, cardWidth, gap, maxRows]);
 
-    const updateScrollButtons = () => {
+    const updateScrollButtons = useCallback(() => {
         if (!scrollRef.current) return;
-    
+
         const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
         setCanScrollLeft(scrollLeft > 0);
         setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 1);
-    };
+    }, []);
 
     const scroll = (direction: 'left' | 'right') => {
         if (!scrollRef.current) return;
@@ -70,7 +70,7 @@ const AdaptiveCardGrid = ({
 
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
-    }, [children, cardWidth, gap, maxRows]);
+    }, [children, cardWidth, gap, maxRows, checkScrollNeeded]);
 
     useEffect(() => {
         if (showHorizontalScroll && scrollRef.current) {
@@ -81,7 +81,7 @@ const AdaptiveCardGrid = ({
             return () => scrollContainer.removeEventListener('scroll', updateScrollButtons);
         }
         return undefined;
-    }, [showHorizontalScroll]);
+    }, [showHorizontalScroll, updateScrollButtons]);
 
     if (showHorizontalScroll) {
         return (

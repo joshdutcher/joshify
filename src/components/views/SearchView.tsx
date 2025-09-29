@@ -11,8 +11,8 @@ interface SearchViewProps {
     searchQuery: string;
     currentlyPlaying: Project | null;
     isPlaying: boolean;
-    onPlayProject: (project: Project, playlist?: Playlist | null) => void;
-    onNavigateToProject: (project: Project) => void;
+    onPlayProject: (_project: Project, _playlist?: Playlist | null) => void;
+    onNavigateToProject: (_project: Project) => void;
 }
 
 const SearchView = ({
@@ -122,7 +122,7 @@ const SearchView = ({
             {/* Search Results Header */}
             <div className="mb-6">
                 <h1 className="text-2xl font-bold text-spotify-primary mb-4">
-                    Search results for "{searchQuery}"
+                    Search results for &quot;{searchQuery}&quot;
                 </h1>
         
                 {/* Filter Buttons */}
@@ -146,7 +146,7 @@ const SearchView = ({
             {searchResults.length === 0 ? (
                 <div className="text-center py-12">
                     <div className="text-spotify-secondary">
-                        <p className="text-lg mb-2">No results found for "{searchQuery}"</p>
+                        <p className="text-lg mb-2">No results found for &quot;{searchQuery}&quot;</p>
                         <p className="text-sm">Please make sure your words are spelled correctly, or use different keywords.</p>
                     </div>
                 </div>

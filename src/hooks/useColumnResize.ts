@@ -116,7 +116,7 @@ const useColumnResize = () => {
     
         document.addEventListener('mousemove', handleMouseMove);
         document.addEventListener('mouseup', handleMouseUp);
-    }, [leftColumnWidth, leftColumnMode]);
+    }, [leftColumnMode]);
 
     // Right column resize handlers
     const startRightResize = useCallback((e: ReactMouseEvent) => {
