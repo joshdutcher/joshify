@@ -7,8 +7,8 @@ interface CompanyViewProps {
   company: string;
   currentlyPlaying: Project | null;
   isPlaying: boolean;
-  onPlayProject: (project: Project, playlist?: any) => void;
-  onNavigateToProject: (project: Project) => void;
+  onPlayProject: (_project: Project, _playlist?: any) => void;
+  onNavigateToProject: (_project: Project) => void;
 }
 
 const CompanyView = ({
@@ -32,7 +32,7 @@ const CompanyView = ({
             <div className="text-white p-4 md:p-6">
                 <div className="text-center py-12">
                     <h1 className="text-3xl md:text-5xl font-bold mb-4">No projects found</h1>
-                    <p className="text-gray-400">No projects found for company "{company}"</p>
+                    <p className="text-gray-400">No projects found for company &quot;{company}&quot;</p>
                 </div>
             </div>
         );

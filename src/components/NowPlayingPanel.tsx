@@ -8,7 +8,7 @@ interface NowPlayingPanelProps {
   isPlaying?: boolean;
   className?: string;
   style?: Record<string, any>;
-  onNavigateToProject: (project: Project) => void;
+  onNavigateToProject: (_project: Project) => void;
   width?: number;
 }
 

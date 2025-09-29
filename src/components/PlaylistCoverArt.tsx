@@ -1,4 +1,5 @@
 
+import React from 'react';
 import ProjectImage from './ProjectImage';
 import type { Playlist, Project } from '../types';
 
@@ -7,7 +8,7 @@ interface PlaylistCoverArtProps {
   size?: string;
   className?: string;
   shape?: string;
-  onNavigateToProject?: (project: Project) => void;
+  onNavigateToProject?: (_project: Project) => void;
 }
 
 const PlaylistCoverArt = ({

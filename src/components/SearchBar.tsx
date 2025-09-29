@@ -1,9 +1,9 @@
-import { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Search, X } from 'lucide-react';
 
 interface SearchBarProps {
-  onSearch: (query: string) => void;
-  onNavigateToSearch: (query: string) => void;
+  onSearch: (_query: string) => void;
+  onNavigateToSearch: (_query: string) => void;
   placeholder?: string;
   className?: string;
 }

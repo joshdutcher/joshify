@@ -10,8 +10,8 @@ interface HorizontalCardProps {
     currentlyPlaying: Project | null;
     isPlaying: boolean;
     currentPlaylist: Playlist | null;
-    onPlay: (item: Project | Playlist, playlist?: Playlist) => void;
-    onClick?: (item: Project | Playlist) => void;
+    onPlay: (_item: Project | Playlist, _playlist?: Playlist) => void;
+    onClick?: (_item: Project | Playlist) => void;
 }
 
 const HorizontalCard = ({
@@ -98,8 +98,8 @@ interface HorizontalCardSectionProps {
     currentlyPlaying: Project | null;
     isPlaying: boolean;
     currentPlaylist: Playlist | null;
-    onPlay: (item: Project | Playlist, playlist?: Playlist) => void;
-    onClick: (item: Project | Playlist) => void;
+    onPlay: (_item: Project | Playlist, _playlist?: Playlist) => void;
+    onClick: (_item: Project | Playlist) => void;
 }
 
 const HorizontalCardSection = ({
