@@ -49,6 +49,13 @@ const AdaptiveCardGrid = ({
         setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 1);
     }, []);
 
+    // Use effect to call updateScrollButtons when needed
+    useEffect(() => {
+        if (showHorizontalScroll && scrollRef.current) {
+            updateScrollButtons();
+        }
+    }, [showHorizontalScroll, updateScrollButtons]);
+
     const scroll = (direction: 'left' | 'right') => {
         if (!scrollRef.current) return;
     
