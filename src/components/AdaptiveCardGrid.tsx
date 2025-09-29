@@ -39,7 +39,7 @@ const AdaptiveCardGrid = ({
         if (needsHorizontalScroll && scrollRef.current) {
             updateScrollButtons();
         }
-    }, [children, cardWidth, gap, maxRows, updateScrollButtons]);
+    }, [children, cardWidth, gap, maxRows]);
 
     const updateScrollButtons = useCallback(() => {
         if (!scrollRef.current) return;
