@@ -1,12 +1,12 @@
 import { Clock, Heart, User, Plus } from 'lucide-react';
 import {
-  Project,
-  ProjectCollection,
-  PlaylistCollection,
-  MadeForYouSection,
-  SkillsArray,
-  Skill,
-  AlbumCategory
+    Project,
+    ProjectCollection,
+    PlaylistCollection,
+    MadeForYouSection,
+    SkillsArray,
+    Skill,
+    AlbumCategory
 } from '@/types';
 
 // Project data structure with strict typing

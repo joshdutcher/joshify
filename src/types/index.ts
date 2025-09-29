@@ -4,6 +4,7 @@ import { LucideIcon } from 'lucide-react';
  * Consolidated Skills Enum - Standardized skill categories
  * Consolidates similar skills like "API Development" vs "APIs"
  */
+/* eslint-disable no-unused-vars */
 export enum Skill {
   // Programming Languages
   PYTHON = 'Python',
@@ -74,10 +75,12 @@ export enum Skill {
   MCP_SERVER_INTEGRATION = 'MCP Server Integration',
   AI_PROMPT_ENGINEERING = 'AI Prompt Engineering',
 }
+/* eslint-enable no-unused-vars */
 
 /**
  * Album Categories Enum - Consolidated project categories
  */
+/* eslint-disable no-unused-vars */
 export enum AlbumCategory {
   API_DEVELOPMENT = 'API Development',
   WEB_DEVELOPMENT = 'Web Development',
@@ -89,6 +92,7 @@ export enum AlbumCategory {
   CAMPBELL_ZAFAR_LAW = 'Campbell Zafar Law',
   PRESIDENTIAL_ELECTION_2024 = '2024 Presidential Election',
 }
+/* eslint-enable no-unused-vars */
 
 /**
  * Project interface with strict typing
@@ -177,11 +181,11 @@ export interface NavigationProps {
   currentlyPlaying: Project | null;
   isPlaying: boolean;
   currentPlaylist: Playlist | null;
-  onPlayProject: (project: Project, playlist?: Playlist | null) => void;
-  onNavigateToProject: (project: Project) => void;
-  onNavigateToPlaylist: (playlist: Playlist) => void;
-  onNavigateToCompany: (companyName: string) => void;
-  onNavigateToDomain: (domainName: string) => void;
+  onPlayProject: (_project: Project, _playlist?: Playlist | null) => void;
+  onNavigateToProject: (_project: Project) => void;
+  onNavigateToPlaylist: (_playlist: Playlist) => void;
+  onNavigateToCompany: (_companyName: string) => void;
+  onNavigateToDomain: (_domainName: string) => void;
   onNavigateToProfile: () => void;
 }
 

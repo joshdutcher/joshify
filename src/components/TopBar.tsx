@@ -5,11 +5,11 @@ import SearchBar from './SearchBar';
 
 interface TopBarProps {
   currentView: string;
-  onNavigateToView: (view: string) => void;
+  onNavigateToView: (_view: string) => void;
   onNavigateToProfile: () => void;
   onToggleSidebar: () => void;
-  onSearch: (query: string) => void;
-  onNavigateToSearch: (query: string) => void;
+  onSearch: (_query: string) => void;
+  onNavigateToSearch: (_query: string) => void;
 }
 
 const TopBar = ({

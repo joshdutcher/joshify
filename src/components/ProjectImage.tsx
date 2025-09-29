@@ -1,3 +1,4 @@
+import React from 'react';
 import type { Project } from '../types';
 
 interface ProjectImageProps {

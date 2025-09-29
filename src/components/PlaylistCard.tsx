@@ -11,8 +11,8 @@ interface PlaylistCardProps {
   currentlyPlaying: Project | null;
   isPlaying: boolean;
   currentPlaylist: Playlist | null;
-  onPlayPlaylist: (playlist: Playlist) => void;
-  onPlaylistClick: (playlist: Playlist) => void;
+  onPlayPlaylist: (_playlist: Playlist) => void;
+  onPlaylistClick: (_playlist: Playlist) => void;
 }
 
 const PlaylistCard = ({

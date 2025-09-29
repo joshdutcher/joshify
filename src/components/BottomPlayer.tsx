@@ -6,7 +6,7 @@ interface BottomPlayerProps {
     currentlyPlaying: Project | null;
     isPlaying: boolean;
     onTogglePlay: () => void;
-    onNavigateToProject: (project: Project) => void;
+    onNavigateToProject: (_project: Project) => void;
     onNextTrack: () => void;
     onPreviousTrack: () => void;
     currentPlaylist: Playlist | null;

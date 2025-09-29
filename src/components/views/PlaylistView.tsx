@@ -8,10 +8,10 @@ interface PlaylistViewProps {
   playlist: Playlist;
   currentlyPlaying: Project | null;
   isPlaying: boolean;
-  onPlayProject: (project: Project, playlist?: Playlist | null) => void;
-  onNavigateToProject: (project: Project) => void;
-  onNavigateToCompany?: (companyName: string) => void;
-  onNavigateToDomain?: (domainName: string) => void;
+  onPlayProject: (_project: Project, _playlist?: Playlist | null) => void;
+  onNavigateToProject: (_project: Project) => void;
+  onNavigateToCompany?: (_companyName: string) => void;
+  onNavigateToDomain?: (_domainName: string) => void;
 }
 
 const PlaylistView = ({

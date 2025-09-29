@@ -15,9 +15,9 @@ interface MediaCardProps {
     currentlyPlaying: Project | null;
     isPlaying: boolean;
     currentPlaylist: Playlist | null;
-    onPlay: (item: Project | Playlist, playlist?: Playlist) => void;
-    onClick?: (item: Project | Playlist) => void;
-    onNavigateToCompany?: (companyName: string) => void;
+    onPlay: (_item: Project | Playlist, _playlist?: Playlist) => void;
+    onClick?: (_item: Project | Playlist) => void;
+    onNavigateToCompany?: (_companyName: string) => void;
 }
 
 const MediaCard = ({
