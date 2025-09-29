@@ -22,6 +22,14 @@ const AdaptiveCardGrid = ({
     const containerRef = useRef<HTMLDivElement>(null);
     const scrollRef = useRef<HTMLDivElement>(null);
 
+    const updateScrollButtons = useCallback(() => {
+        if (!scrollRef.current) return;
+
+        const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+        setCanScrollLeft(scrollLeft > 0);
+        setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 1);
+    }, []);
+
     const checkScrollNeeded = useCallback(() => {
         if (!containerRef.current) return;
 
@@ -39,15 +47,7 @@ const AdaptiveCardGrid = ({
         if (needsHorizontalScroll && scrollRef.current) {
             updateScrollButtons();
         }
-    }, [children, cardWidth, gap, maxRows]);
-
-    const updateScrollButtons = useCallback(() => {
-        if (!scrollRef.current) return;
-
-        const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
-        setCanScrollLeft(scrollLeft > 0);
-        setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 1);
-    }, []);
+    }, [children, cardWidth, gap, maxRows, updateScrollButtons]);
 
     // Use effect to call updateScrollButtons when needed
     useEffect(() => {
