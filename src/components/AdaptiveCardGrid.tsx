@@ -39,7 +39,7 @@ const AdaptiveCardGrid = ({
         if (needsHorizontalScroll && scrollRef.current) {
             updateScrollButtons();
         }
-    }, [children, cardWidth, gap, maxRows]);
+    }, [children, cardWidth, gap, maxRows]); // eslint-disable-line react-hooks/exhaustive-deps
 
     const updateScrollButtons = useCallback(() => {
         if (!scrollRef.current) return;

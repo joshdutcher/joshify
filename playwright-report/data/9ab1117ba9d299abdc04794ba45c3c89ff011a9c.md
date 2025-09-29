@@ -1,0 +1,392 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e3]:
+  - generic [ref=e4]:
+    - button "Joshify" [ref=e6] [cursor=pointer]:
+      - img [ref=e7] [cursor=pointer]
+      - generic [ref=e9] [cursor=pointer]:
+        - text: Josh
+        - generic [ref=e10] [cursor=pointer]: ify
+    - generic [ref=e12]:
+      - button "Home" [ref=e13] [cursor=pointer]:
+        - img [ref=e14] [cursor=pointer]
+      - generic [ref=e19]:
+        - img [ref=e20]
+        - textbox "What would you like to explore?" [ref=e23]
+    - button "Josh Dutcher Josh Dutcher" [ref=e25] [cursor=pointer]:
+      - generic [ref=e26] [cursor=pointer]: Josh Dutcher
+      - img "Josh Dutcher" [ref=e27] [cursor=pointer]
+  - generic [ref=e28]:
+    - generic [ref=e30]:
+      - generic [ref=e31]:
+        - heading "My Work" [level=2] [ref=e33]
+        - generic [ref=e37]:
+          - button "All" [ref=e38] [cursor=pointer]
+          - button "Collections" [ref=e39] [cursor=pointer]
+          - button "Projects" [ref=e40] [cursor=pointer]
+      - generic [ref=e42]:
+        - button "Joshify Startup Technology Infrastructure Law Firm Startup Operations Election Data Pipeline Recently Played Collection • 8 tracks" [ref=e43] [cursor=pointer]:
+          - generic [ref=e45] [cursor=pointer]:
+            - img "Joshify" [ref=e49] [cursor=pointer]
+            - img "Startup Technology Infrastructure" [ref=e53] [cursor=pointer]
+            - img "Law Firm Startup Operations" [ref=e57] [cursor=pointer]
+            - img "Election Data Pipeline" [ref=e61] [cursor=pointer]
+          - generic [ref=e62] [cursor=pointer]:
+            - generic [ref=e63] [cursor=pointer]: Recently Played
+            - generic [ref=e64] [cursor=pointer]: Collection • 8 tracks
+        - button "Law Firm Startup Operations Election Data Pipeline API Engine Optimization Medicare.gov ETL Top Hits Collection • 6 tracks" [ref=e65] [cursor=pointer]:
+          - generic [ref=e67] [cursor=pointer]:
+            - img "Law Firm Startup Operations" [ref=e71] [cursor=pointer]
+            - img "Election Data Pipeline" [ref=e75] [cursor=pointer]
+            - img "API Engine Optimization" [ref=e79] [cursor=pointer]
+            - img "Medicare.gov ETL" [ref=e83] [cursor=pointer]
+          - generic [ref=e84] [cursor=pointer]:
+            - generic [ref=e85] [cursor=pointer]: Top Hits
+            - generic [ref=e86] [cursor=pointer]: Collection • 6 tracks
+        - button "Joshify Beer Fridge Did Kansas Win? Wichita Radar Side Projects Collection • 4 tracks" [ref=e87] [cursor=pointer]:
+          - generic [ref=e89] [cursor=pointer]:
+            - img "Joshify" [ref=e93] [cursor=pointer]
+            - img "Beer Fridge" [ref=e97] [cursor=pointer]
+            - img "Did Kansas Win?" [ref=e101] [cursor=pointer]
+            - img "Wichita Radar" [ref=e105] [cursor=pointer]
+          - generic [ref=e106] [cursor=pointer]:
+            - generic [ref=e107] [cursor=pointer]: Side Projects
+            - generic [ref=e108] [cursor=pointer]: Collection • 4 tracks
+        - button "Campbell Zafar Law cover art Campbell Zafar Law Workplace • 2 tracks" [ref=e109] [cursor=pointer]:
+          - img "Campbell Zafar Law cover art" [ref=e111] [cursor=pointer]
+          - generic [ref=e112] [cursor=pointer]:
+            - generic [ref=e113] [cursor=pointer]: Campbell Zafar Law
+            - generic [ref=e114] [cursor=pointer]: Workplace • 2 tracks
+        - button "DDx cover art DDx Workplace • 2 tracks" [ref=e115] [cursor=pointer]:
+          - img "DDx cover art" [ref=e117] [cursor=pointer]
+          - generic [ref=e118] [cursor=pointer]:
+            - generic [ref=e119] [cursor=pointer]: DDx
+            - generic [ref=e120] [cursor=pointer]: Workplace • 2 tracks
+        - button "Ad Hoc cover art Ad Hoc Workplace • 2 tracks" [ref=e121] [cursor=pointer]:
+          - img "Ad Hoc cover art" [ref=e123] [cursor=pointer]
+          - generic [ref=e124] [cursor=pointer]:
+            - generic [ref=e125] [cursor=pointer]: Ad Hoc
+            - generic [ref=e126] [cursor=pointer]: Workplace • 2 tracks
+        - button "Election Data Pipeline Medicare.gov ETL Healthcare API Extensions Data Engineering Collection • 3 tracks" [ref=e127] [cursor=pointer]:
+          - generic [ref=e129] [cursor=pointer]:
+            - img "Election Data Pipeline" [ref=e133] [cursor=pointer]
+            - img "Medicare.gov ETL" [ref=e137] [cursor=pointer]
+            - img "Healthcare API Extensions" [ref=e141] [cursor=pointer]
+          - generic [ref=e144] [cursor=pointer]:
+            - generic [ref=e145] [cursor=pointer]: Data Engineering
+            - generic [ref=e146] [cursor=pointer]: Collection • 3 tracks
+        - button "Election Data Pipeline Election Data Pipeline Project - DDx" [ref=e147] [cursor=pointer]:
+          - img "Election Data Pipeline" [ref=e149] [cursor=pointer]
+          - generic [ref=e150] [cursor=pointer]:
+            - generic [ref=e151] [cursor=pointer]: Election Data Pipeline
+            - generic [ref=e152] [cursor=pointer]: Project - DDx
+        - button "Mobile API Rebuild Mobile API Rebuild Project - BG Products" [ref=e153] [cursor=pointer]:
+          - img "Mobile API Rebuild" [ref=e155] [cursor=pointer]
+          - generic [ref=e156] [cursor=pointer]:
+            - generic [ref=e157] [cursor=pointer]: Mobile API Rebuild
+            - generic [ref=e158] [cursor=pointer]: Project - BG Products
+        - button "Medicare.gov ETL Medicare.gov ETL Project - Ad Hoc" [ref=e159] [cursor=pointer]:
+          - img "Medicare.gov ETL" [ref=e161] [cursor=pointer]
+          - generic [ref=e162] [cursor=pointer]:
+            - generic [ref=e163] [cursor=pointer]: Medicare.gov ETL
+            - generic [ref=e164] [cursor=pointer]: Project - Ad Hoc
+        - button "Democracy Engine Democracy Engine Project - DDx" [ref=e165] [cursor=pointer]:
+          - img "Democracy Engine" [ref=e167] [cursor=pointer]
+          - generic [ref=e168] [cursor=pointer]:
+            - generic [ref=e169] [cursor=pointer]: Democracy Engine
+            - generic [ref=e170] [cursor=pointer]: Project - DDx
+        - button "Healthcare API Extensions Healthcare API Extensions Project - Ad Hoc" [ref=e171] [cursor=pointer]:
+          - img "Healthcare API Extensions" [ref=e173] [cursor=pointer]
+          - generic [ref=e174] [cursor=pointer]:
+            - generic [ref=e175] [cursor=pointer]: Healthcare API Extensions
+            - generic [ref=e176] [cursor=pointer]: Project - Ad Hoc
+        - button "API Engine Optimization API Engine Optimization Project - SNT Media" [ref=e177] [cursor=pointer]:
+          - img "API Engine Optimization" [ref=e179] [cursor=pointer]
+          - generic [ref=e180] [cursor=pointer]:
+            - generic [ref=e181] [cursor=pointer]: API Engine Optimization
+            - generic [ref=e182] [cursor=pointer]: Project - SNT Media
+        - button "Beer Fridge Beer Fridge Project" [ref=e183] [cursor=pointer]:
+          - img "Beer Fridge" [ref=e185] [cursor=pointer]
+          - generic [ref=e186] [cursor=pointer]:
+            - generic [ref=e187] [cursor=pointer]: Beer Fridge
+            - generic [ref=e188] [cursor=pointer]: Project
+        - button "Did Kansas Win? Did Kansas Win? Project" [ref=e189] [cursor=pointer]:
+          - img "Did Kansas Win?" [ref=e191] [cursor=pointer]
+          - generic [ref=e192] [cursor=pointer]:
+            - generic [ref=e193] [cursor=pointer]: Did Kansas Win?
+            - generic [ref=e194] [cursor=pointer]: Project
+        - button "Wichita Radar Wichita Radar Project" [ref=e195] [cursor=pointer]:
+          - img "Wichita Radar" [ref=e197] [cursor=pointer]
+          - generic [ref=e198] [cursor=pointer]:
+            - generic [ref=e199] [cursor=pointer]: Wichita Radar
+            - generic [ref=e200] [cursor=pointer]: Project
+        - button "Law Firm Startup Operations Law Firm Startup Operations Project - Campbell Zafar Law" [ref=e201] [cursor=pointer]:
+          - img "Law Firm Startup Operations" [ref=e203] [cursor=pointer]
+          - generic [ref=e204] [cursor=pointer]:
+            - generic [ref=e205] [cursor=pointer]: Law Firm Startup Operations
+            - generic [ref=e206] [cursor=pointer]: Project - Campbell Zafar Law
+        - button "Startup Technology Infrastructure Startup Technology Infrastructure Project - Campbell Zafar Law" [ref=e207] [cursor=pointer]:
+          - img "Startup Technology Infrastructure" [ref=e209] [cursor=pointer]
+          - generic [ref=e210] [cursor=pointer]:
+            - generic [ref=e211] [cursor=pointer]: Startup Technology Infrastructure
+            - generic [ref=e212] [cursor=pointer]: Project - Campbell Zafar Law
+        - button "Joshify Joshify Project" [ref=e213] [cursor=pointer]:
+          - img "Joshify" [ref=e215] [cursor=pointer]
+          - generic [ref=e216] [cursor=pointer]:
+            - generic [ref=e217] [cursor=pointer]: Joshify
+            - generic [ref=e218] [cursor=pointer]: Project
+    - generic [ref=e222]:
+      - generic [ref=e224]:
+        - heading "Good afternoon" [level=1] [ref=e225]
+        - generic [ref=e227]:
+          - generic [ref=e228] [cursor=pointer]:
+            - img "Did Kansas Win?" [ref=e231] [cursor=pointer]
+            - generic [ref=e232] [cursor=pointer]:
+              - heading "Did Kansas Win?" [level=3]
+            - button [ref=e240] [cursor=pointer]:
+              - img [ref=e241] [cursor=pointer]
+          - generic [ref=e244] [cursor=pointer]:
+            - img "Joshify" [ref=e247] [cursor=pointer]
+            - generic [ref=e248] [cursor=pointer]:
+              - heading "Joshify" [level=3]
+            - button [ref=e250] [cursor=pointer]:
+              - img [ref=e251] [cursor=pointer]
+          - generic [ref=e253] [cursor=pointer]:
+            - img "Startup Technology Infrastructure" [ref=e256] [cursor=pointer]
+            - generic [ref=e257] [cursor=pointer]:
+              - heading "Startup Technology Infrastructure" [level=3]
+            - button [ref=e259] [cursor=pointer]:
+              - img [ref=e260] [cursor=pointer]
+          - generic [ref=e262] [cursor=pointer]:
+            - img "Law Firm Startup Operations" [ref=e265] [cursor=pointer]
+            - generic [ref=e266] [cursor=pointer]:
+              - heading "Law Firm Startup Operations" [level=3]
+            - button [ref=e268] [cursor=pointer]:
+              - img [ref=e269] [cursor=pointer]
+          - generic [ref=e271] [cursor=pointer]:
+            - img "Election Data Pipeline" [ref=e274] [cursor=pointer]
+            - generic [ref=e275] [cursor=pointer]:
+              - heading "Election Data Pipeline" [level=3]
+            - button [ref=e277] [cursor=pointer]:
+              - img [ref=e278] [cursor=pointer]
+          - generic [ref=e280] [cursor=pointer]:
+            - img "Democracy Engine" [ref=e283] [cursor=pointer]
+            - generic [ref=e284] [cursor=pointer]:
+              - heading "Democracy Engine" [level=3]
+            - button [ref=e286] [cursor=pointer]:
+              - img [ref=e287] [cursor=pointer]
+          - generic [ref=e289] [cursor=pointer]:
+            - img "Beer Fridge" [ref=e292] [cursor=pointer]
+            - generic [ref=e293] [cursor=pointer]:
+              - heading "Beer Fridge" [level=3]
+            - button [ref=e295] [cursor=pointer]:
+              - img [ref=e296] [cursor=pointer]
+          - generic [ref=e298] [cursor=pointer]:
+            - img "Wichita Radar" [ref=e301] [cursor=pointer]
+            - generic [ref=e302] [cursor=pointer]:
+              - heading "Wichita Radar" [level=3]
+            - button [ref=e304] [cursor=pointer]:
+              - img [ref=e305] [cursor=pointer]
+        - generic [ref=e307]:
+          - generic [ref=e308]:
+            - heading "Made for you" [level=2] [ref=e309]
+            - button "Show all" [ref=e310] [cursor=pointer]
+          - generic [ref=e311]:
+            - generic [ref=e312] [cursor=pointer]:
+              - generic [ref=e313] [cursor=pointer]:
+                - generic [ref=e315] [cursor=pointer]:
+                  - img "Joshify" [ref=e319] [cursor=pointer]
+                  - img "Startup Technology Infrastructure" [ref=e323] [cursor=pointer]
+                  - img "Law Firm Startup Operations" [ref=e327] [cursor=pointer]
+                  - img "Election Data Pipeline" [ref=e331] [cursor=pointer]
+                - button [ref=e332] [cursor=pointer]:
+                  - img [ref=e333] [cursor=pointer]
+              - generic [ref=e335] [cursor=pointer]:
+                - heading "Recently Played" [level=3] [ref=e336] [cursor=pointer]
+                - paragraph [ref=e337] [cursor=pointer]: 8 tracks
+            - generic [ref=e338] [cursor=pointer]:
+              - generic [ref=e339] [cursor=pointer]:
+                - generic [ref=e341] [cursor=pointer]:
+                  - img "Law Firm Startup Operations" [ref=e345] [cursor=pointer]
+                  - img "Election Data Pipeline" [ref=e349] [cursor=pointer]
+                  - img "API Engine Optimization" [ref=e353] [cursor=pointer]
+                  - img "Medicare.gov ETL" [ref=e357] [cursor=pointer]
+                - button [ref=e358] [cursor=pointer]:
+                  - img [ref=e359] [cursor=pointer]
+              - generic [ref=e361] [cursor=pointer]:
+                - heading "Top Hits" [level=3] [ref=e362] [cursor=pointer]
+                - paragraph [ref=e363] [cursor=pointer]: 6 tracks
+            - generic [ref=e364] [cursor=pointer]:
+              - generic [ref=e365] [cursor=pointer]:
+                - generic [ref=e367] [cursor=pointer]:
+                  - img "Joshify" [ref=e371] [cursor=pointer]
+                  - img "Beer Fridge" [ref=e375] [cursor=pointer]
+                  - img "Did Kansas Win?" [ref=e379] [cursor=pointer]
+                  - img "Wichita Radar" [ref=e383] [cursor=pointer]
+                - button [ref=e384] [cursor=pointer]:
+                  - img [ref=e385] [cursor=pointer]
+              - generic [ref=e387] [cursor=pointer]:
+                - heading "Side Projects" [level=3] [ref=e388] [cursor=pointer]
+                - paragraph [ref=e389] [cursor=pointer]: 4 tracks
+            - generic [ref=e390] [cursor=pointer]:
+              - generic [ref=e391] [cursor=pointer]:
+                - img "Campbell Zafar Law cover art" [ref=e393] [cursor=pointer]
+                - button [ref=e394] [cursor=pointer]:
+                  - img [ref=e395] [cursor=pointer]
+              - generic [ref=e397] [cursor=pointer]:
+                - heading "Campbell Zafar Law" [level=3] [ref=e398] [cursor=pointer]
+                - paragraph [ref=e399] [cursor=pointer]: 2 tracks
+            - generic [ref=e400] [cursor=pointer]:
+              - generic [ref=e401] [cursor=pointer]:
+                - img "DDx cover art" [ref=e403] [cursor=pointer]
+                - button [ref=e404] [cursor=pointer]:
+                  - img [ref=e405] [cursor=pointer]
+              - generic [ref=e407] [cursor=pointer]:
+                - heading "DDx" [level=3] [ref=e408] [cursor=pointer]
+                - paragraph [ref=e409] [cursor=pointer]: 2 tracks
+        - generic [ref=e410]:
+          - generic [ref=e411]:
+            - heading "Top hits" [level=2] [ref=e412]
+            - button "Show all" [ref=e413] [cursor=pointer]
+          - generic [ref=e414]:
+            - generic [ref=e415] [cursor=pointer]:
+              - generic [ref=e416] [cursor=pointer]:
+                - img "Law Firm Startup Operations" [ref=e418] [cursor=pointer]
+                - button [ref=e419] [cursor=pointer]:
+                  - img [ref=e420] [cursor=pointer]
+              - generic [ref=e422] [cursor=pointer]:
+                - heading "Law Firm Startup Operations" [level=3] [ref=e423] [cursor=pointer]
+                - paragraph [ref=e424] [cursor=pointer]: Project - Campbell Zafar Law
+            - generic [ref=e425] [cursor=pointer]:
+              - generic [ref=e426] [cursor=pointer]:
+                - img "Election Data Pipeline" [ref=e428] [cursor=pointer]
+                - button [ref=e429] [cursor=pointer]:
+                  - img [ref=e430] [cursor=pointer]
+              - generic [ref=e432] [cursor=pointer]:
+                - heading "Election Data Pipeline" [level=3] [ref=e433] [cursor=pointer]
+                - paragraph [ref=e434] [cursor=pointer]: Project - DDx
+            - generic [ref=e435] [cursor=pointer]:
+              - generic [ref=e436] [cursor=pointer]:
+                - img "API Engine Optimization" [ref=e438] [cursor=pointer]
+                - button [ref=e439] [cursor=pointer]:
+                  - img [ref=e440] [cursor=pointer]
+              - generic [ref=e442] [cursor=pointer]:
+                - heading "API Engine Optimization" [level=3] [ref=e443] [cursor=pointer]
+                - paragraph [ref=e444] [cursor=pointer]: Project - SNT Media
+            - generic [ref=e445] [cursor=pointer]:
+              - generic [ref=e446] [cursor=pointer]:
+                - img "Medicare.gov ETL" [ref=e448] [cursor=pointer]
+                - button [ref=e449] [cursor=pointer]:
+                  - img [ref=e450] [cursor=pointer]
+              - generic [ref=e452] [cursor=pointer]:
+                - heading "Medicare.gov ETL" [level=3] [ref=e453] [cursor=pointer]
+                - paragraph [ref=e454] [cursor=pointer]: Project - Ad Hoc
+            - generic [ref=e455] [cursor=pointer]:
+              - generic [ref=e456] [cursor=pointer]:
+                - img "Healthcare API Extensions" [ref=e458] [cursor=pointer]
+                - button [ref=e459] [cursor=pointer]:
+                  - img [ref=e460] [cursor=pointer]
+              - generic [ref=e462] [cursor=pointer]:
+                - heading "Healthcare API Extensions" [level=3] [ref=e463] [cursor=pointer]
+                - paragraph [ref=e464] [cursor=pointer]: Project - Ad Hoc
+            - generic [ref=e465] [cursor=pointer]:
+              - generic [ref=e466] [cursor=pointer]:
+                - img "Mobile API Rebuild" [ref=e468] [cursor=pointer]
+                - button [ref=e469] [cursor=pointer]:
+                  - img [ref=e470] [cursor=pointer]
+              - generic [ref=e472] [cursor=pointer]:
+                - heading "Mobile API Rebuild" [level=3] [ref=e473] [cursor=pointer]
+                - paragraph [ref=e474] [cursor=pointer]: Project - BG Products
+        - generic [ref=e475]:
+          - generic [ref=e476]:
+            - heading "Side projects" [level=2] [ref=e477]
+            - button "Show all" [ref=e478] [cursor=pointer]
+          - generic [ref=e479]:
+            - generic [ref=e480] [cursor=pointer]:
+              - generic [ref=e481] [cursor=pointer]:
+                - img "Joshify" [ref=e483] [cursor=pointer]
+                - button [ref=e484] [cursor=pointer]:
+                  - img [ref=e485] [cursor=pointer]
+              - generic [ref=e487] [cursor=pointer]:
+                - heading "Joshify" [level=3] [ref=e488] [cursor=pointer]
+                - paragraph [ref=e489] [cursor=pointer]: Project
+            - generic [ref=e490] [cursor=pointer]:
+              - generic [ref=e491] [cursor=pointer]:
+                - img "Beer Fridge" [ref=e493] [cursor=pointer]
+                - button [ref=e494] [cursor=pointer]:
+                  - img [ref=e495] [cursor=pointer]
+              - generic [ref=e497] [cursor=pointer]:
+                - heading "Beer Fridge" [level=3] [ref=e498] [cursor=pointer]
+                - paragraph [ref=e499] [cursor=pointer]: Project
+            - generic [ref=e500] [cursor=pointer]:
+              - generic [ref=e501] [cursor=pointer]:
+                - img "Did Kansas Win?" [ref=e503] [cursor=pointer]
+                - button [ref=e504] [cursor=pointer]:
+                  - img [ref=e505] [cursor=pointer]
+              - generic [ref=e508] [cursor=pointer]:
+                - heading "Did Kansas Win?" [level=3] [ref=e509] [cursor=pointer]
+                - paragraph [ref=e510] [cursor=pointer]: Project
+            - generic [ref=e511] [cursor=pointer]:
+              - generic [ref=e512] [cursor=pointer]:
+                - img "Wichita Radar" [ref=e514] [cursor=pointer]
+                - button [ref=e515] [cursor=pointer]:
+                  - img [ref=e516] [cursor=pointer]
+              - generic [ref=e518] [cursor=pointer]:
+                - heading "Wichita Radar" [level=3] [ref=e519] [cursor=pointer]
+                - paragraph [ref=e520] [cursor=pointer]: Project
+      - generic [ref=e524]:
+        - generic [ref=e525]:
+          - img "Did Kansas Win?" [ref=e527]
+          - generic [ref=e529]:
+            - heading "Did Kansas Win?" [level=2] [ref=e530] [cursor=pointer]
+            - paragraph [ref=e531]: Project
+        - generic [ref=e532]:
+          - generic [ref=e533]:
+            - generic [ref=e534]:
+              - img [ref=e535]
+              - generic [ref=e537]: "2024"
+            - generic [ref=e538]:
+              - img [ref=e539]
+              - generic [ref=e544]: 2 weeks
+          - generic [ref=e545]:
+            - heading "About this project" [level=3] [ref=e546]
+            - paragraph [ref=e547]: My first AI-Assisted experiment, this barebones single-purpose web application provides real-time Kansas Jayhawks basketball results. Built with Node.js and Express, featuring live ESPN API integration and responsive design. The project demonstrates clean, focused development principles and API integration skills while solving a specific user need with minimal complexity. Sometimes the best solutions are the simplest ones, and this project showcases the ability to deliver exactly what users want without unnecessary features.
+          - generic [ref=e548]:
+            - heading "Technologies" [level=3] [ref=e549]
+            - generic [ref=e550]:
+              - generic [ref=e551]: AI-Assisted Development
+              - generic [ref=e552]: Node.js
+              - generic [ref=e553]: Express
+              - generic [ref=e554]: Responsive Design
+          - generic [ref=e555]:
+            - link "View Live Demo" [ref=e556] [cursor=pointer]:
+              - /url: https://www.didkansaswin.com
+              - img [ref=e557] [cursor=pointer]
+              - generic [ref=e561] [cursor=pointer]: View Live Demo
+            - link "View Source Code" [ref=e562] [cursor=pointer]:
+              - /url: https://github.com/joshdutcher/didkansaswin
+              - img [ref=e563] [cursor=pointer]
+              - generic [ref=e566] [cursor=pointer]: View Source Code
+          - generic [ref=e568]:
+            - generic [ref=e569]: Project views
+            - generic [ref=e570]: Trivial
+  - generic [ref=e571]:
+    - generic [ref=e572]:
+      - img "Did Kansas Win?" [ref=e574]
+      - generic [ref=e575]:
+        - paragraph [ref=e576] [cursor=pointer]: Did Kansas Win?
+        - paragraph [ref=e577]: Project
+    - generic [ref=e578]:
+      - generic [ref=e579]:
+        - img [ref=e580] [cursor=pointer]
+        - img [ref=e586] [cursor=pointer]
+        - button [ref=e588] [cursor=pointer]:
+          - img [ref=e589] [cursor=pointer]
+        - img [ref=e592] [cursor=pointer]
+        - img [ref=e594] [cursor=pointer]
+      - generic [ref=e599]:
+        - generic [ref=e600]: 0:00
+        - generic [ref=e603]: 2 weeks
+    - img [ref=e606]
+```
