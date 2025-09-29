@@ -105,8 +105,8 @@ jobs:
           echo "Release: ${{ github.event.release.tag_name }}"
           echo "Commit: ${{ github.sha }}"
 
-          # Deploy using Railway CLI
-          railway up --detach
+          # Deploy using Railway CLI with service name
+          railway up --detach --service joshify
 
           echo "✅ Deployment initiated successfully"
 
