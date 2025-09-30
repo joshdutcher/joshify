@@ -9,9 +9,10 @@ export function isProject(item: Project | Playlist | any): item is Project {
 
 /**
  * Type guard to check if an item is a Playlist
+ * Note: icon is optional because it may be stripped from browser history state
  */
 export function isPlaylist(item: Project | Playlist | any): item is Playlist {
-    return item && typeof item === 'object' && 'name' in item && 'projects' in item && 'icon' in item;
+    return item && typeof item === 'object' && 'name' in item && 'projects' in item;
 }
 
 /**

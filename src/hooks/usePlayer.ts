@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { projects } from '../data/projects';
 import type { Project, Playlist, SelectedPlaylist, CompanySelection, DomainSelection } from '../types';
+import { useNavigationHistory } from './useNavigationHistory';
 
 const usePlayer = () => {
     const [currentlyPlaying, setCurrentlyPlaying] = useState<Project | null>(null);
@@ -10,7 +11,17 @@ const usePlayer = () => {
     const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
     const [currentPlaylist, setCurrentPlaylist] = useState<Playlist | null>(null); // Track current playlist context
     const [currentTrackIndex, setCurrentTrackIndex] = useState<number>(0); // Track position in playlist
+    const [searchQuery, setSearchQuery] = useState<string>('');
     const audioRef = useRef<HTMLAudioElement | null>(null);
+
+    // Integrate browser history navigation
+    const { pushNavigation } = useNavigationHistory(
+        currentView,
+        selectedPlaylist,
+        setCurrentView,
+        setSelectedPlaylist,
+        setSearchQuery
+    );
 
     // Set "Did Kansas Win?" as default "now playing" on load
     useEffect(() => {
@@ -74,16 +85,12 @@ const usePlayer = () => {
     };
 
     const navigateToView = (view: string, data: SelectedPlaylist = null) => {
-        setCurrentView(view);
-        if (data) {
-            setSelectedPlaylist(data);
-        }
+        pushNavigation(view, data);
         setSidebarOpen(false);
     };
 
     const navigateToProject = (project: Project) => {
-        setCurrentView('project');
-        setSelectedPlaylist(project);
+        pushNavigation('project', project);
         setSidebarOpen(false);
 
         // Automatically set this project as "now playing" when viewing its detail page
@@ -92,20 +99,25 @@ const usePlayer = () => {
     };
 
     const navigateToPlaylist = (playlist: Playlist) => {
-        setCurrentView('playlist');
-        setSelectedPlaylist(playlist);
+        pushNavigation('playlist', playlist);
         setSidebarOpen(false);
     };
 
     const navigateToCompany = (companyName: string) => {
-        setCurrentView('company');
-        setSelectedPlaylist({ company: companyName } as CompanySelection);
+        const companySelection = { company: companyName } as CompanySelection;
+        pushNavigation('company', companySelection);
         setSidebarOpen(false);
     };
 
     const navigateToDomain = (domainName: string) => {
-        setCurrentView('domain');
-        setSelectedPlaylist({ domain: domainName } as DomainSelection);
+        const domainSelection = { domain: domainName } as DomainSelection;
+        pushNavigation('domain', domainSelection);
+        setSidebarOpen(false);
+    };
+
+    const navigateToSearch = (query: string) => {
+        setSearchQuery(query);
+        pushNavigation('search', null, query);
         setSidebarOpen(false);
     };
 
@@ -126,8 +138,9 @@ const usePlayer = () => {
         sidebarOpen,
         currentPlaylist,
         currentTrackIndex,
+        searchQuery,
         audioRef,
-    
+
         // Actions
         handlePlayProject,
         playNextTrack,
@@ -137,12 +150,14 @@ const usePlayer = () => {
         navigateToPlaylist,
         navigateToCompany,
         navigateToDomain,
+        navigateToSearch,
         toggleSidebar,
         closeSidebar,
         setIsPlaying,
         setCurrentView,
         setSelectedPlaylist,
-        setSidebarOpen
+        setSidebarOpen,
+        setSearchQuery
     };
 };
 

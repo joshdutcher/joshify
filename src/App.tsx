@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import usePlayer from '@/hooks/usePlayer';
 import useColumnResize from '@/hooks/useColumnResize';
 import useDynamicBackground from '@/hooks/useDynamicBackground';
 import { Playlist, Project } from '@/types';
+import { isPlaylist, isProject } from '@/utils/typeGuards';
 import Sidebar from '@/components/Sidebar';
 import TopBar from '@/components/TopBar';
 import BottomPlayer from '@/components/BottomPlayer';
@@ -16,15 +17,6 @@ import SearchView from '@/components/views/SearchView';
 import CompanyView from '@/components/views/CompanyView';
 import DomainView from '@/components/views/DomainView';
 
-// Type guard functions
-const isPlaylist = (item: any): item is Playlist => {
-    return item && 'name' in item && 'icon' in item && 'projects' in item;
-};
-
-const isProject = (item: any): item is Project => {
-    return item && 'id' in item && 'title' in item && 'artist' in item;
-};
-
 const SpotifyResume = () => {
     const {
         currentlyPlaying,
@@ -34,6 +26,7 @@ const SpotifyResume = () => {
         sidebarOpen,
         currentPlaylist,
         currentTrackIndex,
+        searchQuery,
         handlePlayProject,
         playNextTrack,
         playPreviousTrack,
@@ -42,9 +35,11 @@ const SpotifyResume = () => {
         navigateToPlaylist,
         navigateToCompany,
         navigateToDomain,
+        navigateToSearch,
         toggleSidebar,
         closeSidebar,
-        setIsPlaying
+        setIsPlaying,
+        setSearchQuery
     } = usePlayer();
 
     const {
@@ -77,9 +72,6 @@ const SpotifyResume = () => {
 
     const { backgroundStyle } = useDynamicBackground(getBackgroundImage());
 
-    // Search state
-    const [searchQuery, setSearchQuery] = useState('');
-
     const handleNavigateToProfile = () => {
         navigateToView('profile');
     };
@@ -93,8 +85,7 @@ const SpotifyResume = () => {
     };
 
     const handleNavigateToSearch = (query: string) => {
-        setSearchQuery(query);
-        navigateToView('search');
+        navigateToSearch(query);
     };
 
     return (

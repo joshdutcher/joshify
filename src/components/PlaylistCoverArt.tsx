@@ -60,7 +60,7 @@ const PlaylistCoverArt = ({
                     <div className="relative overflow-hidden">
                         {coverTracks[0] ? (
                             <div
-                                className="w-full h-full cursor-pointer hover:opacity-80 transition-opacity"
+                                className={`w-full h-full ${onNavigateToProject ? 'cursor-pointer hover:opacity-80 transition-opacity' : ''}`}
                                 onClick={() => onNavigateToProject && coverTracks[0] && onNavigateToProject(coverTracks[0])}
                             >
                                 <ProjectImage
@@ -80,7 +80,7 @@ const PlaylistCoverArt = ({
                     <div className="relative overflow-hidden">
                         {coverTracks[1] ? (
                             <div
-                                className="w-full h-full cursor-pointer hover:opacity-80 transition-opacity"
+                                className={`w-full h-full ${onNavigateToProject ? 'cursor-pointer hover:opacity-80 transition-opacity' : ''}`}
                                 onClick={() => onNavigateToProject && coverTracks[1] && onNavigateToProject(coverTracks[1])}
                             >
                                 <ProjectImage
@@ -100,7 +100,7 @@ const PlaylistCoverArt = ({
                     <div className="relative overflow-hidden">
                         {coverTracks[2] ? (
                             <div
-                                className="w-full h-full cursor-pointer hover:opacity-80 transition-opacity"
+                                className={`w-full h-full ${onNavigateToProject ? 'cursor-pointer hover:opacity-80 transition-opacity' : ''}`}
                                 onClick={() => onNavigateToProject && coverTracks[2] && onNavigateToProject(coverTracks[2])}
                             >
                                 <ProjectImage
@@ -120,7 +120,7 @@ const PlaylistCoverArt = ({
                     <div className="relative overflow-hidden">
                         {coverTracks[3] ? (
                             <div
-                                className="w-full h-full cursor-pointer hover:opacity-80 transition-opacity"
+                                className={`w-full h-full ${onNavigateToProject ? 'cursor-pointer hover:opacity-80 transition-opacity' : ''}`}
                                 onClick={() => onNavigateToProject && coverTracks[3] && onNavigateToProject(coverTracks[3])}
                             >
                                 <ProjectImage
@@ -148,7 +148,7 @@ const PlaylistCoverArt = ({
                 <div className="relative overflow-hidden">
                     {coverTracks[0] ? (
                         <div
-                            className="w-full h-full cursor-pointer hover:opacity-80 transition-opacity"
+                            className={`w-full h-full ${onNavigateToProject ? 'cursor-pointer hover:opacity-80 transition-opacity' : ''}`}
                             onClick={() => onNavigateToProject && coverTracks[0] && onNavigateToProject(coverTracks[0])}
                         >
                             <ProjectImage
@@ -168,7 +168,7 @@ const PlaylistCoverArt = ({
                 <div className="relative overflow-hidden">
                     {coverTracks[1] ? (
                         <div
-                            className="w-full h-full cursor-pointer hover:opacity-80 transition-opacity"
+                            className={`w-full h-full ${onNavigateToProject ? 'cursor-pointer hover:opacity-80 transition-opacity' : ''}`}
                             onClick={() => onNavigateToProject && coverTracks[1] && onNavigateToProject(coverTracks[1])}
                         >
                             <ProjectImage
@@ -188,7 +188,7 @@ const PlaylistCoverArt = ({
                 <div className="relative overflow-hidden">
                     {coverTracks[2] ? (
                         <div
-                            className="w-full h-full cursor-pointer hover:opacity-80 transition-opacity"
+                            className={`w-full h-full ${onNavigateToProject ? 'cursor-pointer hover:opacity-80 transition-opacity' : ''}`}
                             onClick={() => onNavigateToProject && coverTracks[2] && onNavigateToProject(coverTracks[2])}
                         >
                             <ProjectImage
@@ -208,7 +208,7 @@ const PlaylistCoverArt = ({
                 <div className="relative overflow-hidden">
                     {coverTracks[3] ? (
                         <div
-                            className="w-full h-full cursor-pointer hover:opacity-80 transition-opacity"
+                            className={`w-full h-full ${onNavigateToProject ? 'cursor-pointer hover:opacity-80 transition-opacity' : ''}`}
                             onClick={() => onNavigateToProject && coverTracks[3] && onNavigateToProject(coverTracks[3])}
                         >
                             <ProjectImage
