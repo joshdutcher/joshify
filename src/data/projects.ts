@@ -40,7 +40,7 @@ export const projects: readonly Project[] = [
         skills: [Skill.API_DEVELOPMENT, Skill.PHP_LUMEN, Skill.PERFORMANCE_OPTIMIZATION],
         demoUrl: null,
         githubUrl: null,
-        canvas: null,
+        canvas: 'https://github.com/joshdutcher/joshify/releases/download/v1.0.8/mobile-api-rebuild.mp4',
         albumArtBasedOn: 'Run The Jewels 2 by Run The Jewels'
     },
     {
@@ -120,7 +120,7 @@ export const projects: readonly Project[] = [
         skills: [Skill.AI_ASSISTED_DEVELOPMENT, Skill.CLAUDE_CODE],
         demoUrl: null,
         githubUrl: null,
-        canvas: '/canvases/beer-fridge.mp4',
+        canvas: 'https://github.com/joshdutcher/joshify/releases/download/v1.0.8/beer-fridge.mp4',
         albumArtBasedOn: 'Dark Side of the Moon by Pink Floyd'
     },
     {
@@ -136,7 +136,7 @@ export const projects: readonly Project[] = [
         skills: [Skill.AI_ASSISTED_DEVELOPMENT, Skill.NODE_JS, Skill.EXPRESS, Skill.RESPONSIVE_DESIGN,],
         demoUrl: 'https://www.didkansaswin.com',
         githubUrl: 'https://github.com/joshdutcher/didkansaswin',
-        canvas: '/canvases/did-kansas-win.mp4',
+        canvas: 'https://github.com/joshdutcher/joshify/releases/download/v1.0.8/did-kansas-win.mp4',
         albumArtBasedOn: 'Graduation by Kanye West'
     },
     {
@@ -152,7 +152,7 @@ export const projects: readonly Project[] = [
         skills: [Skill.GO, Skill.HTML_TEMPLATING, Skill.WEATHER_APIS, Skill.PURECSS],
         demoUrl: 'https://wichitaradar.com',
         githubUrl: 'https://github.com/joshdutcher/wichitaradar',
-        canvas: '/canvases/wichitaradar.mp4',
+        canvas: 'https://github.com/joshdutcher/joshify/releases/download/v1.0.8/wichitaradar.mp4',
         albumArtBasedOn: 'Discovery by Daft Punk'
     },
     {
@@ -168,7 +168,7 @@ export const projects: readonly Project[] = [
         skills: [Skill.PROJECT_MANAGEMENT, Skill.VENDOR_COORDINATION, Skill.TIMELINE_MANAGEMENT, Skill.PROCUREMENT, Skill.LAUNCH_STRATEGY],
         demoUrl: null,
         githubUrl: null,
-        canvas: null,
+        canvas: 'https://github.com/joshdutcher/joshify/releases/download/v1.0.8/law-firm-startup-operations.mp4',
         albumArtBasedOn: 'BRAT by Charli xcx'
     },
     {
@@ -184,7 +184,7 @@ export const projects: readonly Project[] = [
         skills: [Skill.GOOGLE_WORKSPACE_ADMINISTRATION, Skill.NETWORK_CONFIGURATION, Skill.VOIP_SYSTEMS, Skill.WEB_DEVELOPMENT, Skill.SEO_STRATEGY, Skill.HARDWARE_SETUP],
         demoUrl: null,
         githubUrl: null,
-        canvas: null,
+        canvas: 'https://github.com/joshdutcher/joshify/releases/download/v1.0.8/startup-technology-infrastructure.mp4',
         albumArtBasedOn: 'Computer World by Kraftwerk'
     },
     {
