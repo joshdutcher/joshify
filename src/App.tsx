@@ -2,7 +2,6 @@ import React from 'react';
 import usePlayer from '@/hooks/usePlayer';
 import useColumnResize from '@/hooks/useColumnResize';
 import useDynamicBackground from '@/hooks/useDynamicBackground';
-import { Playlist, Project } from '@/types';
 import { isPlaylist, isProject } from '@/utils/typeGuards';
 import Sidebar from '@/components/Sidebar';
 import TopBar from '@/components/TopBar';
@@ -89,7 +88,7 @@ const SpotifyResume = () => {
     };
 
     return (
-        <div 
+        <div
             className="flex flex-col h-screen bg-spotify-black text-spotify-primary overflow-hidden"
             style={{
         '--left-sidebar-width': `${leftColumnWidth}px`,
@@ -129,10 +128,10 @@ const SpotifyResume = () => {
                         mode={leftColumnMode}
                         style={isLeftResizing ? {} : { width: `${leftColumnWidth}px` }}
           />
-          
+
                     {/* Left Resize Handle - Desktop Only */}
                     <div className="hidden md:block">
-                        <ResizeHandle 
+                        <ResizeHandle
                             orientation="vertical"
                             onMouseDown={startLeftResize}
                             isDragging={isLeftResizing}
@@ -143,8 +142,8 @@ const SpotifyResume = () => {
                 {/* Content Area with Right Panel */}
                 <div className="flex flex-1 min-w-0">
                     {/* Main Content */}
-                    <div 
-                        className="flex-1 overflow-y-auto overflow-x-hidden rounded-t-lg spotify-scrollbar" 
+                    <div
+                        className="flex-1 overflow-y-auto overflow-x-hidden rounded-t-lg spotify-scrollbar"
                         style={{
               scrollBehavior: 'smooth',
               background: backgroundStyle.background,
@@ -215,7 +214,7 @@ const SpotifyResume = () => {
 
                     {/* Right Resize Handle - Desktop Only */}
                     <div className="hidden lg:block">
-                        <ResizeHandle 
+                        <ResizeHandle
                             orientation="vertical"
                             onMouseDown={startRightResize}
                             isDragging={isRightResizing}
