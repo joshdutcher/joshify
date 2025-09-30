@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import usePlayer from '@/hooks/usePlayer';
 import useColumnResize from '@/hooks/useColumnResize';
 import useDynamicBackground from '@/hooks/useDynamicBackground';
-import { Playlist, Project } from '@/types';
+import { isPlaylist, isProject } from '@/utils/typeGuards';
 import Sidebar from '@/components/Sidebar';
 import TopBar from '@/components/TopBar';
 import BottomPlayer from '@/components/BottomPlayer';
@@ -16,15 +16,6 @@ import SearchView from '@/components/views/SearchView';
 import CompanyView from '@/components/views/CompanyView';
 import DomainView from '@/components/views/DomainView';
 
-// Type guard functions
-const isPlaylist = (item: any): item is Playlist => {
-    return item && 'name' in item && 'icon' in item && 'projects' in item;
-};
-
-const isProject = (item: any): item is Project => {
-    return item && 'id' in item && 'title' in item && 'artist' in item;
-};
-
 const SpotifyResume = () => {
     const {
         currentlyPlaying,
@@ -34,6 +25,7 @@ const SpotifyResume = () => {
         sidebarOpen,
         currentPlaylist,
         currentTrackIndex,
+        searchQuery,
         handlePlayProject,
         playNextTrack,
         playPreviousTrack,
@@ -42,9 +34,11 @@ const SpotifyResume = () => {
         navigateToPlaylist,
         navigateToCompany,
         navigateToDomain,
+        navigateToSearch,
         toggleSidebar,
         closeSidebar,
-        setIsPlaying
+        setIsPlaying,
+        setSearchQuery
     } = usePlayer();
 
     const {
@@ -77,9 +71,6 @@ const SpotifyResume = () => {
 
     const { backgroundStyle } = useDynamicBackground(getBackgroundImage());
 
-    // Search state
-    const [searchQuery, setSearchQuery] = useState('');
-
     const handleNavigateToProfile = () => {
         navigateToView('profile');
     };
@@ -93,12 +84,11 @@ const SpotifyResume = () => {
     };
 
     const handleNavigateToSearch = (query: string) => {
-        setSearchQuery(query);
-        navigateToView('search');
+        navigateToSearch(query);
     };
 
     return (
-        <div 
+        <div
             className="flex flex-col h-screen bg-spotify-black text-spotify-primary overflow-hidden"
             style={{
         '--left-sidebar-width': `${leftColumnWidth}px`,
@@ -138,10 +128,10 @@ const SpotifyResume = () => {
                         mode={leftColumnMode}
                         style={isLeftResizing ? {} : { width: `${leftColumnWidth}px` }}
           />
-          
+
                     {/* Left Resize Handle - Desktop Only */}
                     <div className="hidden md:block">
-                        <ResizeHandle 
+                        <ResizeHandle
                             orientation="vertical"
                             onMouseDown={startLeftResize}
                             isDragging={isLeftResizing}
@@ -152,8 +142,8 @@ const SpotifyResume = () => {
                 {/* Content Area with Right Panel */}
                 <div className="flex flex-1 min-w-0">
                     {/* Main Content */}
-                    <div 
-                        className="flex-1 overflow-y-auto overflow-x-hidden rounded-t-lg spotify-scrollbar" 
+                    <div
+                        className="flex-1 overflow-y-auto overflow-x-hidden rounded-t-lg spotify-scrollbar"
                         style={{
               scrollBehavior: 'smooth',
               background: backgroundStyle.background,
@@ -224,7 +214,7 @@ const SpotifyResume = () => {
 
                     {/* Right Resize Handle - Desktop Only */}
                     <div className="hidden lg:block">
-                        <ResizeHandle 
+                        <ResizeHandle
                             orientation="vertical"
                             onMouseDown={startRightResize}
                             isDragging={isRightResizing}
