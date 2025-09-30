@@ -62,7 +62,7 @@ const ProjectCanvas = ({
             videoRef.current.load();
         }
     }, [project?.id, project?.canvas]);
-  
+
     useEffect(() => {
         if (videoRef.current && isPlaying && isLoaded) {
             videoRef.current.play().catch(() => {
@@ -92,16 +92,16 @@ const ProjectCanvas = ({
         setIsLoaded(false);
     };
 
-    // If no canvas video configured, check for album art
+    // If no canvas video configured, check for album art (use square aspect ratio)
     if (!project?.canvas) {
         // If album art exists, show that instead of animated gradient
         if (project?.image && !albumArtError) {
             return showFallback ? (
-                <div className={`relative aspect-canvas overflow-hidden bg-spotify-card ${className}`}>
+                <div className={`relative aspect-square overflow-hidden bg-spotify-card ${className}`}>
                     <img
                         src={project.image}
                         alt={project.title || 'Project cover art'}
-                        className="absolute inset-0 w-full h-full object-cover"
+                        className="w-full h-full object-cover"
                         onError={() => {
                             setAlbumArtError(true);
                         }}
@@ -116,7 +116,7 @@ const ProjectCanvas = ({
 
         return showFallback ? (
             <div
-                className={`aspect-canvas flex items-center justify-center ${className}`}
+                className={`aspect-square flex items-center justify-center ${className}`}
                 style={gradientStyle}
             >
                 <span className="text-white font-bold text-6xl opacity-20">
@@ -126,9 +126,13 @@ const ProjectCanvas = ({
         ) : null;
     }
 
-    // Canvas video configured - use 9:16 aspect ratio container
+    // Canvas video configured - decide aspect ratio based on whether video loaded successfully
+    // If video fails and we have album art, use square (1:1), otherwise use 9:16 for video
+    const useSquareAspect = hasError && project?.image && !albumArtError;
+    const aspectClass = useSquareAspect ? 'aspect-square' : 'aspect-canvas';
+
     return (
-        <div className={`relative aspect-canvas overflow-hidden bg-spotify-card ${className}`}>
+        <div className={`relative ${aspectClass} overflow-hidden bg-spotify-card ${className}`}>
             {/* Video Canvas */}
             {!hasError && (
                 <video
@@ -146,15 +150,15 @@ const ProjectCanvas = ({
                 </video>
             )}
 
-            {/* Fallback: album art first, then animated gradient (if video fails to load) */}
+            {/* Fallback: album art when video fails (in square container) */}
             {hasError && showFallback && (() => {
-                // If album art exists and hasn't failed, try to show that first
+                // If album art exists and hasn't failed, show it
                 if (project?.image && !albumArtError) {
                     return (
                         <img
                             src={project.image}
                             alt={project.title || 'Project cover art'}
-                            className="absolute inset-0 w-full h-full object-cover"
+                            className="w-full h-full object-cover"
                             onError={() => {
                                 setAlbumArtError(true);
                             }}
