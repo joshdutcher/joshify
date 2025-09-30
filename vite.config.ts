@@ -9,7 +9,13 @@ export default defineConfig({
     open: true
   },
   preview: {
-    open: false
+    open: false,
+    host: true,
+    allowedHosts: [
+      'joshify-production.up.railway.app',
+      'www.joshify.dev',
+      'joshify.dev'
+    ]
   },
   build: {
     outDir: 'dist',
