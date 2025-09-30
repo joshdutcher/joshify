@@ -1,51 +1,42 @@
 # SESSION.md - Current Session State
 
 ## Current Session - September 30, 2025
-**Status**: ✅ Complete - Railway Container Crash Resolution
-**Focus**: Canvas Video Deployment → Railway Container Fix
+**Status**: ✅ Complete - Canvas Display Fix
+**Focus**: Fix canvas video and album art display issues
 
 ### Session Context
 - Joshify portfolio project: Spotify-clone personal portfolio
-- Goal: Deploy canvas videos to production and resolve Railway container crashes
-- **ACHIEVEMENT**: Canvas videos migrated to CDN, Railway container crash fixed
+- Goal: Resolve canvas display regression affecting album art and video display
+- **ACHIEVEMENT**: Conditional aspect ratio system implemented for proper canvas display
 
-### Final Status - Railway Deployment Operational
+### Final Status - Canvas Display Issues Resolved
 
-#### ✅ Canvas Video CDN Migration (v1.0.8)
-- **Videos Uploaded**: 6 canvas videos (76MB total) to GitHub Releases CDN
-- **Projects Updated**: beer-fridge, did-kansas-win, wichitaradar, mobile-api-rebuild, law-firm-startup-operations, startup-technology-infrastructure
-- **Strategy**: Videos hosted via GitHub Releases, keeping git repository lean
-- **PR #13**: Merged - Canvas video URLs updated from local to CDN
+#### ✅ Canvas Display Fix
+- **Issue 1**: Projects with canvas videos showing album art fallback instead of videos
+  - Root cause: CORS errors from GitHub Releases CDN (expected in local dev)
+  - Resolution: Verified fallback chain working correctly (video → album art → gradient)
+  - Production: Videos load properly in deployed environment
 
-#### ✅ Railway Container Fix (v1.0.11)
-- **Root Cause**: Vite attempting to auto-open browser in preview mode
-- **Solution**: Added `preview: { open: false }` to vite.config.ts
-- **Failed Attempts**:
-  - v1.0.10: `--host` flag (didn't prevent browser opening)
-  - PR #15: package.json modification approach
-- **Successful Fix**: PR #16 - Vite config modification
-- **Status**: Railway deployment operational
+- **Issue 2**: Album art displaying in 9:16 rectangular format with cropped sides
+  - Root cause: Fixed aspect ratio container for all content types
+  - Resolution: Implemented conditional aspect ratio based on content type
+  - Result: Album art displays in square (1:1) container, videos use 9:16 container
 
-#### ✅ Technical Achievements
-- **CORS Handling**: Enhanced smoke tests to filter expected GitHub CDN CORS errors (PR #14)
-- **Container Compatibility**: Resolved xdg-open ENOENT errors in Railway containers
-- **Release Workflow**: v1.0.8 → v1.0.9 → v1.0.10 → v1.0.11 iterative debugging
-- **CI/CD Pipeline**: All checks passing, Railway automatic deployment working
-
-### Release History This Session
-- **v1.0.8**: Canvas video CDN integration
-- **v1.0.9**: CORS error filter for smoke tests
-- **v1.0.10**: Railway container fix attempt (--host flag) ❌
-- **v1.0.11**: Railway container fix (vite config) ✅
+#### ✅ Technical Implementation
+- **Conditional Aspect Ratio Logic**: `aspect-square` for album art, `aspect-canvas` for videos
+- **Dynamic Container Sizing**: Canvas area adapts based on content type and error state
+- **Responsive Behavior**: Properly resizes with resizable right column
+- **Fallback Chain**: Canvas video → Album art (square) → Animated gradient
 
 ### Key Files Modified This Session
-- `src/data/projects.ts`: Updated 6 canvas URLs to GitHub CDN
-- `tests/smoke/basic.spec.js`: Added CORS error filtering
-- `vite.config.ts`: Added `preview: { open: false }` configuration
-- `package.json`: Temporarily added --host flag (reverted in concept)
+- `src/components/ProjectCanvas.tsx`: Implemented conditional aspect ratio system
+  - Added `useSquareAspect` logic for dynamic container sizing
+  - Ensured proper fallback chain handling
+  - Maintained responsive behavior with resizable columns
 
-### Railway Configuration Details
-- **Build System**: Nixpacks (Node.js 18+)
-- **Start Command**: `npm run preview`
-- **Issue Resolved**: Browser auto-open prevented in containerized environment
-- **Production Status**: Deployment successful with v1.0.11
+### Session Notes
+- Investigated data structure change: canvas object → simple string URL
+- CORS errors are expected in local development, videos work in production
+- Verified fix with Playwright MCP browser testing
+- Album art now displays full square image without cropping
+- Text flows directly below canvas area (top-aligned)
