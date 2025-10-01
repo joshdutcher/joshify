@@ -55,11 +55,12 @@ screenshots/
 # Design reference files
 designref/
 
-# Canvas videos (hosted on GitHub Releases)
-public/canvases/*.mp4
-public/canvases/*.webm
-public/canvases/*.mov
-public/canvases/*.avi
+# Canvas videos - NOTE: Including in git for Railway deployment to avoid CORS issues
+# Previously excluded, but GitHub Releases CDN doesn't support CORS for video
+# public/canvases/*.mp4
+# public/canvases/*.webm
+# public/canvases/*.mov
+# public/canvases/*.avi
 
 # Screenshots and temporary test files
 screenshot*.png
