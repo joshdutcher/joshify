@@ -1,8 +1,16 @@
 # Release-Triggered Railway Deployment Guide
 
-## 🎯 Deployment Strategy Overview
+## ⚠️ DEPRECATED - This Guide is No Longer Active
 
-**New Workflow**: Deployments are triggered by GitHub releases, not main branch pushes.
+**Current Workflow**: Deployments are now triggered by pushes to the main branch, not releases.
+
+See [DEPLOYMENT.md](./DEPLOYMENT.md) for the current deployment process.
+
+---
+
+## 🎯 Previous Deployment Strategy (For Reference Only)
+
+**Old Workflow**: Deployments were triggered by GitHub releases, not main branch pushes.
 
 **Benefits**:
 - ✅ Canvas videos are uploaded to releases before deployment
@@ -171,19 +179,19 @@ railway link  # Link to your project
 
 ## 🔄 Migration Notes
 
-### What Changed
-- **Old**: Railway auto-deploys on main branch pushes
-- **New**: Railway deploys only on GitHub releases
-- **CI/CD**: Still runs on all PRs, but no longer includes deployment
-- **Assets**: Canvas videos synchronized with releases
+### What Changed (Historical)
+- **Original**: Railway auto-deployed on main branch pushes
+- **Temporary**: Railway deployed only on GitHub releases
+- **Current (Oct 2025)**: Back to main branch push deployments
+- **Assets**: Canvas videos now hosted on Backblaze B2 CDN (not GitHub releases)
 
-### Benefits
-- **Asset Synchronization**: Videos available before deployment
-- **Version Control**: Clear release versioning
-- **Controlled Releases**: Deploy only when ready
-- **Rollback Capability**: Easy rollback to previous releases
+### Current Deployment Model
+- **Trigger**: Automatic on pushes to main branch
+- **Canvas Videos**: Hosted on Backblaze B2 with CORS support
+- **CI/CD**: Full validation pipeline runs before deployment
+- **Speed**: Faster iteration without manual release creation
 
-### Backward Compatibility
-- **Local development**: Unchanged (`npm run dev`)
-- **Testing**: Unchanged (`npm run test`, `make ci-full`)
-- **Branch protection**: Unchanged (still requires PR + CI/CD)
+### Canvas Video Migration
+- **Old**: GitHub Releases CDN (CORS issues)
+- **New**: Backblaze B2 CDN (proper CORS, 10GB free tier)
+- **Setup**: See [BACKBLAZE_B2_SETUP.md](./BACKBLAZE_B2_SETUP.md)
