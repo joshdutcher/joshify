@@ -21,6 +21,8 @@ This project is configured for deployment on Railway with automated CI/CD pipeli
 ### Environment Variables
 - `NODE_ENV=production`
 - `PORT=3000` (Railway will override with $PORT)
+- `VITE_USE_LOCAL_CANVAS=false` (use CDN for canvas videos)
+- `VITE_CANVAS_CDN_URL=https://f000.backblazeb2.com/file/joshify-canvas` (Backblaze B2 CDN)
 
 ### Railway Configuration Files
 - `railway.toml` - Railway-specific deployment configuration
@@ -39,7 +41,8 @@ This project is configured for deployment on Railway with automated CI/CD pipeli
    - Quality Gate
 5. Request code review (1 approving review required)
 6. Merge PR to `main` after CI/CD passes
-7. Railway auto-deploys from `main` branch
+7. **Deployment workflow automatically triggers** and deploys to Railway
+8. Canvas videos load from Backblaze B2 CDN
 
 ### Manual Deployment
 ```bash
@@ -58,14 +61,22 @@ railway up
 
 ## CI/CD Pipeline
 
-### GitHub Actions Workflow
-- **File**: `.github/workflows/ci.yml`
+### GitHub Actions Workflows
+
+**CI Workflow** (`.github/workflows/ci.yml`):
 - **Triggers**: Pull requests to main, pushes to main
 - **Jobs**:
   1. Lint and Type Check
   2. Build and Test
   3. End-to-End Tests (Playwright)
   4. Quality Gate
+
+**Deployment Workflow** (`.github/workflows/deploy.yml`):
+- **Triggers**: Pushes to main branch
+- **Jobs**:
+  1. Pre-Deployment Validation (runs full CI/CD pipeline)
+  2. Railway Deployment (using Railway CLI)
+  3. Deployment Notification
 
 ### Required Status Checks
 All these checks must pass before merging to main:
