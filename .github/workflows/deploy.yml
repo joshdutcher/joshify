@@ -1,8 +1,9 @@
 name: Deploy to Railway
 
 on:
-  release:
-    types: [published]
+  push:
+    branches:
+      - main
 
 env:
   NODE_VERSION: '18'
@@ -33,9 +34,9 @@ jobs:
       - name: Run full CI/CD pipeline
         run: npm run ci:full
 
-      - name: Validate release assets
+      - name: Validate deployment assets
         run: |
-          echo "🔍 Validating release readiness..."
+          echo "🔍 Validating deployment readiness..."
 
           # Check that we have a production build
           if [ ! -f "dist/index.html" ]; then
@@ -49,23 +50,18 @@ jobs:
             exit 1
           fi
 
-          # Check release tag format
-          if [[ ! "${{ github.event.release.tag_name }}" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-            echo "⚠️  Release tag doesn't follow semantic versioning (v1.2.3)"
-          fi
-
-          echo "✅ Release validation passed"
+          echo "✅ Deployment validation passed"
 
       - name: Generate deployment report
         run: |
           echo "📋 Deployment Report" >> deployment-report.md
           echo "===================" >> deployment-report.md
           echo "" >> deployment-report.md
-          echo "**Release**: ${{ github.event.release.tag_name }}" >> deployment-report.md
+          echo "**Branch**: ${{ github.ref_name }}" >> deployment-report.md
           echo "**Commit**: ${{ github.sha }}" >> deployment-report.md
           echo "**Node.js**: $(node --version)" >> deployment-report.md
           echo "**Build Size**: $(du -sh dist/ | cut -f1)" >> deployment-report.md
-          echo "**Canvas Assets**: Available via GitHub Releases" >> deployment-report.md
+          echo "**Canvas Assets**: Available via Backblaze B2 CDN" >> deployment-report.md
           echo "" >> deployment-report.md
           echo "**CI/CD Status**: ✅ All checks passed" >> deployment-report.md
           echo "**Railway Status**: 🚀 Ready for deployment" >> deployment-report.md
@@ -73,7 +69,7 @@ jobs:
       - name: Upload deployment artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: deployment-${{ github.event.release.tag_name }}
+          name: deployment-${{ github.sha }}
           path: |
             dist/
             deployment-report.md
@@ -102,7 +98,7 @@ jobs:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
         run: |
           echo "🚀 Deploying to Railway..."
-          echo "Release: ${{ github.event.release.tag_name }}"
+          echo "Branch: ${{ github.ref_name }}"
           echo "Commit: ${{ github.sha }}"
 
           # Deploy using Railway CLI with service name
@@ -126,7 +122,7 @@ jobs:
           # RAILWAY_URL=$(railway domain | head -n1 || echo "")
 
           # For now, we'll just verify the deployment was created
-          echo "✅ Deployment completed for release ${{ github.event.release.tag_name }}"
+          echo "✅ Deployment completed for commit ${{ github.sha }}"
           echo "📝 Check Railway dashboard for deployment status"
 
   notification:
@@ -140,13 +136,13 @@ jobs:
         if: needs.railway-deploy.result == 'success'
         run: |
           echo "🎉 Deployment Success!"
-          echo "Release ${{ github.event.release.tag_name }} has been deployed to Railway"
-          echo "Canvas videos are available via GitHub Releases CDN"
+          echo "Commit ${{ github.sha }} has been deployed to Railway"
+          echo "Canvas videos are available via Backblaze B2 CDN"
 
       - name: Deployment failure notification
         if: needs.railway-deploy.result == 'failure'
         run: |
           echo "❌ Deployment Failed!"
-          echo "Release ${{ github.event.release.tag_name }} deployment to Railway failed"
+          echo "Commit ${{ github.sha }} deployment to Railway failed"
           echo "Check the deployment logs for details"
           exit 1
