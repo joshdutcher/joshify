@@ -93,6 +93,22 @@ export const projects: readonly Project[] = [
         albumArtBasedOn: 'The Low End Theory by A Tribe Called Quest'
     },
     {
+        id: 'medigap-integration',
+        title: 'Medigap Integration',
+        artist: 'Project - Ad Hoc',
+        album: AlbumCategory.GOVERNMENT_HEALTHCARE,
+        duration: '8 weeks',
+        image: '/album-art/medigap-integration.png',
+        year: '2023',
+        impact: 'National scale',
+        description: 'Designed and delivered end-to-end infrastructure for integrating Medigap health insurance plans into Medicare.gov. Built new ETL pipelines to ingest, transform, and normalize state-specific plan data, mapping inconsistent naming conventions into a unified reference set. Engineered optimized database models and API endpoints to support fast, reliable access for millions of users. Implemented fault isolation and rollback mechanisms so Medigap failures never disrupted the core Medicare ETL, ensuring uninterrupted service during enrollment. This project showcases full-stack ownership, from data modeling and system resilience to delivering accurate, user-facing healthcare information at national scale.',
+        skills: [Skill.GO, Skill.ETL_PIPELINES, Skill.API_DEVELOPMENT, Skill.DATA_TRANSFORMATION, Skill.HIGH_AVAILABILITY, Skill.HEALTHCARE],
+        demoUrl: null,
+        githubUrl: null,
+        canvas: null,
+        albumArtBasedOn: null
+    },
+    {
         id: 'snt-finance-api',
         title: 'API Engine Optimization',
         artist: 'Project - SNT Media',
@@ -213,8 +229,8 @@ const getProjectsByIds = (ids: readonly string[]): readonly Project[] =>
 // Typed project collections
 export const campbellZafarProjects: ProjectCollection = getProjectsByIds(['law-firm-startup-operations', 'startup-technology-infrastructure']);
 export const ddxProjects: ProjectCollection = getProjectsByIds(['election-data-pipeline', 'democracy-engine']);
-export const adHocProjects: ProjectCollection = getProjectsByIds(['healthcare-etl', 'healthcare-api-extensions']);
-export const dataEngineeringProjects: ProjectCollection = getProjectsByIds(['election-data-pipeline', 'healthcare-etl', 'healthcare-api-extensions']);
+export const adHocProjects: ProjectCollection = getProjectsByIds(['healthcare-etl', 'healthcare-api-extensions', 'medigap-integration']);
+export const dataEngineeringProjects: ProjectCollection = getProjectsByIds(['election-data-pipeline', 'healthcare-etl', 'healthcare-api-extensions', 'medigap-integration']);
 export const recentWork: ProjectCollection = getProjectsByIds(['joshify', 'startup-technology-infrastructure', 'law-firm-startup-operations', 'election-data-pipeline', 'democracy-engine', 'beer-fridge', 'did-kansas-win', 'wichita-radar']);
 export const topHits: ProjectCollection = getProjectsByIds(['law-firm-startup-operations', 'election-data-pipeline', 'snt-finance-api', 'healthcare-etl', 'healthcare-api-extensions', 'mobile-api-rebuild']);
 export const sideProjects: ProjectCollection = getProjectsByIds(['joshify', 'beer-fridge', 'did-kansas-win', 'wichita-radar']);

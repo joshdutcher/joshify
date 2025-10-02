@@ -111,7 +111,7 @@ export interface Project {
   readonly demoUrl: string | null;
   readonly githubUrl: string | null;
   readonly canvas: string | null;
-  readonly albumArtBasedOn: string;
+  readonly albumArtBasedOn: string | null;
 }
 
 /**

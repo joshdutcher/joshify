@@ -449,6 +449,19 @@
 
 ---
 
+## 📋 PENDING TASKS: CI/CD Optimization
+
+**Added**: October 2, 2025
+**Priority**: Medium
+
+### Playwright Test Removal
+- [ ] **Remove unit tests that require Playwright** - Clean up test dependencies
+- [ ] **Remove Playwright installation/setup from CI/CD workflow** - Reduce CI/CD build time and complexity
+
+**Rationale**: Simplify testing infrastructure by removing Playwright dependency from unit tests. Consider whether E2E tests are still needed or if they should be run separately.
+
+---
+
 ## 🚀 FUTURE ENHANCEMENTS: Content & Asset Management
 
 **Future Priority**: Complete track coverage with cover art and canvas videos
