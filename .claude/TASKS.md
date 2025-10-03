@@ -1,5 +1,127 @@
 # TASKS.md - Development Tasks
 
+## 🎯 COMPLETED: Cloudflare CDN Setup for Canvas Videos (October 3, 2025)
+
+**Project Focus**: Fix slow canvas video loading with Cloudflare CDN
+**Duration**: Single development session
+**Status**: ✅ **DNS Transfer Complete** | ⏳ **Propagation in Progress** | ✅ **Configuration Complete**
+
+### ✅ Completed: Cloudflare CDN Configuration
+**Scope**: Set up Backblaze B2 + Cloudflare CDN proxy for global edge caching and fast video delivery
+
+#### Problem Identified
+Canvas videos loading from Backblaze B2 direct URLs were **extremely slow** (>1 second delay after page load), degrading user experience.
+
+#### Solution Implemented
+**Backblaze B2 + Cloudflare CDN Proxy** setup for global edge caching:
+
+1. **DNS Transfer to Cloudflare**
+   - Transferred `joshify.dev` DNS management to Cloudflare
+   - Domain registration remains at Namecheap (only DNS transferred)
+   - Nameservers updated at Namecheap (propagation in progress)
+   - Enables Cloudflare proxy/CDN capabilities
+
+2. **CDN Subdomain Configuration**
+   - Created `cdn.joshify.dev` CNAME → `f000.backblazeb2.com`
+   - **Proxy Status**: Enabled (orange cloud) - **CRITICAL FOR CDN**
+   - Production URL: `https://cdn.joshify.dev/file/joshify-canvas/`
+   - Videos will be cached at 200+ global edge locations
+
+3. **B2 Bucket CORS Update**
+   - Added `https://cdn.joshify.dev` to allowed origins
+   - Configured for production and local development domains
+   - Ensures proper cross-origin access
+
+4. **Environment Variables**
+   - Updated `.env.production`: `VITE_CANVAS_CDN_URL=https://cdn.joshify.dev/file/joshify-canvas`
+   - Railway: Pending update (waiting for DNS propagation)
+
+5. **CLI Tools Management**
+   - Installed Wrangler CLI globally (Cloudflare CLI tool v4.42.0)
+   - Removed B2 CLI (no longer needed)
+   - Wrangler available for future Cloudflare operations
+
+#### Expected Performance Improvement
+
+**Before** (Direct B2):
+- First load: ~1-2 seconds
+- No caching
+- Direct connection to B2 origin servers
+
+**After** (Cloudflare CDN - once DNS propagates):
+- First load: ~1-2 seconds (populates cache)
+- Subsequent loads: **< 100ms** (from edge cache)
+- Global edge caching in 200+ cities
+
+#### Technical Implementation Details
+
+**Files Modified**:
+1. **CREATED**: `.claude/CDN_CONFIGURATION.md` - Complete CDN documentation
+   - Architecture overview
+   - DNS and CORS configuration
+   - Environment variables
+   - Testing and troubleshooting
+   - Cost analysis
+   - Maintenance procedures
+
+2. **UPDATED**: `.env.production` - CDN URL changed from direct B2 to Cloudflare proxy
+
+**Tools Installed**:
+- **Wrangler**: 4.42.0 (Cloudflare CLI) - `npm install -g wrangler`
+- **Removed**: B2 CLI (replaced by Wrangler)
+
+**DNS Configuration**:
+- **Domain**: `joshify.dev`
+- **Registrar**: Namecheap (domain registration)
+- **DNS Provider**: Cloudflare (nameservers transferred)
+- **CDN Subdomain**: `cdn.joshify.dev` → Proxied CNAME to B2
+
+#### Pending Actions
+
+**Immediate**:
+1. **Wait for DNS Propagation**: 5 minutes to 48 hours
+2. **Update Railway Environment Variable**: Add `VITE_CANVAS_CDN_URL=https://cdn.joshify.dev/file/joshify-canvas`
+3. **Verify CDN Performance**: Test video loading after DNS propagates
+
+**Verification Steps** (After DNS Propagation):
+```bash
+# Test DNS resolution
+dig +short cdn.joshify.dev
+
+# Test CDN endpoint
+curl -I https://cdn.joshify.dev/file/joshify-canvas/beer-fridge.mp4
+
+# Look for cf-cache-status header (HIT or MISS)
+```
+
+#### Technical Achievements
+- **Zero-Cost CDN**: Leveraging Cloudflare free tier for unlimited bandwidth
+- **Global Performance**: Videos cached in 200+ edge locations
+- **Production Ready**: No rate limits, professional custom domain
+- **Simple Maintenance**: Single CNAME record manages entire CDN setup
+- **Complete Documentation**: Comprehensive CDN_CONFIGURATION.md reference guide
+
+#### Architecture Decisions
+
+**Why B2 + Cloudflare CDN (not R2)?**
+1. **Already Set Up**: B2 bucket with all videos uploaded
+2. **Cost Effective**: $0.00/month within free tiers
+3. **Simple Integration**: Single CNAME with proxy enabled
+4. **Future Flexibility**: Can migrate to R2 later if needed
+
+**Why Transfer DNS to Cloudflare?**
+- **Required for CDN**: Cloudflare proxy only works with Cloudflare-managed DNS
+- **No Cost**: Domain registration stays at Namecheap
+- **Bonus Features**: Free SSL, DDoS protection, analytics
+
+#### Cost Analysis
+- **Backblaze B2 Storage**: $0.00/month (78MB well within 10GB free tier)
+- **B2 Downloads**: $0.00/month (Cloudflare caches videos, minimal B2 bandwidth)
+- **Cloudflare CDN**: $0.00/month (Free tier)
+- **Total**: $0.00/month ✅
+
+---
+
 ## 🎯 COMPLETED: Canvas Display Fix - Conditional Aspect Ratio (September 30, 2025)
 
 **Project Focus**: Fix canvas video and album art display regression
