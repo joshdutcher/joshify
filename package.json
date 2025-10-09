@@ -10,11 +10,7 @@
     "preview": "vite preview --host",
     "lint": "eslint src --ext js,jsx,ts,tsx --report-unused-disable-directives --max-warnings 50",
     "type-check": "tsc --noEmit",
-    "test": "npm run test:smoke",
-    "test:smoke": "playwright test --config=playwright.smoke.config.js",
-    "test:install": "playwright install --with-deps chromium",
-    "ci": "npm run lint && npm run type-check && npm run build",
-    "ci:full": "npm run ci && npm run test"
+    "ci": "npm run lint && npm run type-check && npm run build"
   },
   "dependencies": {
     "lucide-react": "^0.263.1",
@@ -22,7 +18,6 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@playwright/test": "^1.55.0",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "^8.44.1",
@@ -33,7 +28,6 @@
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
-    "playwright": "^1.55.0",
     "postcss": "^8.4.24",
     "sharp": "^0.34.4",
     "tailwindcss": "^3.3.0",

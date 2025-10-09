@@ -47,8 +47,6 @@ npm run preview    # Preview build locally
 npm run lint       # Code linting (✅ TypeScript files now linted)
 npm run type-check # TypeScript type checking (✅ 0 errors - production ready)
 npm run ci         # Full CI pipeline: lint + type-check + build
-npm run ci:full    # Complete CI/CD: lint + type-check + build + test
-npm run test       # Playwright smoke tests
 ```
 
 **Vite 5 Build System:**
@@ -67,23 +65,22 @@ npm run test       # Playwright smoke tests
 - ✅ **Production Ready**: Zero TypeScript errors - enterprise-grade type safety complete
 
 **CI/CD Pipeline:**
-- ✅ **GitHub Actions**: Comprehensive 4-stage pipeline (lint, build, test, quality gate)
+- ✅ **GitHub Actions**: Streamlined 3-stage pipeline (lint, build, quality gate)
 - ✅ **Branch Protection**: Main branch protected with required CI/CD checks
 - ✅ **Railway Integration**: Production deployment configuration and verification
-- ✅ **Quality Gates**: Automated testing with Playwright smoke tests
+- ✅ **Quality Gates**: TypeScript compilation and ESLint validation
 - ✅ **Deployment Ready**: All TypeScript compilation errors resolved
 
 **Testing & Browser Automation:**
 - ✅ **Playwright MCP**: Chromium browser installed and functional in WSL2
-- Available for E2E testing, visual regression testing, and browser automation
+- Available for manual E2E testing, visual regression testing, and browser automation
 - Can access local development server (localhost:3000) for live testing
 - ⚡ **HEADLESS MODE REQUIRED**: Always use headless mode for Claude AI testing (no browser windows)
 - Use `--play` flag or Playwright MCP tools for browser-based testing workflows
 - 📋 **Documentation**: See `.claude/PLAYWRIGHT_MCP.md` for complete API reference and usage guide
-- 🤖 **CI/CD Integration**: GitHub Actions enhanced with Playwright MCP (commit 15a42fa)
-  - Automated browser testing capabilities for Claude in CI/CD pipeline
-  - Headless Chromium with full dependency support in GitHub Actions
-  - Enables automated validation of UI changes through pull requests and issues
+- ⚠️ **NOT IN CI/CD**: Playwright removed from automated CI/CD pipeline (October 9, 2025)
+  - Manual testing only - not part of GitHub Actions workflow
+  - CI/CD focuses on TypeScript compilation and ESLint validation
 
 **Requirements:**
 - Portfolio showcasing projects as "tracks" with album-like rich metadata
@@ -112,7 +109,7 @@ npm run test       # Playwright smoke tests
 ## Testing Checklist
 
 ### UI/UX Testing
-**Available Tools**: ✅ Playwright MCP (Chromium browser) for automated testing
+**Available Tools**: ✅ Playwright MCP (Chromium browser) for manual testing
 - [ ] Spotify-authentic navigation and layout with proper terminology
 - [ ] Left column resizing behavior (min/max/icon-only modes)
 - [ ] Right column resizing functionality

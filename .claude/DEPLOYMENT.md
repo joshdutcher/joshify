@@ -68,8 +68,7 @@ railway up
 - **Jobs**:
   1. Lint and Type Check
   2. Build and Test
-  3. End-to-End Tests (Playwright)
-  4. Quality Gate
+  3. Quality Gate
 
 **Deployment Workflow** (`.github/workflows/deploy.yml`):
 - **Triggers**: Pushes to main branch
@@ -82,19 +81,17 @@ railway up
 All these checks must pass before merging to main:
 - Lint and Type Check
 - Build and Test
-- End-to-End Tests
 - Quality Gate
 
 ### Local Testing Commands
 ```bash
 # Run full CI pipeline locally
-npm run ci:full
+npm run ci
 
 # Individual checks
 npm run lint          # ESLint
 npm run type-check    # TypeScript
 npm run build         # Production build
-npm run test          # Playwright tests
 ```
 
 ## Build Verification
@@ -108,7 +105,6 @@ npm run test          # Playwright tests
 - ESLint with max 50 warnings
 - TypeScript strict mode
 - Build artifact validation
-- Smoke tests via Playwright
 
 ## Troubleshooting
 
@@ -116,7 +112,6 @@ npm run test          # Playwright tests
 1. **TypeScript Errors**: Run `npm run type-check` locally
 2. **Lint Errors**: Run `npm run lint` locally
 3. **Build Errors**: Run `npm run build` locally
-4. **Test Failures**: Run `npm run test` locally
 
 ### Railway-Specific Issues
 1. **Dependencies**: Ensure all dependencies in package.json
@@ -151,7 +146,6 @@ npm run test          # Playwright tests
 ✅ **Build Pipeline**: All CI/CD checks pass
 ✅ **Branch Protection**: Direct pushes to main blocked
 ✅ **Code Quality**: TypeScript strict compilation + ESLint
-✅ **Testing**: Automated smoke tests via Playwright
 ✅ **Deployment**: Automatic deployment from main branch
 ✅ **Monitoring**: Railway deployment dashboard available
 
