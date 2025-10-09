@@ -2,16 +2,52 @@
 
 ## Current Session - October 9, 2025
 **Status**: ✅ Complete
-**Focus**: CI/CD Optimization - Remove Playwright from Automated Testing
+**Focus**: Mobile UI Fix - Hide "Good afternoon" Section on Mobile Devices
 
 ### Session Context
 - Joshify portfolio: Spotify-clone personal portfolio with production CI/CD
-- Goal: Simplify CI/CD pipeline by removing Playwright from automated testing
-- Previous session: Vite 5 upgrade + automated image optimization
+- Issue: Mobile display showing broken "Good afternoon" cards (too many, tall/narrow, cropped art, missing text)
+- Goal: Match Spotify's authentic mobile behavior by hiding section on mobile devices
 
 ### Session Accomplishments
 
-#### CI/CD Pipeline Simplification
+#### Mobile UI Fix - "Good afternoon" Section
+**Problem**: On mobile devices, the "Good afternoon" section displayed incorrectly:
+- Too many cards in a row (8 cards)
+- Cards rendered tall and narrow
+- Album art cropped on right side
+- Text missing below images
+
+**Solution Delivered**:
+1. ✅ Compared Joshify vs Spotify mobile layouts using Playwright MCP
+2. ✅ Identified Spotify hides "Good afternoon" section entirely on mobile
+3. ✅ Wrapped section in responsive container: `<div className="hidden md:block">`
+4. ✅ Verified mobile display (< 768px): Section completely hidden
+5. ✅ Verified tablet display (768px+): Section visible and functional
+6. ✅ Verified desktop display (1920px): No changes, all functionality preserved
+
+**Technical Implementation**:
+- **File Modified**: `src/components/views/HomeView.tsx`
+- **Change**: Added responsive wrapper around greeting heading and AdaptiveCardGrid
+- **Breakpoint**: Uses Tailwind `md` breakpoint (768px)
+- **Behavior**: Hidden below 768px, visible at 768px and above
+
+**Benefits**:
+- **Authentic Mobile UX**: Matches Spotify's mobile behavior exactly
+- **Clean Mobile Layout**: Shows only vertical card sections ("Made for you", "Top hits", "Side projects")
+- **Preserved Desktop**: No changes to tablet/desktop experience
+- **Simple Solution**: Single responsive wrapper, no complex logic
+
+**Testing Results**:
+- ✅ Mobile (412px): "Good afternoon" hidden, clean vertical layout
+- ✅ Tablet (768px): "Good afternoon" visible with horizontal cards
+- ✅ Desktop (1920px): Full section visible, unchanged functionality
+
+---
+
+### Previous Session Accomplishments
+
+#### CI/CD Pipeline Simplification (October 9, 2025)
 **Problem**: Playwright E2E tests in CI/CD added complexity and build time without significant value
 
 **Solution Delivered**:
@@ -36,11 +72,7 @@
 
 **Note**: Playwright MCP still available in WSL2 for manual testing, just not part of automated CI/CD pipeline.
 
----
-
-### Previous Session Accomplishments
-
-#### Vite 5 Upgrade
+#### Vite 5 Upgrade (October 9, 2025)
 **Problem**: Limited to Vite 4.4.5, blocking modern plugin ecosystem
 
 **Solution Delivered**:
@@ -56,7 +88,7 @@
 - **Improved HMR** and error messages
 - **Active long-term support**
 
-#### Automated Image Optimization Implementation
+#### Automated Image Optimization Implementation (October 9, 2025)
 **Problem**: Manual script required for each new album art image
 
 **Solution Delivered**:

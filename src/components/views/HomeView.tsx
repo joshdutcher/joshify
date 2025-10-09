@@ -25,10 +25,12 @@ const HomeView = ({
     onNavigateToDomain
 }: HomeViewProps) => (
     <div className="text-spotify-primary p-6">
-        <h1 className="text-3xl font-bold mb-5">{getTimeBasedGreeting()}</h1>
+        {/* Good afternoon section - hidden on mobile (< 768px), visible on desktop */}
+        <div className="hidden md:block">
+            <h1 className="text-3xl font-bold mb-5">{getTimeBasedGreeting()}</h1>
 
-        {/* Recently Played Grid - Maximum 2 rows with horizontal scroll fallback */}
-        <AdaptiveCardGrid className="mb-5 md:mb-7" maxRows={2} cardWidth={188}>
+            {/* Recently Played Grid - Maximum 2 rows with horizontal scroll fallback */}
+            <AdaptiveCardGrid className="mb-5 md:mb-7" maxRows={2} cardWidth={188}>
             {defaultNowPlaying[0] && (
                 <ProjectCard
                     key={defaultNowPlaying[0].id}
@@ -61,6 +63,7 @@ const HomeView = ({
                 );
             })}
         </AdaptiveCardGrid>
+        </div>
 
         {/* Made for You Section */}
         <section className="mb-7">
