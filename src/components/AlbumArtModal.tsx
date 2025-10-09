@@ -92,6 +92,17 @@ const AlbumArtModal = ({ isOpen, onClose, project }: AlbumArtModalProps) => {
     const hasValidImage = project?.image &&
                        !project.image.includes('/api/placeholder');
 
+    // Get WebP and PNG paths
+    const getImagePaths = (imagePath: string | undefined) => {
+        if (!imagePath || imagePath.includes('/api/placeholder')) {
+            return { webp: null, png: null };
+        }
+        const webpPath = imagePath.replace(/\.(png|jpg|jpeg)$/i, '.webp');
+        return { webp: webpPath, png: imagePath };
+    };
+
+    const { webp, png } = getImagePaths(project?.image);
+
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
             {/* Backdrop */}
@@ -113,13 +124,16 @@ const AlbumArtModal = ({ isOpen, onClose, project }: AlbumArtModalProps) => {
             >
                             <X className="w-5 h-5" />
                         </button>
-                        <img
-                            src={project.image}
-                            alt={`${project.title} album art`}
-                            className="object-contain rounded-lg shadow-2xl"
-                            style={displayStyle}
-                            onClick={(e) => e.stopPropagation()} // Prevent closing when clicking image
-            />
+                        <picture onClick={(e) => e.stopPropagation()}>
+                            {webp && <source srcSet={webp} type="image/webp" />}
+                            {png && <source srcSet={png} type="image/png" />}
+                            <img
+                                src={png || project.image}
+                                alt={`${project.title} album art`}
+                                className="object-contain rounded-lg shadow-2xl"
+                                style={displayStyle}
+                            />
+                        </picture>
                     </div>
         ) : (
             <div

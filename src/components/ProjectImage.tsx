@@ -66,20 +66,36 @@ const ProjectImage = ({
     const hasValidImage = project?.image &&
                        !project.image.includes('/api/placeholder');
 
+    // Get WebP and PNG paths
+    const getImagePaths = (imagePath: string) => {
+        if (!imagePath || imagePath.includes('/api/placeholder')) {
+            return { webp: null, png: null };
+        }
+        const webpPath = imagePath.replace(/\.(png|jpg|jpeg)$/i, '.webp');
+        return { webp: webpPath, png: imagePath };
+    };
+
+    const { webp, png } = getImagePaths(project?.image || '');
+
     return (
         <div
             className={`relative ${sizeClass} ${shapeClass} overflow-hidden flex-shrink-0 ${className}`}
             style={customStyle}
     >
-            {/* Main Image */}
+            {/* Main Image with WebP + PNG fallback */}
             {hasValidImage && (
-            <img
-                src={project.image}
-                alt={project.title}
-                className={`w-full h-full object-cover ${shapeClass}`}
-                onError={handleImageError}
-        />
-      )}
+                <picture>
+                    {webp && <source srcSet={webp} type="image/webp" />}
+                    {png && <source srcSet={png} type="image/png" />}
+                    <img
+                        src={png || project.image}
+                        alt={project.title}
+                        className={`w-full h-full object-cover ${shapeClass}`}
+                        onError={handleImageError}
+                        loading="lazy"
+                    />
+                </picture>
+            )}
 
             {/* Fallback with Initials */}
             {!hasValidImage && (

@@ -45,6 +45,7 @@ temp/
 
 # Development tool caches and artifacts
 .vite/
+.cache/
 .playwright-mcp/
 enhanced_comparison/
 screenshots/

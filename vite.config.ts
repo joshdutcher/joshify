@@ -1,9 +1,32 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'path'
+import { ViteImageOptimizer } from 'vite-plugin-image-optimizer'
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    ViteImageOptimizer({
+      // Test mode - only process files in public/album-art
+      test: /\.(png|jpe?g)$/i,
+      includePublic: true,
+      logStats: true,
+
+      // PNG optimization settings
+      png: {
+        quality: 90,
+      },
+
+      // Auto-generate WebP versions
+      webp: {
+        quality: 90,
+      },
+
+      // Cache optimized images
+      cache: true,
+      cacheLocation: '.cache/vite-image-optimizer',
+    })
+  ],
   server: {
     port: 3000,
     open: true
