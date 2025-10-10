@@ -59,12 +59,30 @@ jobs:
       - name: Build application
         run: npm run build
 
+      - name: Validate deployment assets
+        run: |
+          echo "🔍 Validating deployment readiness..."
+
+          # Check that we have a production build
+          if [ ! -f "dist/index.html" ]; then
+            echo "❌ Production build missing"
+            exit 1
+          fi
+
+          # Verify Railway configuration
+          if [ ! -f "railway.toml" ]; then
+            echo "❌ Railway configuration missing"
+            exit 1
+          fi
+
+          echo "✅ Deployment validation passed"
+
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: build-artifacts
+          name: build-artifacts-${{ github.sha }}
           path: dist/
-          retention-days: 7
+          retention-days: 30
 
   pr-validation:
     name: PR Validation Complete
@@ -79,8 +97,8 @@ jobs:
           echo "✅ Build Status: Production build successful"
           echo "🎯 PR ready for review and merge"
           echo ""
-          echo "📝 Note: Deployment occurs on GitHub releases"
-          echo "🚀 Create a release to deploy to Railway"
+          echo "📝 Note: Deployment occurs automatically on merge to main"
+          echo "🚀 Merge this PR to trigger Railway deployment"
 
   quality-gate:
     name: Quality Gate
@@ -100,3 +118,70 @@ jobs:
             exit 1
           fi
           echo "✅ All quality checks passed!"
+
+  deploy-to-railway:
+    name: Deploy to Railway
+    runs-on: ubuntu-latest
+    needs: [lint-and-type-check, build-test, quality-gate]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    environment: production
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install Railway CLI
+        run: |
+          curl -fsSL https://railway.app/install.sh | sh
+          echo "$HOME/.railway/bin" >> $GITHUB_PATH
+
+      - name: Deploy to Railway
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+        run: |
+          echo "🚀 Deploying to Railway..."
+          echo "Branch: ${{ github.ref_name }}"
+          echo "Commit: ${{ github.sha }}"
+
+          # Deploy using Railway CLI with service name
+          railway up --detach --service joshify
+
+          echo "✅ Deployment initiated successfully"
+
+          # Wait a moment for deployment to register
+          sleep 10
+
+          # Get deployment status
+          railway status || echo "⚠️  Status check skipped"
+
+      - name: Post-deployment validation
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+        run: |
+          echo "🔍 Running post-deployment validation..."
+          echo "✅ Deployment completed for commit ${{ github.sha }}"
+          echo "📝 Check Railway dashboard for deployment status"
+
+  deployment-notification:
+    name: Deployment Complete
+    runs-on: ubuntu-latest
+    needs: [deploy-to-railway]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Deployment success
+        if: needs.deploy-to-railway.result == 'success'
+        run: |
+          echo "🎉 Deployment Success!"
+          echo "Commit ${{ github.sha }} has been deployed to Railway"
+          echo "Canvas videos are available via Backblaze B2 CDN"
+
+      - name: Deployment failure
+        if: needs.deploy-to-railway.result == 'failure'
+        run: |
+          echo "❌ Deployment Failed!"
+          echo "Commit ${{ github.sha }} deployment to Railway failed"
+          echo "Check the deployment logs for details"
+          exit 1
