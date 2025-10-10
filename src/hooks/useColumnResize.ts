@@ -26,8 +26,6 @@ const useColumnResize = () => {
         document.body.style.cursor = 'col-resize';
         document.body.style.userSelect = 'none';
 
-        // const startX = e.clientX;
-        // const startWidth = leftColumnWidth;
         let currentMode = leftColumnMode; // Track mode within this drag session
     
         // Find the sidebar element for direct manipulation and capture its initial left position

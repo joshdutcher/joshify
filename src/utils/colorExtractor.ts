@@ -71,8 +71,7 @@ class ColorExtractor {
     
         // Find dominant colors using simple clustering
         const dominantColor = this.findDominantColor(pixels);
-        // const complementaryColor = this.generateComplementary(dominantColor);
-    
+
         return {
             background: `linear-gradient(to bottom, ${dominantColor} 0%, rgb(40, 40, 40) 50%)`,
             '--primary-color': dominantColor
@@ -172,27 +171,6 @@ class ColorExtractor {
         }
     
         return color;
-    }
-
-    static generateComplementary(primaryColor: string): string {
-        // Extract RGB values from the primary color
-        const match = primaryColor.match(/rgb\((\d+), (\d+), (\d+)\)/);
-        if (!match || !match[1] || !match[2] || !match[3]) return primaryColor;
-    
-        const r = parseInt(match[1]);
-        const g = parseInt(match[2]);
-        const b = parseInt(match[3]);
-    
-        // Generate a complementary color that's also dark enough for backgrounds
-        // const luminance = 0.299 * r + 0.587 * g + 0.114 * b;
-    
-        // Always create a darker gradient endpoint
-        const secondaryR = Math.max(10, Math.floor(r * 0.3));
-        const secondaryG = Math.max(10, Math.floor(g * 0.3));
-        const secondaryB = Math.max(10, Math.floor(b * 0.3));
-    
-        // Ensure the secondary is always darker than primary for gradient effect
-        return `rgb(${secondaryR}, ${secondaryG}, ${secondaryB})`;
     }
 
     static getDefaultColors(): ColorResult {

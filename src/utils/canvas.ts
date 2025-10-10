@@ -30,13 +30,3 @@ export const getCanvasUrl = (filename: string | null): string | null => {
     return `${cdnBaseUrl}/${filename}`;
 };
 
-/**
- * Extract filename from a full CDN URL
- * @param cdnUrl - Full CDN URL
- * @returns Filename only, or null if invalid
- */
-export const extractFilename = (cdnUrl: string | null): string | null => {
-    if (!cdnUrl) return null;
-    const match = cdnUrl.match(/\/([^/]+\.mp4)$/);
-    return match ? match[1] || null : null;
-};
