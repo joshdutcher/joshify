@@ -61,11 +61,13 @@ git push origin <branch-name>
 
 **Vite 5 Build System:**
 - ✅ **Vite 5.4.20**: Modern build tooling with 50% faster dev server
-- ✅ **Automated Image Optimization**: Build-time PNG→WebP conversion via `vite-plugin-image-optimizer`
-- ✅ **75% File Size Reduction**: Automatic optimization of all album art images
-- ✅ **Zero Manual Work**: Drop PNG in `public/album-art/`, build auto-generates optimized PNG + WebP
-- ✅ **Intelligent Caching**: `.cache/vite-image-optimizer` for faster subsequent builds
-- ✅ **Quality 90**: PNG and WebP both optimized at quality 90 for visual fidelity
+- ✅ **Automated WebP Generation**: Pre-build script auto-generates WebP from PNG files
+- ✅ **Automated PNG Optimization**: Build-time PNG optimization via `vite-plugin-image-optimizer`
+- ✅ **90%+ File Size Reduction**: WebP typically 90-95% smaller than original PNG
+- ✅ **Zero Manual Work**: Drop PNG in `public/album-art/`, build auto-generates WebP + optimizes PNG
+- ✅ **Intelligent Caching**: Skips regeneration if WebP exists and is newer than source PNG
+- ✅ **Quality 90**: Both PNG and WebP optimized at quality 90 for visual fidelity
+- ✅ **Standalone Script**: Run `npm run generate-webp` manually to create WebP files
 
 **TypeScript Support:**
 - ✅ **Complete TypeScript Conversion**: All major components converted from JS to TS

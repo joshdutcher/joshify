@@ -6,11 +6,13 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "prebuild": "node scripts/generate-webp.js",
     "build": "tsc && vite build",
     "preview": "vite preview --host",
     "lint": "eslint src --ext js,jsx,ts,tsx --report-unused-disable-directives --max-warnings 50",
     "type-check": "tsc --noEmit",
-    "ci": "npm run lint && npm run type-check && npm run build"
+    "ci": "npm run lint && npm run type-check && npm run build",
+    "generate-webp": "node scripts/generate-webp.js"
   },
   "dependencies": {
     "lucide-react": "^0.263.1",
