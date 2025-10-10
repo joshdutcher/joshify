@@ -2,7 +2,7 @@
 
 **A personal portfolio website reimagined as a music streaming platform**
 
-Joshify transforms the traditional developer portfolio into an engaging Spotify-like experience where development projects become "tracks," skills become "genres," and your career becomes a carefully curated musical journey.
+Joshify transforms my traditional developer portfolio into an engaging Spotify-like experience where development projects become "tracks," skills become "genres," and my career becomes a carefully curated musical journey. Just without the music.
 
 ## ✨ Features
 
