@@ -105,7 +105,7 @@ export const projects: readonly Project[] = [
         skills: [Skill.GO, Skill.ETL_PIPELINES, Skill.API_DEVELOPMENT, Skill.DATA_TRANSFORMATION, Skill.HIGH_AVAILABILITY, Skill.HEALTHCARE],
         demoUrl: null,
         githubUrl: null,
-        canvas: null,
+        canvas: getCanvasUrl('medigap-integration.mp4'),
         albumArtBasedOn: 'Gap Band VI by The Gap Band'
     },
     {
