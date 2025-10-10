@@ -81,13 +81,46 @@ const ProjectCanvas = ({
     const handleVideoError = (e: React.SyntheticEvent<HTMLVideoElement>) => {
         const target = e.target as HTMLVideoElement;
         const error = target.error;
-        console.error('Video loading error details:', {
+
+        // Enhanced error logging
+        console.error('🎥 Canvas Video Error:', {
+            projectId: project?.id,
+            projectTitle: project?.title,
+            videoUrl: project?.canvas,
             errorCode: error?.code,
             errorMessage: error?.message,
             networkState: target.networkState,
             readyState: target.readyState,
-            videoUrl: project?.canvas
+            currentSrc: target.currentSrc,
+            videoExists: !!project?.canvas,
+            // Network states: 0=EMPTY, 1=IDLE, 2=LOADING, 3=NO_SOURCE
+            // Ready states: 0=NOTHING, 1=METADATA, 2=CURRENT_DATA, 3=FUTURE_DATA, 4=ENOUGH_DATA
+            // Error codes: 1=ABORTED, 2=NETWORK, 3=DECODE, 4=SRC_NOT_SUPPORTED
         });
+
+        // Try to fetch the video URL directly to see if it's accessible
+        if (project?.canvas) {
+            fetch(project.canvas, { method: 'HEAD' })
+                .then(response => {
+                    console.log('🔍 Video URL HEAD request:', {
+                        url: project.canvas,
+                        status: response.status,
+                        ok: response.ok,
+                        headers: {
+                            contentType: response.headers.get('content-type'),
+                            contentLength: response.headers.get('content-length'),
+                            cors: response.headers.get('access-control-allow-origin')
+                        }
+                    });
+                })
+                .catch(err => {
+                    console.error('❌ Video URL fetch failed:', {
+                        url: project.canvas,
+                        error: err.message
+                    });
+                });
+        }
+
         setHasError(true);
         setIsLoaded(false);
     };
