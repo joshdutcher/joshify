@@ -7,6 +7,7 @@ interface ImportMetaEnv {
 
 // Extend Vite's ImportMeta interface
 declare module 'vite/client' {
+    // eslint-disable-next-line no-unused-vars
     interface ImportMeta {
         readonly env: ImportMetaEnv;
     }

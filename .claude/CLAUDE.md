@@ -49,6 +49,16 @@ npm run type-check # TypeScript type checking (✅ 0 errors - production ready)
 npm run ci         # Full CI pipeline: lint + type-check + build
 ```
 
+**⚠️ CRITICAL: Pre-Push Workflow**
+```bash
+# ALWAYS run local CI/CD before pushing to GitHub
+npm run ci         # Verify lint, type-check, and build all pass locally
+
+# If CI passes locally, then push
+git push origin <branch-name>
+```
+**Why**: Ensures GitHub Actions CI/CD will pass, avoiding failed builds and wasted CI/CD minutes.
+
 **Vite 5 Build System:**
 - ✅ **Vite 5.4.20**: Modern build tooling with 50% faster dev server
 - ✅ **Automated Image Optimization**: Build-time PNG→WebP conversion via `vite-plugin-image-optimizer`

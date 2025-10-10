@@ -31,7 +31,7 @@ const HomeView = ({
 
             {/* Recently Played Grid - Maximum 2 rows with horizontal scroll fallback */}
             <AdaptiveCardGrid className="mb-5 md:mb-7" maxRows={2} cardWidth={188}>
-            {defaultNowPlaying[0] && (
+                {defaultNowPlaying[0] && (
                 <ProjectCard
                     key={defaultNowPlaying[0].id}
                     project={defaultNowPlaying[0]}
@@ -45,7 +45,7 @@ const HomeView = ({
                     onNavigateToDomain={onNavigateToDomain}
                 />
             )}
-            {recentWork.filter(project => project && project.id !== defaultNowPlaying[0]?.id).map((project) => {
+                {recentWork.filter(project => project && project.id !== defaultNowPlaying[0]?.id).map((project) => {
                 if (!project) return null;
                 return (
                     <ProjectCard
@@ -62,7 +62,7 @@ const HomeView = ({
                     />
                 );
             })}
-        </AdaptiveCardGrid>
+            </AdaptiveCardGrid>
         </div>
 
         {/* Made for You Section */}
