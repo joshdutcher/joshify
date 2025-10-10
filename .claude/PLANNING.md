@@ -261,52 +261,22 @@ Authentic card sizing and progressive responsive design:
 5. ✅ **Scroll Issue**: Middle column now responds to mouse scroll wheel
 6. ✅ **Dynamic Greeting**: Time-based greeting implemented ("Good morning/afternoon/evening")
 
-## NEW: Spotify UI Polish Phase - GitHub Issues Implementation
+## 🎯 PRIORITY: Pending Enhancements
 
-### 3-Phase Final UI Polish Project
-*Targeted improvements for complete Spotify authenticity using Playwright MCP testing*
-**Status**: ✅ **GitHub Issues Created** (August 27, 2025) - Ready for development workflow
+### Mobile Canvas Background Video (Top Priority)
+**Current Issue**: On mobile devices (<768px), canvas videos are hidden on project detail pages
+**Target**: Display canvas video as full-screen background on mobile project detail views
+**Implementation**:
+  - Show canvas video on mobile project detail pages (currently hidden)
+  - Position video as full-screen background layer (z-index management)
+  - Overlay project details content on top of video background
+  - Ensure text remains readable with proper contrast/overlay effects
+  - Maintain existing desktop behavior (video in right column)
+- **Testing**: Mobile device testing at 375px, 414px, 390px viewports
+- **Success Criteria**: Canvas video plays as immersive background on mobile detail pages
 
-**GitHub Issues**:
-- [Issue #2: Phase A - Vertical Card Height Optimization](https://github.com/joshdutcher/joshify/issues/2)
-- [Issue #3: Phase B - Authentic Scrollbar Behavior](https://github.com/joshdutcher/joshify/issues/3)
-- [Issue #4: Phase C - Horizontal Navigation Enhancement](https://github.com/joshdutcher/joshify/issues/4)
-
-**Phase A: Vertical Card Height Optimization** (1.5-2 hours)
-- **Current Issue**: Cards feel too tall compared to authentic Spotify
-- **Target**: Reduce card height while maintaining visual hierarchy
-- **Implementation**:
-  - Analyze current padding and spacing in HorizontalCard components
-  - Reduce card padding from `p-4` to `p-2` or `p-3` for tighter layout
-  - Optimize text spacing and margins for compact design
-  - Maintain responsive behavior across all breakpoints
-- **Testing**: Playwright MCP validation at all viewport sizes
-- **Success Criteria**: Cards match authentic Spotify proportions
-
-**Phase B: Authentic Scrollbar Behavior** (2-2.5 hours)
-- **Current Issue**: Scrollbars always visible, not authentic Spotify behavior
-- **Target**: Implement hover-to-appear scrollbars with fade transitions
-- **Implementation**:
-  - Modify `.spotify-scrollbar` CSS to hide by default
-  - Add JavaScript hover detection for scrollable areas
-  - Implement fade-in/fade-out transitions (opacity 0 → 0.3)
-  - Apply to all three main content areas (sidebar, main, right column)
-- **Testing**: Hover behavior validation with Playwright MCP
-- **Success Criteria**: Scrollbars appear on hover, fade after mouse leaves
-
-**Phase C: Horizontal Navigation Enhancement** (1.5-2 hours)
-- **Current Issue**: Horizontal sections use scrollbars instead of arrow navigation
-- **Target**: Replace horizontal scrollbars with click-to-navigate arrows
-- **Implementation**:
-  - Add right arrow navigation to HorizontalCardSection components
-  - Implement smooth scroll-to-next functionality
-  - Hide scrollbars on horizontal sections
-  - Add hover states and visual feedback for navigation arrows
-- **Testing**: Navigation functionality with Playwright MCP
-- **Success Criteria**: Right arrows navigate smoothly through horizontal content
-
-**Total Duration**: 5-6.5 hours with comprehensive Playwright testing
-**Testing Strategy**: All phases validated with headless browser automation
+### Future Enhancements (Deferred)
+- **Horizontal Navigation**: Replace scrollbars with arrow navigation (deferred)
 
 ## Canvas Feature Specification
 
@@ -376,13 +346,13 @@ Authentic card sizing and progressive responsive design:
 
 **Project Status**: All 6 phases of the comprehensive Spotify-authentic redesign have been successfully completed. The application now features authentic Spotify-like navigation, resizable columns, enhanced search functionality, and canvas fallback animations.
 
-### 🎯 NEW ENHANCEMENT PROJECT: Spotify UI Polish Phase (August 25, 2025)
+### 🎯 PENDING ENHANCEMENTS: Spotify UI Polish Phase
 
 **Current Focus**: Final Spotify-authentic UI improvements with Playwright MCP testing
 **Duration Estimate**: 4-6 hours across 3 implementation phases
 **Testing Strategy**: Headless Playwright automation for all UI validation
 
-#### **Enhancement Project Overview**
+#### **Enhancement To-Do List**
 Three targeted improvements to achieve complete Spotify UI authenticity:
 
 1. **Vertical Card Height Optimization**: Reduce card height to match authentic Spotify proportions

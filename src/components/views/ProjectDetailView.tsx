@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Play, Pause, Heart, ExternalLink } from 'lucide-react';
 import ProjectImage from '../ProjectImage';
 import AlbumArtModal from '../AlbumArtModal';
+import ProjectCanvas from '../ProjectCanvas';
 import type { Project } from '../../types';
 
 interface ProjectDetailViewProps {
@@ -27,7 +28,20 @@ const ProjectDetailView = ({
     };
 
     return (
-        <div className="text-white p-4 md:p-6">
+        <div className="relative text-white p-4 md:p-6">
+            {/* Mobile Canvas Background - Full screen behind content */}
+            <div className="fixed inset-0 md:hidden z-0">
+                <ProjectCanvas
+                    project={project}
+                    isPlaying={currentlyPlaying?.id === project.id && isPlaying}
+                    className="w-full h-full"
+                />
+                {/* Dark overlay for text readability */}
+                <div className="absolute inset-0 bg-black/60" />
+            </div>
+
+            {/* Content - positioned above canvas on mobile */}
+            <div className="relative z-10">
             <div className="flex flex-col md:flex-row md:items-end space-y-4 md:space-y-0 md:space-x-6 mb-6 md:mb-8">
                 <div
                     onClick={handleAlbumArtClick}
@@ -129,7 +143,8 @@ const ProjectDetailView = ({
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
                 project={project}
-    />
+            />
+            </div>
         </div>
     );
 };
