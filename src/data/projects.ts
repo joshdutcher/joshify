@@ -25,7 +25,7 @@ export const projects: readonly Project[] = [
         skills: [Skill.PYTHON, Skill.SNOWFLAKE, Skill.ETL_PIPELINES, Skill.DATA_TRANSFORMATION, Skill.CAMPAIGN_DATA_SYSTEMS],
         demoUrl: null,
         githubUrl: null,
-        canvas: null,
+        canvas: getCanvasUrl('election-data-pipeline.mp4'),
         albumArtBasedOn: 'Tubular Bells by Mike Oldfield'
     },
     {
@@ -57,7 +57,7 @@ export const projects: readonly Project[] = [
         skills: [Skill.PYTHON, Skill.ETL_PIPELINES, Skill.API_DEVELOPMENT, Skill.HIGH_AVAILABILITY, Skill.DATA_TRANSFORMATION],
         demoUrl: null,
         githubUrl: null,
-        canvas: null,
+        canvas: getCanvasUrl('healthcare-etl.mp4'),
         albumArtBasedOn: 'Ready to Die by The Notorious B.I.G.'
     },
     {
@@ -73,7 +73,7 @@ export const projects: readonly Project[] = [
         skills: [Skill.AWS_LAMBDA, Skill.PYTHON, Skill.SERVERLESS_DEVELOPMENT, Skill.DYNAMODB, Skill.SNS_SQS_MESSAGING],
         demoUrl: null,
         githubUrl: null,
-        canvas: null,
+        canvas: getCanvasUrl('democracy-engine.mp4'),
         albumArtBasedOn: 'Born This Way by Lady Gaga'
     },
     {
@@ -89,7 +89,7 @@ export const projects: readonly Project[] = [
         skills: [Skill.API_DEVELOPMENT, Skill.HEALTHCARE, Skill.PRODUCTION_SUPPORT, Skill.PROCESS_AUTOMATION, Skill.CROSS_FUNCTIONAL_COLLABORATION],
         demoUrl: null,
         githubUrl: null,
-        canvas: null,
+        canvas: getCanvasUrl('healthcare-api-extensions.mp4'),
         albumArtBasedOn: 'The Low End Theory by A Tribe Called Quest'
     },
     {
@@ -106,7 +106,7 @@ export const projects: readonly Project[] = [
         demoUrl: null,
         githubUrl: null,
         canvas: null,
-        albumArtBasedOn: null
+        albumArtBasedOn: 'Gap Band VI by The Gap Band'
     },
     {
         id: 'snt-finance-api',

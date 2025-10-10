@@ -581,6 +581,26 @@ Canvas videos loading from Backblaze B2 direct URLs were **extremely slow** (>1 
 
 ---
 
+## 📋 PENDING TASKS: Feature Enhancements
+
+### Clickable Technology Tags with Filter View
+**Added**: October 10, 2025
+**Priority**: High
+
+- [ ] **Make technology tags clickable on project detail pages** - Transform static technology badges into interactive navigation elements
+- [ ] **Create technology filter view** - Build Spotify-style "show all" page that displays all projects using a specific technology
+- [ ] **Implement filtering logic** - Filter projects by selected technology and display in grid layout similar to other collection views
+
+**User Experience**: Click a technology tag (e.g., "React", "TypeScript") → Navigate to filtered view showing all projects using that technology
+
+**Implementation Notes**:
+- Technology tags currently displayed in project detail "Technologies Used" section
+- Filter view should follow Spotify's "show all" page design patterns
+- Grid layout should match existing collection/playlist views
+- Support navigation back to previous view (browser back button)
+
+---
+
 ## 📋 PENDING TASKS: CI/CD Optimization
 
 **Added**: October 2, 2025
