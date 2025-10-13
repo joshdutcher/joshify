@@ -83,14 +83,19 @@ VITE_CANVAS_CDN_URL=https://cdn.joshify.dev/file/joshify-canvas
 
 ### Uploaded Videos
 
-Total: 6 videos (78MB)
+Total: 11 videos (124MB)
 
 1. `beer-fridge.mp4` (3.0MB)
-2. `did-kansas-win.mp4` (15MB)
-3. `law-firm-startup-operations.mp4` (21MB)
-4. `mobile-api-rebuild.mp4` (2.5MB)
-5. `startup-technology-infrastructure.mp4` (21MB)
-6. `wichitaradar.mp4` (18MB)
+2. `democracy-engine.mp4` (8.0MB)
+3. `did-kansas-win.mp4` (15MB)
+4. `election-data-pipeline.mp4` (15MB)
+5. `healthcare-api-extensions.mp4` (3.7MB)
+6. `healthcare-etl.mp4` (3.3MB)
+7. `law-firm-startup-operations.mp4` (21MB)
+8. `medigap-integration.mp4` (16MB)
+9. `mobile-api-rebuild.mp4` (2.5MB)
+10. `startup-technology-infrastructure.mp4` (21MB)
+11. `wichitaradar.mp4` (18MB)
 
 ## Tools & CLI
 

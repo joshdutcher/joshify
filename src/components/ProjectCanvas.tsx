@@ -6,6 +6,7 @@ interface ProjectCanvasProps {
   isPlaying?: boolean;
   className?: string;
   showFallback?: boolean;
+  posterImage?: string | null;
 }
 
 // Animated gradient color sets for fallbacks
@@ -41,17 +42,22 @@ const ProjectCanvas = ({
     project,
     isPlaying = false,
     className = "",
-    showFallback = true
+    showFallback = true,
+    posterImage = null
 }: ProjectCanvasProps) => {
     const [hasError, setHasError] = useState(false);
     const [isLoaded, setIsLoaded] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const [albumArtError, setAlbumArtError] = useState(false);
+    const [loadProgress, setLoadProgress] = useState(0);
     const videoRef = useRef<HTMLVideoElement>(null);
 
     // Reset error state and handle video when project changes
     useEffect(() => {
         setHasError(false);
         setIsLoaded(false);
+        setIsLoading(false);
+        setLoadProgress(0);
         setAlbumArtError(false);
 
         // Clear previous video when project changes
@@ -73,8 +79,29 @@ const ProjectCanvas = ({
         }
     }, [isPlaying, isLoaded]);
 
+    const handleVideoLoadStart = () => {
+        setIsLoading(true);
+        setLoadProgress(0);
+    };
+
+    const handleVideoProgress = () => {
+        if (videoRef.current) {
+            const buffered = videoRef.current.buffered;
+            if (buffered.length > 0) {
+                const duration = videoRef.current.duration;
+                if (duration > 0) {
+                    const bufferedEnd = buffered.end(buffered.length - 1);
+                    const progress = (bufferedEnd / duration) * 100;
+                    setLoadProgress(Math.min(progress, 100));
+                }
+            }
+        }
+    };
+
     const handleVideoLoad = () => {
         setIsLoaded(true);
+        setIsLoading(false);
+        setLoadProgress(100);
         setHasError(false);
     };
 
@@ -123,6 +150,7 @@ const ProjectCanvas = ({
 
         setHasError(true);
         setIsLoaded(false);
+        setIsLoading(false);
     };
 
     // If no canvas video configured, check for album art (use square aspect ratio)
@@ -166,21 +194,58 @@ const ProjectCanvas = ({
 
     return (
         <div className={`relative ${aspectClass} overflow-hidden bg-spotify-card ${className}`}>
+            {/* Poster Image (shows while video loads or if no video) */}
+            {posterImage && (!isLoaded || hasError) && (
+                <img
+                    src={posterImage}
+                    alt={`${project.title || 'Project'} canvas`}
+                    className="absolute inset-0 w-full h-full object-cover"
+                />
+            )}
+
             {/* Video Canvas */}
             {!hasError && (
                 <video
                     ref={videoRef}
-                    className="absolute inset-0 w-full h-full object-cover"
+                    className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
                     muted
                     loop
                     playsInline
                     preload="metadata"
+                    poster={posterImage || undefined}
+                    onLoadStart={handleVideoLoadStart}
+                    onProgress={handleVideoProgress}
                     onLoadedData={handleVideoLoad}
                     onError={handleVideoError}
                     key={`video-${project?.id}`} // Force remount when project changes
                 >
                     <source src={project.canvas} type="video/mp4" />
                 </video>
+            )}
+
+            {/* Loading Indicator */}
+            {isLoading && !isLoaded && !hasError && (
+                <div className="absolute inset-0 flex items-center justify-center bg-spotify-card bg-opacity-50">
+                    <div className="text-center">
+                        {/* Loading Spinner */}
+                        <div className="w-12 h-12 border-4 border-spotify-green border-t-transparent rounded-full animate-spin mx-auto mb-3"></div>
+
+                        {/* Progress Bar */}
+                        {loadProgress > 0 && (
+                            <div className="w-48 bg-gray-700 rounded-full h-1.5 overflow-hidden">
+                                <div
+                                    className="bg-spotify-green h-full transition-all duration-300"
+                                    style={{ width: `${loadProgress}%` }}
+                                />
+                            </div>
+                        )}
+
+                        {/* Loading Text */}
+                        <p className="text-white text-sm mt-2 opacity-70">
+                            Loading canvas...
+                        </p>
+                    </div>
+                </div>
             )}
 
             {/* Fallback: album art when video fails (in square container) */}
@@ -215,10 +280,7 @@ const ProjectCanvas = ({
                 );
             })()}
 
-            {/* Loading overlay */}
-            {!isLoaded && !hasError && (
-                <div className="absolute inset-0 bg-spotify-card animate-pulse" />
-            )}
+            {/* Simple loading overlay (deprecated - replaced by loading indicator above) */}
         </div>
     );
 };
