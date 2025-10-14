@@ -34,6 +34,7 @@ export default defineConfig({
   preview: {
     open: false,
     host: true,
+    port: process.env.PORT ? parseInt(process.env.PORT) : 4173,
     allowedHosts: [
       'joshify-production.up.railway.app',
       'www.joshify.dev',

@@ -2,7 +2,7 @@
 builder = "NIXPACKS"
 
 [deploy]
-startCommand = "npx serve dist -l tcp://0.0.0.0:$PORT --single"
+startCommand = "npm run preview"
 restartPolicyType = "ON_FAILURE"
 restartPolicyMaxRetries = 10
 
