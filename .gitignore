@@ -67,3 +67,6 @@ screenshot*.png
 comparison_screenshots/
 *.test.png
 test-*.png
+
+# Cloudflare CLI
+.wrangler/
