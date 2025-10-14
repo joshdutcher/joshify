@@ -35,6 +35,7 @@ const ProjectDetailView = ({
                     project={project}
                     isPlaying={true}
                     className="w-full h-full"
+                    posterImage={project.canvasPoster}
                 />
                 {/* Dark overlay for text readability */}
                 <div className="absolute inset-0 bg-black/60" />

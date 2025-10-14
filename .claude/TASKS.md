@@ -1,5 +1,58 @@
 # TASKS.md - Development Tasks
 
+## ✅ COMPLETED: Canvas Poster Image Display Fix (October 14, 2025)
+
+**Project Focus**: Fix poster images not displaying during initial canvas video load
+**Duration**: Single development session
+**Status**: ✅ **Implementation Complete** | ✅ **Tested and Verified**
+
+### Problem Statement
+
+**Issue**: "Loading canvas" text and spinner appeared instead of poster images during initial video load, creating jarring user experience.
+
+**Root Cause**: The `ProjectCanvas` component had full poster image display logic and all 11 poster WebP files existed in `public/canvases/posters/`, but the components using `ProjectCanvas` weren't passing the `posterImage` prop.
+
+### Solution Implemented
+
+**Files Modified**:
+1. **`src/components/views/ProjectDetailView.tsx:38`**
+   - Added `posterImage={project.canvasPoster}` prop to ProjectCanvas
+   - Enables poster display on mobile detail view backgrounds
+
+2. **`src/components/NowPlayingPanel.tsx:42`**
+   - Added `posterImage={currentlyPlaying.canvasPoster}` prop to ProjectCanvas
+   - Enables poster display in desktop right panel
+
+**How It Works**:
+- User clicks play or visits project detail page
+- `ProjectCanvas` receives `posterImage` prop with WebP poster URL
+- Poster displays immediately with `z-10` layering (ProjectCanvas.tsx:211-217)
+- Video loads in background with `opacity-0`
+- When video ready, it transitions to `opacity-100`
+- Smooth visual experience without "loading canvas" text
+
+### Testing Results
+
+**Validation**:
+- ✅ TypeScript compilation passes (0 errors)
+- ✅ ESLint validation passes (within warning threshold)
+- ✅ All 11 poster WebP files exist (1.2MB total)
+- ✅ Poster images display immediately on initial load
+- ✅ Video transitions smoothly when ready
+
+**Known Minor Issue**:
+- Brief flash where poster disappears to gray/black before video appears
+- Needs crossfade timing investigation (added to pending tasks)
+
+### Technical Achievements
+
+- **Zero Code Changes to ProjectCanvas**: Component logic already correct
+- **Simple Prop Passing**: Two-line fix enabling full feature
+- **Type Safety**: Maintained full TypeScript safety
+- **Production Ready**: Immediate deployment without risk
+
+---
+
 ## ✅ COMPLETED: Canvas Video State Management Fix (October 14, 2025)
 
 **Project Focus**: Fix canvas video loading issues on navigation and re-renders
@@ -768,3 +821,70 @@ Canvas videos loading from Backblaze B2 direct URLs were **extremely slow** (>1 
 - **Production Assets**: Prepare for deployment with GitHub Releases hosting
 
 *Detailed content management tasks available in archived planning documentation*
+
+---
+
+## 🎯 COMPLETED: Cloudflare R2 Migration (October 14, 2025)
+
+**Project Focus**: Migrate canvas video hosting from Backblaze B2 to Cloudflare R2
+**Duration**: Single development session
+**Status**: ✅ **Migration Complete** | ✅ **Production Verified**
+
+### Migration Summary
+
+Successfully migrated canvas video hosting from complex two-hop B2+Cloudflare proxy architecture to simple Cloudflare R2 direct storage, improving reliability and simplifying infrastructure.
+
+### Problem Statement
+
+**Previous Setup Issues**:
+- Two-hop architecture (Browser → Cloudflare proxy → Backblaze B2) added failure points
+- Inconsistent video loading and CORS complexity
+- Wrong file sizes uploaded to B2 (124MB uncompressed vs 15MB compressed)
+- Complex URL structure with `/file/bucket-name/` path
+
+### Solution Implemented
+
+**New Architecture**: Cloudflare R2 Direct
+- Single-hop delivery: Browser → Cloudflare R2
+- Simpler URL structure: `https://cdn.joshify.dev/video.mp4`
+- Native Cloudflare CORS handling
+- Same global CDN performance (200+ edge locations)
+- Zero cost within R2 free tier
+
+### Implementation Steps Completed
+
+1. ✅ **Wrangler CLI Setup** - Authenticated with Cloudflare API token
+2. ✅ **R2 Bucket Creation** - Created `joshify-canvas` bucket (existed from previous attempt)
+3. ✅ **Video Upload** - Uploaded 11 compressed MP4 files (15MB total) with `--remote` flag
+4. ✅ **Custom Domain** - Connected `cdn.joshify.dev` to R2 bucket via Cloudflare dashboard
+5. ✅ **CORS Configuration** - Configured R2 CORS policy for production domains
+6. ✅ **Environment Variables** - Updated `.env.production` and Railway environment
+7. ✅ **Production Deployment** - Deployed via GitHub Actions CI/CD pipeline
+8. ✅ **Verification** - All 11 videos loading correctly in production
+
+### Technical Achievements
+
+- **Architecture Simplification**: Eliminated B2 dependency, reduced failure points
+- **Correct File Sizes**: All videos properly compressed (avg 1.4MB per video)
+- **CORS Working**: Proper cross-origin access for all production domains
+- **Zero Cost**: Within R2 free tier limits
+- **CI/CD Integration**: Resolved double-deployment issue with Railway
+
+### Files Modified
+
+1. **`.env.production`** - Updated VITE_CANVAS_CDN_URL to R2 domain
+2. **Railway Environment** - Fixed typo and updated to R2 URL
+3. **R2 CORS Policy** - Configured via Cloudflare dashboard (not in repo)
+
+### Remaining Minor Issue
+
+**Poster Image Display** (Low Priority - Cosmetic):
+- **Issue**: Initial canvas video load shows "loading canvas" text instead of poster image
+- **Impact**: Minor UX issue, doesn't affect video playback functionality
+- **Location**: `src/components/ProjectCanvas.tsx` - poster display conditional logic
+- **Next Step**: Review poster image display conditions on initial load
+
+### Production Status
+
+✅ **FULLY OPERATIONAL** - All canvas videos loading from Cloudflare R2 with proper CORS
+

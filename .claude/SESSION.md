@@ -1,51 +1,53 @@
 # SESSION.md - Current Session State
 
 ## Current Session - October 14, 2025
-**Status**: ✅ Complete
-**Focus**: Canvas Video State Management Fix - Implementation Successful
+**Status**: ✅ **Canvas Poster Image Fix Complete**
+**Focus**: Fix canvas video poster image display during initial load
 
-### Session Context
-- Joshify portfolio: Spotify-clone personal portfolio with production CI/CD
-- Issue: Canvas videos not loading/playing on navigation state changes
-- Previous session: Auto-play implemented but incomplete edge case handling
-- Solution: Fixed video element lifecycle and state management
+### Session Summary
 
-### Problem Statement (RESOLVED)
+Fixed the "loading canvas" text appearing instead of poster images during initial video load. Root cause was missing `posterImage` prop in component usage. All 11 poster WebP images exist and are now properly displayed while videos buffer.
 
-**Issues Fixed**:
-1. ✅ **Re-navigation failure**: Videos now reload properly when navigating back to previously viewed projects
-2. ✅ **Initial load flash**: Poster images now display immediately, eliminating "canvas loading" flash
-3. ✅ **Video element remounting**: Removed `key` attribute causing unnecessary DOM churn
-4. ✅ **State management race conditions**: Enhanced cleanup sequence prevents stale state
+### ✅ Completed This Session
 
-**Deferred** (user will investigate separately):
-- CDN video files: law-firm-startup-operations and startup-technology-infrastructure
+**Canvas Poster Image Display Fix**:
+- **Problem**: "Loading canvas" text showing instead of poster image on initial video load
+- **Root Cause**: `posterImage` prop not passed to `ProjectCanvas` component
+- **Files Modified**:
+  - `src/components/views/ProjectDetailView.tsx:38` - Added `posterImage={project.canvasPoster}`
+  - `src/components/NowPlayingPanel.tsx:42` - Added `posterImage={currentlyPlaying.canvasPoster}`
+- **Result**: Poster images display immediately while videos buffer
+- **Validation**: TypeScript (0 errors) and ESLint checks pass
 
-### Implementation Completed
+### 📋 Pending Tasks
 
-**Changes Made** (`ProjectCanvas.tsx`):
-1. **Lines 63-82**: Enhanced video source management with proper cleanup sequence
-   - Explicit `removeAttribute('src')` to clear stale video data
-   - setTimeout delay ensures cleanup completes before new video loads
-   - Handles both video and non-video projects
+1. **Poster-to-Video Transition Flash** (Minor UX Issue)
+   - Poster image briefly disappears to gray/black before video fades in
+   - Investigate timing of poster unmount vs video opacity transition
+   - Likely needs crossfade timing adjustment in ProjectCanvas.tsx
 
-2. **Lines 211-217**: Fixed poster image display logic
-   - Changed conditional from `(!isLoaded || hasError)` to `(!isLoaded && !hasError)`
-   - Added `z-10` to ensure poster appears above video's opacity-0 state
+2. **Cleanup Old B2 Resources**
+   - Delete `joshify-canvas` Backblaze B2 bucket
+   - Remove B2 CNAME from Cloudflare DNS (if exists)
+   - Update `.claude/CDN_CONFIGURATION.md` with R2 documentation
 
-3. **Line 233**: Removed `key` attribute from video element
-   - Prevents unnecessary remounting on project changes
-   - Allows React to reuse video element with manual src management
+### Production Status
 
-4. **Line 239**: Updated loading indicator conditional
-   - Added `!posterImage` check to prevent flash when poster exists
+**✅ FULLY OPERATIONAL**
+- All 11 canvas videos loading correctly from Cloudflare R2
+- Poster images displaying during initial load (fixed this session)
+- Custom domain working: `https://cdn.joshify.dev/`
+- CORS properly configured for production access
+- Zero cost within R2 free tier
 
-**Testing Results**:
-- ✅ TypeScript compilation passes (0 errors)
-- ✅ Video element reuse working correctly
-- ✅ Poster images display immediately
-- ✅ Navigation state preserved across route changes
-- ✅ Fallback chain intact (video → art → gradient)
+### Recent Session History
 
-### Technical Achievement
-Canvas videos now properly handle all navigation patterns: direct visits, re-navigation, cross-project navigation, and playlist context preservation. Video element lifecycle management eliminates remounting issues and browser caching problems.
+**October 14, 2025 - R2 Migration & Poster Fix**:
+1. Morning: Cloudflare R2 migration completed, all videos deployed
+2. Afternoon: Fixed poster image display issue
+
+**October 14, 2025 - Cloudflare R2 Migration**:
+- Migrated from Backblaze B2 + Cloudflare proxy to Cloudflare R2 direct storage
+- Simplified architecture from two-hop to single-hop delivery
+- Fixed Railway double-deployment issue
+- All 11 videos (15MB total) uploaded and verified
