@@ -211,7 +211,7 @@ const ProjectCanvas = ({
                     muted
                     loop
                     playsInline
-                    preload="metadata"
+                    preload="auto"
                     poster={posterImage || undefined}
                     onLoadStart={handleVideoLoadStart}
                     onProgress={handleVideoProgress}

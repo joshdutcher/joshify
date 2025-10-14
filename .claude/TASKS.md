@@ -1,5 +1,48 @@
 # TASKS.md - Development Tasks
 
+## ✅ COMPLETED: Canvas Video Auto-Play Fix (October 14, 2025)
+
+**Project Focus**: Fix canvas videos not loading on direct project detail page navigation
+**Duration**: Single development session
+**Status**: ✅ **Implementation Complete** | ✅ **Tested and Verified**
+
+### Issue Description
+Canvas videos failed to load when users directly navigated to project detail pages (e.g., `/project/wichita-radar`). Videos only loaded after clicking the play button from a collection/playlist view.
+
+**Root Cause**:
+1. `ProjectCanvas.tsx` line 214: `preload="metadata"` only loaded video metadata, not full video
+2. `ProjectDetailView.tsx` line 36: Conditional `isPlaying` prop prevented auto-play on detail pages
+3. Videos only fully loaded when `isPlaying={true}`, which required clicking play button
+
+### Solution Implemented (Auto-Play on Detail Pages)
+**Approach**: Canvas videos auto-play when visiting project detail pages for immersive Spotify Canvas-like experience
+
+**Changes Made**:
+1. ✅ `ProjectCanvas.tsx` line 214: Changed `preload="metadata"` → `preload="auto"`
+2. ✅ `ProjectDetailView.tsx` line 36: Changed conditional prop → `isPlaying={true}`
+
+**Files Modified**:
+- `src/components/ProjectCanvas.tsx` - Video preload attribute (line 214)
+- `src/components/views/ProjectDetailView.tsx` - Canvas auto-play prop (line 36)
+
+**Testing Results**:
+- ✅ Videos load immediately on direct navigation to project detail pages
+- ✅ Network requests confirm progressive video loading (200 OK + 206 Partial Content)
+- ✅ TypeScript compilation passes (0 errors)
+- ✅ ESLint validation passes (within warning threshold)
+- ✅ Immersive experience: Videos auto-play on page mount
+
+**Benefits Achieved**:
+- Videos load immediately on page mount
+- Auto-play creates immersive portfolio experience
+- Matches Spotify Canvas behavior (background videos auto-play)
+- Works for all entry paths (direct navigation, play button, back button)
+- Leverages browser caching automatically
+
+**Production Deployment**: Ready for deployment - all quality checks passed
+
+---
+
 ## 🎯 COMPLETED: Cloudflare CDN Setup & Verification (October 3-7, 2025)
 
 **Project Focus**: Fix slow canvas video loading with Cloudflare CDN

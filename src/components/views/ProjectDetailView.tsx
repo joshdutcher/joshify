@@ -33,7 +33,7 @@ const ProjectDetailView = ({
             <div className="fixed inset-0 md:hidden z-0">
                 <ProjectCanvas
                     project={project}
-                    isPlaying={currentlyPlaying?.id === project.id && isPlaying}
+                    isPlaying={true}
                     className="w-full h-full"
                 />
                 {/* Dark overlay for text readability */}
