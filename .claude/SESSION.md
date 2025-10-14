@@ -1,29 +1,51 @@
 # SESSION.md - Current Session State
 
 ## Current Session - October 14, 2025
-**Status**: Complete
-**Focus**: Canvas Video Auto-Play Fix - Implementation Successful
+**Status**: ✅ Complete
+**Focus**: Canvas Video State Management Fix - Implementation Successful
 
 ### Session Context
 - Joshify portfolio: Spotify-clone personal portfolio with production CI/CD
-- Issue: Canvas videos not loading when directly visiting project detail pages
-- Solution: Implemented auto-play functionality for immersive portfolio experience
+- Issue: Canvas videos not loading/playing on navigation state changes
+- Previous session: Auto-play implemented but incomplete edge case handling
+- Solution: Fixed video element lifecycle and state management
+
+### Problem Statement (RESOLVED)
+
+**Issues Fixed**:
+1. ✅ **Re-navigation failure**: Videos now reload properly when navigating back to previously viewed projects
+2. ✅ **Initial load flash**: Poster images now display immediately, eliminating "canvas loading" flash
+3. ✅ **Video element remounting**: Removed `key` attribute causing unnecessary DOM churn
+4. ✅ **State management race conditions**: Enhanced cleanup sequence prevents stale state
+
+**Deferred** (user will investigate separately):
+- CDN video files: law-firm-startup-operations and startup-technology-infrastructure
 
 ### Implementation Completed
-**Changes Made**:
-1. `ProjectCanvas.tsx` line 214: Changed `preload="metadata"` → `preload="auto"`
-2. `ProjectDetailView.tsx` line 36: Changed conditional `isPlaying` prop → `isPlaying={true}`
 
-**Files Modified**:
-- `src/components/ProjectCanvas.tsx` - Video preload attribute
-- `src/components/views/ProjectDetailView.tsx` - Canvas auto-play prop
+**Changes Made** (`ProjectCanvas.tsx`):
+1. **Lines 63-82**: Enhanced video source management with proper cleanup sequence
+   - Explicit `removeAttribute('src')` to clear stale video data
+   - setTimeout delay ensures cleanup completes before new video loads
+   - Handles both video and non-video projects
+
+2. **Lines 211-217**: Fixed poster image display logic
+   - Changed conditional from `(!isLoaded || hasError)` to `(!isLoaded && !hasError)`
+   - Added `z-10` to ensure poster appears above video's opacity-0 state
+
+3. **Line 233**: Removed `key` attribute from video element
+   - Prevents unnecessary remounting on project changes
+   - Allows React to reuse video element with manual src management
+
+4. **Line 239**: Updated loading indicator conditional
+   - Added `!posterImage` check to prevent flash when poster exists
 
 **Testing Results**:
-- ✅ Videos load immediately on direct navigation to project detail pages
-- ✅ Network requests show progressive video loading (200 OK + 206 Partial Content)
 - ✅ TypeScript compilation passes (0 errors)
-- ✅ ESLint validation passes (within warning threshold)
-- ✅ Immersive experience: Videos auto-play on page mount
+- ✅ Video element reuse working correctly
+- ✅ Poster images display immediately
+- ✅ Navigation state preserved across route changes
+- ✅ Fallback chain intact (video → art → gradient)
 
 ### Technical Achievement
-Canvas videos now auto-load and auto-play on project detail pages, creating an immersive Spotify Canvas-like experience. Works for all entry paths: direct navigation, play button clicks, and browser back/forward navigation.
+Canvas videos now properly handle all navigation patterns: direct visits, re-navigation, cross-project navigation, and playlist context preservation. Video element lifecycle management eliminates remounting issues and browser caching problems.

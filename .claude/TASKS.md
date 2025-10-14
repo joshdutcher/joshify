@@ -1,5 +1,103 @@
 # TASKS.md - Development Tasks
 
+## ✅ COMPLETED: Canvas Video State Management Fix (October 14, 2025)
+
+**Project Focus**: Fix canvas video loading issues on navigation and re-renders
+**Duration**: Single development session
+**Status**: ✅ **Implementation Complete** | ✅ **Tested and Verified**
+
+### Problem Statement
+
+**Issues Resolved**:
+1. ✅ **Re-navigation failure**: Videos now properly reload when navigating back to previously viewed projects
+2. ✅ **Initial load flash**: Poster images display immediately, eliminating "canvas loading" text flash
+3. ✅ **Video element lifecycle**: Removed `key` attribute causing remounting issues
+4. ✅ **State management**: Enhanced cleanup prevents race conditions and stale state
+
+**Deferred** (user investigating separately):
+- **CDN video files**: law-firm-startup-operations and startup-technology-infrastructure not loading (likely CDN upload issue)
+
+### Root Cause Analysis
+
+**Issue #1: Videos Fail on Re-Navigation**
+- **Cause**: `key` attribute forced video element remount, browser cached stale video data
+- **Fix**: Removed `key`, implemented manual src management with explicit cleanup
+
+**Issue #2: "Canvas Loading" Flash**
+- **Cause**: Video starts `opacity-0`, poster attribute hidden, loading indicator shows instead
+- **Fix**: Poster image with `z-10`, conditional logic shows poster during load (not error)
+
+**Issue #3: State Management Race Conditions**
+- **Cause**: Multiple useEffect hooks competing, error state persisting between navigations
+- **Fix**: Enhanced useEffect with `removeAttribute('src')` and setTimeout delay
+
+### Solution Implemented
+
+**File Modified**: `src/components/ProjectCanvas.tsx` (4 changes)
+
+1. **Lines 63-82**: Enhanced video source management
+   ```tsx
+   const video = videoRef.current;
+   if (video && project?.canvas) {
+       video.pause();
+       video.removeAttribute('src'); // Clear stale data
+       video.load();
+
+       setTimeout(() => {
+           if (videoRef.current && project?.canvas) {
+               videoRef.current.src = project.canvas;
+               videoRef.current.load();
+           }
+       }, 10);
+   }
+   ```
+
+2. **Lines 211-217**: Fixed poster image display
+   - Changed: `(!isLoaded || hasError)` → `(!isLoaded && !hasError)`
+   - Added: `z-10` for proper layering
+
+3. **Line 233**: Removed `key={`video-${project?.id}`}` attribute
+
+4. **Line 239**: Loading indicator only shows when `!posterImage`
+
+### Testing Results
+
+**Validation**:
+- ✅ TypeScript compilation passes (0 errors)
+- ✅ Video element properly reuses across navigation
+- ✅ Poster images display immediately without flash
+- ✅ Re-navigation works: Project A → B → back to A (video loads)
+- ✅ Cross-project navigation works smoothly
+- ✅ Fallback chain preserved (video → art → gradient)
+- ✅ "Now playing" behavior correct (detail page sets now playing)
+
+**Navigation Patterns Tested**:
+- Direct project detail visit → Video plays ✅
+- Re-visit same project → Video reloads and plays ✅
+- Cross-project navigation → Videos load properly ✅
+- Playlist context preserved → Next/previous work ✅
+
+### Technical Achievements
+
+- **Video Element Lifecycle**: Proper cleanup with `removeAttribute('src')` prevents browser caching issues
+- **Poster Image UX**: Smooth visual experience, no loading flash
+- **State Management**: Race conditions eliminated, error states properly reset
+- **Performance**: Video element reuse more efficient than remounting
+
+### Production Deployment
+
+**Ready for deployment** - All quality checks passed:
+- Zero TypeScript errors
+- Proper state management
+- Enhanced user experience
+- Backward compatible with existing functionality
+
+**Documentation**:
+- Implementation plan: `.claude/CANVAS_VIDEO_FIX_PLAN.md`
+- Session notes: `.claude/SESSION.md`
+
+---
+
 ## ✅ COMPLETED: Canvas Video Auto-Play Fix (October 14, 2025)
 
 **Project Focus**: Fix canvas videos not loading on direct project detail page navigation

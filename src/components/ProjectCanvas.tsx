@@ -60,12 +60,25 @@ const ProjectCanvas = ({
         setLoadProgress(0);
         setAlbumArtError(false);
 
-        // Clear previous video when project changes
-        if (videoRef.current) {
-            videoRef.current.pause();
-            videoRef.current.currentTime = 0;
-            // Force reload by resetting src
-            videoRef.current.load();
+        const video = videoRef.current;
+        if (video && project?.canvas) {
+            // Proper cleanup sequence
+            video.pause();
+            video.removeAttribute('src'); // Clear src attribute
+            video.load();                  // Reset video element state
+
+            // Small delay to ensure cleanup completes
+            setTimeout(() => {
+                if (videoRef.current && project?.canvas) {
+                    videoRef.current.src = project.canvas;
+                    videoRef.current.load();
+                }
+            }, 10);
+        } else if (video) {
+            // No canvas video - clear video element
+            video.pause();
+            video.removeAttribute('src');
+            video.load();
         }
     }, [project?.id, project?.canvas]);
 
@@ -194,12 +207,12 @@ const ProjectCanvas = ({
 
     return (
         <div className={`relative ${aspectClass} overflow-hidden bg-spotify-card ${className}`}>
-            {/* Poster Image (shows while video loads or if no video) */}
-            {posterImage && (!isLoaded || hasError) && (
+            {/* Poster Image (shows while video loads) */}
+            {posterImage && !isLoaded && !hasError && (
                 <img
                     src={posterImage}
                     alt={`${project.title || 'Project'} canvas`}
-                    className="absolute inset-0 w-full h-full object-cover"
+                    className="absolute inset-0 w-full h-full object-cover z-10"
                 />
             )}
 
@@ -217,14 +230,13 @@ const ProjectCanvas = ({
                     onProgress={handleVideoProgress}
                     onLoadedData={handleVideoLoad}
                     onError={handleVideoError}
-                    key={`video-${project?.id}`} // Force remount when project changes
                 >
                     <source src={project.canvas} type="video/mp4" />
                 </video>
             )}
 
-            {/* Loading Indicator */}
-            {isLoading && !isLoaded && !hasError && (
+            {/* Loading Indicator (only show if no poster image available) */}
+            {isLoading && !isLoaded && !hasError && !posterImage && (
                 <div className="absolute inset-0 flex items-center justify-center bg-spotify-card bg-opacity-50">
                     <div className="text-center">
                         {/* Loading Spinner */}
