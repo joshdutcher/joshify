@@ -124,20 +124,20 @@ export const projects: readonly Project[] = [
         albumArtBasedOn: 'Gap Band VI by The Gap Band'
     },
     {
-        id: 'snt-finance-api',
+        id: 'api-engine-optimization',
         title: 'API Engine Optimization',
         artist: 'Project - SNT Media',
         album: AlbumCategory.MEDIA_TECHNOLOGY,
         duration: '2 years',
-        image: '/album-art/snt-finance-api.png',
-        year: '2017',
+        image: '/album-art/api-engine-optimization.png',
+        year: '2019',
         impact: '$18K',
         description: 'Executed comprehensive optimization of data-fetching API engine, achieving a 98% reduction in API calls and generating $18,000 in monthly cost savings while simultaneously enhancing data precision. Architected intelligent caching and batching strategies that transformed system efficiency without compromising accuracy. This project demonstrates leadership in both technical innovation and business impact, showing how strategic engineering decisions can deliver significant ROI while improving system performance.',
         skills: [Skill.API_OPTIMIZATION, Skill.COST_REDUCTION, Skill.TEAM_LEADERSHIP, Skill.PERFORMANCE_ENGINEERING],
         demoUrl: null,
         githubUrl: null,
-        canvas: null,
-        canvasPoster: null,
+        canvas: getCanvasUrl('api-engine-optimization.mp4'),
+        canvasPoster: getCanvasPosterUrl('api-engine-optimization.mp4'),
         albumArtBasedOn: 'Nevermind the Bollocks, Here\'s the Sex Pistols by The Sex Pistols'
     },
     {
@@ -234,7 +234,7 @@ export const projects: readonly Project[] = [
         image: '/album-art/joshify.png',
         year: '2025',
         impact: 'Self Promotion',
-        description: 'Experimental portfolio project exploring AI-assisted development ("vibe coding", but I hate that term) by transforming my traditional developer resume into an immersive Spotify clone, intended to stand out in a crowded field. I used Claude Code almost exclusively for the code, and a combination of AI image and video generating tools for the album art images and canvas videos. I did give Claude Code specific instructions on some of the code architecture and principles. This site features authentic Spotify UI patterns including advanced column resizing, comprehensive search functionality, and canvas video backgrounds. The site presents development projects as "tracks" with rich metadata, playlists for different work categories, and a fully functional "now playing" system. Sadly, the site does not actually play any music. Yet.',
+        description: 'Experimental portfolio project exploring AI-assisted development by transforming my traditional developer resume into an immersive Spotify clone, intended to stand out in a crowded field. I used Claude Code almost exclusively for the code, and a combination of AI image and video generating tools for the album art images and canvas videos. I did give Claude Code specific instructions on some of the code architecture and principles. This site features authentic Spotify UI patterns including advanced column resizing, comprehensive search functionality, and canvas video backgrounds. The site presents development projects as "tracks" with rich metadata, playlists for different work categories, and a fully functional "now playing" system. Sadly, the site does not actually play any music. Yet.',
         skills: [Skill.CLAUDE_CODE, Skill.MCP_SERVER_INTEGRATION, Skill.AI_PROMPT_ENGINEERING, Skill.COMPONENT_ARCHITECTURE, Skill.AI_ASSISTED_DEVELOPMENT],
         demoUrl: null,
         githubUrl: 'https://github.com/joshdutcher/joshify',
@@ -254,7 +254,7 @@ export const ddxProjects: ProjectCollection = getProjectsByIds(['election-data-p
 export const adHocProjects: ProjectCollection = getProjectsByIds(['healthcare-etl', 'healthcare-api-extensions', 'medigap-integration']);
 export const dataEngineeringProjects: ProjectCollection = getProjectsByIds(['election-data-pipeline', 'healthcare-etl', 'healthcare-api-extensions', 'medigap-integration']);
 export const recentWork: ProjectCollection = getProjectsByIds(['joshify', 'startup-technology-infrastructure', 'law-firm-startup-operations', 'election-data-pipeline', 'democracy-engine', 'beer-fridge', 'did-kansas-win', 'wichita-radar']);
-export const topHits: ProjectCollection = getProjectsByIds(['law-firm-startup-operations', 'election-data-pipeline', 'snt-finance-api', 'healthcare-etl', 'healthcare-api-extensions', 'mobile-api-rebuild']);
+export const topHits: ProjectCollection = getProjectsByIds(['law-firm-startup-operations', 'election-data-pipeline', 'api-engine-optimization', 'healthcare-etl', 'healthcare-api-extensions', 'mobile-api-rebuild']);
 export const sideProjects: ProjectCollection = getProjectsByIds(['joshify', 'beer-fridge', 'did-kansas-win', 'wichita-radar']);
 export const defaultNowPlaying: ProjectCollection = getProjectsByIds(['did-kansas-win']);
 

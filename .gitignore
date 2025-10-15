@@ -64,6 +64,7 @@ public/canvases/*.avi
 
 public/canvases-optimized/
 public/canvases-backup/
+
 # Screenshots and temporary test files
 screenshot*.png
 comparison_screenshots/
