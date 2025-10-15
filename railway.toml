@@ -9,7 +9,7 @@ restartPolicyMaxRetries = 10
 # Environment variables
 [env]
 NODE_ENV = "production"
-
+PORT = "3000"
 # Build configuration
 [build.nixpacksConfig]
 aptPkgs = ["nodejs", "npm"]
