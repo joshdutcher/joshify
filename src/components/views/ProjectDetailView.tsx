@@ -81,16 +81,27 @@ const ProjectDetailView = ({
                     </button>
                     <Heart className="w-6 h-6 md:w-8 md:h-8 text-gray-400 hover:text-white cursor-pointer" />
                     {project.demoUrl && (
-                    <a
-                        href={project.demoUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center space-x-2 text-green-500 hover:text-green-400"
-        >
-                        <ExternalLink className="w-4 h-4 md:w-5 md:h-5" />
-                        <span className="text-sm md:text-base">View Live</span>
-                    </a>
-      )}
+                        <a
+                            href={project.demoUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center space-x-2 text-green-500 hover:text-green-400"
+                        >
+                            <ExternalLink className="w-4 h-4 md:w-5 md:h-5" />
+                            <span className="text-sm md:text-base">View Live</span>
+                        </a>
+                    )}
+                    {project.githubUrl && (
+                        <a
+                            href={project.githubUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center space-x-2 text-green-500 hover:text-green-400"
+                        >
+                            <ExternalLink className="w-4 h-4 md:w-5 md:h-5" />
+                            <span className="text-sm md:text-base">View on GitHub</span>
+                        </a>
+                    )}
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
