@@ -6,7 +6,7 @@ This document explains how canvas videos work in development vs. production.
 
 Canvas videos are **not stored in the git repository** due to file size. Instead:
 - **Local Development**: Videos served from `public/canvases/`
-- **Production**: Videos hosted on GitHub Releases CDN
+- **Production**: Videos hosted on Cloudflare R2 CDN
 
 ## Environment Configuration
 
@@ -34,7 +34,7 @@ canvas: getCanvasUrl('beer-fridge.mp4')
 ### 2. URL Resolution (`src/utils/canvas.ts`)
 The `getCanvasUrl()` function automatically returns:
 - **Dev**: `/canvases/beer-fridge.mp4` → Vite serves from `public/`
-- **Production**: `https://github.com/.../beer-fridge.mp4` → CDN
+- **Production**: `https://cdn.joshify.dev/beer-fridge.mp4` → CDN
 
 ### 3. Component (`src/components/ProjectCanvas.tsx`)
 Receives resolved URL and handles loading/fallback chain:
@@ -66,15 +66,15 @@ const CDN_URLS: Record<string, string> = {
 }
 ```
 
-### 4. Upload to GitHub Releases
+### 4. Upload to Cloudflare R2
 ```bash
-# Create release or use existing
-gh release upload v1.0.8 public/canvases/my-new-video.mp4
+# Use Wrangler CLI or Cloudflare dashboard to upload to the 'joshify-canvas' bucket.
+wrangler r2 object put joshify-canvas/my-new-video.mp4 --file=public/canvases/my-new-video.mp4
 ```
 
 ## Why Videos Don't Show Locally (Before This Fix)
 
-**Before**: All canvas URLs hardcoded to GitHub Releases CDN
+**Before**: All canvas URLs hardcoded to the CDN
 ```typescript
 canvas: 'https://github.com/.../video.mp4'
 ```
@@ -107,7 +107,7 @@ npm run build
 # Preview built app
 npm run preview
 
-# Videos should load from GitHub Releases CDN
+# Videos should load from Cloudflare R2 CDN
 ```
 
 ## Fallback Chain
@@ -142,4 +142,3 @@ joshify/
 - **Environment files** (`.env.development`, `.env.production`) are committed to repo
 - **Canvas videos** (`public/canvases/*.mp4`) are NOT committed (gitignored)
 - **Album art** (`public/album-art/*.png`) IS committed (small file size)
-- **CDN URLs** are hardcoded in `canvas.ts` for reliability

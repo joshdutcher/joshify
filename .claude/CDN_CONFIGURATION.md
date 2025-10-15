@@ -1,18 +1,18 @@
 # CDN Configuration for Canvas Videos
 
-**Current Setup**: Backblaze B2 Storage + Cloudflare CDN Proxy
+**Current Setup**: Cloudflare R2 Storage
 
 ## Architecture Overview
 
-Canvas videos are hosted on **Backblaze B2** and delivered through **Cloudflare's global CDN** for fast loading worldwide.
+Canvas videos are hosted on **Cloudflare R2** and delivered through **Cloudflare's global CDN** for fast loading worldwide.
 
 ### Why This Setup?
 
-- ✅ **Backblaze B2**: Low-cost storage ($0.00/month within free tier)
-- ✅ **Cloudflare CDN**: Free global edge caching and delivery
-- ✅ **Custom Domain**: Professional URLs via `cdn.joshify.dev`
-- ✅ **No Rate Limits**: Production-ready unlimited bandwidth
-- ✅ **Fast Loading**: Videos cached at edge locations near users
+- ✅ **Cloudflare R2**: Zero-cost storage and egress for this project's needs.
+- ✅ **Cloudflare CDN**: Free global edge caching and delivery.
+- ✅ **Custom Domain**: Professional URLs via `cdn.joshify.dev`.
+- ✅ **No Rate Limits**: Production-ready unlimited bandwidth.
+- ✅ **Fast Loading**: Videos cached at edge locations near users.
 
 ## Current Configuration
 
@@ -25,15 +25,15 @@ Canvas videos are hosted on **Backblaze B2** and delivered through **Cloudflare'
 **CDN Subdomain**:
 - **Record Type**: CNAME
 - **Name**: `cdn`
-- **Target**: `f000.backblazeb2.com`
+- **Target**: `joshify-canvas.r2.dev`
 - **Proxy Status**: ✅ **Proxied** (orange cloud) - **CRITICAL FOR CDN**
-- **Full URL**: `https://cdn.joshify.dev/file/joshify-canvas/`
+- **Full URL**: `https://cdn.joshify.dev/`
 
-### Backblaze B2 Bucket
+### Cloudflare R2 Bucket
 
 **Bucket Name**: `joshify-canvas`
 **Bucket Type**: `allPublic`
-**Region**: US-West (f000)
+**Region**: Automatic
 
 **CORS Configuration**:
 ```json
@@ -50,8 +50,8 @@ Canvas videos are hosted on **Backblaze B2** and delivered through **Cloudflare'
       "http://localhost:5173"
     ],
     "allowedOperations": [
-      "b2_download_file_by_id",
-      "b2_download_file_by_name"
+      "GET",
+      "HEAD"
     ],
     "allowedHeaders": ["*"],
     "exposeHeaders": ["content-length", "content-type"],
@@ -73,12 +73,12 @@ VITE_USE_LOCAL_CANVAS=true
 **Production** (`.env.production`):
 ```bash
 VITE_USE_LOCAL_CANVAS=false
-VITE_CANVAS_CDN_URL=https://cdn.joshify.dev/file/joshify-canvas
+VITE_CANVAS_CDN_URL=https://cdn.joshify.dev
 ```
 
 **Railway** (Environment Variables):
 ```bash
-VITE_CANVAS_CDN_URL=https://cdn.joshify.dev/file/joshify-canvas
+VITE_CANVAS_CDN_URL=https://cdn.joshify.dev
 ```
 
 ### Uploaded Videos
@@ -124,15 +124,15 @@ wrangler r2 object put <bucket>/<filename> --file=<local-path>
 ### Request Flow
 
 1. **User visits**: `https://joshify-production.up.railway.app`
-2. **Browser requests**: `https://cdn.joshify.dev/file/joshify-canvas/video.mp4`
+2. **Browser requests**: `https://cdn.joshify.dev/video.mp4`
 3. **Cloudflare checks**: Edge cache for video
    - **Cache HIT**: Serves from nearest edge location (< 100ms)
-   - **Cache MISS**: Fetches from B2, caches at edge, serves to user
+   - **Cache MISS**: Fetches from R2, caches at edge, serves to user
 4. **Subsequent requests**: Served from Cloudflare cache (instant)
 
 ### Cache Behavior
 
-- **First Load**: ~1-2 seconds (from B2)
+- **First Load**: ~1-2 seconds (from R2)
 - **Cached Loads**: < 100ms (from Cloudflare edge)
 - **Cache Duration**: Determined by Cloudflare's edge caching rules
 - **Global Distribution**: Videos cached in 200+ cities worldwide
@@ -157,7 +157,7 @@ wrangler r2 object put <bucket>/<filename> --file=<local-path>
 dig +short cdn.joshify.dev
 
 # Test video endpoint with cache headers
-curl -I https://cdn.joshify.dev/file/joshify-canvas/beer-fridge.mp4
+curl -I https://cdn.joshify.dev/beer-fridge.mp4
 
 # Look for these headers indicating Cloudflare CDN:
 # - cf-cache-status: HIT (cached) or MISS (not cached yet)
@@ -175,7 +175,7 @@ curl -I https://cdn.joshify.dev/file/joshify-canvas/beer-fridge.mp4
    - First load may take 1-2 seconds
    - Refresh should be instant (cached)
 
-## Troubleshooting
+### Troubleshooting
 
 ### Videos Loading Slowly
 
@@ -186,7 +186,7 @@ curl -I https://cdn.joshify.dev/file/joshify-canvas/beer-fridge.mp4
 
 **Check 2: Cache Status**
 ```bash
-curl -I https://cdn.joshify.dev/file/joshify-canvas/beer-fridge.mp4 | grep cf-cache-status
+curl -I https://cdn.joshify.dev/beer-fridge.mp4 | grep cf-cache-status
 ```
 - `HIT` = cached (good)
 - `MISS` = not cached yet (first request)
@@ -196,27 +196,27 @@ curl -I https://cdn.joshify.dev/file/joshify-canvas/beer-fridge.mp4 | grep cf-ca
 ```bash
 dig cdn.joshify.dev
 ```
-- Should show CNAME to `f000.backblazeb2.com`
+- Should show CNAME to `joshify-canvas.r2.dev`
 - If no result, DNS hasn't propagated yet (wait up to 48 hours)
 
 ### CORS Errors
 
 If you see CORS errors in browser console:
 
-1. **Verify B2 CORS includes your domain**:
-   - Check `allowedOrigins` in B2 bucket CORS settings
+1. **Verify R2 CORS includes your domain**:
+   - Check `allowedOrigins` in R2 bucket CORS settings
    - Must include exact production URL
 
 2. **Check Cloudflare Proxy**:
    - Cloudflare proxy can sometimes interfere with CORS
    - Verify CORS headers are being forwarded
 
-3. **Test Direct B2 URL**:
+3. **Test Direct R2 URL**:
 ```bash
-curl -I https://f000.backblazeb2.com/file/joshify-canvas/beer-fridge.mp4
+curl -I https://joshify-canvas.r2.dev/beer-fridge.mp4
 ```
    - Should return 200 OK
-   - If 403 Forbidden, check B2 bucket is public
+   - If 403 Forbidden, check R2 bucket is public
 
 ### DNS Not Resolving
 
@@ -236,8 +236,8 @@ Should show Cloudflare nameservers.
 ### Current Costs
 
 **Monthly Costs** (based on typical portfolio traffic):
-- **Backblaze B2 Storage**: $0.00 (78MB well within 10GB free tier)
-- **B2 Downloads**: $0.00 (Cloudflare caches videos, minimal B2 bandwidth)
+- **Cloudflare R2 Storage**: $0.00 (78MB well within 10GB free tier)
+- **R2 Downloads**: $0.00 (Cloudflare caches videos, minimal R2 bandwidth)
 - **Cloudflare CDN**: $0.00 (Free tier)
 
 **Total**: $0.00/month ✅
@@ -247,28 +247,25 @@ Should show Cloudflare nameservers.
 **Scenario**: 10,000 monthly visitors, 3 videos viewed per visit
 
 - **Cloudflare Cache Hit Rate**: ~95% (typical)
-- **B2 Bandwidth**: ~1.5GB/month (only cache misses)
-- **B2 Cost**: $0.015/month ($0.01/GB)
+- **R2 Bandwidth**: ~1.5GB/month (only cache misses)
+- **R2 Cost**: $0.0225/month ($0.015/GB)
 - **Cloudflare Cost**: $0.00 (still free)
 
 **Total at 10,000 visitors**: ~$0.02/month
 
-## Alternative Considered: Cloudflare R2
+## Alternative Considered: Backblaze B2
 
-**Why Not R2?**
-- ✅ **B2 + CDN works great**: Already set up and optimized
+**Why Not B2?**
+- ✅ **R2 + CDN works great**: Now set up and optimized
 - ✅ **Zero cost**: Within free tiers
-- ⚠️ **R2 Custom Domains**: Require domain managed by Cloudflare DNS (we now have this!)
-- ⚠️ **R2 Public URL**: Rate-limited, not recommended for production
-
-**Future Migration**: Could migrate to R2 if needed, but current setup is production-ready.
+- ⚠️ **B2 Custom Domains**: More complex to set up than R2 custom domains.
 
 ## Maintenance
 
 ### Adding New Canvas Videos
 
-1. **Upload to B2 Bucket**:
-   - Use B2 web interface or CLI
+1. **Upload to R2 Bucket**:
+   - Use Wrangler CLI or Cloudflare dashboard
    - Upload to `joshify-canvas` bucket
 
 2. **Update Project Data**:
@@ -283,19 +280,18 @@ Should show Cloudflare nameservers.
 
 If adding new production domains:
 
-1. **Update B2 CORS** to include new domain
+1. **Update R2 CORS** to include new domain
 2. **Update `.env.production`** if changing CDN URL
 3. **Update Railway environment variables**
 
 ## Documentation References
 
-- **Backblaze B2 Setup**: `.claude/BACKBLAZE_B2_SETUP.md` (original setup guide)
 - **Cloudflare R2 Setup**: `.claude/CLOUDFLARE_R2_SETUP.md` (alternative approach)
 - **Canvas Video Setup**: `.claude/CANVAS_VIDEO_SETUP.md` (video requirements)
 
 ## Summary
 
-✅ **Storage**: Backblaze B2 (`joshify-canvas` bucket)
+✅ **Storage**: Cloudflare R2 (`joshify-canvas` bucket)
 ✅ **CDN**: Cloudflare global edge network
 ✅ **Domain**: `cdn.joshify.dev` (proxied through Cloudflare)
 ✅ **DNS**: Managed by Cloudflare, domain registered at Namecheap

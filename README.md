@@ -153,7 +153,7 @@ Automated pipeline runs on every push to main:
 
 ### Canvas Video Hosting
 - **Development**: Videos stored in `public/canvases/` (gitignored)
-- **Production**: Hosted via Backblaze B2 CDN
+- **Production**: Hosted via Cloudflare R2 CDN
 - **Format**: MP4 H.264, 9:16 vertical aspect ratio, <2MB, 3-8s seamless loops
 - **Fallback**: Automatic fallback to static album art or animated gradients
 
@@ -210,5 +210,5 @@ This project is intended for portfolio demonstration purposes. Spotify's design 
 ---
 
 **Developer**: Josh Dutcher
-**Last Updated**: October 10, 2025
+**Last Updated**: October 15, 2025
 **Status**: Production Ready

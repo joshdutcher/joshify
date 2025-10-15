@@ -128,16 +128,16 @@ cp public/canvases-optimized/*.mp4 public/canvases/
 
 ### Step 4: Upload to CDN
 
-**Upload optimized videos to Backblaze B2:**
+**Upload optimized videos to Cloudflare R2:**
 
-1. Log into Backblaze B2 console
+1. Log into Cloudflare R2 console
 2. Navigate to `joshify-canvas` bucket
 3. Upload files from `public/canvases-optimized/`
 4. Replace existing videos with optimized versions
 
-**OR use B2 CLI:**
+**OR use Wrangler CLI:**
 ```bash
-b2 sync public/canvases-optimized/ b2://joshify-canvas/
+wrangler r2 object put joshify-canvas/your-video.mp4 --file=public/canvases-optimized/your-video.mp4
 ```
 
 ---
@@ -223,7 +223,7 @@ After running these scripts, you'll need to:
 
 1. ✅ Review optimized videos quality
 2. ✅ Update code to use poster images (see ProjectCanvas.tsx updates)
-3. ✅ Upload optimized videos to B2 CDN
+3. ✅ Upload optimized videos to Cloudflare R2 CDN
 4. ✅ Test loading performance
 5. ✅ Deploy changes to production
 

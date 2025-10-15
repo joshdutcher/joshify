@@ -1,12 +1,12 @@
 /**
  * Canvas video URL resolver
- * Returns local path in dev, Backblaze B2 CDN URL in production
+ * Returns local path in dev, Cloudflare R2 CDN URL in production
  */
 
 /**
  * Get the appropriate canvas video URL based on environment
  * @param filename - Canvas video filename (e.g., 'beer-fridge.mp4')
- * @returns Local path in dev, B2 CDN URL in production, or null if filename not found
+ * @returns Local path in dev, Cloudflare R2 CDN URL in production, or null if filename not found
  */
 export const getCanvasUrl = (filename: string | null): string | null => {
     if (!filename) return null;
