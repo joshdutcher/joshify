@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Play, Pause, Heart, ExternalLink } from 'lucide-react';
+import { Play, Pause, Heart, ExternalLink, Github } from 'lucide-react';
 import ProjectImage from '../ProjectImage';
 import AlbumArtModal from '../AlbumArtModal';
 import ProjectCanvas from '../ProjectCanvas';
@@ -85,7 +85,7 @@ const ProjectDetailView = ({
                             href={project.demoUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex items-center space-x-2 text-green-500 hover:text-green-400"
+                            className="flex items-center space-x-2 text-green-500 hover:text-green-400 transition-colors"
                         >
                             <ExternalLink className="w-4 h-4 md:w-5 md:h-5" />
                             <span className="text-sm md:text-base">View Live</span>
@@ -96,10 +96,10 @@ const ProjectDetailView = ({
                             href={project.githubUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex items-center space-x-2 text-green-500 hover:text-green-400"
+                            className="flex items-center space-x-2 text-green-500 hover:text-green-400 transition-colors"
                         >
-                            <ExternalLink className="w-4 h-4 md:w-5 md:h-5" />
-                            <span className="text-sm md:text-base">View on GitHub</span>
+                            <Github className="w-4 h-4 md:w-5 md:h-5" />
+                            <span className="text-sm md:text-base">View Repo</span>
                         </a>
                     )}
                 </div>

@@ -1,53 +1,46 @@
 # SESSION.md - Current Session State
 
-## Current Session - October 14, 2025
-**Status**: ✅ **Canvas Poster Image Fix Complete**
-**Focus**: Fix canvas video poster image display during initial load
+## Current Session - October 15, 2025
+**Status**: ✅ **GitHub Repository Links Implementation Complete**
+**Focus**: Add proper GitHub repository links to project detail pages
 
 ### Session Summary
 
-Fixed the "loading canvas" text appearing instead of poster images during initial video load. Root cause was missing `posterImage` prop in component usage. All 11 poster WebP images exist and are now properly displayed while videos buffer.
+Implemented GitHub repository links with proper GitHub icon branding on project detail pages. Distinguished between `demoUrl` (live website) and `githubUrl` (repository) with conditional display and proper iconography.
 
 ### ✅ Completed This Session
 
-**Canvas Poster Image Display Fix**:
-- **Problem**: "Loading canvas" text showing instead of poster image on initial video load
-- **Root Cause**: `posterImage` prop not passed to `ProjectCanvas` component
+**GitHub Repository Links Feature**:
+- **Problem**: No way to view GitHub repositories for projects on detail pages
+- **Solution**: Added "View Repo" link with GitHub icon next to "View Live" link
 - **Files Modified**:
-  - `src/components/views/ProjectDetailView.tsx:38` - Added `posterImage={project.canvasPoster}`
-  - `src/components/NowPlayingPanel.tsx:42` - Added `posterImage={currentlyPlaying.canvasPoster}`
-- **Result**: Poster images display immediately while videos buffer
-- **Validation**: TypeScript (0 errors) and ESLint checks pass
+  - `src/components/views/ProjectDetailView.tsx:2` - Added Github icon import
+  - `src/components/views/ProjectDetailView.tsx:83-104` - Implemented both links with proper icons
+- **Result**: Projects display appropriate links based on available URLs
+- **Validation**: TypeScript (0 errors), ESLint passes, responsive design verified
 
-### 📋 Pending Tasks
+### Technical Implementation
 
-1. **Poster-to-Video Transition Flash** (Minor UX Issue)
-   - Poster image briefly disappears to gray/black before video fades in
-   - Investigate timing of poster unmount vs video opacity transition
-   - Likely needs crossfade timing adjustment in ProjectCanvas.tsx
+**Three Display Scenarios**:
+1. **Only demoUrl**: Shows "View Live" with ExternalLink icon (no GitHub link)
+2. **Only githubUrl**: Shows "View Repo" with Github icon (no live link)
+3. **Both URLs**: Shows both links side by side with proper spacing
 
-2. **Cleanup Old B2 Resources**
-   - Delete `joshify-canvas` Backblaze B2 bucket
-   - Remove B2 CNAME from Cloudflare DNS (if exists)
-   - Update `.claude/CDN_CONFIGURATION.md` with R2 documentation
+**Projects with Links**:
+- `did-kansas-win`: Both demoUrl and githubUrl
+- `wichita-radar`: Both demoUrl and githubUrl
+- `joshify`: Only githubUrl (tested and verified)
+
+**Responsive Design**:
+- Desktop (1440px): Links display side by side with proper spacing
+- Mobile (375px): Links stack gracefully with readable text
+- Transition effects for smooth hover interactions
 
 ### Production Status
 
-**✅ FULLY OPERATIONAL**
-- All 11 canvas videos loading correctly from Cloudflare R2
-- Poster images displaying during initial load (fixed this session)
-- Custom domain working: `https://cdn.joshify.dev/`
-- CORS properly configured for production access
-- Zero cost within R2 free tier
-
-### Recent Session History
-
-**October 14, 2025 - R2 Migration & Poster Fix**:
-1. Morning: Cloudflare R2 migration completed, all videos deployed
-2. Afternoon: Fixed poster image display issue
-
-**October 14, 2025 - Cloudflare R2 Migration**:
-- Migrated from Backblaze B2 + Cloudflare proxy to Cloudflare R2 direct storage
-- Simplified architecture from two-hop to single-hop delivery
-- Fixed Railway double-deployment issue
-- All 11 videos (15MB total) uploaded and verified
+**✅ READY FOR DEPLOYMENT**
+- All TypeScript checks pass (0 errors)
+- ESLint validation passes
+- Responsive design tested and verified
+- Spotify-authentic styling maintained
+- Proper GitHub branding with official icon

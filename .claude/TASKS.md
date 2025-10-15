@@ -1,5 +1,93 @@
 # TASKS.md - Development Tasks
 
+## ✅ COMPLETED: GitHub Repository Links Implementation (October 15, 2025)
+
+**Project Focus**: Add proper GitHub repository links to project detail pages
+**Duration**: Single development session
+**Status**: ✅ **Implementation Complete** | ✅ **Tested and Verified**
+
+### Problem Statement
+
+**Issue**: Project detail pages had no way to link to GitHub repositories. Only "View Live" links existed for projects with live deployments, but GitHub repository links were missing entirely.
+
+**User Request**: Distinguish between `demoUrl` (live website) and `githubUrl` (repository), conditionally display both with proper iconography.
+
+### Solution Implemented
+
+**Files Modified**:
+1. **`src/components/views/ProjectDetailView.tsx:2`**
+   - Added `Github` icon import from `lucide-react`
+   - Enables proper GitHub branding for repository links
+
+2. **`src/components/views/ProjectDetailView.tsx:83-93`**
+   - Enhanced "View Live" link with `transition-colors` for consistency
+   - Proper conditional display based on `project.demoUrl`
+
+3. **`src/components/views/ProjectDetailView.tsx:94-104`**
+   - Implemented "View Repo" link with GitHub icon
+   - Conditional display based on `project.githubUrl`
+   - Proper spacing and styling matching "View Live" link
+
+### Implementation Details
+
+**Link Structure**:
+```tsx
+{project.demoUrl && (
+  <a href={project.demoUrl} target="_blank" rel="noopener noreferrer">
+    <ExternalLink icon /> View Live
+  </a>
+)}
+{project.githubUrl && (
+  <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+    <Github icon /> View Repo
+  </a>
+)}
+```
+
+**Styling**:
+- Green Spotify-style colors (`text-green-500 hover:text-green-400`)
+- Smooth transition effects (`transition-colors`)
+- Consistent spacing (`space-x-2` between icon and text)
+- Responsive sizing (`w-4 h-4 md:w-5 md:h-5` for icons, `text-sm md:text-base` for text)
+
+### Testing Results
+
+**Validation**:
+- ✅ TypeScript compilation passes (0 errors)
+- ✅ ESLint validation passes
+- ✅ Data structure properly distinguished (`demoUrl` vs `githubUrl`)
+- ✅ Conditional display working correctly
+- ✅ Responsive design verified (desktop & mobile)
+
+**Three Test Cases**:
+1. **Joshify**: Only `githubUrl` - Shows only "View Repo" link ✅
+2. **Did Kansas Win**: Both URLs - Shows both links side by side ✅
+3. **Wichita Radar**: Both URLs - Shows both links side by side ✅
+
+**Responsive Testing**:
+- Desktop (1440px): Links display horizontally with proper spacing
+- Mobile (375px): Links maintain readability and touch targets
+- All viewports maintain Spotify-authentic design
+
+### Technical Achievements
+
+- **Proper Icon Differentiation**: ExternalLink for live sites, Github for repositories
+- **Conditional Logic**: Clean implementation of optional link display
+- **Type Safety**: Full TypeScript compliance maintained
+- **Consistent Styling**: Matches existing Spotify-authentic design language
+- **Responsive Design**: Works beautifully across all device sizes
+
+### Production Deployment
+
+**Ready for deployment** - All quality checks passed:
+- Zero TypeScript errors
+- ESLint validation passes
+- Responsive design verified
+- Proper GitHub branding
+- User experience enhanced
+
+---
+
 ## ✅ COMPLETED: Canvas Poster Image Display Fix (October 14, 2025)
 
 **Project Focus**: Fix poster images not displaying during initial canvas video load
