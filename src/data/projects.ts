@@ -230,16 +230,16 @@ export const projects: readonly Project[] = [
         title: 'Joshify',
         artist: 'Project',
         album: AlbumCategory.WEB_DEVELOPMENT,
-        duration: '6 months',
+        duration: '3 months',
         image: '/album-art/joshify.png',
         year: '2025',
-        impact: 'Meta',
+        impact: 'Self Promotion',
         description: 'Experimental portfolio project exploring AI-assisted development ("vibe coding", but I hate that term) by transforming my traditional developer resume into an immersive Spotify clone, intended to stand out in a crowded field. I used Claude Code almost exclusively for the code, and a combination of AI image and video generating tools for the album art images and canvas videos. I did give Claude Code specific instructions on some of the code architecture and principles. This site features authentic Spotify UI patterns including advanced column resizing, comprehensive search functionality, and canvas video backgrounds. The site presents development projects as "tracks" with rich metadata, playlists for different work categories, and a fully functional "now playing" system. Sadly, the site does not actually play any music. Yet.',
         skills: [Skill.CLAUDE_CODE, Skill.MCP_SERVER_INTEGRATION, Skill.AI_PROMPT_ENGINEERING, Skill.COMPONENT_ARCHITECTURE, Skill.AI_ASSISTED_DEVELOPMENT],
         demoUrl: null,
         githubUrl: 'https://github.com/joshdutcher/joshify',
-        canvas: null,
-        canvasPoster: null,
+        canvas: getCanvasUrl('joshify.mp4'),
+        canvasPoster: getCanvasPosterUrl('joshify.mp4'),
         albumArtBasedOn: 'Computer World by Kraftwerk'
     }
 ] as const;

@@ -66,21 +66,37 @@ generate_poster() {
     echo ""
 }
 
-# Process all MP4 files
-echo "Scanning for videos..."
-poster_count=0
+# Process videos based on arguments
+if [ $# -eq 0 ]; then
+    # No arguments: process all MP4 files
+    echo "Scanning for videos..."
+    poster_count=0
 
-for video in "$CANVAS_DIR"/*.mp4; do
-    if [ -f "$video" ]; then
-        generate_poster "$video"
-        ((poster_count++))
+    for video in "$CANVAS_DIR"/*.mp4; do
+        if [ -f "$video" ]; then
+            generate_poster "$video"
+            ((poster_count++))
+        fi
+    done
+else
+    # Process specified file
+    FILENAME="$1"
+    INPUT_FILE="$CANVAS_DIR/$FILENAME"
+
+    if [ ! -f "$INPUT_FILE" ]; then
+        echo -e "${RED}Error: File not found: $INPUT_FILE${NC}"
+        exit 1
     fi
-done
+
+    echo "Processing single file: $FILENAME"
+    generate_poster "$INPUT_FILE"
+    poster_count=1
+fi
 
 echo -e "${GREEN}=============================="
 echo "Poster Generation Complete!"
 echo "=============================="
-echo "Generated: $poster_count posters"
+echo "Generated: $poster_count poster(s)"
 echo "Output: $POSTER_DIR"
 echo ""
 echo "Poster images saved as: {video-name}-poster.webp"

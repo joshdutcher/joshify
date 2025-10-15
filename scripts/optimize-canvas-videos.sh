@@ -103,26 +103,42 @@ optimize_video() {
     fi
 }
 
-# Process all MP4 files in canvas directory
-echo "Scanning for videos..."
-video_count=0
+# Process videos based on arguments
+if [ $# -eq 0 ]; then
+    # No arguments: process all MP4 files in canvas directory
+    echo "Scanning for videos..."
+    video_count=0
 
-for video in "$CANVAS_DIR"/*.mp4; do
-    if [ -f "$video" ]; then
-        optimize_video "$video"
-        ((video_count++))
+    for video in "$CANVAS_DIR"/*.mp4; do
+        if [ -f "$video" ]; then
+            optimize_video "$video"
+            ((video_count++))
+        fi
+    done
+else
+    # Process specified file
+    FILENAME="$1"
+    INPUT_FILE="$CANVAS_DIR/$FILENAME"
+
+    if [ ! -f "$INPUT_FILE" ]; then
+        echo -e "${RED}Error: File not found: $INPUT_FILE${NC}"
+        exit 1
     fi
-done
+
+    echo "Processing single file: $FILENAME"
+    optimize_video "$INPUT_FILE"
+    video_count=1
+fi
 
 echo -e "${GREEN}=================================="
 echo "Optimization Complete!"
 echo "=================================="
-echo "Processed: $video_count videos"
+echo "Processed: $video_count video(s)"
 echo "Output: $OUTPUT_DIR"
 echo "Backups: $BACKUP_DIR"
 echo ""
 echo "Next steps:"
 echo "1. Review optimized videos in: $OUTPUT_DIR"
 echo "2. Replace originals with optimized versions if satisfied"
-echo "3. Upload optimized videos to Backblaze B2 CDN"
+echo "3. Upload optimized videos to Cloudflare R2 CDN"
 echo -e "${NC}"
