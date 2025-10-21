@@ -1,245 +1,271 @@
-# CLAUDE.md - Joshify Portfolio Development Guide
+# CLAUDE.md - Joshify Development Guide
 
-## Current Project Status (High-Level)
+## Project Overview
 
-### ✅ Completed Milestones
-- Initial project concept: Spotify-clone portfolio design
-- Complete Spotify-authentic UI implementation with all major phases
-- TypeScript conversion and comprehensive type safety implementation
-- Production-ready code quality with ESLint integration
+**Joshify**: Spotify-inspired portfolio showcasing development projects as "tracks" with rich metadata, canvas backgrounds, and authentic Spotify UI patterns.
 
-### 🎯 Current Phase
-**Current Phase**: Production-Ready CI/CD Portfolio with Automated Asset Optimization
-**Status**: ✅ **VITE 5 UPGRADE COMPLETE** - Modern build tooling with automated image optimization
-**Recent Achievement**: Vite 5 upgrade + automated image optimization (October 9, 2025) - Build-time PNG→WebP conversion, 75% file size reduction, zero manual work
-**Previous Achievement**: Complete CI/CD pipeline implemented (September 28, 2025) - TypeScript errors resolved (30+ → 0), GitHub Actions pipeline, branch protection, Railway configuration
+**Status**: Production-Ready ✅
+- Zero TypeScript errors
+- Full CI/CD pipeline
+- Automated asset optimization
+- Deployed on Railway
 
-### 🛠️ Development Environment Status
-- Claude Code project structure established
-- Ready for existing codebase integration
+---
 
-## Development Standards and Patterns
+## Quick Start
 
-### Code Standards
-- Modern JavaScript/TypeScript patterns
-- Component-based architecture for Spotify-like UI
-- Responsive design principles for music streaming interface
-- Accessibility standards for portfolio navigation
-
-### File Organization
-*See PLANNING.md for detailed package structure and architecture specifications.*
-
-### Implementation Guidelines
-*See PLANNING.md for detailed implementation specifications, architecture patterns, and design requirements.*
-
-## Development Environment
-
-### System Requirements
-- Modern web browser support
-- Node.js for build tools and development server
-- Responsive design testing across devices
-
-**Build Commands:**
+### Development
 ```bash
-npm run dev        # Development server (port 3000) - Vite 5 dev server
-npm run build      # Production build (includes TypeScript compilation + auto image optimization)
-npm run preview    # Preview build locally
-npm run lint       # Code linting (✅ TypeScript files now linted)
-npm run type-check # TypeScript type checking (✅ 0 errors - production ready)
-npm run ci         # Full CI pipeline: lint + type-check + build
+npm run dev        # Start dev server (localhost:3000)
+npm run lint       # ESLint validation
+npm run type-check # TypeScript check
+npm run ci         # Full CI: lint + type + build
 ```
 
-**⚠️ CRITICAL: Pre-Push Workflow**
+### Pre-Push Workflow
 ```bash
-# ALWAYS run local CI/CD before pushing to GitHub
-npm run ci         # Verify lint, type-check, and build all pass locally
+# ALWAYS run local CI before pushing
+npm run ci
 
-# If CI passes locally, then push
+# If all checks pass, push changes
 git push origin <branch-name>
 ```
-**Why**: Ensures GitHub Actions CI/CD will pass, avoiding failed builds and wasted CI/CD minutes.
 
-**Vite 5 Build System:**
-- ✅ **Vite 5.4.20**: Modern build tooling with 50% faster dev server
-- ✅ **Automated WebP Generation**: Pre-build script auto-generates WebP from PNG files
-- ✅ **Automated PNG Optimization**: Build-time PNG optimization via `vite-plugin-image-optimizer`
-- ✅ **90%+ File Size Reduction**: WebP typically 90-95% smaller than original PNG
-- ✅ **Zero Manual Work**: Drop PNG in `public/album-art/`, build auto-generates WebP + optimizes PNG
-- ✅ **Intelligent Caching**: Skips regeneration if WebP exists and is newer than source PNG
-- ✅ **Quality 90**: Both PNG and WebP optimized at quality 90 for visual fidelity
-- ✅ **Standalone Script**: Run `npm run generate-webp` manually to create WebP files
+**Why**: Ensures GitHub Actions CI/CD will pass, avoids wasted CI minutes.
 
-**TypeScript Support:**
-- ✅ **Complete TypeScript Conversion**: All major components converted from JS to TS
-- ✅ **Type Safety**: Comprehensive interfaces for component props and data structures
-- ✅ **ESLint Integration**: TypeScript files now properly linted (was previously ignored)
-- ✅ **Null Safety**: Extensive undefined/null checks throughout codebase
-- ✅ **Production Ready**: Zero TypeScript errors - enterprise-grade type safety complete
+---
 
-**CI/CD Pipeline:**
-- ✅ **GitHub Actions**: Streamlined 3-stage pipeline (lint, build, quality gate)
-- ✅ **Branch Protection**: Main branch protected with required CI/CD checks
-- ✅ **Railway Integration**: Production deployment configuration and verification
-- ✅ **Quality Gates**: TypeScript compilation and ESLint validation
-- ✅ **Deployment Ready**: All TypeScript compilation errors resolved
+## Tech Stack
 
-**Testing & Browser Automation:**
-- ✅ **Playwright MCP**: Chromium browser installed and functional in WSL2
-- Available for manual E2E testing, visual regression testing, and browser automation
-- Can access local development server (localhost:3000) for live testing
-- ⚡ **HEADLESS MODE REQUIRED**: Always use headless mode for Claude AI testing (no browser windows)
-- Use `--play` flag or Playwright MCP tools for browser-based testing workflows
-- 📋 **Documentation**: See `.claude/PLAYWRIGHT_MCP.md` for complete API reference and usage guide
-- ⚠️ **NOT IN CI/CD**: Playwright removed from automated CI/CD pipeline (October 9, 2025)
-  - Manual testing only - not part of GitHub Actions workflow
-  - CI/CD focuses on TypeScript compilation and ESLint validation
+### Core
+- **React 18.2** + **TypeScript 5.9**: Component-based UI with strict type safety
+- **Vite 5.4**: Fast dev server, optimized production builds
+- **Tailwind CSS 3.3**: Utility-first with Spotify-authentic theme
 
-**Requirements:**
-- Portfolio showcasing projects as "tracks" with album-like rich metadata
-- Spotify-authentic user interface and navigation patterns
-- Advanced column resizing system matching Spotify behavior
-- Comprehensive search functionality with consistent filter patterns
-- Project detail views with descriptions, tech stacks, and demos
-- Responsive design for all screen sizes
-- Canvas fallback animations with color extraction
+### Build Pipeline
+- **Pre-build**: WebP generation from PNG (90%+ size reduction)
+- **Build-time**: TypeScript compilation + PNG/WebP optimization
+- **CI/CD**: GitHub Actions → Railway deployment
 
-**Terminology Standards:**
-- **User Interface**: "Collections" (not "Playlists"), "Projects" (individual tracks), "My Work" (not "Your Library")
-- **Workplace Interface**: "Workplace" label for employer playlists (Campbell Zafar Law, DDx, Ad Hoc)
-- **Code/Data**: May retain "albums", "playlists" for historical compatibility
-- **Content**: "About this project" descriptions with music critic style (25% less intense, employer-focused)
+### Infrastructure
+- **GitHub Actions**: Automated lint → type-check → build → deploy
+- **Railway**: Production hosting with auto-deploy on main
+- **Cloudflare R2**: Canvas video CDN
 
-**Benefits:**
-- Spotify-authentic experience with advanced interaction patterns
-- Comprehensive search and filtering capabilities
-- Resizable interface adapting to user preferences
-- Engaging visual presentation with animated fallbacks
-- Scalable structure for adding new projects and collections
-- Enhanced workplace organization with dedicated employer playlists
-- Album art attribution system showing musical inspiration
+---
+
+## Key Features
+
+### Spotify-Authentic UI
+- Three-panel layout (sidebar, content, now playing)
+- Resizable columns with drag handles
+- Dual search system (left panel + top bar)
+- Custom Spotify-style scrollbars
+- Responsive design (320px - 1920px+)
+
+### Canvas System
+- **9:16 vertical videos** for immersive backgrounds
+- **Environment-aware URLs**: Local dev vs CDN production
+- **Fallback chain**: Video → Album Art → Animated Gradient
+- **Poster images**: Instant visual feedback while loading
+
+### Project Structure
+```
+src/
+├── components/       # React components
+│   └── views/       # Page components
+├── data/            # Project metadata
+├── hooks/           # Custom React hooks
+├── types/           # TypeScript definitions
+└── utils/           # Helper functions
+```
+
+---
+
+## Development Standards
+
+### Code Quality
+- **TypeScript**: Strict mode, zero errors required
+- **ESLint**: Max 50 warnings (currently <50)
+- **Formatting**: 4-space indentation
+- **Components**: Functional components with hooks
+
+### File Naming
+- Components: PascalCase (`ProjectCard.tsx`)
+- Hooks: camelCase with `use` prefix (`usePlayer.ts`)
+- Utils: camelCase (`colorExtractor.ts`)
+- Types: PascalCase interfaces (`Project`, `Collection`)
+
+### Import Aliases
+```typescript
+import Component from '@/components/Component'
+import { useHook } from '@/hooks/useHook'
+import { helper } from '@/utils/helper'
+import type { Type } from '@/types'
+```
+
+---
+
+## Asset Management
+
+### Album Art
+- **Location**: `public/album-art/*.png`
+- **Processing**: Auto-converted to WebP at build time
+- **Committed**: Yes (small file sizes)
+
+### Canvas Videos
+- **Local Dev**: `public/canvases/*.mp4` (gitignored)
+- **Production**: Cloudflare R2 CDN (`https://cdn.joshify.dev/`)
+- **Format**: MP4 H.264, 9:16 aspect, <2MB, 30fps
+- **Committed**: No (too large for git)
+
+### Environment Variables
+```bash
+# .env.development
+VITE_USE_LOCAL_CANVAS=true
+
+# .env.production
+VITE_USE_LOCAL_CANVAS=false
+VITE_CANVAS_CDN_URL=https://cdn.joshify.dev
+```
+
+---
+
+## CI/CD Pipeline
+
+### GitHub Actions Workflow
+1. **Lint**: ESLint validation (max 50 warnings)
+2. **Type Check**: TypeScript compilation (0 errors required)
+3. **Build**: Production build with image optimization
+4. **Quality Gate**: All checks must pass
+5. **Deploy**: Railway deployment (main branch only)
+
+### Branch Protection
+- Main branch requires CI/CD approval
+- All checks must pass before merge
+- Automatic deployment on successful merge
+
+---
+
+## Common Tasks
+
+### Adding New Projects
+1. Create album art: `public/album-art/project-name.png`
+2. (Optional) Create canvas video, run `scripts/optimize-canvas-videos.sh`
+3. (Optional) Generate poster: `scripts/generate-poster-frames.sh`
+4. Add project data to `src/data/projects.ts`
+5. Upload canvas to Cloudflare R2 (if created)
+6. Run `npm run ci` to verify
+7. Commit and push
+
+### Canvas Video Workflow
+See `README-CANVAS.md` for detailed canvas setup instructions.
+See `scripts/README.md` for video optimization guide.
+
+### Testing Changes
+**Manual Testing** (Playwright available):
+- Browser automation via Playwright MCP
+- Headless mode for non-intrusive testing
+- See `PLAYWRIGHT.md` for API reference
+
+**Automated Testing**:
+- CI/CD runs on every push
+- Local validation: `npm run ci`
+
+---
+
+## Project Terminology
+
+### User-Facing
+- **Collections** (not "Playlists")
+- **Projects** (individual tracks)
+- **My Work** (library section)
+
+### Code/Data
+- May use "playlists", "albums" for historical compatibility
+- Data structures use technical names
+- UI displays user-friendly labels
+
+---
+
+## Documentation
+
+### Project Documentation (.claude/)
+- `CLAUDE.md` - This file (development guide)
+- `TASKS.md` - Current tasks and future enhancements
+- `SESSION.md` - Current session state
+- `PLANNING.md` - Architecture and design patterns
+
+### Reference Documentation (.claude/)
+- `ANALYTICS.md` - Matomo analytics setup
+- `CDN_SETUP.md` - Cloudflare R2 configuration
+- `PLAYWRIGHT.md` - Browser automation reference
+
+### Site Documentation (root)
+- `README.md` - Main project documentation
+- `README-CANVAS.md` - Canvas video system guide
+- `scripts/README.md` - Video optimization scripts
+
+---
 
 ## Testing Checklist
 
+### Before Push
+- [ ] `npm run ci` passes locally
+- [ ] Zero TypeScript errors
+- [ ] ESLint warnings <50
+- [ ] Manual testing in browser (if UI changes)
+
 ### UI/UX Testing
-**Available Tools**: ✅ Playwright MCP (Chromium browser) for manual testing
-- [ ] Spotify-authentic navigation and layout with proper terminology
-- [ ] Left column resizing behavior (min/max/icon-only modes)
-- [ ] Right column resizing functionality
-- [ ] Search functionality in both left column and top bar
-- [ ] Filter consistency ("All", "Collections", "Projects")
-- [ ] Track grid displays correctly with "Role" column
-- [ ] Project detail pages load properly with enhanced navigation
-- [ ] Canvas fallback animations with color extraction
-- [ ] Clickable track names and role text throughout interface
-- [ ] Playlist-aware next/previous functionality
-- [ ] Responsive behavior on mobile/tablet/desktop
-- [ ] Loading states and transitions
-- [ ] Spotify-style scrollbars (hover to appear, fade after)
+- [ ] Responsive design (mobile/tablet/desktop)
+- [ ] Column resizing behavior
+- [ ] Search functionality
+- [ ] Canvas video loading
+- [ ] Project detail navigation
+- [ ] Hover states and transitions
 
-### Content Testing
-- [ ] All project information displays correctly with new "Role" column
-- [ ] Cover art and project screenshots load properly
-- [ ] Canvas videos load with proper fallback chain (video → art → gradient)
-- [ ] External links to live demos and repositories work
-- [ ] Track descriptions maintain music critic style with employer appeal
-- [ ] Playlist descriptions are brief and Spotify-style
-- [ ] Contact information and social links function
+### Performance
+- [ ] Fast page loads (<3s)
+- [ ] Smooth animations (60fps)
+- [ ] Optimized images (WebP)
+- [ ] Canvas videos <2MB
 
-### Performance Testing
-- [ ] Fast loading times for portfolio browsing
-- [ ] Column resizing maintains 60fps performance
-- [ ] Search functionality responds quickly to user input
-- [ ] Canvas gradient animations run smoothly
-- [ ] Optimized images and assets
-- [ ] Smooth transitions between all interface states
+---
 
-## Common Pitfalls to Avoid
+## Troubleshooting
 
-### Portfolio-Specific Issues
-- Overcomplicating the music metaphor at expense of clarity
-- Inconsistent terminology between UI labels and internal code
-- Making column resizing behavior feel janky or unresponsive
-- Search results that don't match user expectations
-- Canvas animations that are distracting rather than engaging
-- Forgetting mobile responsiveness for touch interactions
-- Loading too many heavy assets on initial page load
+### TypeScript Errors
+```bash
+npm run type-check  # See all errors
+# Fix errors in reported files
+```
 
-### Technical Issues
-- Column resize handles that don't provide proper visual feedback
-- Search functionality that doesn't handle edge cases properly
-- Color extraction that fails gracefully when cover art is corrupted
-- Complex animations that hurt performance on slower devices
-- Breaking accessibility with custom UI components
-- Not providing fallbacks for failed asset loads
-- Drag events that conflict with other browser behaviors
+### ESLint Warnings
+```bash
+npm run lint        # See all warnings
+# Address warnings or adjust rules in .eslintrc.cjs
+```
 
-### Implementation-Specific Risks
-- Not testing column resizing across different browsers
-- Search filters that become out of sync between locations
-- Canvas gradient animations that consume too much CPU
-- Resize boundaries that don't snap consistently
-- Navigation state that gets confused during rapid transitions
+### Canvas Videos Not Loading
+- **Dev**: Check `public/canvases/` has MP4 files
+- **Prod**: Verify Cloudflare R2 URLs in `src/utils/canvas.ts`
+- **Both**: Check browser console for errors
 
-## Reference Information
+### Build Failures
+```bash
+# Clean build and reinstall
+rm -rf node_modules dist
+npm install
+npm run build
+```
 
-### Canvas Video Hosting Strategy
-**IMPORTANT**: Canvas videos (9:16 MP4 files) are NOT stored in git repository due to file size.
-- **Local Development**: Videos stored in `public/canvases/` for testing
-- **Production**: Videos hosted via GitHub Releases CDN
-- **Deployment Process**: Upload videos to GitHub Releases, update URLs in code
-- **Gitignore**: `public/canvases/*.mp4` excluded from repository
-- **Fallback System**: Automatic fallback to album art if video unavailable
+---
 
-### Key Dependencies
-*See PLANNING.md for complete dependency list and version specifications.*
+## Resources
 
-### Project Context
-**Portfolio Concept**: Personal portfolio website designed as a Spotify clone
-**Album = Project Metaphor**: Each development project is presented as an "album" with:
-- Album art (project screenshot/logo)
-- Track listing (key features/technologies)
-- Artist info (role, duration, team size)
-- Album description (project overview and impact)
+- **Live Site**: https://joshify-production.up.railway.app
+- **Repository**: GitHub (private)
+- **Analytics**: Matomo dashboard
+- **CDN**: Cloudflare R2 bucket
 
-**Target Audience**: 
-- Potential employers and collaborators
-- Fellow developers
-- Anyone interested in technical projects
-
-## Claude AI Testing Guidelines
-
-### ⚡ Headless Browser Testing Requirements
-**CRITICAL**: When Claude AI performs UI testing or browser automation:
-
-1. **Always Use Headless Mode**: Never spawn visible browser windows
-   - Use `--headless` flag in all Playwright MCP operations
-   - Configure MCP server with headless arguments
-   - Prevents interruption of user's desktop environment
-
-2. **Testing Workflow**:
-   ```
-   Step 1: Start dev server (if needed): npm run dev
-   Step 2: Use headless Playwright MCP for all browser operations
-   Step 3: Capture screenshots/snapshots for validation
-   Step 4: Report results without opening browser windows
-   ```
-
-3. **Headless Testing Benefits**:
-   - Non-intrusive testing during development
-   - Better performance and resource usage
-   - Maintains full functionality (screenshots, interactions, validation)
-   - Professional development workflow
-
-### Automated Testing Protocols
-- UI component validation via headless browser snapshots
-- Column resizing behavior testing without visual disruption
-- Search functionality verification through accessibility tree
-- Responsive design testing across viewport sizes
-- Performance monitoring via network/console analysis
-
-## Questions to Ask User
-- What projects should be included as initial "albums"?
-- Do you have album art/screenshots prepared for projects?
-- What's the preferred tech stack for the frontend?
-- Should there be a "currently playing" feature for active projects?
-- How should visitors contact you or view live demos?
+**Last Updated**: October 21, 2025
