@@ -1,5 +1,6 @@
 import { useEffect, useCallback } from 'react';
 import type { SelectedPlaylist } from '../types';
+import { trackPageView } from '../utils/analytics';
 
 /**
  * History state stored in browser history
@@ -82,6 +83,9 @@ export const useNavigationHistory = (
         // Push new history entry
         window.history.pushState(state, '', path);
 
+        // Track page view in analytics
+        trackPageView(path);
+
         // Update React state with original data (including icon)
         setCurrentView(view);
         setSelectedPlaylist(data);
@@ -135,6 +139,10 @@ export const useNavigationHistory = (
                 if (setSearchQuery && state.searchQuery !== undefined) {
                     setSearchQuery(state.searchQuery);
                 }
+
+                // Track page view for back/forward navigation
+                const path = generatePath(state.view, state.data, state.searchQuery);
+                trackPageView(path);
             } else {
                 // No state (initial page load or external navigation) - go to home
                 setCurrentView('home');
@@ -142,6 +150,9 @@ export const useNavigationHistory = (
                 if (setSearchQuery) {
                     setSearchQuery('');
                 }
+
+                // Track home page view
+                trackPageView('/');
             }
         };
 
