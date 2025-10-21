@@ -207,25 +207,15 @@ const ProjectCanvas = ({
 
     return (
         <div className={`relative ${aspectClass} overflow-hidden bg-spotify-card ${className}`}>
-            {/* Poster Image (shows while video loads) */}
-            {posterImage && !isLoaded && !hasError && (
-                <img
-                    src={posterImage}
-                    alt={`${project.title || 'Project'} canvas`}
-                    className="absolute inset-0 w-full h-full object-cover z-10"
-                />
-            )}
-
-            {/* Video Canvas */}
+            {/* Video Canvas - keep at full opacity, let poster fade out */}
             {!hasError && (
                 <video
                     ref={videoRef}
-                    className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
+                    className="absolute inset-0 w-full h-full object-cover"
                     muted
                     loop
                     playsInline
                     preload="auto"
-                    poster={posterImage || undefined}
                     onLoadStart={handleVideoLoadStart}
                     onProgress={handleVideoProgress}
                     onLoadedData={handleVideoLoad}
@@ -233,6 +223,15 @@ const ProjectCanvas = ({
                 >
                     <source src={project.canvas} type="video/mp4" />
                 </video>
+            )}
+
+            {/* Poster Image (shows while video loads, hidden when ready) */}
+            {posterImage && !isLoaded && !hasError && (
+                <img
+                    src={posterImage}
+                    alt={`${project.title || 'Project'} canvas`}
+                    className="absolute inset-0 w-full h-full object-cover z-10"
+                />
             )}
 
             {/* Loading Indicator (only show if no poster image available) */}
