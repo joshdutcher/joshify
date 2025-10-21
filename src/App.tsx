@@ -180,6 +180,7 @@ const SpotifyResume = () => {
                             currentlyPlaying={currentlyPlaying}
                             isPlaying={isPlaying}
                             onPlayProject={handlePlayProject}
+                            onClose={() => navigateToView('home')}
               />
             )}
                         {currentView === 'profile' && <ProfileView />}

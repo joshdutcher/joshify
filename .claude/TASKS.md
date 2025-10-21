@@ -14,11 +14,10 @@
 ## Active Tasks
 
 ### Mobile UX Fixes (Priority)
-- [ ] Fix mobile navigation - Add modal/popover UI for project detail pages with dismiss functionality
+- [x] Fix mobile navigation - Add modal/slide-up UI for project detail pages with dismiss functionality
 - [ ] Fix mobile player positioning - Bottom player cut off below viewport on mobile devices
 
 ### Performance Optimizations
-- [ ] Fix canvas video flash/glitch - Eliminate dark flash between poster and video playback
 - [ ] Implement lazy loading for canvas videos
 - [ ] Add preload hints for critical assets
 - [ ] Investigate Service Worker for offline support

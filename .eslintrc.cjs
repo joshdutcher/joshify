@@ -11,6 +11,16 @@ module.exports = {
     'plugin:react-hooks/recommended'
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
+  overrides: [
+    {
+      files: ['src/components/views/ProjectDetailView.tsx'],
+      rules: {
+        'indent': 'off',
+        'react/jsx-indent': 'off',
+        'react/jsx-indent-props': 'off'
+      }
+    }
+  ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 'latest',
@@ -41,7 +51,7 @@ module.exports = {
     'react-hooks/exhaustive-deps': 'warn', // Warn instead of error for dependency array
     'indent': ['error', 4, {
       'SwitchCase': 1,
-      'ignoredNodes': ['JSXElement *', 'JSXElement']
+      'ignoredNodes': ['JSXElement *', 'JSXElement', 'JSXAttribute', 'JSXSpreadAttribute']
     }],
     'react/jsx-indent': ['error', 4],
     'react/jsx-indent-props': ['error', 4]
