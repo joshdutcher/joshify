@@ -15,6 +15,7 @@
 
 ### Mobile UX Fixes (Priority)
 - [x] Fix mobile navigation - Add modal/slide-up UI for project detail pages with dismiss functionality
+- [x] Improve mobile navigation back behavior - Implemented browser history back navigation for mobile project details, returns to previous view (collection/playlist) naturally. Desktop keeps current inline view behavior.
 - [ ] Fix mobile player positioning - Bottom player cut off below viewport on mobile devices
 
 ### Performance Optimizations

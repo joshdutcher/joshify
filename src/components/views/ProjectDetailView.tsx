@@ -11,6 +11,7 @@ interface ProjectDetailViewProps {
     isPlaying: boolean;
     onPlayProject: (_project: Project) => void;
     onClose?: () => void;
+    onMobileBack?: () => void;
 }
 
 interface MobileProjectContentProps {
@@ -141,7 +142,8 @@ const ProjectDetailView = ({
     currentlyPlaying,
     isPlaying,
     onPlayProject,
-    onClose
+    onClose,
+    onMobileBack
 }: ProjectDetailViewProps) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -149,6 +151,15 @@ const ProjectDetailView = ({
         // Only open modal if the project has valid album art
         if (project?.image && !project.image.includes('/api/placeholder')) {
             setIsModalOpen(true);
+        }
+    };
+
+    const handleMobileClose = () => {
+        // Use mobile-specific back handler if provided, otherwise fall back to onClose
+        if (onMobileBack) {
+            onMobileBack();
+        } else if (onClose) {
+            onClose();
         }
     };
 
@@ -171,7 +182,7 @@ const ProjectDetailView = ({
                 {/* Mobile Header with Dismiss Button */}
                 <div className="relative z-10 flex justify-center pt-4 pb-2">
                     <button
-                        onClick={onClose}
+                        onClick={handleMobileClose}
                         className="p-2 hover:bg-white/10 rounded-full transition-colors"
                         aria-label="Close project details"
                     >

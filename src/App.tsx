@@ -181,6 +181,7 @@ const SpotifyResume = () => {
                             isPlaying={isPlaying}
                             onPlayProject={handlePlayProject}
                             onClose={() => navigateToView('home')}
+                            onMobileBack={() => window.history.back()}
               />
             )}
                         {currentView === 'profile' && <ProfileView />}
