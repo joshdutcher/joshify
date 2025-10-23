@@ -65,6 +65,9 @@ public/canvases/*.avi
 public/canvases-optimized/
 public/canvases-backup/
 
+# Music files
+public/music/
+
 # Screenshots and temporary test files
 screenshot*.png
 comparison_screenshots/

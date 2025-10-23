@@ -8,7 +8,7 @@ import {
     Skill,
     AlbumCategory
 } from '@/types';
-import { getCanvasUrl } from '@/utils/canvas';
+import { getCanvasUrl, getMusicUrl } from '@/utils/canvas';
 
 // Helper function to get canvas poster URL
 const getCanvasPosterUrl = (filename: string | null): string | null => {
@@ -34,6 +34,7 @@ export const projects: readonly Project[] = [
         skills: [Skill.PYTHON, Skill.SNOWFLAKE, Skill.ETL_PIPELINES, Skill.DATA_TRANSFORMATION, Skill.CAMPAIGN_DATA_SYSTEMS],
         demoUrl: null,
         githubUrl: null,
+        music: null,
         canvas: getCanvasUrl('election-data-pipeline.mp4'),
         canvasPoster: getCanvasPosterUrl('election-data-pipeline.mp4'),
         albumArtBasedOn: 'Tubular Bells by Mike Oldfield'
@@ -51,6 +52,7 @@ export const projects: readonly Project[] = [
         skills: [Skill.API_DEVELOPMENT, Skill.PHP_LUMEN, Skill.PERFORMANCE_OPTIMIZATION],
         demoUrl: null,
         githubUrl: null,
+        music: null,
         canvas: getCanvasUrl('mobile-api-rebuild.mp4'),
         canvasPoster: getCanvasPosterUrl('mobile-api-rebuild.mp4'),
         albumArtBasedOn: 'Run The Jewels 2 by Run The Jewels'
@@ -68,6 +70,7 @@ export const projects: readonly Project[] = [
         skills: [Skill.PYTHON, Skill.ETL_PIPELINES, Skill.API_DEVELOPMENT, Skill.HIGH_AVAILABILITY, Skill.DATA_TRANSFORMATION],
         demoUrl: null,
         githubUrl: null,
+        music: null,
         canvas: getCanvasUrl('healthcare-etl.mp4'),
         canvasPoster: getCanvasPosterUrl('healthcare-etl.mp4'),
         albumArtBasedOn: 'Ready to Die by The Notorious B.I.G.'
@@ -85,6 +88,7 @@ export const projects: readonly Project[] = [
         skills: [Skill.AWS_LAMBDA, Skill.PYTHON, Skill.SERVERLESS_DEVELOPMENT, Skill.DYNAMODB, Skill.SNS_SQS_MESSAGING],
         demoUrl: null,
         githubUrl: null,
+        music: null,
         canvas: getCanvasUrl('democracy-engine.mp4'),
         canvasPoster: getCanvasPosterUrl('democracy-engine.mp4'),
         albumArtBasedOn: 'Born This Way by Lady Gaga'
@@ -102,6 +106,7 @@ export const projects: readonly Project[] = [
         skills: [Skill.API_DEVELOPMENT, Skill.HEALTHCARE, Skill.PRODUCTION_SUPPORT, Skill.PROCESS_AUTOMATION, Skill.CROSS_FUNCTIONAL_COLLABORATION],
         demoUrl: null,
         githubUrl: null,
+        music: null,
         canvas: getCanvasUrl('healthcare-api-extensions.mp4'),
         canvasPoster: getCanvasPosterUrl('healthcare-api-extensions.mp4'),
         albumArtBasedOn: 'The Low End Theory by A Tribe Called Quest'
@@ -119,6 +124,7 @@ export const projects: readonly Project[] = [
         skills: [Skill.GO, Skill.ETL_PIPELINES, Skill.API_DEVELOPMENT, Skill.DATA_TRANSFORMATION, Skill.HIGH_AVAILABILITY, Skill.HEALTHCARE],
         demoUrl: null,
         githubUrl: null,
+        music: null,
         canvas: getCanvasUrl('medigap-integration.mp4'),
         canvasPoster: getCanvasPosterUrl('medigap-integration.mp4'),
         albumArtBasedOn: 'Gap Band VI by The Gap Band'
@@ -136,6 +142,7 @@ export const projects: readonly Project[] = [
         skills: [Skill.API_OPTIMIZATION, Skill.COST_REDUCTION, Skill.TEAM_LEADERSHIP, Skill.PERFORMANCE_ENGINEERING],
         demoUrl: null,
         githubUrl: null,
+        music: null,
         canvas: getCanvasUrl('api-engine-optimization.mp4'),
         canvasPoster: getCanvasPosterUrl('api-engine-optimization.mp4'),
         albumArtBasedOn: 'Nevermind the Bollocks, Here\'s the Sex Pistols by The Sex Pistols'
@@ -153,6 +160,7 @@ export const projects: readonly Project[] = [
         skills: [Skill.AI_ASSISTED_DEVELOPMENT, Skill.CLAUDE_CODE],
         demoUrl: null,
         githubUrl: null,
+        music: null,
         canvas: getCanvasUrl('beer-fridge.mp4'),
         canvasPoster: getCanvasPosterUrl('beer-fridge.mp4'),
         albumArtBasedOn: 'Dark Side of the Moon by Pink Floyd'
@@ -170,6 +178,7 @@ export const projects: readonly Project[] = [
         skills: [Skill.AI_ASSISTED_DEVELOPMENT, Skill.NODE_JS, Skill.EXPRESS, Skill.RESPONSIVE_DESIGN,],
         demoUrl: 'https://www.didkansaswin.com',
         githubUrl: 'https://github.com/joshdutcher/didkansaswin',
+        music: getMusicUrl('I\'m a Jayhawk.mp3'),
         canvas: getCanvasUrl('did-kansas-win.mp4'),
         canvasPoster: getCanvasPosterUrl('did-kansas-win.mp4'),
         albumArtBasedOn: 'Graduation by Kanye West'
@@ -187,6 +196,7 @@ export const projects: readonly Project[] = [
         skills: [Skill.GO, Skill.HTML_TEMPLATING, Skill.WEATHER_APIS, Skill.PURECSS],
         demoUrl: 'https://wichitaradar.com',
         githubUrl: 'https://github.com/joshdutcher/wichitaradar',
+        music: null,
         canvas: getCanvasUrl('wichitaradar.mp4'),
         canvasPoster: getCanvasPosterUrl('wichitaradar.mp4'),
         albumArtBasedOn: 'Discovery by Daft Punk'
@@ -204,6 +214,7 @@ export const projects: readonly Project[] = [
         skills: [Skill.PROJECT_MANAGEMENT, Skill.VENDOR_COORDINATION, Skill.TIMELINE_MANAGEMENT, Skill.PROCUREMENT, Skill.LAUNCH_STRATEGY],
         demoUrl: null,
         githubUrl: null,
+        music: null,
         canvas: getCanvasUrl('law-firm-startup-operations.mp4'),
         canvasPoster: getCanvasPosterUrl('law-firm-startup-operations.mp4'),
         albumArtBasedOn: 'BRAT by Charli xcx'
@@ -221,6 +232,7 @@ export const projects: readonly Project[] = [
         skills: [Skill.GOOGLE_WORKSPACE_ADMINISTRATION, Skill.NETWORK_CONFIGURATION, Skill.VOIP_SYSTEMS, Skill.WEB_DEVELOPMENT, Skill.SEO_STRATEGY, Skill.HARDWARE_SETUP],
         demoUrl: null,
         githubUrl: null,
+        music: null,
         canvas: getCanvasUrl('startup-technology-infrastructure.mp4'),
         canvasPoster: getCanvasPosterUrl('startup-technology-infrastructure.mp4'),
         albumArtBasedOn: 'Computer World by Kraftwerk'
@@ -238,6 +250,7 @@ export const projects: readonly Project[] = [
         skills: [Skill.CLAUDE_CODE, Skill.MCP_SERVER_INTEGRATION, Skill.AI_PROMPT_ENGINEERING, Skill.COMPONENT_ARCHITECTURE, Skill.AI_ASSISTED_DEVELOPMENT],
         demoUrl: null,
         githubUrl: 'https://github.com/joshdutcher/joshify',
+        music: null,
         canvas: getCanvasUrl('joshify.mp4'),
         canvasPoster: getCanvasPosterUrl('joshify.mp4'),
         albumArtBasedOn: 'Nothing, just a direct rip-off of Spotify branding 😂'

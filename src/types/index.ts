@@ -110,6 +110,7 @@ export interface Project {
   readonly skills: readonly Skill[];
   readonly demoUrl: string | null;
   readonly githubUrl: string | null;
+  readonly music: string | null;
   readonly canvas: string | null;
   readonly canvasPoster: string | null; // Poster image for canvas video
   readonly albumArtBasedOn: string | null;
