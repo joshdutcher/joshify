@@ -240,7 +240,7 @@ export const projects: readonly Project[] = [
         githubUrl: 'https://github.com/joshdutcher/joshify',
         canvas: getCanvasUrl('joshify.mp4'),
         canvasPoster: getCanvasPosterUrl('joshify.mp4'),
-        albumArtBasedOn: 'Computer World by Kraftwerk'
+        albumArtBasedOn: 'Nothing, just a direct rip-off of Spotify branding 😂'
     }
 ] as const;
 
