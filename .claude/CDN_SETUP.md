@@ -64,38 +64,52 @@ Canvas videos are hosted on **Cloudflare R2** and delivered through **Cloudflare
 
 **Development** (`.env.development`):
 ```bash
-VITE_USE_LOCAL_CANVAS=true
+VITE_USE_LOCAL_ASSETS=true
 ```
-- Videos load from `public/canvases/` folder
+- All assets load from `public/assets/` folder
 - No CORS issues
 - Fast local development
 
 **Production** (`.env.production`):
 ```bash
-VITE_USE_LOCAL_CANVAS=false
-VITE_CANVAS_CDN_URL=https://cdn.joshify.dev
+VITE_USE_LOCAL_ASSETS=false
+VITE_ASSET_CDN_BASE_URL=https://cdn.joshify.dev
 ```
 
 **Railway** (Environment Variables):
 ```bash
-VITE_CANVAS_CDN_URL=https://cdn.joshify.dev
+VITE_USE_LOCAL_ASSETS=false
+VITE_ASSET_CDN_BASE_URL=https://cdn.joshify.dev
 ```
 
-### Uploaded Videos
+### Current R2 Structure
 
-Total: 11 videos (124MB)
+**Bucket**: `joshify-canvas`
+**CDN Domain**: `https://cdn.joshify.dev`
 
-1. `beer-fridge.mp4` (3.0MB)
-2. `democracy-engine.mp4` (8.0MB)
-3. `did-kansas-win.mp4` (15MB)
-4. `election-data-pipeline.mp4` (15MB)
-5. `healthcare-api-extensions.mp4` (3.7MB)
-6. `healthcare-etl.mp4` (3.3MB)
-7. `law-firm-startup-operations.mp4` (21MB)
-8. `medigap-integration.mp4` (16MB)
-9. `mobile-api-rebuild.mp4` (2.5MB)
-10. `startup-technology-infrastructure.mp4` (21MB)
-11. `wichitaradar.mp4` (18MB)
+**Folder Organization**:
+```
+cdn.joshify.dev/
+└── assets/
+    ├── canvases/          # 13 videos (17MB total)
+    │   ├── api-engine-optimization.mp4
+    │   ├── beer-fridge.mp4
+    │   ├── democracy-engine.mp4
+    │   ├── did-kansas-win.mp4
+    │   ├── election-data-pipeline.mp4
+    │   ├── healthcare-api-extensions.mp4
+    │   ├── healthcare-etl.mp4
+    │   ├── joshify.mp4
+    │   ├── law-firm-startup-operations.mp4
+    │   ├── medigap-integration.mp4
+    │   ├── mobile-api-rebuild.mp4
+    │   ├── startup-technology-infrastructure.mp4
+    │   └── wichitaradar.mp4
+    └── music/             # Ready for future music files
+        └── .gitkeep
+```
+
+**Access Pattern**: `https://cdn.joshify.dev/assets/canvases/{filename}`
 
 ## Tools & CLI
 

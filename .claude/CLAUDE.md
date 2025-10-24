@@ -109,24 +109,27 @@ import type { Type } from '@/types'
 ## Asset Management
 
 ### Album Art
-- **Location**: `public/album-art/*.png`
+- **Location**: `public/assets/images/album-art/*.png`
 - **Processing**: Auto-converted to WebP at build time
 - **Committed**: Yes (small file sizes)
 
 ### Canvas Videos
-- **Local Dev**: `public/canvases/*.mp4` (gitignored)
-- **Production**: Cloudflare R2 CDN (`https://cdn.joshify.dev/`)
+- **Local Dev**: `public/assets/canvases/*.mp4` (gitignored)
+- **Production**: Cloudflare R2 CDN (`https://cdn.joshify.dev/assets/canvases/`)
 - **Format**: MP4 H.264, 9:16 aspect, <2MB, 30fps
 - **Committed**: No (too large for git)
+
+### Canvas Posters
+- **Local Only**: `public/assets/images/posters/*.webp` (small files, Vite-optimized)
 
 ### Environment Variables
 ```bash
 # .env.development
-VITE_USE_LOCAL_CANVAS=true
+VITE_USE_LOCAL_ASSETS=true
 
 # .env.production
-VITE_USE_LOCAL_CANVAS=false
-VITE_CANVAS_CDN_URL=https://cdn.joshify.dev
+VITE_USE_LOCAL_ASSETS=false
+VITE_ASSET_CDN_BASE_URL=https://cdn.joshify.dev
 ```
 
 ---

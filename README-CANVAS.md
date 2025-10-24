@@ -5,36 +5,37 @@ This document explains how canvas videos work in development vs. production.
 ## Overview
 
 Canvas videos are **not stored in the git repository** due to file size. Instead:
-- **Local Development**: Videos served from `public/canvases/`
+- **Local Development**: Videos served from `public/assets/canvases/`
 - **Production**: Videos hosted on Cloudflare R2 CDN
 
 ## Environment Configuration
 
 ### `.env.development`
 ```bash
-VITE_USE_LOCAL_CANVAS=true
+VITE_USE_LOCAL_ASSETS=true
 ```
-Uses local videos from `public/canvases/` directory
+Uses local videos from `public/assets/canvases/` directory
 
 ### `.env.production`
 ```bash
-VITE_USE_LOCAL_CANVAS=false
+VITE_USE_LOCAL_ASSETS=false
+VITE_ASSET_CDN_BASE_URL=https://cdn.joshify.dev
 ```
-Uses GitHub Releases CDN URLs
+Uses Cloudflare R2 CDN URLs
 
 ## How It Works
 
 ### 1. Data Layer (`src/data/projects.ts`)
 ```typescript
-import { getCanvasUrl } from '@/utils/canvas';
+import { getCanvasUrl } from '@/utils/assetHelpers';
 
 canvas: getCanvasUrl('beer-fridge.mp4')
 ```
 
-### 2. URL Resolution (`src/utils/canvas.ts`)
+### 2. URL Resolution (`src/utils/assetHelpers.ts`)
 The `getCanvasUrl()` function automatically returns:
-- **Dev**: `/canvases/beer-fridge.mp4` → Vite serves from `public/`
-- **Production**: `https://cdn.joshify.dev/beer-fridge.mp4` → CDN
+- **Dev**: `/assets/canvases/beer-fridge.mp4` → Vite serves from `public/`
+- **Production**: `https://cdn.joshify.dev/assets/canvases/beer-fridge.mp4` → CDN
 
 ### 3. Component (`src/components/ProjectCanvas.tsx`)
 Receives resolved URL and handles loading/fallback chain:
@@ -45,19 +46,10 @@ Receives resolved URL and handles loading/fallback chain:
 ### 1. Local Development
 ```bash
 # Copy video to public directory
-cp my-new-video.mp4 public/canvases/
+cp my-new-video.mp4 public/assets/canvases/
 ```
 
-### 2. Update CDN Map
-Edit `src/utils/canvas.ts`:
-```typescript
-const CDN_URLS: Record<string, string> = {
-  'my-new-video.mp4': 'https://github.com/joshdutcher/joshify/releases/download/v1.0.8/my-new-video.mp4',
-  // ... other videos
-};
-```
-
-### 3. Use in Project Data
+### 2. Use in Project Data
 ```typescript
 {
   id: 'my-project',
@@ -66,10 +58,10 @@ const CDN_URLS: Record<string, string> = {
 }
 ```
 
-### 4. Upload to Cloudflare R2
+### 3. Upload to Cloudflare R2
 ```bash
 # Use Wrangler CLI or Cloudflare dashboard to upload to the 'joshify-canvas' bucket.
-wrangler r2 object put joshify-canvas/my-new-video.mp4 --file=public/canvases/my-new-video.mp4
+wrangler r2 object put joshify-canvas/assets/canvases/my-new-video.mp4 --file=public/assets/canvases/my-new-video.mp4
 ```
 
 ## Why Videos Don't Show Locally (Before This Fix)
@@ -95,7 +87,7 @@ canvas: getCanvasUrl('video.mp4')
 # Start dev server
 npm run dev
 
-# Canvas videos should load from public/canvases/
+# Canvas videos should load from public/assets/canvases/
 # Check browser console - no CORS errors
 ```
 
@@ -114,7 +106,7 @@ npm run preview
 
 If canvas video fails to load:
 1. **Video** (from local or CDN)
-2. **Album Art** (square aspect ratio, from `public/album-art/`)
+2. **Album Art** (square aspect ratio, from `public/assets/images/album-art/`)
 3. **Animated Gradient** (generated based on project ID)
 
 ## File Structure
@@ -122,23 +114,30 @@ If canvas video fails to load:
 ```
 joshify/
 ├── public/
-│   └── canvases/               # Local videos (gitignored)
-│       ├── beer-fridge.mp4
-│       ├── did-kansas-win.mp4
-│       └── ...
+│   └── assets/
+│       ├── canvases/           # Local videos (gitignored)
+│       │   ├── beer-fridge.mp4
+│       │   ├── did-kansas-win.mp4
+│       │   └── ...
+│       ├── music/              # Local music (gitignored)
+│       └── images/
+│           ├── album-art/      # Album art (committed)
+│           └── posters/        # Canvas posters (committed)
 ├── src/
 │   ├── utils/
-│   │   └── canvas.ts           # URL resolution logic
+│   │   └── assetHelpers.ts     # URL resolution logic
 │   ├── data/
 │   │   └── projects.ts         # Uses getCanvasUrl()
 │   └── components/
 │       └── ProjectCanvas.tsx   # Renders video/fallback
-├── .env.development            # VITE_USE_LOCAL_CANVAS=true
-└── .env.production             # VITE_USE_LOCAL_CANVAS=false
+├── .env.development            # VITE_USE_LOCAL_ASSETS=true
+└── .env.production             # VITE_USE_LOCAL_ASSETS=false
 ```
 
 ## Notes
 
 - **Environment files** (`.env.development`, `.env.production`) are committed to repo
-- **Canvas videos** (`public/canvases/*.mp4`) are NOT committed (gitignored)
-- **Album art** (`public/album-art/*.png`) IS committed (small file size)
+- **Canvas videos** (`public/assets/canvases/*.mp4`) are NOT committed (gitignored)
+- **Music files** (`public/assets/music/*.mp3`) are NOT committed (gitignored)
+- **Album art** (`public/assets/images/album-art/*.png`) IS committed (small file size)
+- **Canvas posters** (`public/assets/images/posters/*.webp`) IS committed (small file size)
