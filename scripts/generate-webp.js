@@ -3,7 +3,7 @@
 /**
  * Automated WebP Generation Script
  *
- * Scans public/album-art/ for PNG files and generates WebP versions
+ * Scans public/assets/images/album-art/ for PNG files and generates WebP versions
  * if they don't already exist or if the source PNG is newer.
  *
  * Usage: node scripts/generate-webp.js
@@ -18,7 +18,7 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const ALBUM_ART_DIR = path.join(__dirname, '../public/album-art');
+const ALBUM_ART_DIR = path.join(__dirname, '../public/assets/images/album-art');
 const WEBP_QUALITY = 90;
 
 /**
