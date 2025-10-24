@@ -14,6 +14,12 @@
 
 ## Active Tasks
 
+### CI/CD Configuration (October 24, 2025)
+- [x] Investigate PR #25 merge blocker - Identified missing E2E test requirement
+- [x] Remove E2E test requirement from GitHub branch protection ruleset
+- [x] Remove circular deployment jobs from GitHub Actions workflow
+- [x] Update CI/CD documentation to reflect Railway auto-deploy strategy
+
 ### Mobile UX Fixes (Priority)
 - [x] Fix mobile navigation - Add modal/slide-up UI for project detail pages with dismiss functionality
 - [x] Improve mobile navigation back behavior - Implemented browser history back navigation for mobile project details, returns to previous view (collection/playlist) naturally. Desktop keeps current inline view behavior.

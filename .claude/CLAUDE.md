@@ -137,16 +137,58 @@ VITE_ASSET_CDN_BASE_URL=https://cdn.joshify.dev
 ## CI/CD Pipeline
 
 ### GitHub Actions Workflow
-1. **Lint**: ESLint validation (max 50 warnings)
-2. **Type Check**: TypeScript compilation (0 errors required)
-3. **Build**: Production build with image optimization
-4. **Quality Gate**: All checks must pass
-5. **Deploy**: Railway deployment (main branch only)
 
-### Branch Protection
-- Main branch requires CI/CD approval
-- All checks must pass before merge
-- Automatic deployment on successful merge
+The CI/CD pipeline validates code quality on every PR:
+
+1. **Lint and Type Check** ✅
+   - ESLint validation (max 50 warnings)
+   - TypeScript type checking (0 errors required)
+
+2. **Build and Test** ✅
+   - Production build via `npm run build`
+   - Deployment asset validation
+   - Build artifact upload (30-day retention)
+
+3. **PR Validation Complete** ✅
+   - Summary of validation results
+   - Confirmation PR is ready for review
+
+4. **Quality Gate** ✅
+   - Verifies all previous jobs succeeded
+   - Final approval checkpoint
+
+### Deployment Strategy
+
+**Railway Auto-Deploy**: Deployment is handled entirely by Railway, not GitHub Actions.
+
+- **Trigger**: Railway watches the `main` branch
+- **Process**: When commits land on `main`, Railway automatically builds and deploys
+- **Configuration**: Defined in `railway.toml`
+- **Build Command**: `npm run build` (via Nixpacks auto-detection)
+- **Start Command**: `npm run preview` (serves static files from `dist/`)
+
+**Why Railway handles deployment**:
+- Avoids circular dependency (can't deploy via CI/CD that blocks merging)
+- Railway provides built-in deployment monitoring and rollback
+- Simpler workflow: merge PR → Railway auto-deploys
+
+### Branch Protection Rules
+
+GitHub Ruleset: **"main branch protection"** (ID: 8492517)
+
+**Required Status Checks** (must pass before merge):
+- ✅ Lint and Type Check
+- ✅ Build and Test
+- ✅ Quality Gate
+
+**Additional Rules**:
+- Pull request required (no direct pushes to main)
+- Dismiss stale reviews on new pushes
+- Require conversation resolution before merging
+- Linear history required (no merge commits)
+- Prevent force pushes and branch deletion
+
+**Note**: Playwright/E2E tests are available for development via MCP but are NOT part of CI/CD pipeline by design.
 
 ---
 
