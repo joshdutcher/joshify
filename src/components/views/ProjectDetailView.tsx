@@ -166,7 +166,7 @@ const ProjectDetailView = ({
     return (
         <div className="relative text-white md:p-6">
             {/* Mobile: Full-screen modal with slide-up animation */}
-            <div className="md:hidden fixed inset-0 z-50 bg-black animate-slide-up">
+            <div className="md:hidden fixed inset-x-0 top-0 bottom-24 z-50 bg-black animate-slide-up">
                 {/* Canvas Background */}
                 <div className="absolute inset-0 z-0">
                     <ProjectCanvas
