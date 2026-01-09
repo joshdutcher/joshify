@@ -23,11 +23,11 @@ const usePlayer = () => {
         setSearchQuery
     );
 
-    // Set "Did Kansas Win?" as default "now playing" on load
+    // Set "Joshify" as default "now playing" on load
     useEffect(() => {
-        const didKansasWin = projects.find(p => p.id === 'did-kansas-win');
-        if (didKansasWin && !currentlyPlaying) {
-            setCurrentlyPlaying(didKansasWin);
+        const joshify = projects.find(p => p.id === 'joshify');
+        if (joshify && !currentlyPlaying) {
+            setCurrentlyPlaying(joshify);
             setIsPlaying(true);
         }
     }, [currentlyPlaying]);
