@@ -89,10 +89,11 @@ const SpotifyResume = () => {
 
     return (
         <div
-            className="flex flex-col h-screen bg-spotify-black text-spotify-primary overflow-hidden"
+            className="flex flex-col bg-spotify-black text-spotify-primary overflow-hidden"
             style={{
         '--left-sidebar-width': `${leftColumnWidth}px`,
-        '--right-sidebar-width': `${rightColumnWidth}px`
+        '--right-sidebar-width': `${rightColumnWidth}px`,
+        height: '100dvh'
       } as React.CSSProperties}
     >
             {/* Top Bar - Full Width */}
