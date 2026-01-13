@@ -28,7 +28,7 @@ const BottomPlayer = ({
     const canGoNext = currentPlaylist && currentTrackIndex < (currentPlaylist.projects?.length - 1);
 
     return (
-        <div className="h-24 bg-black flex items-center px-4 relative z-40">
+        <div className="h-24 bg-black flex items-center px-4 relative z-[60]">
             {currentlyPlaying ? (
                 <>
                     {/* Left: Now Playing Info */}
