@@ -1,6 +1,6 @@
 # TASKS.md - Development Tasks
 
-## Current Status (October 23, 2025)
+## Current Status (January 29, 2026)
 
 **Project State**: Production-Ready ✅
 - Zero TypeScript errors
@@ -8,7 +8,7 @@
 - Automated asset optimization
 - Responsive design complete
 - Canvas video system functional
-- Music infrastructure prepared (backend only, no UI changes)
+- Music & lyrics infrastructure complete (backend only, no UI changes)
 
 ---
 
@@ -24,6 +24,9 @@
 - [x] Fix mobile navigation - Add modal/slide-up UI for project detail pages with dismiss functionality
 - [x] Improve mobile navigation back behavior - Implemented browser history back navigation for mobile project details, returns to previous view (collection/playlist) naturally. Desktop keeps current inline view behavior.
 - [x] Fix mobile player positioning - Bottom player cut off below viewport on mobile devices (Fixed z-index stacking issue in PR #32)
+
+### UX Enhancements
+- [ ] Modal popup welcome window for first-time visitors
 
 ### Performance Optimizations
 - [ ] Implement lazy loading for canvas videos
@@ -47,15 +50,19 @@
 ## Future Features
 
 ### Music Integration System
-**Status**: Infrastructure prepared, no UI implementation yet
+**Status**: Infrastructure complete, no UI implementation yet
 
 **What's Done**:
-- ✅ Added `music` field to Project interface (nullable string)
+- ✅ Added `musicFile` field to Project interface (nullable string URL)
+- ✅ Added `projectStory` field for first-person project narratives
+- ✅ Added `sunoLyrics` field for AI-generated song lyrics (Suno input)
+- ✅ Added `displayLyrics` field for UI display (may differ from Suno input)
+- ✅ Added `sunoStyle` field for Suno AI music generation style prompts
 - ✅ Created `getMusicUrl()` helper function (mirrors `getCanvasUrl()` pattern)
-- ✅ Added `public/music/` directory with sample MP3 file
+- ✅ Added `public/music/` directory with MP3 files
 - ✅ Updated `.gitignore` to exclude `public/music/` from repository
 - ✅ Environment variable support (`VITE_USE_LOCAL_MUSIC`, `VITE_MUSIC_CDN_URL`)
-- ✅ All projects have `music` property assigned (using placeholder file)
+- ✅ All projects have music/lyrics fields populated
 - ✅ TypeScript types updated and validated (zero errors)
 - ✅ Build pipeline passes with music infrastructure
 
@@ -67,9 +74,9 @@
 **Future Implementation**:
 - Create audio player component (Spotify-style controls)
 - Integrate music playback with bottom player bar
+- Add lyrics display panel/modal
 - Add audio visualization or waveform display
 - Implement playlist/queue functionality
-- Create unique music tracks for each project
 - Upload music files to Cloudflare R2
 - Add music controls to mobile interface
 
