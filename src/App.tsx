@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import usePlayer from '@/hooks/usePlayer';
 import useColumnResize from '@/hooks/useColumnResize';
 import useDynamicBackground from '@/hooks/useDynamicBackground';
@@ -15,8 +15,22 @@ import ProjectDetailView from '@/components/views/ProjectDetailView';
 import SearchView from '@/components/views/SearchView';
 import CompanyView from '@/components/views/CompanyView';
 import DomainView from '@/components/views/DomainView';
+import WelcomeModal from '@/components/WelcomeModal';
 
 const SpotifyResume = () => {
+    // Welcome modal state - show on first visit
+    const [showWelcome, setShowWelcome] = useState(() => {
+        return !localStorage.getItem('joshify_welcome_seen');
+    });
+
+    const handleWelcomeClose = () => {
+        setShowWelcome(false);
+        localStorage.setItem('joshify_welcome_seen', 'true');
+    };
+
+    const handleShowWelcome = () => {
+        setShowWelcome(true);
+    };
     const {
         currentlyPlaying,
         isPlaying,
@@ -125,6 +139,7 @@ const SpotifyResume = () => {
                         onNavigateToPlaylist={navigateToPlaylist}
                         onNavigateToProject={navigateToProject}
                         onCloseSidebar={closeSidebar}
+                        onShowWelcome={handleShowWelcome}
                         width={leftColumnWidth}
                         mode={leftColumnMode}
                         style={isLeftResizing ? {} : { width: `${leftColumnWidth}px` }}
@@ -246,6 +261,12 @@ const SpotifyResume = () => {
                 currentPlaylist={currentPlaylist}
                 currentTrackIndex={currentTrackIndex}
       />
+
+            {/* Welcome Modal */}
+            <WelcomeModal
+                isOpen={showWelcome}
+                onClose={handleWelcomeClose}
+            />
         </div>
     );
 };
