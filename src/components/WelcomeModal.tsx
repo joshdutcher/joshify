@@ -57,7 +57,7 @@ const WelcomeModal = ({ isOpen, onClose }: WelcomeModalProps) => {
 
                         <p className="text-spotify-secondary mb-4">
                             This is my portfolio reimagined as a Spotify clone.
-                            Each project is presented as a &apos;track&apos;, complete with album art and
+                            Each project is presented as a &quot;track&quot;, complete with album art and
                             immersive canvas backgrounds.
                         </p>
 
