@@ -100,20 +100,24 @@ Each project follows a consistent track/album structure:
 interface Project {
   id: string;
   title: string;
-  artist: string;           // Role/Company
-  album: string;            // Project category
+  artist: string;             // Role/Company
+  album: AlbumCategory;       // Project category enum
   year: string;
-  duration: string;         // Project timeline
-  image: string;            // Album art path
-  canvas?: {
-    video?: string;         // 9:16 aspect ratio MP4
-    image?: string;         // Fallback image
-  };
-  description: string;      // Music critic style description
-  skills: string[];         // Technologies used
-  demoUrl?: string;         // Live project link
-  impact?: string;          // Project impact metric
-  albumArtBasedOn?: string; // Attribution for album art
+  duration: string;           // Project timeline
+  image: string;              // Album art path
+  impact: string | null;      // Project impact metric
+  description: string;        // Music critic style description
+  skills: Skill[];            // Technologies used (enum array)
+  demoUrl: string | null;     // Live project link
+  githubUrl: string | null;   // Repository link
+  musicFile: string | null;   // URL to AI-generated MP3
+  projectStory: string | null;  // First-person narrative for lyrics
+  sunoLyrics: string | null;  // AI-generated song lyrics
+  displayLyrics: string | null; // Lyrics for UI display
+  sunoStyle: string | null;   // Suno AI style prompt
+  canvas: string | null;      // 9:16 canvas video URL
+  canvasPoster: string | null;  // Poster image for video
+  albumArtBasedOn: string | null; // Attribution for album art
 }
 ```
 
@@ -165,7 +169,8 @@ Automated pipeline runs on every push to main:
 
 ## 📋 Project Status
 
-### ✅ Completed Features (2025)
+### ✅ Completed Features (2025-2026)
+- **Music & Lyrics Infrastructure**: Full data model for AI-generated music, lyrics, and style prompts (January 2026)
 - **TypeScript Conversion**: Complete type safety with 0 compilation errors (September 2025)
 - **Vite 5 Upgrade**: Modern build tooling with automated image optimization (October 2025)
 - **Mobile Canvas Backgrounds**: Full-screen immersive canvas on mobile detail pages (October 2025)
@@ -210,5 +215,5 @@ This project is intended for portfolio demonstration purposes. Spotify's design 
 ---
 
 **Developer**: Josh Dutcher
-**Last Updated**: October 15, 2025
+**Last Updated**: January 29, 2026
 **Status**: Production Ready

@@ -26,7 +26,51 @@ export const projects: readonly Project[] = [
         skills: [Skill.PYTHON, Skill.SNOWFLAKE, Skill.ETL_PIPELINES, Skill.DATA_TRANSFORMATION, Skill.CAMPAIGN_DATA_SYSTEMS],
         demoUrl: null,
         githubUrl: null,
-        music: null,
+        musicFile: getMusicUrl('election-data-pipeline.mp3'),
+        projectStory: 'It was September 2024, two months before the presidential election, and I was responsible for getting voter survey data to the DNC. Over 20 million records had to be delivered accurately and on time. The pressure was immense. If my code failed or the data was wrong, campaign personnel across the Democratic party would be working from bad information. By election day, 20.4 million records had moved through my pipelines. When the election results came in, I was devastated, but knew it would have been even worse without my work.',
+        sunoLyrics: `September clocks were ticking loud
+Two months out, no room for doubt
+Names and numbers, doors and calls
+Flowing through the wires and walls
+
+Twenty million moving parts
+Every knock a fragile start
+If it breaks, the phones go quiet
+Bad data turns the noise to static
+
+Count the rows
+Watch them go
+Overnight the numbers grow
+Check again
+Still in line
+Hundreds of thousands, every time
+
+Morning light, the logs run clean
+Pipelines hold, unseen machine
+Election day, the final sum
+Twenty point four, all accounted, done
+
+The answer came, the screen went dark
+The loss still hit, it left a mark
+But in the flow, I still can say
+It would have been worse
+If it failed that day
+
+Count the rows
+Watch them go
+Overnight the numbers grow
+Check again
+Still in line
+Hundreds of thousands, every time
+
+Count the rows
+Watch them go
+Overnight the numbers grow
+Check again
+Still in line
+Hundreds of thousands, every time`,
+        displayLyrics: null,
+        sunoStyle: null,
         canvas: getCanvasUrl('election-data-pipeline.mp4'),
         canvasPoster: getCanvasPosterUrl('election-data-pipeline.mp4'),
         albumArtBasedOn: 'Tubular Bells by Mike Oldfield'
@@ -44,7 +88,44 @@ export const projects: readonly Project[] = [
         skills: [Skill.API_DEVELOPMENT, Skill.PHP_LUMEN, Skill.PERFORMANCE_OPTIMIZATION],
         demoUrl: null,
         githubUrl: null,
-        music: null,
+        musicFile: getMusicUrl('mobile-api-rebuild.mp3'),
+        projectStory: 'The mobile app was painfully slow. Mechanics in the field would tap a button and wait... and wait... sometimes thirty seconds just to look up a product. The old system was a mess of spaghetti code nobody wanted to touch. I was asked simply to "fix it". I stripped it down to the studs and rebuilt everything with a simple, purpose-built API server. When we deployed, the same queries that took three seconds now took three tenths. A 1000% improvement. The mechanics could actually do their jobs now. Sometimes the best thing you can do is throw out the old and start fresh.',
+        sunoLyrics: `[Style: V1 is Deep/Heavy/Authoritative. V2 is Fast, complex, staccato flow.]
+
+[Intro]
+(Mechanical drill whirring, digital crash. Heavy industrial synth bass starts.)
+
+[Verse]
+[V1] Old code hanging like a ghost in the wires,
+[V2] Bloated architecture setting tech on fire!
+[V1] Mechanics in the bay, hitting "search" then they pray,
+[V2] Losing half a minute while the [Both] profit fades away!
+[V1] Thirty-second latency, a system out of breath,
+[V2] Legacy spaghetti, yeah, it's [Both] coding us to death!
+[V1] I told the man "Two weeks," and I saw his spirit sink,
+[V2] He's skeptical and desperate, [Both] standing on the brink!
+[V1] I stripped it to the studs, pulled the copper from the wall,
+[V2] Modern architecture making [Both] giants look small!
+
+[Chorus: Both, Overlapping]
+Burn the old house! Leave the ash on the floor!
+One thousand percent! Yeah, we coming for more!
+Stripped to the studs! Rebuild the machine!
+From thirty to three—keep the binary clean!
+[V1] Throw out the old!
+[V2] Start it fresh!
+[Both] Put the ghost in the metal and the spark in the flesh!
+
+[Bridge]
+[V1, Heavy] No more waiting on the payload, no more stalling on the line.
+[V2, Rapid-fire] Clean API, optimized, everything is fine!
+[V1] The mechanics do the job, yeah, the hammers start to swing,
+[V2] When the backend is a weapon, [Both] let the victory ring!
+
+[Outro]
+(Music cuts abruptly with a sharp digital glitch.)`,
+        displayLyrics: null,
+        sunoStyle: `High-energy underground hip-hop. Dual male tag-team vocalists with aggressive, interlocking chemistry. Vocalist 1 (The Heavy): Deep, authoritative, stomping rhythm, weighted flow slightly behind the beat for massive power. Vocalist 2 (The Jagged): High-pitched, overclocked speed, double-time triplets, breathless and sharp with crisp consonants. Production: Abrasive industrial futurism. Distorted analog synths, bit-crushed textures, and experimental glitches over boom-bap foundations with heavy electronic noise. Rhythm: Massive overdriven 808 kicks, sharp snappy snares, and hard-hitting syncopated breakbeats at 80-90 BPM. Atmosphere: Dystopian, defiant, raw, cinematic futuristic heist vibe. Darkly humorous and unapologetically bold.`,
         canvas: getCanvasUrl('mobile-api-rebuild.mp4'),
         canvasPoster: getCanvasPosterUrl('mobile-api-rebuild.mp4'),
         albumArtBasedOn: 'Run The Jewels 2 by Run The Jewels'
@@ -62,7 +143,26 @@ export const projects: readonly Project[] = [
         skills: [Skill.PYTHON, Skill.ETL_PIPELINES, Skill.API_DEVELOPMENT, Skill.HIGH_AVAILABILITY, Skill.DATA_TRANSFORMATION],
         demoUrl: null,
         githubUrl: null,
-        music: null,
+        musicFile: getMusicUrl('healthcare-etl.mp3'),
+        projectStory: 'Every fall, millions of Americans have a narrow window to sign up for Medicare. Miss it, and you might go without health coverage for a year. I spent three and a half years building and maintaining the data pipelines that powered Medicare.gov—the systems that processed every health insurance plan in the country so people could compare their options. During Open Enrollment, we\'d handle 80,000 requests per minute. The system couldn\'t go down. Not for a minute. Not when someone\'s grandmother was trying to find affordable prescriptions. In one seven-week stretch, 982,000 people successfully enrolled through our system. That\'s nearly a million people who got healthcare because our code worked.',
+        sunoLyrics: `This is for the wheelers and the health data dealers.
+
+Autumn in the borough, commence open enrollment
+Boot up online, with,, no post-ponement
+Data in controlment, commit every component
+Continuous deployment, stable at every moment
+
+Three years deep building the pipeline
+Serving health insurance, digital lifeline
+Eighty thousand hits a minute, we stay runnin
+Don't get it confused, the uptime is stunnin
+
+My peoples need health care, doctors, prescriptions
+I calculate costs within budget restrictions
+Nine hundred eighty two thousand enrolled
+Behind my data pipelines, infrastructure and code`,
+        displayLyrics: null,
+        sunoStyle: null,
         canvas: getCanvasUrl('healthcare-etl.mp4'),
         canvasPoster: getCanvasPosterUrl('healthcare-etl.mp4'),
         albumArtBasedOn: 'Ready to Die by The Notorious B.I.G.'
@@ -80,7 +180,41 @@ export const projects: readonly Project[] = [
         skills: [Skill.AWS_LAMBDA, Skill.PYTHON, Skill.SERVERLESS_DEVELOPMENT, Skill.DYNAMODB, Skill.SNS_SQS_MESSAGING],
         demoUrl: null,
         githubUrl: null,
-        music: null,
+        musicFile: getMusicUrl('democracy-engine.mp3'),
+        projectStory: 'Election data doesn\'t arrive in a steady stream—it comes in waves. A thousand records one hour, a hundred thousand the next. I built serverless systems that could scale automatically, spinning up resources when the flood came and scaling back down when it passed. Lambda functions that processed voter engagement data, DynamoDB tables that stored it, message queues that kept everything flowing smoothly. The infrastructure was invisible when it worked, which was the point. Nobody thinks about the pipes until the water stops flowing. My job was to make sure it never did.',
+        sunoLyrics: `Verse
+Data don't trickle, it crashes in waves
+Quiet for hours, then it's everything all at once
+I flip the switch when the pressure breaks
+Built it to bend, never built it to stop
+
+Pre-Chorus
+When the surge hits hard, I don't even blink
+Already scaled before you think
+
+Chorus
+I was built for the surge, built to stay alive
+When the numbers run wild, yeah, the system survives
+You don't see the work when it's running clean
+That's the power of the engine in between
+If the pipes stay quiet, flowing all day
+That's how you know I did my job okay
+
+Bridge
+Functions ignite, tables hold the truth
+Messages move like they've got nothing to prove
+No spotlight, no fame, just uptime divine
+If nothing breaks, then the work shines
+
+Final Chorus
+Built for the surge, built to never stall
+When the flood comes fast, I handle it all
+You won't think about it, and that's the sign
+Everything's moving right on time`,
+        displayLyrics: null,
+        sunoStyle: `Up-tempo, four-on-the-floor dance-pop built for arenas and Pride parades. Bright, glossy electro-synths with a slightly gritty edge, pounding kick, snapping claps, and a simple, chant-ready chord progression. The groove is relentless and uplifting, leaning on classic house rhythms filtered through modern pop maximalism. Melodies are bold and declarative, designed to be shouted by a crowd rather than crooned.
+
+Vocals are theatrical and fearless, delivered with a preacher-meets-club-MC attitude. Verses feel spoken-sung and confrontational; the chorus explodes into a huge, anthemic hook with layered harmonies and stacked vocals. The performance sells confidence, defiance, and radical self-acceptance. Lyrics read like a manifesto, blunt, repetitive, intentionally slogan-like. Overall vibe: unapologetic empowerment wrapped in glossy, high-energy dance music that prioritizes impact over subtlety.`,
         canvas: getCanvasUrl('democracy-engine.mp4'),
         canvasPoster: getCanvasPosterUrl('democracy-engine.mp4'),
         albumArtBasedOn: 'Born This Way by Lady Gaga'
@@ -98,7 +232,28 @@ export const projects: readonly Project[] = [
         skills: [Skill.API_DEVELOPMENT, Skill.HEALTHCARE, Skill.PRODUCTION_SUPPORT, Skill.PROCESS_AUTOMATION, Skill.CROSS_FUNCTIONAL_COLLABORATION],
         demoUrl: null,
         githubUrl: null,
-        music: null,
+        musicFile: getMusicUrl('healthcare-api-extensions.mp3'),
+        projectStory: `In government healthcare, APIs are the silent arteries of the system. My job wasn't just to maintain them, but to expand their reach and automate away the friction. I focused on the meticulous craft of 100% reliability—ensuring the infrastructure stayed invisible because it never failed. In this high-stakes environment, a steady pulse is the only acceptable metric.
+
+Beyond the code, I served as a translator. I stood between the engineering and product worlds, turning complex technical architecture into a language the stakeholders could move with. I wasn't just fixing bugs; I was building bridges across organizational divides to ensure that the "how" of the software always served the "why" of the care. It was high-precision work: keeping the machine running so smoothly that the world forgot it was there.`,
+        sunoLyrics: `(The track opens with a warm, walking upright bassline and a crisp, dry snare. A jazzy vibraphone melody loops softly. You hear the faint crackle of vinyl.)
+
+[Intro: The Abstract] Yeah... Back in the lab, you know? Check it out, check it out. We talkin' 'bout the pulse. The silent flow. The Maestro, push the levels. We in the house. Government health, digital wealth. Listen...
+
+[Verse 1: The Abstract] I'm like the phantom in the mainframe, the code architect Translating the data so the suits don't have to check the tech See, the API's the artery, the system's inner-vein I'm building bridges over water, washing out the strain. Between the product and the engine, I'm the dialectic link Keeping pixels in the pocket, never let the project sink. I make the complex simple, kid—I make the vision plain Like a jazz note in the middle of a summer rain. The "Why" is the mission, the "How" is the craft Navigating through the shadows, drawin' up the graph. Word is bond, we keep it smooth, never lookin' for the fame Just a steady pulse running through the government's frame.
+
+[Verse 2: The Five-Foot Specialist] Yo, it's the API Specialist, checking the technique My API is butter, man, your software is weak! I'm like a point guard, strictly 'bout the distribution 100 percent reliability—the only real solution. I automate the friction, kick the static to the curb Keeping infrastructure quiet, ya heard? Nah, you didn't, 'cause the machine is running clean I'm the MVP of servers, if you know what I mean. No glitches in the system, keep the rhythm on the one I'm like a center in the paint—your errors? Son, there's none! It's the high-stakes hero with the Python flavor Invisible labor, doin' everyone a favor. Peace.
+
+[Outro: The Abstract] Yeah. Steady pulse. Invisible, but it's there. Don't worry about the machine... we got the machine. We out.`,
+        displayLyrics: null,
+        sunoStyle: `90s East Coast conscious hip hop: dusty upright bass, brushed drums, and swung boom-bap rhythms. Minimalist loops feature late-night jazz, bebop, vibraphones, and muted horns with warm vinyl crackle. The groove is melodic and round—never aggressive, always locked.
+
+Conversational vocals; rappers trade verses with a laid-back, rhythmically precise flow inside the beat. Cadence favors internal rhyme, syncopation, and playful phrasing over volume. Tone is cool and intellectual, balancing wordplay, observations, and abstract imagery with humor and warmth. Vibe: friends passing the mic in a dim room.
+
+[Vocal Style Guide]
+A high-pitched, buoyant head-voice with an unbelievably buttery smooth, instrument-like flow that feels introspective and melodic, staying rhythmically relaxed behind the beat.
+
+The Five-Foot Specialist: A sharp, no-nonsense, and raspy delivery that attacks the rhythm with punchy, staccato precision and a mischievous, street-wise bravado.`,
         canvas: getCanvasUrl('healthcare-api-extensions.mp4'),
         canvasPoster: getCanvasPosterUrl('healthcare-api-extensions.mp4'),
         albumArtBasedOn: 'The Low End Theory by A Tribe Called Quest'
@@ -116,7 +271,23 @@ export const projects: readonly Project[] = [
         skills: [Skill.GO, Skill.ETL_PIPELINES, Skill.API_DEVELOPMENT, Skill.DATA_TRANSFORMATION, Skill.HIGH_AVAILABILITY, Skill.HEALTHCARE],
         demoUrl: null,
         githubUrl: null,
-        music: null,
+        musicFile: getMusicUrl('medigap-integration.mp3'),
+        projectStory: 'Medigap plans—the supplemental insurance that fills the gaps in Medicare—had never been on Medicare.gov before. I was tasked with adding them. The challenge was that every state had different plans with different names, and none of it was standardized. I built pipelines to ingest all that messy data, normalize it into a consistent format, and serve it through APIs that could handle millions of users. The hardest part was making sure that if anything went wrong with Medigap, it couldn\'t take down the core Medicare system. I built fault isolation so failures stayed contained. By the end, millions of Americans could compare supplemental insurance options they\'d never had easy access to before.',
+        sunoLyrics: `[Intro] [Heavy Minimoog bass "stomp" hook] [Lead: "Ow! Check the response times!"]
+
+[Verse 1] Fifty states of messy data, screaming on the line Different plans, different names, wasting all my time! I built the pipeline, baby, keep the traffic clean Serving millions on the hottest API you ever seen! (Overlapping Background Vocals, spoken: "SLAs? No problem.")
+
+[Chorus] We're closing the Gap! (Yeah!) Filling in the holes in the master plan. We're closing the Gap! (Get down!) Medicare's moving to a brand new jam!
+
+[Bridge] [Aggressive, "squelchy" Synth-Bass Solo] Millions in the queue, but the ride is smooth and sweet I'm a Wichita man with a digital beat! I'm serving up the choices, yeah I'm bringing the heat The cleanest integration that you're ever gonna meet!
+
+[Outro] From the messy files to the clean machine The smoothest integration that you ever seen! (Lead): "We opened up the door! Ow! Check it out!" [Big gated-reverb drum "Stomp" finish]`,
+        displayLyrics: null,
+        sunoStyle: `Mid-80s American funk with a slick, dance-floor focus. Medium-up tempo, locked-in but human drum groove with tight kick-snare interplay and crisp hi-hats. Bass is dominant and elastic, melodic and funky without showing off. Clean rhythm guitars play short, choppy sixteenth-note stabs and muted scratches. Synths are glossy and analog, brassy hits, rubbery leads, warm pads, used for hooks and accents. Horns punch the groove.
+
+Songs are hook-driven with simple verses, big repetitive choruses, and call-and-response breakdowns. Vocals feature a gritty, soulful male lead with swagger, half-sung, half-spoken phrasing, plus playful ad-libs and group chants. Lyrics are flirtatious, confident, and fun, focused on vibe over narrative. Polished, sweaty, body-moving funk.
+
+1980s Funk, Boogie, P-Funk, Heavy Synth Bass, Minimoog, Linndrum, Gated Reverb Snare, Bright Brass Stabs, Talkbox, Gritty Baritone Male Vocals, Percussive Phrasing, 110 BPM, Bombastic, Celebratory, Urban Rodeo`,
         canvas: getCanvasUrl('medigap-integration.mp4'),
         canvasPoster: getCanvasPosterUrl('medigap-integration.mp4'),
         albumArtBasedOn: 'Gap Band VI by The Gap Band'
@@ -134,7 +305,25 @@ export const projects: readonly Project[] = [
         skills: [Skill.API_OPTIMIZATION, Skill.COST_REDUCTION, Skill.TEAM_LEADERSHIP, Skill.PERFORMANCE_ENGINEERING],
         demoUrl: null,
         githubUrl: null,
-        music: null,
+        musicFile: getMusicUrl('api-engine-optimization.mp3'),
+        projectStory: `We were hemorrhaging money on data provider bills with no clear explanation. The system was blowing past its API limits, firing off wasteful requests around the clock. I dug into the code and the provider's documentation and found obvious inefficiencies and better ways to query the same data. I rewrote the schedule to pull data only during business hours when it actually changed, and added batching so one efficient request replaced hundreds of tiny ones. The result was a 95% drop in API calls and $18,000 saved every month. Same functionality, same accuracy, but lean instead of bloated. Sometimes the best optimization isn't what you add, it's what you stop doing.`,
+        sunoLyrics: `(Intro: Four bars of feedback, then a heavy, chugging down-stroke riff)
+
+(Verse 1) You’re bleeding out, you’re a digital drain Pumping the profit right down the lane! Twenty-four hours of mindless chatter What does it cost? It doesn't matter! A thousand requests like a swarm of fleas Your bank account’s down on its bloody knees!
+
+(Chorus) Stop the rot! Kill the bloat! Got the greedy bastards by the throat! Ninety-five percent of nothing at all Watch the digital empire fall! It’s vacant! It’s rubbish!
+
+(Verse 2) I saw the code, it was plastic and cheap A billion calls while the world’s asleep! I pulled the plug, I set the time To stop your wasteful, corporate crime! One big fist instead of a thousand bites I’m turning off your neon lights!
+
+(Outro) Eighteen grand! Every month! Saved from the bin! You’re pretty vacant... and I’m the one who’s in! NO FUTURE!
+
+(Sudden stop on a ringing, distorted chord)`,
+        displayLyrics: null,
+        sunoStyle: `Raw late-1970s British punk rock with aggressive, confrontational energy. Fast to mid-tempo song built on loud, simple power-chord guitar riffs with heavy distortion and minimal effects. Guitars are abrasive and relentlessly strummed. Bass is thick, driving, locked to the guitar. Drums are simple, pounding 4/4 beats with heavy snare and few fills.
+
+Production is loud, compressed, deliberately crude with little polish. Vocals are snarled and shouted with a strong British accent, often barked rather than sung. Lyrics are blunt, repetitive, provocative, focused on nihilism, anti-authority, and class resentment. Chant-like hooks, zero virtuosity, maximum attitude.
+
+1977 UK Punk, snotty nasal British male vocals, Cockney sneer. Thick wall-of-sound guitars, multi-layered power chords, Marshall distortion, heavy down-strokes. Thumping bass, punchy steady 4/4 drums, crisp dry snare. Raw 70s analog production, dry mix, aggressive, anti-establishment, loud.`,
         canvas: getCanvasUrl('api-engine-optimization.mp4'),
         canvasPoster: getCanvasPosterUrl('api-engine-optimization.mp4'),
         albumArtBasedOn: 'Nevermind the Bollocks, Here\'s the Sex Pistols by The Sex Pistols'
@@ -152,7 +341,11 @@ export const projects: readonly Project[] = [
         skills: [Skill.AI_ASSISTED_DEVELOPMENT, Skill.CLAUDE_CODE],
         demoUrl: null,
         githubUrl: null,
-        music: null,
+        musicFile: getMusicUrl('beer-fridge.mp3'),
+        projectStory: 'I collect Sam Adams limited edition bottles. Not to drink—to display in my basement beer fridge. The problem was keeping track of what I had. I\'d be at a store, see a bottle, and wonder: do I already own this one? So I decided to build an Android app. But here\'s the twist—I barely wrote any of the code myself. I used Claude, an AI assistant, to help me build it. I described what I wanted, reviewed what it wrote, and guided it when it went off track. The result is a polished app with camera integration, fuzzy search, and a Material Design interface that looks like Google made it. It\'s my experiment in a new way of building software.',
+        sunoLyrics: null,
+        displayLyrics: null,
+        sunoStyle: null,
         canvas: getCanvasUrl('beer-fridge.mp4'),
         canvasPoster: getCanvasPosterUrl('beer-fridge.mp4'),
         albumArtBasedOn: 'Dark Side of the Moon by Pink Floyd'
@@ -170,7 +363,11 @@ export const projects: readonly Project[] = [
         skills: [Skill.AI_ASSISTED_DEVELOPMENT, Skill.NODE_JS, Skill.EXPRESS, Skill.RESPONSIVE_DESIGN,],
         demoUrl: 'https://www.didkansaswin.com',
         githubUrl: 'https://github.com/joshdutcher/didkansaswin',
-        music: getMusicUrl('I\'m a Jayhawk.mp3'),
+        musicFile: getMusicUrl('I\'m a Jayhawk.mp3'),
+        projectStory: 'I\'m a Kansas Jayhawk basketball fan. During the season, the first thing I want to know after a game is simple: did we win? I don\'t need highlights or analysis—just yes or no. So I built a website that does exactly that. You go to didkansaswin.com and you get a big green YES or a big red NO. That\'s it. During live games, it shows the score and updates automatically. It was my first project built almost entirely with AI assistance, and I was amazed at how quickly it came together. Sometimes the best product is the one that does exactly one thing perfectly.',
+        sunoLyrics: null,
+        displayLyrics: null,
+        sunoStyle: null,
         canvas: getCanvasUrl('did-kansas-win.mp4'),
         canvasPoster: getCanvasPosterUrl('did-kansas-win.mp4'),
         albumArtBasedOn: 'Graduation by Kanye West'
@@ -188,7 +385,11 @@ export const projects: readonly Project[] = [
         skills: [Skill.GO, Skill.HTML_TEMPLATING, Skill.WEATHER_APIS, Skill.PURECSS],
         demoUrl: 'https://wichitaradar.com',
         githubUrl: 'https://github.com/joshdutcher/wichitaradar',
-        music: null,
+        musicFile: getMusicUrl('wichita-radar.mp3'),
+        projectStory: 'It started because my satellite dish kept going out during storms. I needed to check the weather radar, but the big weather sites were cluttered with ads and took forever to load. So I built my own. Just the radar images for Wichita, nothing else. Clean, fast, auto-refreshing. I put it online thinking maybe a few friends would use it. That was 2007. Now it\'s one of the top results when you search for Wichita weather radar. People in my hometown use it every day, especially during tornado season. It\'s not fancy, but it works, and it\'s mine.',
+        sunoLyrics: null,
+        displayLyrics: null,
+        sunoStyle: null,
         canvas: getCanvasUrl('wichitaradar.mp4'),
         canvasPoster: getCanvasPosterUrl('wichitaradar.mp4'),
         albumArtBasedOn: 'Discovery by Daft Punk'
@@ -206,7 +407,11 @@ export const projects: readonly Project[] = [
         skills: [Skill.PROJECT_MANAGEMENT, Skill.VENDOR_COORDINATION, Skill.TIMELINE_MANAGEMENT, Skill.PROCUREMENT, Skill.LAUNCH_STRATEGY],
         demoUrl: null,
         githubUrl: null,
-        music: null,
+        musicFile: getMusicUrl('law-firm-startup-operations.mp3'),
+        projectStory: 'Two attorneys wanted to start their own law firm. They knew the law, but they didn\'t know how to get a business off the ground. That\'s where I came in. For four months, I was the person coordinating everything: the photographer for headshots, the designer for the logo, the signage company for the building, the printer for business cards. I tracked deadlines in spreadsheets and made sure every vendor delivered on time. I sourced furniture, set up the office layout, and handled a hundred small decisions so the attorneys could focus on their clients. On opening day, everything was ready. The doors opened, the phones worked, and two lawyers could start their practice.',
+        sunoLyrics: null,
+        displayLyrics: null,
+        sunoStyle: null,
         canvas: getCanvasUrl('law-firm-startup-operations.mp4'),
         canvasPoster: getCanvasPosterUrl('law-firm-startup-operations.mp4'),
         albumArtBasedOn: 'BRAT by Charli xcx'
@@ -224,7 +429,11 @@ export const projects: readonly Project[] = [
         skills: [Skill.GOOGLE_WORKSPACE_ADMINISTRATION, Skill.NETWORK_CONFIGURATION, Skill.VOIP_SYSTEMS, Skill.WEB_DEVELOPMENT, Skill.SEO_STRATEGY, Skill.HARDWARE_SETUP],
         demoUrl: null,
         githubUrl: null,
-        music: null,
+        musicFile: getMusicUrl('startup-technology-infrastructure.mp3'),
+        projectStory: 'A new law firm needs more technology than you\'d think. Email accounts, a website, phone systems, Wi-Fi, printers, computers—all of it had to be set up from nothing. I registered the domain, built the website, and configured Google Workspace so everyone had professional email addresses. I installed mesh routers so there were no dead spots, set up VoIP phones so clients could call, and made sure the printer worked from every device. I wrote documentation so the staff would know how to use everything. By the end, the firm had modern, reliable infrastructure that just worked. The attorneys could practice law instead of troubleshooting tech problems.',
+        sunoLyrics: null,
+        displayLyrics: null,
+        sunoStyle: null,
         canvas: getCanvasUrl('startup-technology-infrastructure.mp4'),
         canvasPoster: getCanvasPosterUrl('startup-technology-infrastructure.mp4'),
         albumArtBasedOn: 'Computer World by Kraftwerk'
@@ -242,7 +451,11 @@ export const projects: readonly Project[] = [
         skills: [Skill.CLAUDE_CODE, Skill.MCP_SERVER_INTEGRATION, Skill.AI_PROMPT_ENGINEERING, Skill.COMPONENT_ARCHITECTURE, Skill.AI_ASSISTED_DEVELOPMENT],
         demoUrl: null,
         githubUrl: 'https://github.com/joshdutcher/joshify',
-        music: null,
+        musicFile: getMusicUrl('joshify.mp3'),
+        projectStory: 'I wanted my portfolio to stand out. The job market is brutal, and everyone has the same boring resume website. So I thought: what if my resume looked like Spotify? Projects as tracks, employers as playlists, skills as genres. I used AI to build almost all of it—Claude wrote the React code while I directed the architecture and made design decisions. I generated album art with AI image tools and canvas videos with AI video generators. The result is this website you\'re looking at right now. It\'s playful, it\'s different, and it shows what I can build when I embrace new tools. Plus, it actually plays music now.',
+        sunoLyrics: null,
+        displayLyrics: null,
+        sunoStyle: null,
         canvas: getCanvasUrl('joshify.mp4'),
         canvasPoster: getCanvasPosterUrl('joshify.mp4'),
         albumArtBasedOn: 'Nothing, just a direct rip-off of Spotify branding 😂'
