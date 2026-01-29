@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { X, ChevronLeft, ChevronRight, Info } from 'lucide-react';
 import { playlists, projects } from '../data/projects';
 import type { Playlist } from '../types';
 
@@ -10,6 +10,7 @@ interface SidebarProps {
   onNavigateToPlaylist: (_playlist: Playlist) => void;
   onNavigateToProject: (_project: any) => void;
   onCloseSidebar: () => void;
+  onShowWelcome: () => void;
   width?: number;
   mode?: string;
   style?: Record<string, any>;
@@ -24,6 +25,7 @@ const Sidebar = ({
     onNavigateToPlaylist,
     onNavigateToProject,
     onCloseSidebar,
+    onShowWelcome,
     width: _width = 256,
     mode = 'normal',
     style = {}
@@ -98,7 +100,7 @@ const Sidebar = ({
     return (
         <div 
             data-sidebar
-            className={`fixed md:relative inset-y-0 left-0 z-50 bg-spotify-dark ${isIconMode ? 'pl-1 pr-0 py-2 md:pl-2 md:pr-0 md:py-3' : 'pl-1 pr-0 py-2 md:pl-1.5 md:pr-0 md:py-3'} flex flex-col transform transition-all duration-300 ease-in-out ${
+            className={`fixed md:relative inset-y-0 left-0 z-50 bg-spotify-dark ${isIconMode ? 'pl-1 pr-0 py-2 md:pl-2 md:pr-0 md:py-3' : 'pl-1 pr-0 py-2 md:pl-1.5 md:pr-0 md:py-3'} pb-24 md:pb-3 flex flex-col transform transition-all duration-300 ease-in-out ${
       sidebarOpen ? 'translate-x-0' : '-translate-x-full'
     } md:translate-x-0 md:rounded-t-lg md:h-full`}
             style={{
@@ -257,6 +259,22 @@ const Sidebar = ({
           )
         )}
                 </div>
+            </div>
+
+            {/* About Joshify Link */}
+            <div className={`mt-2 pt-2 border-t border-spotify-hover ${isIconMode ? 'px-1' : 'px-2'}`}>
+                <button
+                    onClick={onShowWelcome}
+                    className={`flex items-center w-full text-left rounded-md text-spotify-secondary hover:text-spotify-primary hover:bg-spotify-hover transition-colors ${
+                        isIconMode ? 'justify-center py-3 px-1' : 'space-x-3 py-2 px-2'
+                    }`}
+                    title={isIconMode ? 'About Joshify' : undefined}
+                >
+                    <Info className="w-5 h-5 flex-shrink-0" />
+                    {!isIconMode && (
+                        <span className="text-sm font-medium">About Joshify</span>
+                    )}
+                </button>
             </div>
         </div>
     );
