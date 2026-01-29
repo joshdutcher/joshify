@@ -110,7 +110,11 @@ export interface Project {
   readonly skills: readonly Skill[];
   readonly demoUrl: string | null;
   readonly githubUrl: string | null;
-  readonly music: string | null;
+  readonly musicFile: string | null; // URL to the song MP3 file
+  readonly projectStory: string | null; // First-person story used to generate song lyrics
+  readonly sunoLyrics: string | null; // Song lyrics with newlines preserved (use white-space: pre-line to render)
+  readonly displayLyrics: string | null; // Lyrics to display in the UI (may differ from sunoLyrics)
+  readonly sunoStyle: string | null; // Style prompt for Suno AI music generation
   readonly canvas: string | null;
   readonly canvasPoster: string | null; // Poster image for canvas video
   readonly albumArtBasedOn: string | null;
