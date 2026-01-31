@@ -1,5 +1,6 @@
 import { ExternalLink, Github, Calendar, Users, Mic2 } from 'lucide-react';
 import ProjectCanvas from './ProjectCanvas';
+import useDynamicBackground from '../hooks/useDynamicBackground';
 import type { Project } from '../types';
 
 interface NowPlayingPanelProps {
@@ -31,11 +32,17 @@ const NowPlayingPanel = ({
     lyrics = null,
     onViewLyrics
 }: NowPlayingPanelProps) => {
+    // Get dynamic background color from album art
+    const { backgroundStyle } = useDynamicBackground(currentlyPlaying?.image || null);
+
     if (!currentlyPlaying) {
         return null; // Hide panel when no project is playing
     }
 
-    const lyricsPreview = getLyricsPreview(lyrics);
+    const lyricsPreview = getLyricsPreview(lyrics, 6);
+
+    // Extract primary color for solid lyrics background
+    const primaryColor = backgroundStyle['--primary-color'] || 'rgb(83, 83, 83)';
 
     return (
         <div
@@ -89,22 +96,27 @@ const NowPlayingPanel = ({
 
                 {/* Lyrics Preview Section */}
                 {hasLyrics && lyricsPreview && (
-                    <div className="bg-white/5 rounded-lg p-4">
-                        <div className="flex items-center space-x-2 mb-2">
-                            <Mic2 className="w-4 h-4 text-spotify-green" />
-                            <h3 className="text-spotify-primary font-semibold text-sm">Lyrics</h3>
+                    <div
+                        className="rounded-lg p-4"
+                        style={{ backgroundColor: primaryColor }}
+                    >
+                        {/* Header: Lyrics label + mic icon */}
+                        <div className="flex items-center justify-between mb-3">
+                            <span className="text-white font-semibold text-sm">Lyrics</span>
+                            {onViewLyrics && (
+                                <button
+                                    onClick={onViewLyrics}
+                                    className="p-1.5 rounded-full bg-black/30 hover:bg-black/40 transition-colors"
+                                    aria-label="View full lyrics"
+                                >
+                                    <Mic2 className="w-4 h-4 text-white" />
+                                </button>
+                            )}
                         </div>
-                        <p className="text-spotify-secondary text-xs leading-relaxed whitespace-pre-line line-clamp-3">
+                        {/* Lyrics text */}
+                        <p className="text-white text-base font-bold leading-relaxed whitespace-pre-line line-clamp-6">
                             {lyricsPreview}
                         </p>
-                        {onViewLyrics && (
-                            <button
-                                onClick={onViewLyrics}
-                                className="mt-2 text-spotify-green text-xs font-semibold hover:underline"
-                            >
-                                View Full Lyrics
-                            </button>
-                        )}
                     </div>
                 )}
 

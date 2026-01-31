@@ -1,7 +1,8 @@
-import { ChevronDown, Play, Pause, SkipBack, SkipForward } from 'lucide-react';
+import { ChevronDown, Play, Pause, SkipBack, SkipForward, Maximize2 } from 'lucide-react';
 import ProjectImage from './ProjectImage';
 import ProjectCanvas from './ProjectCanvas';
 import ProgressBar from './ProgressBar';
+import useDynamicBackground from '../hooks/useDynamicBackground';
 import type { Project } from '../types';
 
 interface MobilePlayerViewProps {
@@ -35,7 +36,13 @@ const MobilePlayerView = ({
     canGoNext,
     lyrics
 }: MobilePlayerViewProps) => {
+    // Get dynamic background color from album art
+    const { backgroundStyle } = useDynamicBackground(currentlyPlaying?.image || null);
+
     if (!isOpen || !currentlyPlaying) return null;
+
+    // Extract primary color for solid lyrics background
+    const primaryColor = backgroundStyle['--primary-color'] || 'rgb(83, 83, 83)';
 
     return (
         <div className="fixed inset-0 z-[70] md:hidden">
@@ -143,10 +150,23 @@ const MobilePlayerView = ({
 
                     {/* Lyrics Section */}
                     {lyrics && (
-                        <div className="mt-8 bg-white/10 rounded-lg p-4">
-                            <h3 className="text-white font-semibold mb-4 text-center">Lyrics</h3>
+                        <div
+                            className="mt-8 rounded-lg p-5"
+                            style={{ backgroundColor: primaryColor }}
+                        >
+                            {/* Header: Lyrics label + expand icon */}
+                            <div className="flex items-center justify-between mb-4">
+                                <span className="text-white font-semibold text-sm">Lyrics</span>
+                                <button
+                                    className="w-8 h-8 rounded-full bg-black/30 flex items-center justify-center"
+                                    aria-label="Expand lyrics"
+                                >
+                                    <Maximize2 className="w-4 h-4 text-white" />
+                                </button>
+                            </div>
+                            {/* Lyrics text */}
                             <div
-                                className="text-white/80 text-sm leading-relaxed whitespace-pre-line max-h-64 overflow-y-auto spotify-scrollbar"
+                                className="text-white text-xl font-bold leading-relaxed whitespace-pre-line max-h-64 overflow-y-auto spotify-scrollbar"
                             >
                                 {lyrics}
                             </div>

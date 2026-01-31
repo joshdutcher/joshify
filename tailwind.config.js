@@ -38,8 +38,16 @@ export default {
           '100%': { transform: 'translateY(0)' },
         },
         'pulse-subtle': {
-          '0%, 100%': { opacity: '1' },
-          '50%': { opacity: '0.6' },
+          '0%, 100%': {
+            opacity: '1',
+            transform: 'scale(1)',
+            filter: 'drop-shadow(0 0 0 transparent)'
+          },
+          '50%': {
+            opacity: '0.7',
+            transform: 'scale(1.15)',
+            filter: 'drop-shadow(0 0 8px rgb(29, 185, 84))'
+          },
         },
       },
       animation: {

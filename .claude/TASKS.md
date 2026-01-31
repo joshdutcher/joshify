@@ -35,6 +35,7 @@
 - [ ] Test all features thoroughly across devices
 - [ ] Handle projects without musicFile gracefully (some projects don't have audio yet)
 - [ ] Merge feature branch to main after testing
+- [ ] Implement expand button functionality in mobile lyrics view (full-screen lyrics)
 
 **Known Issues**:
 - Not all projects have audio files yet (e.g., joshify.mp3 doesn't exist)
