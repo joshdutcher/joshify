@@ -16,34 +16,32 @@ export const wichitaRadar: RawProject = {
     musicFile: 'wichita-radar.mp3',
     projectStory: 'It started because my satellite dish kept going out during storms. I needed to check the weather radar, but the big weather sites were cluttered with ads and took forever to load. So I built my own. Just the radar images for Wichita, nothing else. Clean, fast, auto-refreshing. I put it online thinking maybe a few friends would use it. That was 2007. Now it\'s one of the top results when you search for Wichita weather radar. People in my hometown use it every day, especially during tornado season. It\'s not fancy, but it works, and it\'s mine.',
     sunoLyrics: `[Intro]
-[Filtered disco loop with heavy sidechain pumping]
+[Short filtered disco loop, slowly opening with a low-pass filter sweep]
 
 [Verse]
-Blue maps, quiet lines.
-Waiting for the sky to shine.
-Digital air, static space.
-Scanning for a storm to trace.
+High res map, data streams
+Looking for the inflow of my dreams
+Dry line comes, CAPE is high
+Watch the storm blow up the sky
 
 [Bridge]
-Pressure falling, signals high.
-Lightning moving through the sky.
+Hook echo on the screen.
+Rainfall lines of red and green.
 
 [Chorus]
-Watch the storm.
-Feel the glow.
-Watch the storm.
-Feel the glow.
+Track the core.
+Watch it roar.
+Track the core.
+Watch it roar.
 
-[Talkbox Solo]
+[Guitar Solo, very short]
+[High-energy funk guitar with heavy phaser and wah-wah]
 
 [Chorus]
-Watch the storm.
-Feel the glow.
-Watch the storm.
-Feel the glow.
-
-[Outro]
-[Filter sweep down, muffled drums, fade out]`,
+Track the core.
+Watch it roar.
+Track the core.
+Watch it roar.`,
     displayLyrics: null,
     sunoStyle: null,
     canvas: 'wichitaradar.mp4',

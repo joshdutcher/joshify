@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { ChevronDown, Play, Pause, SkipBack, SkipForward, Maximize2 } from 'lucide-react';
 import ProjectImage from './ProjectImage';
 import ProjectCanvas from './ProjectCanvas';
@@ -36,6 +37,8 @@ const MobilePlayerView = ({
     canGoNext,
     lyrics
 }: MobilePlayerViewProps) => {
+    const [lyricsExpanded, setLyricsExpanded] = useState(false);
+
     // Get dynamic background color from album art
     const { backgroundStyle } = useDynamicBackground(currentlyPlaying?.image || null);
 
@@ -43,6 +46,80 @@ const MobilePlayerView = ({
 
     // Extract primary color for solid lyrics background
     const primaryColor = backgroundStyle['--primary-color'] || 'rgb(83, 83, 83)';
+
+    // Expanded Lyrics View (full-screen takeover)
+    if (lyricsExpanded && lyrics) {
+        return (
+            <div
+                className="fixed inset-0 z-[80] md:hidden flex flex-col"
+                style={{ backgroundColor: primaryColor }}
+            >
+                {/* Header */}
+                <div className="flex items-center px-4 pt-4 pb-2">
+                    <button
+                        onClick={() => setLyricsExpanded(false)}
+                        className="p-2 -ml-2 hover:bg-black/10 rounded-full transition-colors"
+                        aria-label="Close expanded lyrics"
+                    >
+                        <ChevronDown className="w-7 h-7 text-white" />
+                    </button>
+                    <div className="flex-1 text-center pr-9">
+                        <h2 className="text-white font-bold text-base truncate">
+                            {currentlyPlaying.title}
+                        </h2>
+                        <p className="text-white/80 text-sm truncate">
+                            {currentlyPlaying.artist}
+                        </p>
+                    </div>
+                </div>
+
+                {/* Lyrics - scrollable with fade effect */}
+                <div className="flex-1 relative overflow-hidden">
+                    <div className="absolute inset-0 overflow-y-auto px-6 pb-16 spotify-scrollbar">
+                        <div className="text-white text-2xl font-bold leading-loose whitespace-pre-line">
+                            {lyrics}
+                        </div>
+                    </div>
+                    {/* Bottom fade gradient */}
+                    <div
+                        className="absolute bottom-0 left-0 right-0 h-24 pointer-events-none"
+                        style={{
+                            background: `linear-gradient(to top, ${primaryColor}, transparent)`
+                        }}
+                    />
+                </div>
+
+                {/* Bottom Controls */}
+                <div className="px-6 pb-8 pt-2">
+                    {/* Progress Bar */}
+                    <div className="mb-6">
+                        <ProgressBar
+                            currentTime={currentTime}
+                            duration={duration}
+                            onSeek={onSeek}
+                            variant="full"
+                            showTimes={true}
+                        />
+                    </div>
+
+                    {/* Play Button */}
+                    <div className="flex justify-center">
+                        <button
+                            onClick={onTogglePlay}
+                            className="w-16 h-16 bg-white rounded-full flex items-center justify-center hover:scale-105 transition-transform shadow-lg"
+                            aria-label={isPlaying ? 'Pause' : 'Play'}
+                        >
+                            {isPlaying ? (
+                                <Pause className="w-8 h-8 text-black" fill="currentColor" />
+                            ) : (
+                                <Play className="w-8 h-8 text-black ml-1" fill="currentColor" />
+                            )}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="fixed inset-0 z-[70] md:hidden">
@@ -158,7 +235,8 @@ const MobilePlayerView = ({
                             <div className="flex items-center justify-between mb-4">
                                 <span className="text-white font-semibold text-sm">Lyrics</span>
                                 <button
-                                    className="w-8 h-8 rounded-full bg-black/30 flex items-center justify-center"
+                                    onClick={() => setLyricsExpanded(true)}
+                                    className="w-8 h-8 rounded-full bg-black/30 flex items-center justify-center hover:bg-black/40 transition-colors"
                                     aria-label="Expand lyrics"
                                 >
                                     <Maximize2 className="w-4 h-4 text-white" />

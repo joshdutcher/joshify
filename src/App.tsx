@@ -336,7 +336,8 @@ const SpotifyResume = () => {
                         style={isRightResizing ? {} : { width: `${rightColumnWidth}px` }}
                         hasLyrics={hasLyrics}
                         lyrics={currentLyrics}
-                        onViewLyrics={toggleLyrics}
+                        isLyricsOpen={isLyricsOpen}
+                        onToggleLyrics={toggleLyrics}
                     />
                 </div>
             </div>
