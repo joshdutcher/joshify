@@ -1,6 +1,6 @@
 # TASKS.md - Development Tasks
 
-## Current Status (January 29, 2026)
+## Current Status (January 31, 2026)
 
 **Project State**: Production-Ready ✅
 - Zero TypeScript errors
@@ -26,7 +26,7 @@
 - [x] Fix mobile player positioning - Bottom player cut off below viewport on mobile devices (Fixed z-index stacking issue in PR #32)
 
 ### UX Enhancements
-- [ ] Modal popup welcome window for first-time visitors
+- [x] Modal popup welcome window for first-time visitors (PR #35, #36)
 
 ### Performance Optimizations
 - [ ] Implement lazy loading for canvas videos
