@@ -8,11 +8,39 @@
 - Automated asset optimization
 - Responsive design complete
 - Canvas video system functional
-- Music & lyrics infrastructure complete (backend only, no UI changes)
+- **Audio player implementation in progress** (feature/audio-player branch)
 
 ---
 
 ## Active Tasks
+
+### Audio Player Implementation (In Progress - feature/audio-player branch)
+
+**Completed**:
+- [x] Remove heart icons site-wide
+- [x] Audio engine in usePlayer.ts (currentTime, duration, seek, volume, event handlers)
+- [x] Audio element in App.tsx with play/pause control
+- [x] ProgressBar component with click-to-seek and drag-to-seek
+- [x] Mobile player bar redesign (thumbnail | title | play button, thin progress bar)
+- [x] MobilePlayerView component (slide-up modal with lyrics)
+- [x] Desktop player updates (real progress bar, actual audio times, volume slider, mic icon)
+- [x] LyricsView component (desktop center column takeover with gradient background)
+- [x] Lyrics discoverability (badge on cards, pulsing mic, preview in NowPlayingPanel, View Lyrics link)
+- [x] Mic icon turns green when lyrics are showing
+- [x] Fixed double-path bug in audio URL generation
+- [x] Fixed volume slider to support smooth dragging
+- [x] Fixed first-play race condition (audio effects consolidated to prevent play() before src is set)
+
+**Remaining**:
+- [ ] Test all features thoroughly across devices
+- [ ] Handle projects without musicFile gracefully (some projects don't have audio yet)
+- [ ] Merge feature branch to main after testing
+
+**Known Issues**:
+- Not all projects have audio files yet (e.g., joshify.mp3 doesn't exist)
+- Projects without audio will show 0:00 duration
+
+---
 
 ### CI/CD Configuration (October 24, 2025)
 - [x] Investigate PR #25 merge blocker - Identified missing E2E test requirement
@@ -20,7 +48,7 @@
 - [x] Remove circular deployment jobs from GitHub Actions workflow
 - [x] Update CI/CD documentation to reflect Railway auto-deploy strategy
 
-### Mobile UX Fixes (Priority)
+### Mobile UX Fixes (Completed)
 - [x] Fix mobile navigation - Add modal/slide-up UI for project detail pages with dismiss functionality
 - [x] Improve mobile navigation back behavior - Implemented browser history back navigation for mobile project details, returns to previous view (collection/playlist) naturally. Desktop keeps current inline view behavior.
 - [x] Fix mobile player positioning - Bottom player cut off below viewport on mobile devices (Fixed z-index stacking issue in PR #32)
@@ -39,18 +67,28 @@
 - [ ] Update existing project descriptions
 - [ ] Refresh album art as needed
 - [ ] Create new canvas videos for projects
+- [ ] Add missing audio files (joshify.mp3, others)
 
 ### Technical Debt
 - Monitor ESLint warnings (currently <50, target <10)
 - Review and update dependencies quarterly
 - Audit bundle size and optimize if needed
 
+### Data Architecture
+- [ ] **Split projects.ts into separate files** - Each project in its own file under `src/data/projects/`, with `projects.ts` aggregating/exporting. Files export raw data only (no helper calls), `projects.ts` applies `getMusicUrl()`, `getCanvasUrl()`, etc. File is getting long and hard to edit individual projects.
+
+### Project Management
+- [ ] **Deactivate Beer Fridge project** - Add `active: boolean` field to Project type. Set Beer Fridge to `active: false`. Modify code to only show projects where `active !== false` (default true for backwards compatibility). Keep all data intact.
+
+### Search & Filter Enhancements
+- [ ] **Improve skills UI and search filtering** - Better visual display of skills, ability to filter search results by skill. Details TBD.
+
 ---
 
-## Future Features
+## Completed Features
 
-### Music Integration System
-**Status**: Infrastructure complete, no UI implementation yet
+### Music Integration System (January 2026)
+**Status**: UI Implementation Complete ✅
 
 **What's Done**:
 - ✅ Added `musicFile` field to Project interface (nullable string URL)
@@ -59,36 +97,34 @@
 - ✅ Added `displayLyrics` field for UI display (may differ from Suno input)
 - ✅ Added `sunoStyle` field for Suno AI music generation style prompts
 - ✅ Created `getMusicUrl()` helper function (mirrors `getCanvasUrl()` pattern)
-- ✅ Added `public/music/` directory with MP3 files
-- ✅ Updated `.gitignore` to exclude `public/music/` from repository
-- ✅ Environment variable support (`VITE_USE_LOCAL_MUSIC`, `VITE_MUSIC_CDN_URL`)
-- ✅ All projects have music/lyrics fields populated
-- ✅ TypeScript types updated and validated (zero errors)
-- ✅ Build pipeline passes with music infrastructure
+- ✅ Added `public/assets/music/` directory with MP3 files
+- ✅ Environment variable support (`VITE_USE_LOCAL_ASSETS`, `VITE_ASSET_CDN_BASE_URL`)
+- ✅ Audio player UI with play/pause, seeking, progress bar
+- ✅ Mobile full-screen player with lyrics
+- ✅ Desktop lyrics view with gradient background
+- ✅ Volume control with smooth dragging
+- ✅ Auto-advance to next track on song end
+- ✅ Lyrics discoverability features
 
 **Architecture**:
-- Development: Serves music from `public/music/` (gitignored)
-- Production: Serves music from Cloudflare R2 CDN (`https://cdn.joshify.dev/`)
+- Development: Serves music from `public/assets/music/` (gitignored)
+- Production: Serves music from Cloudflare R2 CDN (`https://cdn.joshify.dev/assets/music/`)
 - Mirrors canvas video delivery pattern exactly
 
-**Future Implementation**:
-- Create audio player component (Spotify-style controls)
-- Integrate music playback with bottom player bar
-- Add lyrics display panel/modal
-- Add audio visualization or waveform display
-- Implement playlist/queue functionality
-- Upload music files to Cloudflare R2
-- Add music controls to mobile interface
+**New Components**:
+- `src/components/ProgressBar.tsx` - Reusable progress bar with seek
+- `src/components/MobilePlayerView.tsx` - Full mobile player with lyrics
+- `src/components/LyricsView.tsx` - Desktop lyrics overlay
 
 ---
 
 ## Maintenance Notes
 
 ### When Adding New Projects
-1. Create album art PNG in `public/album-art/`
+1. Create album art PNG in `public/assets/images/album-art/`
 2. (Optional) Create canvas video MP4, run optimization scripts
 3. (Optional) Generate poster image with `generate-poster-frames.sh`
-4. (Optional) Create music track MP3 for `public/music/`
+4. (Optional) Create music track MP3 for `public/assets/music/`
 5. Add project data to `src/data/projects.ts`
 6. Upload canvas/music assets to Cloudflare R2
 7. Run `npm run ci` to verify build

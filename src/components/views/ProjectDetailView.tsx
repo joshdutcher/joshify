@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Play, Pause, Heart, ExternalLink, Github, ChevronDown } from 'lucide-react';
+import { Play, Pause, ExternalLink, Github, ChevronDown } from 'lucide-react';
 import ProjectImage from '../ProjectImage';
 import AlbumArtModal from '../AlbumArtModal';
 import ProjectCanvas from '../ProjectCanvas';
@@ -66,7 +66,6 @@ const MobileProjectContent = ({
                     <Play className="w-6 h-6 text-black ml-0.5" fill="currentColor" />
                 }
             </button>
-            <Heart className="w-8 h-8 text-gray-400 hover:text-white cursor-pointer" />
             {project.demoUrl && (
                 <a
                     href={project.demoUrl}
@@ -240,7 +239,6 @@ const ProjectDetailView = ({
                             <Play className="w-5 h-5 md:w-6 md:h-6 text-black ml-0.5" fill="currentColor" />
                         }
                     </button>
-                    <Heart className="w-6 h-6 md:w-8 md:h-8 text-gray-400 hover:text-white cursor-pointer" />
                     {project.demoUrl && (
                         <a
                             href={project.demoUrl}

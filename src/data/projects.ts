@@ -124,7 +124,31 @@ From thirty to three—keep the binary clean!
 
 [Outro]
 (Music cuts abruptly with a sharp digital glitch.)`,
-        displayLyrics: null,
+        displayLyrics: `Old code hanging like a ghost in the wires
+Bloated architecture setting tech on fire
+Mechanics in the bay, hitting "search" then they pray
+Losing half a minute while the profit fades away
+
+Thirty-second latency, a system out of breath
+Legacy spaghetti, yeah, it's coding us to death
+I told the man "Two weeks," and I saw his spirit sink
+He's skeptical and desperate, standing on the brink
+
+I stripped it to the studs, pulled the copper from the wall
+Modern architecture making giants look small
+
+Burn the old house Leave the ash on the floor
+One thousand percent Yeah, we coming for more
+Stripped to the studs Rebuild the machine
+From thirty to three—keep the binary clean
+Throw out the old
+Start it fresh
+Put the ghost in the metal and the spark in the flesh
+
+No more waiting on the payload, no more stalling on the line
+Clean API, optimized, everything is fine
+The mechanics do the job, yeah, the hammers start to swing
+When the backend is a weapon, let the victory ring`,
         sunoStyle: `High-energy underground hip-hop. Dual male tag-team vocalists with aggressive, interlocking chemistry. Vocalist 1 (The Heavy): Deep, authoritative, stomping rhythm, weighted flow slightly behind the beat for massive power. Vocalist 2 (The Jagged): High-pitched, overclocked speed, double-time triplets, breathless and sharp with crisp consonants. Production: Abrasive industrial futurism. Distorted analog synths, bit-crushed textures, and experimental glitches over boom-bap foundations with heavy electronic noise. Rhythm: Massive overdriven 808 kicks, sharp snappy snares, and hard-hitting syncopated breakbeats at 80-90 BPM. Atmosphere: Dystopian, defiant, raw, cinematic futuristic heist vibe. Darkly humorous and unapologetically bold.`,
         canvas: getCanvasUrl('mobile-api-rebuild.mp4'),
         canvasPoster: getCanvasPosterUrl('mobile-api-rebuild.mp4'),
@@ -211,7 +235,31 @@ Built for the surge, built to never stall
 When the flood comes fast, I handle it all
 You won't think about it, and that's the sign
 Everything's moving right on time`,
-        displayLyrics: null,
+        displayLyrics: `Data don't trickle, it crashes in waves
+Quiet for hours, then it's everything all at once
+I flip the switch when the pressure breaks
+Built it to bend, never built it to stop
+
+When the surge hits hard, I don't even blink
+Already scaled before you think
+
+I was built for the surge, built to stay alive
+When the numbers run wild, yeah, the system survives
+You don't see the work when it's running clean
+That's the power of the engine in between
+
+If the pipes stay quiet, flowing all day
+That's how you know I did my job okay
+
+Functions ignite, tables hold the truth
+Messages move like they've got nothing to prove
+No spotlight, no fame, just uptime divine
+If nothing breaks, then the work shines
+
+Built for the surge, built to never stall
+When the flood comes fast, I handle it all
+You won't think about it, and that's the sign
+Everything's moving right on time`,
         sunoStyle: `Up-tempo, four-on-the-floor dance-pop built for arenas and Pride parades. Bright, glossy electro-synths with a slightly gritty edge, pounding kick, snapping claps, and a simple, chant-ready chord progression. The groove is relentless and uplifting, leaning on classic house rhythms filtered through modern pop maximalism. Melodies are bold and declarative, designed to be shouted by a crowd rather than crooned.
 
 Vocals are theatrical and fearless, delivered with a preacher-meets-club-MC attitude. Verses feel spoken-sung and confrontational; the chorus explodes into a huge, anthemic hook with layered harmonies and stacked vocals. The performance sells confidence, defiance, and radical self-acceptance. Lyrics read like a manifesto, blunt, repetitive, intentionally slogan-like. Overall vibe: unapologetic empowerment wrapped in glossy, high-energy dance music that prioritizes impact over subtlety.`,
@@ -245,7 +293,38 @@ Beyond the code, I served as a translator. I stood between the engineering and p
 [Verse 2: The Five-Foot Specialist] Yo, it's the API Specialist, checking the technique My API is butter, man, your software is weak! I'm like a point guard, strictly 'bout the distribution 100 percent reliability—the only real solution. I automate the friction, kick the static to the curb Keeping infrastructure quiet, ya heard? Nah, you didn't, 'cause the machine is running clean I'm the MVP of servers, if you know what I mean. No glitches in the system, keep the rhythm on the one I'm like a center in the paint—your errors? Son, there's none! It's the high-stakes hero with the Python flavor Invisible labor, doin' everyone a favor. Peace.
 
 [Outro: The Abstract] Yeah. Steady pulse. Invisible, but it's there. Don't worry about the machine... we got the machine. We out.`,
-        displayLyrics: null,
+        displayLyrics: `Yeah... Back in the lab, you know? Check it out, check it out.
+We talkin' 'bout the pulse. The silent flow. The Maestro, push the levels.
+We in the house. Government health, digital wealth. Listen...
+
+I'm like the phantom in the mainframe, the code architect
+Translating the data so the suits don't have to check the tech
+See, the API's the artery, the system's inner-vein
+I'm building bridges over water, washing out the strain
+Between the product and the engine, I'm the dialectic link
+Keeping pixels in the pocket, never let the project sink
+I make the complex simple, kid—I make the vision plain
+Like a jazz note in the middle of a summer rain
+The "Why" is the mission, the "How" is the craft
+Navigating through the shadows, drawin' up the graph
+Word is bond, we keep it smooth, never lookin' for the fame
+Just a steady pulse running through the government's frame
+
+Yo, it's the API Specialist, checking the technique
+My API is butter, man, your software is weak
+I'm like a point guard, strictly 'bout the distribution
+100 percent reliability—the only real solution
+I automate the friction, kick the static to the curb
+Keeping infrastructure quiet, ya heard?
+Nah, you didn't, 'cause the machine is running clean
+I'm the MVP of servers, if you know what I mean
+No glitches in the system, keep the rhythm on the one
+I'm like a center in the paint—your errors? Son, there's none
+It's the high-stakes hero with the Python flavor
+Invisible labor, doin' everyone a favor
+
+Yeah. Steady pulse. Invisible, but it's there
+Don't worry about the machine... we got the machine`,
         sunoStyle: `90s East Coast conscious hip hop: dusty upright bass, brushed drums, and swung boom-bap rhythms. Minimalist loops feature late-night jazz, bebop, vibraphones, and muted horns with warm vinyl crackle. The groove is melodic and round—never aggressive, always locked.
 
 Conversational vocals; rappers trade verses with a laid-back, rhythmically precise flow inside the beat. Cadence favors internal rhyme, syncopation, and playful phrasing over volume. Tone is cool and intellectual, balancing wordplay, observations, and abstract imagery with humor and warmth. Vibe: friends passing the mic in a dim room.
@@ -282,7 +361,31 @@ The Five-Foot Specialist: A sharp, no-nonsense, and raspy delivery that attacks 
 [Bridge] [Aggressive, "squelchy" Synth-Bass Solo] Millions in the queue, but the ride is smooth and sweet I'm a Wichita man with a digital beat! I'm serving up the choices, yeah I'm bringing the heat The cleanest integration that you're ever gonna meet!
 
 [Outro] From the messy files to the clean machine The smoothest integration that you ever seen! (Lead): "We opened up the door! Ow! Check it out!" [Big gated-reverb drum "Stomp" finish]`,
-        displayLyrics: null,
+        displayLyrics: `Fifty states of messy data, screaming on the line
+Different plans, different names, wasting all my time
+I built the pipeline, baby, keep the traffic clean
+Serving millions on the hottest API you ever seen
+
+We're closing the Gap (Yeah)
+Filling in the holes in the master plan
+We're closing the Gap (Get down)
+Medicare's moving to a brand new jam
+We're closing the Gap
+But the ride is smooth and sweet
+I'm a Wichita man with a digital beat
+
+I'm serving up the choices, yeah I'm bringing the heat
+The cleanest integration that you're ever gonna meet
+
+From the messy files to the clean machine
+The smoothest integration that you ever seen
+We opened up the door! Ow! Check it out
+
+We're closing the Gap
+We're closing the Gap
+We're closing the Gap
+We're closing the Gap
+`,
         sunoStyle: `Mid-80s American funk with a slick, dance-floor focus. Medium-up tempo, locked-in but human drum groove with tight kick-snare interplay and crisp hi-hats. Bass is dominant and elastic, melodic and funky without showing off. Clean rhythm guitars play short, choppy sixteenth-note stabs and muted scratches. Synths are glossy and analog, brassy hits, rubbery leads, warm pads, used for hooks and accents. Horns punch the groove.
 
 Songs are hook-driven with simple verses, big repetitive choruses, and call-and-response breakdowns. Vocals feature a gritty, soulful male lead with swagger, half-sung, half-spoken phrasing, plus playful ad-libs and group chants. Lyrics are flirtatious, confident, and fun, focused on vibe over narrative. Polished, sweaty, body-moving funk.
@@ -309,16 +412,54 @@ Songs are hook-driven with simple verses, big repetitive choruses, and call-and-
         projectStory: `We were hemorrhaging money on data provider bills with no clear explanation. The system was blowing past its API limits, firing off wasteful requests around the clock. I dug into the code and the provider's documentation and found obvious inefficiencies and better ways to query the same data. I rewrote the schedule to pull data only during business hours when it actually changed, and added batching so one efficient request replaced hundreds of tiny ones. The result was a 95% drop in API calls and $18,000 saved every month. Same functionality, same accuracy, but lean instead of bloated. Sometimes the best optimization isn't what you add, it's what you stop doing.`,
         sunoLyrics: `(Intro: Four bars of feedback, then a heavy, chugging down-stroke riff)
 
-(Verse 1) You’re bleeding out, you’re a digital drain Pumping the profit right down the lane! Twenty-four hours of mindless chatter What does it cost? It doesn't matter! A thousand requests like a swarm of fleas Your bank account’s down on its bloody knees!
+(Verse 1) You're bleeding out, you're a digital drain Pumping the profit right down the lane! Twenty-four hours of mindless chatter What does it cost? It doesn't matter! A thousand requests like a swarm of fleas Your bank account's down on its bloody knees!
 
-(Chorus) Stop the rot! Kill the bloat! Got the greedy bastards by the throat! Ninety-five percent of nothing at all Watch the digital empire fall! It’s vacant! It’s rubbish!
+(Chorus) Stop the rot! Kill the bloat! Got the greedy bastards by the throat! Ninety-five percent of nothing at all Watch the digital empire fall! It's vacant! It's rubbish!
 
-(Verse 2) I saw the code, it was plastic and cheap A billion calls while the world’s asleep! I pulled the plug, I set the time To stop your wasteful, corporate crime! One big fist instead of a thousand bites I’m turning off your neon lights!
+(Verse 2) I saw the code, it was plastic and cheap A billion calls while the world's asleep! I pulled the plug, I set the time To stop your wasteful, corporate crime! One big fist instead of a thousand bites I'm turning off your neon lights!
 
-(Outro) Eighteen grand! Every month! Saved from the bin! You’re pretty vacant... and I’m the one who’s in! NO FUTURE!
+(Outro) Eighteen grand! Every month! Saved from the bin! You're pretty vacant... and I'm the one who's in! NO FUTURE!
 
 (Sudden stop on a ringing, distorted chord)`,
-        displayLyrics: null,
+        displayLyrics: `You're bleeding out, you're a digital drain
+Pumping the profit right down the lane
+Twenty-four hours of mindless chatter
+What does it cost? It doesn't matter
+A thousand requests like a swarm of fleas
+Your bank account's down on its bloody knees
+
+Stop the rot
+Kill the bloat
+Got the greedy bastards by the throat
+Ninety-five percent of nothing at all
+Watch the digital empire fall
+It's vacant
+It's rubbish
+
+I saw the code, it was plastic and cheap
+A billion calls while the world's asleep
+I pulled the plug, I set the time
+To stop your wasteful, corporate crime
+One big fist instead of a thousand bites
+I'm turning off your neon lights
+
+Stop the rot
+Kill the bloat
+Got the greedy bastards by the throat
+Ninety-five percent of nothing at all
+Watch the digital empire fall
+It's vacant
+It's rubbish
+
+Eighteen grand
+Every month
+Saved from the bin
+You're pretty vacant
+And I'm the one who's in
+No future
+No future
+
+Teat`,
         sunoStyle: `Raw late-1970s British punk rock with aggressive, confrontational energy. Fast to mid-tempo song built on loud, simple power-chord guitar riffs with heavy distortion and minimal effects. Guitars are abrasive and relentlessly strummed. Bass is thick, driving, locked to the guitar. Drums are simple, pounding 4/4 beats with heavy snare and few fills.
 
 Production is loud, compressed, deliberately crude with little polish. Vocals are snarled and shouted with a strong British accent, often barked rather than sung. Lyrics are blunt, repetitive, provocative, focused on nihilism, anti-authority, and class resentment. Chant-like hooks, zero virtuosity, maximum attitude.

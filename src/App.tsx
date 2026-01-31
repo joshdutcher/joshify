@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import usePlayer from '@/hooks/usePlayer';
 import useColumnResize from '@/hooks/useColumnResize';
 import useDynamicBackground from '@/hooks/useDynamicBackground';
@@ -16,6 +16,8 @@ import SearchView from '@/components/views/SearchView';
 import CompanyView from '@/components/views/CompanyView';
 import DomainView from '@/components/views/DomainView';
 import WelcomeModal from '@/components/WelcomeModal';
+import MobilePlayerView from '@/components/MobilePlayerView';
+import LyricsView from '@/components/LyricsView';
 
 const SpotifyResume = () => {
     // Welcome modal state - show on first visit
@@ -40,6 +42,18 @@ const SpotifyResume = () => {
         currentPlaylist,
         currentTrackIndex,
         searchQuery,
+        audioRef,
+        // Audio state
+        currentTime,
+        duration,
+        volume,
+        currentMusicUrl,
+        hasLyrics,
+        currentLyrics,
+        // Mobile/Lyrics UI state
+        isMobilePlayerOpen,
+        isLyricsOpen,
+        // Actions
         handlePlayProject,
         playNextTrack,
         playPreviousTrack,
@@ -52,7 +66,21 @@ const SpotifyResume = () => {
         toggleSidebar,
         closeSidebar,
         setIsPlaying,
-        setSearchQuery
+        setSearchQuery,
+        // Audio controls
+        seek,
+        updateVolume,
+        // Lyrics controls
+        toggleLyrics,
+        // Mobile player controls
+        openMobilePlayer,
+        closeMobilePlayer,
+        // Audio event handlers
+        handleTimeUpdate,
+        handleLoadedMetadata,
+        handleEnded,
+        handleWaiting,
+        handleCanPlay
     } = usePlayer();
 
     const {
@@ -100,6 +128,53 @@ const SpotifyResume = () => {
     const handleNavigateToSearch = (query: string) => {
         navigateToSearch(query);
     };
+
+    // Track previous music URL to differentiate between track change vs play/pause toggle
+    const prevMusicUrlRef = useRef<string | null>(null);
+
+    // Control audio playback - handles both track changes and play/pause toggles
+    useEffect(() => {
+        const audio = audioRef.current;
+        if (!audio) return;
+
+        const prevUrl = prevMusicUrlRef.current;
+        const urlChanged = currentMusicUrl !== prevUrl;
+
+        if (urlChanged) {
+            // Track changed - load new source first, then play if needed
+            prevMusicUrlRef.current = currentMusicUrl;
+
+            if (currentMusicUrl) {
+                audio.src = currentMusicUrl;
+                audio.load();
+                if (isPlaying) {
+                    audio.play().catch(() => {
+                        setIsPlaying(false);
+                    });
+                }
+            } else {
+                // No music URL - pause and clear
+                audio.pause();
+            }
+        } else {
+            // Same track - just toggle play/pause
+            if (isPlaying && currentMusicUrl) {
+                audio.play().catch(() => {
+                    setIsPlaying(false);
+                });
+            } else {
+                audio.pause();
+            }
+        }
+    }, [isPlaying, currentMusicUrl, setIsPlaying, audioRef]);
+
+    // Set initial volume
+    useEffect(() => {
+        const audio = audioRef.current;
+        if (audio) {
+            audio.volume = volume;
+        }
+    }, [volume, audioRef]);
 
     return (
         <div
@@ -246,7 +321,10 @@ const SpotifyResume = () => {
                         width={rightColumnWidth}
                         onNavigateToProject={navigateToProject}
                         style={isRightResizing ? {} : { width: `${rightColumnWidth}px` }}
-          />
+                        hasLyrics={hasLyrics}
+                        lyrics={currentLyrics}
+                        onViewLyrics={toggleLyrics}
+                    />
                 </div>
             </div>
 
@@ -260,12 +338,58 @@ const SpotifyResume = () => {
                 onPreviousTrack={playPreviousTrack}
                 currentPlaylist={currentPlaylist}
                 currentTrackIndex={currentTrackIndex}
-      />
+                currentTime={currentTime}
+                duration={duration}
+                volume={volume}
+                hasLyrics={hasLyrics}
+                isLyricsOpen={isLyricsOpen}
+                onSeek={seek}
+                onVolumeChange={updateVolume}
+                onToggleLyrics={toggleLyrics}
+                onOpenMobilePlayer={openMobilePlayer}
+            />
 
             {/* Welcome Modal */}
             <WelcomeModal
                 isOpen={showWelcome}
                 onClose={handleWelcomeClose}
+            />
+
+            {/* Mobile Player View */}
+            <MobilePlayerView
+                isOpen={isMobilePlayerOpen}
+                onClose={closeMobilePlayer}
+                currentlyPlaying={currentlyPlaying}
+                isPlaying={isPlaying}
+                currentTime={currentTime}
+                duration={duration}
+                onTogglePlay={handleTogglePlay}
+                onSeek={seek}
+                onPreviousTrack={playPreviousTrack}
+                onNextTrack={playNextTrack}
+                canGoPrevious={!!(currentPlaylist && currentTrackIndex > 0)}
+                canGoNext={!!(currentPlaylist && currentTrackIndex < (currentPlaylist.projects?.length - 1))}
+                lyrics={currentLyrics}
+            />
+
+            {/* Desktop Lyrics View */}
+            {isLyricsOpen && currentlyPlaying && (
+                <LyricsView
+                    project={currentlyPlaying}
+                    lyrics={currentLyrics}
+                    onClose={toggleLyrics}
+                />
+            )}
+
+            {/* Hidden Audio Element */}
+            <audio
+                ref={audioRef}
+                preload="auto"
+                onTimeUpdate={handleTimeUpdate}
+                onLoadedMetadata={handleLoadedMetadata}
+                onEnded={handleEnded}
+                onWaiting={handleWaiting}
+                onCanPlay={handleCanPlay}
             />
         </div>
     );

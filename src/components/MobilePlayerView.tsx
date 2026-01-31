@@ -1,0 +1,161 @@
+import { ChevronDown, Play, Pause, SkipBack, SkipForward } from 'lucide-react';
+import ProjectImage from './ProjectImage';
+import ProjectCanvas from './ProjectCanvas';
+import ProgressBar from './ProgressBar';
+import type { Project } from '../types';
+
+interface MobilePlayerViewProps {
+    isOpen: boolean;
+    onClose: () => void;
+    currentlyPlaying: Project | null;
+    isPlaying: boolean;
+    currentTime: number;
+    duration: number;
+    onTogglePlay: () => void;
+    onSeek: (_time: number) => void;
+    onPreviousTrack: () => void;
+    onNextTrack: () => void;
+    canGoPrevious: boolean;
+    canGoNext: boolean;
+    lyrics: string | null;
+}
+
+const MobilePlayerView = ({
+    isOpen,
+    onClose,
+    currentlyPlaying,
+    isPlaying,
+    currentTime,
+    duration,
+    onTogglePlay,
+    onSeek,
+    onPreviousTrack,
+    onNextTrack,
+    canGoPrevious,
+    canGoNext,
+    lyrics
+}: MobilePlayerViewProps) => {
+    if (!isOpen || !currentlyPlaying) return null;
+
+    return (
+        <div className="fixed inset-0 z-[70] md:hidden">
+            {/* Canvas Background */}
+            <div className="absolute inset-0 z-0">
+                <ProjectCanvas
+                    project={currentlyPlaying}
+                    isPlaying={isPlaying}
+                    className="w-full h-full"
+                    posterImage={currentlyPlaying.canvasPoster}
+                />
+                {/* Dark overlay for readability */}
+                <div className="absolute inset-0 bg-black/70" />
+            </div>
+
+            {/* Content */}
+            <div className="relative z-10 flex flex-col h-full">
+                {/* Header */}
+                <div className="flex items-center justify-center py-4 px-4">
+                    <button
+                        onClick={onClose}
+                        className="absolute left-4 p-2 hover:bg-white/10 rounded-full transition-colors"
+                        aria-label="Close player"
+                    >
+                        <ChevronDown className="w-8 h-8 text-white" />
+                    </button>
+                    <span className="text-white font-semibold text-sm uppercase tracking-wider">
+                        Now Playing
+                    </span>
+                </div>
+
+                {/* Main Content - Scrollable */}
+                <div className="flex-1 overflow-y-auto px-6 pb-8">
+                    {/* Album Art */}
+                    <div className="flex justify-center mt-4 mb-8">
+                        <ProjectImage
+                            project={currentlyPlaying}
+                            size="custom"
+                            className="w-64 h-64 sm:w-72 sm:h-72 shadow-2xl"
+                            shape="rounded"
+                        />
+                    </div>
+
+                    {/* Track Info */}
+                    <div className="text-center mb-8">
+                        <h2 className="text-white text-2xl font-bold mb-1 truncate">
+                            {currentlyPlaying.title}
+                        </h2>
+                        <p className="text-white/70 text-base truncate">
+                            {currentlyPlaying.artist}
+                        </p>
+                    </div>
+
+                    {/* Progress Bar */}
+                    <div className="mb-8">
+                        <ProgressBar
+                            currentTime={currentTime}
+                            duration={duration}
+                            onSeek={onSeek}
+                            variant="full"
+                            showTimes={true}
+                        />
+                    </div>
+
+                    {/* Controls */}
+                    <div className="flex items-center justify-center space-x-8 mb-8">
+                        <button
+                            onClick={onPreviousTrack}
+                            disabled={!canGoPrevious}
+                            className={`p-2 transition-colors ${
+                                canGoPrevious
+                                    ? 'text-white hover:text-white/80'
+                                    : 'text-white/30 cursor-not-allowed'
+                            }`}
+                            aria-label="Previous track"
+                        >
+                            <SkipBack className="w-8 h-8" fill="currentColor" />
+                        </button>
+
+                        <button
+                            onClick={onTogglePlay}
+                            className="w-16 h-16 bg-white rounded-full flex items-center justify-center hover:scale-105 transition-transform"
+                            aria-label={isPlaying ? 'Pause' : 'Play'}
+                        >
+                            {isPlaying ? (
+                                <Pause className="w-8 h-8 text-black" fill="currentColor" />
+                            ) : (
+                                <Play className="w-8 h-8 text-black ml-1" fill="currentColor" />
+                            )}
+                        </button>
+
+                        <button
+                            onClick={onNextTrack}
+                            disabled={!canGoNext}
+                            className={`p-2 transition-colors ${
+                                canGoNext
+                                    ? 'text-white hover:text-white/80'
+                                    : 'text-white/30 cursor-not-allowed'
+                            }`}
+                            aria-label="Next track"
+                        >
+                            <SkipForward className="w-8 h-8" fill="currentColor" />
+                        </button>
+                    </div>
+
+                    {/* Lyrics Section */}
+                    {lyrics && (
+                        <div className="mt-8 bg-white/10 rounded-lg p-4">
+                            <h3 className="text-white font-semibold mb-4 text-center">Lyrics</h3>
+                            <div
+                                className="text-white/80 text-sm leading-relaxed whitespace-pre-line max-h-64 overflow-y-auto spotify-scrollbar"
+                            >
+                                {lyrics}
+                            </div>
+                        </div>
+                    )}
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default MobilePlayerView;

@@ -1,9 +1,14 @@
-import { Play, Pause } from 'lucide-react';
+import { Play, Pause, Mic2 } from 'lucide-react';
 import EqualizerIcon from './EqualizerIcon';
 import ProjectImage from './ProjectImage';
 import PlaylistCoverArt from './PlaylistCoverArt';
 import type { Project, Playlist } from '../types';
 import { isProject, isPlaylist } from '../utils/typeGuards';
+
+// Helper to check if a project has lyrics
+const projectHasLyrics = (project: Project): boolean => {
+    return !!(project.displayLyrics || project.sunoLyrics);
+};
 
 
 interface MediaCardProps {
@@ -68,6 +73,14 @@ const MediaCard = ({
           />
         ) : null}
         
+                {/* Lyrics badge for projects with lyrics */}
+                {size !== 'large' && type === 'project' && isProject(item) && projectHasLyrics(item) && (
+                    <div className="absolute top-2 left-2 flex items-center space-x-1 bg-black/70 px-2 py-0.5 rounded-full">
+                        <Mic2 className="w-3 h-3 text-spotify-green" />
+                        <span className="text-[10px] text-white font-medium">Lyrics</span>
+                    </div>
+                )}
+
                 {/* Play button for small/medium cards only - positioned within cover art area */}
                 {size !== 'large' && (
                 <button
