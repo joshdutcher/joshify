@@ -482,7 +482,7 @@ export const playlists: PlaylistCollection = [
         name: 'Recently Played',
         icon: Clock,
         projects: recentWork,
-        description: 'Fresh out the studio. Latest work from 2024-2025.',
+        description: 'Fresh out the studio. Latest work from 2024-2026.',
         image: null,
         employer: false
     },
