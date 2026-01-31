@@ -57,8 +57,8 @@ const WelcomeModal = ({ isOpen, onClose }: WelcomeModalProps) => {
 
                         <p className="text-spotify-secondary mb-4">
                             This is my portfolio reimagined as a Spotify clone.
-                            Each project is presented as a &quot;track&quot;, complete with album art and
-                            immersive canvas backgrounds.
+                            Each project is presented as a &quot;track&quot;, complete with real songs with lyrics,
+                            album art and immersive canvas video backgrounds.
                         </p>
 
                         <p className="text-spotify-secondary mb-6">
@@ -67,11 +67,11 @@ const WelcomeModal = ({ isOpen, onClose }: WelcomeModalProps) => {
                         </p>
 
                         <p className="text-spotify-secondary mb-4">
-                            One thing - the site doesn&apos;t actually have any music... <i>yet</i>.
+                            I really do recommend you listen to the songs and read the lyrics. They&apos;re kind of amazing.
                         </p>
 
                         <p className="text-sm text-spotify-secondary mb-6">
-                            You can always revisit this by clicking &quot;About Joshify&quot; in the sidebar.
+                            You can always revisit this window by clicking &quot;About Joshify&quot; in the sidebar.
                         </p>
 
                         {/* Get Started Button */}

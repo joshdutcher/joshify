@@ -75,10 +75,10 @@
 - Audit bundle size and optimize if needed
 
 ### Data Architecture
-- [ ] **Split projects.ts into separate files** - Each project in its own file under `src/data/projects/`, with `projects.ts` aggregating/exporting. Files export raw data only (no helper calls), `projects.ts` applies `getMusicUrl()`, `getCanvasUrl()`, etc. File is getting long and hard to edit individual projects.
+- [x] **Split projects.ts into separate files** - Each project in its own file under `src/data/projects/`, with `projects.ts` aggregating/exporting. Files export raw data only (no helper calls), `projects.ts` applies `getMusicUrl()`, `getCanvasUrl()`, etc. ✅ Completed January 2026
 
 ### Project Management
-- [ ] **Deactivate Beer Fridge project** - Add `active: boolean` field to Project type. Set Beer Fridge to `active: false`. Modify code to only show projects where `active !== false` (default true for backwards compatibility). Keep all data intact.
+- [x] **Deactivate Beer Fridge project** - Added `active?: boolean` field to Project type. Set Beer Fridge to `active: false`. Code filters to only show projects where `active !== false`. ✅ Completed January 2026
 
 ### Search & Filter Enhancements
 - [ ] **Improve skills UI and search filtering** - Better visual display of skills, ability to filter search results by skill. Details TBD.
