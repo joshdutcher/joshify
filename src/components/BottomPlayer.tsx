@@ -1,4 +1,4 @@
-import { Play, Pause, Volume2, Shuffle, Repeat, SkipBack, SkipForward } from 'lucide-react';
+import { Play, Pause, Volume2, Shuffle, Repeat, SkipBack, SkipForward, ChevronUp } from 'lucide-react';
 import ProjectImage from './ProjectImage';
 import type { Project, Playlist } from '../types';
 
@@ -29,6 +29,18 @@ const BottomPlayer = ({
 
     return (
         <div className="h-24 bg-black flex items-center px-4 relative z-[60]">
+            {/* Mobile expand indicator - tap to view project details */}
+            {currentlyPlaying && (
+                <div className="md:hidden absolute top-1 left-0 right-0 flex justify-center z-10">
+                    <button
+                        onClick={() => onNavigateToProject(currentlyPlaying)}
+                        className="p-2 hover:bg-white/10 rounded-full transition-colors"
+                        aria-label="View project details"
+                    >
+                        <ChevronUp className="w-8 h-8 text-white" />
+                    </button>
+                </div>
+            )}
             {currentlyPlaying ? (
                 <>
                     {/* Left: Now Playing Info */}
