@@ -14,7 +14,7 @@ export const joshify: RawProject = {
     demoUrl: null,
     githubUrl: 'https://github.com/joshdutcher/joshify',
     musicFile: 'joshify.mp3',
-    projectStory: 'I wanted my portfolio to stand out. The job market is brutal, and everyone has the same boring resume website. So I thought: what if my resume looked like Spotify? Projects as tracks, employers as playlists, skills as genres. I used AI to build almost all of it—Claude wrote the React code while I directed the architecture and made design decisions. I generated album art with AI image tools and canvas videos with AI video generators. The result is this website you\'re looking at right now. It\'s playful, it\'s different, and it shows what I can build when I embrace new tools. Plus, it actually plays music now.',
+    projectStory: `Joshify is what happens when a portfolio gets bored of being a portfolio. I turned my work into a fake music app because albums are more fun than bullet points and playlists make better sense than career summaries. Every project gets a sound, a cover, and a track, even though none of this actually needs music to work. This song sits at the top, skipping between styles like someone with too many tabs open, because Joshify isn't about picking a genre, it's about knowing when to change the track. It's part résumé, part mixtape, and mostly an excuse to press play and see what happens next.`,
     sunoLyrics: null,
     displayLyrics: null,
     sunoStyle: null,

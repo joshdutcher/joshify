@@ -15,36 +15,59 @@ export const wichitaRadar: RawProject = {
     githubUrl: 'https://github.com/joshdutcher/wichitaradar',
     musicFile: 'wichita-radar.mp3',
     projectStory: 'It started because my satellite dish kept going out during storms. I needed to check the weather radar, but the big weather sites were cluttered with ads and took forever to load. So I built my own. Just the radar images for Wichita, nothing else. Clean, fast, auto-refreshing. I put it online thinking maybe a few friends would use it. That was 2007. Now it\'s one of the top results when you search for Wichita weather radar. People in my hometown use it every day, especially during tornado season. It\'s not fancy, but it works, and it\'s mine.',
-    sunoLyrics: `[Intro]
-[Short filtered disco loop, slowly opening with a low-pass filter sweep]
+    sunoLyrics: `[Short Intro: 2 bars]
+[Filtered electronic loop with rising synth arpeggio]
 
-[Verse]
+[Verse: Vocoder]
 High res map, data streams
 Looking for the inflow of my dreams
 Dry line comes, CAPE is high
 Watch the storm blow up the sky
 
-[Bridge]
+[Bridge: Talkbox]
 Hook echo on the screen.
 Rainfall lines of red and green.
 
+[Chorus: Vocoder Harmonies]
+Track the core.
+Watch it roar.
+Track the core.
+Watch it roar.
+
 [Chorus]
 Track the core.
 Watch it roar.
 Track the core.
 Watch it roar.
 
-[Guitar Solo, very short]
-[High-energy funk guitar with heavy phaser and wah-wah]
+[Outro]
+[Fast fade]
+[Heavy sidechain pumping with a final filter sweep]
+[End]`,
+    displayLyrics: `High res map, data streams
+Looking for the inflow of my dreams
+Dry line comes, CAPE is high
+Watch the storm blow up the sky
 
-[Chorus]
-Track the core.
-Watch it roar.
-Track the core.
-Watch it roar.`,
-    displayLyrics: null,
-    sunoStyle: null,
-    canvas: 'wichitaradar.mp4',
-    canvasPoster: 'wichitaradar.mp4',
+Hook echo on the screen
+Rainfall lines of red and green
+
+Track the core
+Watch it roar
+Track the core
+Watch it roar
+
+Track the core
+Watch it roar
+Track the core
+Watch it roar
+
+Track the core
+
+Watch it roar
+`,
+    sunoStyle: `Immediate vocals, tight arrangement, fast-paced, Male Vocoder, Talkbox Vocals, French House, Electro-house, Synth-pop, Roland TR-909, Driving heavy kick, Distorted TB-303 Acid Bass, Resonant high-pass filter sweeps, Arpeggiated synthesizers, Digital pads, Hard sidechain pumping, Bitcrushed textures, Compressed synth-leads, Discovery-era, Da Funk influence, Futuristic, 126 BPM, Electronic, High-energy.`,
+    canvas: 'wichita-radar.mp4',
+    canvasPoster: 'wichita-radar.mp4',
     albumArtBasedOn: 'Discovery by Daft Punk'
 };

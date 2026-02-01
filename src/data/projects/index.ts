@@ -31,6 +31,8 @@ import type { RawProject } from '@/types';
 
 // All raw projects (before helper functions applied)
 export const rawProjects: readonly RawProject[] = [
+    joshify,
+    didKansasWin,
     electionDataPipeline,
     mobileApiRebuild,
     healthcareEtl,
@@ -39,9 +41,7 @@ export const rawProjects: readonly RawProject[] = [
     medigapIntegration,
     apiEngineOptimization,
     beerFridge,
-    didKansasWin,
     wichitaRadar,
     lawFirmStartupOperations,
-    startupTechnologyInfrastructure,
-    joshify
+    startupTechnologyInfrastructure
 ] as const;
