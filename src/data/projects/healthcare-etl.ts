@@ -15,7 +15,28 @@ export const healthcareEtl: RawProject = {
     githubUrl: null,
     musicFile: 'healthcare-etl.mp3',
     projectStory: 'Every fall, millions of Americans have a narrow window to sign up for Medicare. Miss it, and you might go without health coverage for a year. I spent three and a half years building and maintaining the data pipelines that powered Medicare.gov—the systems that processed every health insurance plan in the country so people could compare their options. During Open Enrollment, we\'d handle 80,000 requests per minute. The system couldn\'t go down. Not for a minute. Not when someone\'s grandmother was trying to find affordable prescriptions. In one seven-week stretch, 982,000 people successfully enrolled through our system. That\'s nearly a million people who got healthcare because our code worked.',
-    sunoLyrics: `This is for the wheelers and the health data dealers.
+    sunoLyrics: `[Intro, spoken]
+Uhh... yeah. Check it, check it. This is for the wheelers and the health data dealers. uhh.
+
+[Verse 1]
+Autumn in the borough, commence open enrollment.
+Boot up online, with,, no post-ponement.
+Data in controlment, commit every component.
+Continuous deployment, stable at every moment.
+
+[Verse 2]
+Three years deep building the pipeline.
+Serving health insurance, digital lifeline.
+Eighty thousand hits a minute, we stay runnin.
+Don't get it confused, the uptime is stunnin.
+
+[Verse 3]
+My peoples need health care, doctors, prescriptions.
+I calculate costs within budget restrictions.
+Nine hundred eighty two thousand enrolled.
+Behind my data pipelines, infrastructure and code.
+`,
+    displayLyrics: `This is for the wheelers and the health data dealers
 
 Autumn in the borough, commence open enrollment
 Boot up online, with,, no post-ponement
@@ -31,8 +52,7 @@ My peoples need health care, doctors, prescriptions
 I calculate costs within budget restrictions
 Nine hundred eighty two thousand enrolled
 Behind my data pipelines, infrastructure and code`,
-    displayLyrics: null,
-    sunoStyle: null,
+    sunoStyle: `A 94 BPM gritty East Coast boom-bap sample-based hip-hop track with some swing to the beat. Features a deep, melodic electric bassline, jazzy horn stabs, and dusty, hard-hitting drum breaks. The vocalist is a commanding male baritone with a deep, gravelly voice. The delivery is a relaxed but precise 'heavy-breathing' flow, utilizing complex internal rhyme schemes and a laid-back rhythmic pocket. Atmospheric ad-libs and a soulful, nocturnal urban vibe.`,
     canvas: 'healthcare-etl.mp4',
     canvasPoster: 'healthcare-etl.mp4',
     albumArtBasedOn: 'Ready to Die by The Notorious B.I.G.'

@@ -56,40 +56,35 @@ const NowPlayingPanel = ({
                 maxWidth: '400px'
             }}
         >
-            {/* Full-height canvas background container */}
-            <div className="relative h-full">
-                {/* Canvas extends full height */}
-                <div className="absolute inset-0">
+            <div className="overflow-y-auto spotify-scrollbar h-full">
+                {/* Canvas Background */}
+                <div className="relative">
                     <ProjectCanvas
                         project={currentlyPlaying}
                         isPlaying={isPlaying}
-                        className="w-full h-full rounded-t-lg"
+                        className="rounded-t-lg"
                         posterImage={currentlyPlaying.canvasPoster}
                     />
-                    {/* Gradient overlay for readability - stronger at bottom */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
+
+                    {/* Overlay gradient for text readability */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+
+                    {/* Project title overlay */}
+                    <div className="absolute bottom-4 left-4 right-4">
+                        <h2
+                            className="text-white font-bold text-xl mb-1 drop-shadow-lg hover:underline cursor-pointer"
+                            onClick={() => onNavigateToProject && onNavigateToProject(currentlyPlaying)}
+                        >
+                            {currentlyPlaying.title}
+                        </h2>
+                        <p className="text-white/90 text-sm drop-shadow-md">
+                            {currentlyPlaying.artist}
+                        </p>
+                    </div>
                 </div>
 
-                {/* Scrollable content over canvas */}
-                <div className="relative h-full overflow-y-auto spotify-scrollbar">
-                    {/* Top area with title overlay */}
-                    <div className="aspect-[9/16] max-h-[400px] relative">
-                        {/* Project title overlay at bottom of canvas area */}
-                        <div className="absolute bottom-4 left-4 right-4">
-                            <h2
-                                className="text-white font-bold text-xl mb-1 drop-shadow-lg hover:underline cursor-pointer"
-                                onClick={() => onNavigateToProject && onNavigateToProject(currentlyPlaying)}
-                            >
-                                {currentlyPlaying.title}
-                            </h2>
-                            <p className="text-white/90 text-sm drop-shadow-md">
-                                {currentlyPlaying.artist}
-                            </p>
-                        </div>
-                    </div>
-
-                    {/* Content blocks */}
-                    <div className="p-3 space-y-3">
+                {/* Project Details */}
+                <div className="p-4 space-y-3">
                         {/* Lyrics Block */}
                         {hasLyrics && lyricsPreview && (
                             <div
@@ -187,7 +182,6 @@ const NowPlayingPanel = ({
                                 </div>
                             </div>
                         </div>
-                    </div>
                 </div>
             </div>
         </div>

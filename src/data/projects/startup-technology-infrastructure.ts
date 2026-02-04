@@ -17,7 +17,7 @@ export const startupTechnologyInfrastructure: RawProject = {
     projectStory: 'A new law firm needs more technology than you\'d think. Email accounts, a website, phone systems, Wi-Fi, printers, computers—all of it had to be set up from nothing. I registered the domain, built the website, and configured Google Workspace so everyone had professional email addresses. I installed mesh routers so there were no dead spots, set up VoIP phones so clients could call, and made sure the printer worked from every device. I wrote documentation so the staff would know how to use everything. By the end, the firm had modern, reliable infrastructure that just worked. The attorneys could practice law instead of troubleshooting tech problems.',
     sunoLyrics: null,
     displayLyrics: null,
-    sunoStyle: null,
+    sunoStyle: `1981 Kling Klang minimalist synth-pop, electronic. Precision analog sequencing, monophonic Moog basslines, Prophet-5 leads, clean sine wave oscillators. Custom electronic percussion, synthesized snare, metallic clicks, 808-style kick, motorik rhythmic pulse. Vocals: robotic vocoder, deadpan monotone, German-accented English, speech synthesis, Speak & Spell effects. Production: cold, clinical, high-fidelity, dry, no reverb, mathematical repetition, looped melodic fragments. Themes: data, global networks, technology, futuristic isolation.`,
     canvas: 'startup-technology-infrastructure.mp4',
     canvasPoster: 'startup-technology-infrastructure.mp4',
     albumArtBasedOn: 'Computer World by Kraftwerk'
