@@ -104,39 +104,41 @@ const ProjectCard = ({
 
             {/* Play/Pause/Equalizer controls for large (horizontal) cards - positioned on the right */}
             {size === 'large' && (
-            <div className="relative w-8 h-full flex items-center justify-center flex-shrink-0 mr-2">
-                {/* Equalizer - shown when playing and mouse is not hovering */}
-                {currentlyPlaying?.id === project.id && isPlaying && (
-                <div className="group-hover:opacity-0 transition-opacity duration-200">
-                    <EqualizerIcon />
-                </div>
+            <div className="flex items-center space-x-1 flex-shrink-0 mr-2">
+                <div className="relative w-8 h-full flex items-center justify-center flex-shrink-0">
+                    {/* Equalizer - shown when playing and mouse is not hovering */}
+                    {currentlyPlaying?.id === project.id && isPlaying && (
+                    <div className="group-hover:opacity-0 transition-opacity duration-200">
+                        <EqualizerIcon />
+                    </div>
           )}
           
-                {/* Play button - shown on hover when not currently playing this project */}
-                {(!currentlyPlaying || currentlyPlaying?.id !== project.id || !isPlaying) && (
-                <button
-                    className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-spotify-green rounded-full flex items-center justify-center shadow-xl transition-all duration-200 ease-out hover:scale-105 opacity-0 group-hover:opacity-100"
-                    onClick={(e) => {
+                    {/* Play button - shown on hover when not currently playing this project */}
+                    {(!currentlyPlaying || currentlyPlaying?.id !== project.id || !isPlaying) && (
+                    <button
+                        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-spotify-green rounded-full flex items-center justify-center shadow-xl transition-all duration-200 ease-out hover:scale-105 opacity-0 group-hover:opacity-100"
+                        onClick={(e) => {
                 e.stopPropagation();
                 onPlayProject && onPlayProject(project);
               }}
             >
-                    <Play className="w-3 h-3 text-black ml-0.5" fill="currentColor" />
-                </button>
+                        <Play className="w-3 h-3 text-black ml-0.5" fill="currentColor" />
+                    </button>
           )}
 
-                {/* Pause button - shown on hover when currently playing this project */}
-                {currentlyPlaying?.id === project.id && isPlaying && (
-                <button
-                    className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-spotify-green rounded-full flex items-center justify-center shadow-xl transition-all duration-200 ease-out hover:scale-105 opacity-0 group-hover:opacity-100"
-                    onClick={(e) => {
+                    {/* Pause button - shown on hover when currently playing this project */}
+                    {currentlyPlaying?.id === project.id && isPlaying && (
+                    <button
+                        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-spotify-green rounded-full flex items-center justify-center shadow-xl transition-all duration-200 ease-out hover:scale-105 opacity-0 group-hover:opacity-100"
+                        onClick={(e) => {
                 e.stopPropagation();
                 onPlayProject && onPlayProject(project);
               }}
             >
-                    <Pause className="w-3 h-3 text-black" fill="currentColor" />
-                </button>
+                        <Pause className="w-3 h-3 text-black" fill="currentColor" />
+                    </button>
           )}
+                </div>
             </div>
       )}
         </div>

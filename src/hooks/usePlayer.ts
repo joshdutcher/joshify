@@ -2,6 +2,7 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import { projects } from '../data/projects';
 import type { Project, Playlist, SelectedPlaylist, CompanySelection, DomainSelection } from '../types';
 import { useNavigationHistory } from './useNavigationHistory';
+import { trackPageView } from '../utils/analytics';
 
 const usePlayer = () => {
     const [currentlyPlaying, setCurrentlyPlaying] = useState<Project | null>(null);
@@ -29,6 +30,29 @@ const usePlayer = () => {
     // Desktop lyrics state
     const [isLyricsOpen, setIsLyricsOpen] = useState<boolean>(false);
 
+    // Close lyrics on any navigation
+    useEffect(() => {
+        setIsLyricsOpen(false);
+    }, [currentView, selectedPlaylist]);
+
+    // Parse URL on initial load for deep linking
+    useEffect(() => {
+        const path = window.location.pathname;
+        const projectMatch = path.match(/^\/project\/(.+)$/);
+        if (projectMatch) {
+            const project = projects.find(p => p.id === projectMatch[1]);
+            if (project) {
+                setCurrentView('project');
+                setSelectedPlaylist(project);
+                setCurrentlyPlaying(project);
+                window.history.replaceState({ view: 'project', data: project }, '', path);
+            }
+        }
+        if (path !== '/') {
+            trackPageView(path);
+        }
+    }, []);
+
     // Integrate browser history navigation
     const { pushNavigation } = useNavigationHistory(
         currentView,
@@ -38,12 +62,14 @@ const usePlayer = () => {
         setSearchQuery
     );
 
-    // Set "Joshify" as default "now playing" on load
+    // Set "Joshify" as default "now playing" on load (skip if deep linking to a project)
     useEffect(() => {
-        const joshify = projects.find(p => p.id === 'joshify');
-        if (joshify && !currentlyPlaying) {
-            setCurrentlyPlaying(joshify);
-            setIsPlaying(true);
+        const isProjectUrl = /^\/project\/.+$/.test(window.location.pathname);
+        if (!isProjectUrl) {
+            const joshify = projects.find(p => p.id === 'joshify');
+            if (joshify && !currentlyPlaying) {
+                setCurrentlyPlaying(joshify);
+            }
         }
     }, [currentlyPlaying]);
 

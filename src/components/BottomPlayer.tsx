@@ -1,8 +1,10 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { Play, Pause, Volume2, VolumeX, Shuffle, Repeat, SkipBack, SkipForward, Mic2 } from 'lucide-react';
+import { Play, Pause, Volume2, VolumeX, Shuffle, Repeat, SkipBack, SkipForward, Mic2, Share2, Check } from 'lucide-react';
 import ProjectImage from './ProjectImage';
 import ProgressBar from './ProgressBar';
+import ShareModal from './ShareModal';
 import type { Project, Playlist } from '../types';
+import { trackEvent } from '../utils/analytics';
 
 interface BottomPlayerProps {
     currentlyPlaying: Project | null;
@@ -49,6 +51,22 @@ const BottomPlayer = ({
     // Determine if next/previous buttons should be enabled
     const canGoPrevious = currentPlaylist && currentTrackIndex > 0;
     const canGoNext = currentPlaylist && currentTrackIndex < (currentPlaylist.projects?.length - 1);
+
+    // Share state
+    const [shareAnchor, setShareAnchor] = useState<DOMRect | null>(null);
+    const [shareCopied, setShareCopied] = useState(false);
+
+    const shareUrl = currentlyPlaying
+        ? `${window.location.origin}/project/${currentlyPlaying.id}`
+        : '';
+
+    const handleShareCopy = () => {
+        navigator.clipboard.writeText(shareUrl);
+        setShareCopied(true);
+        setShareAnchor(null);
+        setTimeout(() => setShareCopied(false), 1500);
+        if (currentlyPlaying) trackEvent('Share', 'Copy Link', currentlyPlaying.id);
+    };
 
     // Volume slider drag state
     const volumeRef = useRef<HTMLDivElement>(null);
@@ -235,8 +253,20 @@ const BottomPlayer = ({
                     </div>
                 </div>
 
-                {/* Right: Lyrics & Volume */}
+                {/* Right: Lyrics, Volume & Share */}
                 <div className="flex items-center justify-end space-x-4 w-1/4">
+                    {/* Share Button */}
+                    <button
+                        onClick={(e) => setShareAnchor(e.currentTarget.getBoundingClientRect())}
+                        className="text-spotify-secondary hover:text-spotify-primary transition-colors"
+                        aria-label="Share"
+                    >
+                        {shareCopied
+                            ? <Check className="w-4 h-4 text-spotify-green" />
+                            : <Share2 className="w-4 h-4" />
+                        }
+                    </button>
+
                     {/* Lyrics Button */}
                     <div className="relative group">
                         <button
@@ -292,6 +322,16 @@ const BottomPlayer = ({
                     </div>
                 </div>
             </div>
+
+            {shareAnchor && (
+                <ShareModal
+                    url={shareUrl}
+                    copied={shareCopied}
+                    anchorRect={shareAnchor}
+                    onCopy={handleShareCopy}
+                    onClose={() => setShareAnchor(null)}
+                />
+            )}
         </div>
     );
 };

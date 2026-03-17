@@ -1,7 +1,10 @@
-import { ExternalLink, Github, Mic2 } from 'lucide-react';
+import { useState } from 'react';
+import { ExternalLink, Github, Share2, Check, Mic2 } from 'lucide-react';
 import ProjectCanvas from './ProjectCanvas';
+import ShareModal from './ShareModal';
 import useDynamicBackground from '../hooks/useDynamicBackground';
 import type { Project } from '../types';
+import { trackEvent } from '../utils/analytics';
 
 interface NowPlayingPanelProps {
     currentlyPlaying: Project | null;
@@ -34,6 +37,21 @@ const NowPlayingPanel = ({
     isLyricsOpen = false,
     onToggleLyrics
 }: NowPlayingPanelProps) => {
+    const [copied, setCopied] = useState(false);
+    const [shareAnchor, setShareAnchor] = useState<DOMRect | null>(null);
+
+    const shareUrl = currentlyPlaying
+        ? `${window.location.origin}/project/${currentlyPlaying.id}`
+        : '';
+
+    const handleShareCopy = () => {
+        navigator.clipboard.writeText(shareUrl);
+        setCopied(true);
+        setShareAnchor(null);
+        setTimeout(() => setCopied(false), 1500);
+        if (currentlyPlaying) trackEvent('Share', 'Copy Link', currentlyPlaying.id);
+    };
+
     // Get dynamic background color from album art
     const { backgroundStyle } = useDynamicBackground(currentlyPlaying?.image || null);
 
@@ -85,105 +103,132 @@ const NowPlayingPanel = ({
 
                 {/* Project Details */}
                 <div className="p-4 space-y-3">
-                        {/* Lyrics Block */}
-                        {hasLyrics && lyricsPreview && (
-                            <div
-                                className="rounded-lg p-4"
-                                style={{ backgroundColor: primaryColor }}
-                            >
-                                {/* Header: Lyrics label + mic icon (matching BottomPlayer style) */}
-                                <div className="flex items-center justify-between mb-3">
-                                    <span className="text-white font-semibold text-sm">Lyrics</span>
-                                    {onToggleLyrics && (
-                                        <button
-                                            onClick={onToggleLyrics}
-                                            className={`p-2 rounded-full transition-all ${
-                                                isLyricsOpen
-                                                    ? 'text-spotify-green bg-black/30'
-                                                    : 'text-white bg-black/30 hover:bg-black/40'
-                                            } ${!isLyricsOpen ? 'animate-pulse-subtle' : ''}`}
-                                            aria-label={isLyricsOpen ? 'Close lyrics' : 'View lyrics'}
+                    {/* Share row */}
+                    <div className="flex items-center space-x-2">
+                        <button
+                            onClick={(e) => setShareAnchor(e.currentTarget.getBoundingClientRect())}
+                            className="flex items-center space-x-1.5 text-spotify-secondary hover:text-white transition-colors"
+                            aria-label="Share"
+                        >
+                            {copied
+                                ? <Check className="w-4 h-4 text-spotify-green" />
+                                : <Share2 className="w-4 h-4" />
+                            }
+                            <span className={`text-sm ${copied ? 'text-spotify-green' : ''}`}>
+                                {copied ? 'Copied!' : 'Share'}
+                            </span>
+                        </button>
+                    </div>
+
+                    {/* Lyrics Block */}
+                    {hasLyrics && lyricsPreview && (
+                        <div
+                            className="rounded-lg p-4"
+                            style={{ backgroundColor: primaryColor }}
+                        >
+                            {/* Header: Lyrics label + mic icon */}
+                            <div className="flex items-center justify-between mb-3">
+                                <span className="text-white font-semibold text-sm">Lyrics</span>
+                                {onToggleLyrics && (
+                                    <button
+                                        onClick={onToggleLyrics}
+                                        className={`p-2 rounded-full transition-all ${
+                                            isLyricsOpen
+                                                ? 'text-spotify-green bg-black/30'
+                                                : 'text-white bg-black/30 hover:bg-black/40'
+                                        } ${!isLyricsOpen ? 'animate-pulse-subtle' : ''}`}
+                                        aria-label={isLyricsOpen ? 'Close lyrics' : 'View lyrics'}
+                                    >
+                                        <Mic2 className="w-4 h-4" />
+                                    </button>
+                                )}
+                            </div>
+                            {/* Lyrics text */}
+                            <p className="text-white text-base font-bold leading-relaxed whitespace-pre-line line-clamp-6">
+                                {lyricsPreview}
+                            </p>
+                        </div>
+                    )}
+
+                    {/* Project Details Block */}
+                    <div className="rounded-lg bg-black/60 p-4 space-y-4">
+                        {/* Description */}
+                        <div>
+                            <h3 className="text-spotify-primary font-semibold mb-2">About this project</h3>
+                            <p className="text-spotify-secondary text-sm leading-relaxed">
+                                {currentlyPlaying.description}
+                            </p>
+                        </div>
+
+                        {/* Skills/Tech Stack */}
+                        {currentlyPlaying.skills && (
+                            <div>
+                                <h3 className="text-spotify-primary font-semibold mb-2">Technologies</h3>
+                                <div className="flex flex-wrap gap-2">
+                                    {currentlyPlaying.skills.slice(0, 6).map((skill: string, index: number) => (
+                                        <span
+                                            key={index}
+                                            className="px-2 py-1 bg-white/10 text-spotify-secondary text-xs rounded-full"
                                         >
-                                            <Mic2 className="w-4 h-4" />
-                                        </button>
+                                            {skill}
+                                        </span>
+                                    ))}
+                                    {currentlyPlaying.skills.length > 6 && (
+                                        <span className="px-2 py-1 bg-white/10 text-spotify-secondary text-xs rounded-full">
+                                            +{currentlyPlaying.skills.length - 6} more
+                                        </span>
                                     )}
                                 </div>
-                                {/* Lyrics text */}
-                                <p className="text-white text-base font-bold leading-relaxed whitespace-pre-line line-clamp-6">
-                                    {lyricsPreview}
-                                </p>
                             </div>
                         )}
 
-                        {/* Project Details Block */}
-                        <div className="rounded-lg bg-black/60 p-4 space-y-4">
-                            {/* Description */}
-                            <div>
-                                <h3 className="text-spotify-primary font-semibold mb-2">About this project</h3>
-                                <p className="text-spotify-secondary text-sm leading-relaxed">
-                                    {currentlyPlaying.description}
-                                </p>
-                            </div>
-
-                            {/* Skills/Tech Stack */}
-                            {currentlyPlaying.skills && (
-                                <div>
-                                    <h3 className="text-spotify-primary font-semibold mb-2">Technologies</h3>
-                                    <div className="flex flex-wrap gap-2">
-                                        {currentlyPlaying.skills.slice(0, 6).map((skill: string, index: number) => (
-                                            <span
-                                                key={index}
-                                                className="px-2 py-1 bg-white/10 text-spotify-secondary text-xs rounded-full"
-                                            >
-                                                {skill}
-                                            </span>
-                                        ))}
-                                        {currentlyPlaying.skills.length > 6 && (
-                                            <span className="px-2 py-1 bg-white/10 text-spotify-secondary text-xs rounded-full">
-                                                +{currentlyPlaying.skills.length - 6} more
-                                            </span>
-                                        )}
-                                    </div>
-                                </div>
+                        {/* Action Buttons */}
+                        <div className="space-y-2 pt-2">
+                            {currentlyPlaying.demoUrl && (
+                                <a
+                                    href={currentlyPlaying.demoUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center justify-center space-x-2 w-full py-3 bg-spotify-green text-black font-semibold rounded-full hover:scale-105 transition-transform"
+                                >
+                                    <ExternalLink className="w-4 h-4" />
+                                    <span>View Live Site</span>
+                                </a>
                             )}
 
-                            {/* Action Buttons */}
-                            <div className="space-y-2 pt-2">
-                                {currentlyPlaying.demoUrl && (
-                                    <a
-                                        href={currentlyPlaying.demoUrl}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="flex items-center justify-center space-x-2 w-full py-3 bg-spotify-green text-black font-semibold rounded-full hover:scale-105 transition-transform"
-                                    >
-                                        <ExternalLink className="w-4 h-4" />
-                                        <span>View Live Site</span>
-                                    </a>
-                                )}
+                            {currentlyPlaying.githubUrl && (
+                                <a
+                                    href={currentlyPlaying.githubUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center justify-center space-x-2 w-full py-3 border border-white/20 text-spotify-primary font-semibold rounded-full hover:bg-white/10 transition-colors"
+                                >
+                                    <Github className="w-4 h-4" />
+                                    <span>View Source Code</span>
+                                </a>
+                            )}
 
-                                {currentlyPlaying.githubUrl && (
-                                    <a
-                                        href={currentlyPlaying.githubUrl}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="flex items-center justify-center space-x-2 w-full py-3 border border-white/20 text-spotify-primary font-semibold rounded-full hover:bg-white/10 transition-colors"
-                                    >
-                                        <Github className="w-4 h-4" />
-                                        <span>View Source Code</span>
-                                    </a>
-                                )}
-                            </div>
+                        </div>
 
-                            {/* Plays counter */}
-                            <div className="pt-4 border-t border-white/10">
-                                <div className="flex items-center justify-between text-sm">
-                                    <span className="text-spotify-secondary">Project views</span>
-                                    <span className="text-spotify-green font-semibold">{currentlyPlaying.impact}</span>
-                                </div>
+                        {/* Plays counter */}
+                        <div className="pt-4 border-t border-white/10">
+                            <div className="flex items-center justify-between text-sm">
+                                <span className="text-spotify-secondary">Project views</span>
+                                <span className="text-spotify-green font-semibold">{currentlyPlaying.impact}</span>
                             </div>
                         </div>
+                    </div>
                 </div>
             </div>
+            {shareAnchor && (
+                <ShareModal
+                    url={shareUrl}
+                    copied={copied}
+                    anchorRect={shareAnchor}
+                    onCopy={handleShareCopy}
+                    onClose={() => setShareAnchor(null)}
+                />
+            )}
         </div>
     );
 };

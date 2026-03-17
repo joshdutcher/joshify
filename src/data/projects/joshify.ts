@@ -5,12 +5,12 @@ export const joshify: RawProject = {
     title: 'Joshify',
     artist: 'Project',
     album: AlbumCategory.WEB_DEVELOPMENT,
-    duration: '3 months',
+    duration: '6 months',
     image: '/assets/images/album-art/joshify.png',
-    year: '2025',
+    year: '2026',
     impact: 'Self Promotion',
-    description: `The robots did me dirty on this one.
-    Experimental portfolio project exploring AI-assisted development by transforming my traditional developer resume into an immersive Spotify clone, intended to stand out in a crowded field. I used Claude Code almost exclusively for the code, and a combination of AI image and video generating tools for the album art images and canvas videos. I did give Claude Code specific instructions on some of the code architecture and principles. This site features authentic Spotify UI patterns including advanced column resizing, comprehensive search functionality, and canvas video backgrounds. The site presents development projects as "tracks" with rich metadata, playlists for different work categories, and a fully functional "now playing" system. Sadly, the site does not actually play any music. Yet.`,
+    description: `The lyrics robot did me dirty on this one.
+    Experimental portfolio project exploring AI-assisted development by transforming my traditional developer resume into an immersive Spotify clone, intended to stand out in a crowded field. I used Claude Code almost exclusively for the code, and a combination of AI image and video generating tools for the album art images and canvas videos. I did give Claude Code specific instructions on some of the code architecture and principles. This site features authentic Spotify UI patterns including advanced column resizing, comprehensive search functionality, and canvas video backgrounds. The site presents development projects as "tracks" with rich metadata, playlists for different work categories, and a fully functional "now playing" system. I used Gemini, Claude Code, ChatGPT, Suno, Veo, Sora 2, Nano Banana, and probably more I'm forgetting.`,
     skills: [Skill.CLAUDE_CODE, Skill.MCP_SERVER_INTEGRATION, Skill.AI_PROMPT_ENGINEERING, Skill.COMPONENT_ARCHITECTURE, Skill.AI_ASSISTED_DEVELOPMENT],
     demoUrl: null,
     githubUrl: 'https://github.com/joshdutcher/joshify',

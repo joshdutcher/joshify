@@ -15,98 +15,65 @@ export const didKansasWin: RawProject = {
     githubUrl: 'https://github.com/joshdutcher/didkansaswin',
     musicFile: 'did-kansas-win.mp3',
     projectStory: 'I\'m a Kansas Jayhawk basketball fan. During the season, the first thing I want to know after a game is simple: did we win? I don\'t need highlights or analysis—just yes or no. So I built a website that does exactly that. You go to didkansaswin.com and you get a big green YES or a big red NO. That\'s it. During live games, it shows the score and updates automatically. It was my first project built almost entirely with AI assistance, and I was amazed at how quickly it came together. Sometimes the best product is the one that does exactly one thing perfectly.',
-    sunoLyrics: null,
-    displayLyrics: `Red and blue
-Red and blue
-Red and blue
-Red and blue
+    sunoLyrics: `[Intro - PA announcer in a basketball arena]
+Welcome to the campus of the University of Kansas
+and to Allen Fieldhouse! Home of the Jayhawks!
 
-Red and blue
-Red and blue
-Red and blue
-Red and blue
+[Verse]
+Step into the cathedral, the air's getting thin
+The Phog is rising up, let the madness begin
+From the rules on the wall to the banners in the sky
+Where the spirit of the Jayhawk was born to fly
+Bill Self on the hardwood, the master of the game
+Lawrence, Kansas, put respect on the name
+Beware of the Phog, it's a different kind of sound
+Rock Chalk Jayhawk, yeah we holding the crown
+From the Hill to Mass Street, the energy is real
+The original Blue Blood, tell me how it feel!
+In the house that Phog built, the tradition is tall
+All roads lead to Lawrence, it's the root of it all!
 
-Uh huh
-You know what it is
-Rock Chalk Jayhawk, we do it big
+[Chorus]
+Red and Blue running deep in my veins
+Beware of the Phog where the tradition reigns
+In the cathedral of college basketball
+All roads lead to Lawrence, it's the root of it all!
+Rock Chalk [What!] Jayhawk [Yeah!]
+Rock Chalk [What!] Jayhawk [KU!]
 
-Uh huh
-Screamin KU
-It's B double E and Big T they knew
+[Bridge]
+Allen Fieldhouse, it's a different kind of air
+Beware of the Phog, you better come prepared
+Mass Street jumping, we do this every year
+Remember it's ok, everybody loses here!`,
+    displayLyrics: `Welcome to the campus of the University of Kansas
+and to Allen Fieldhouse! Home of the Jayhawks!
 
-Reppin my squad when you see me you know everything
-Red and blue KU
-Red and blue KU
+Step into the cathedral, the air's getting thin
+The Phog is rising up, let the madness begin
+From the rules on the wall to the banners in the sky
+Where the spirit of the Jayhawk was born to fly
+Bill Self on the hardwood, the master of the game
+Lawrence, Kansas, put respect on the name
+Beware of the Phog, it's a different kind of sound
+Rock Chalk Jayhawk, yeah we holding the crown
+From the Hill to Mass Street, the energy is real
+The original Blue Blood, tell me how it feel!
+In the house that Phog built, the tradition is tall
+All roads lead to Lawrence, it's the root of it all!
 
-We put it down on the court you know everything
-Red and blue KU
-Red and blue KU
+Red and Blue running deep in my veins
+Beware of the Phog where the tradition reigns
+In the cathedral of college basketball
+All roads lead to Lawrence, it's the root of it all!
+Rock Chalk! Jayhawk!
+Rock Chalk! Jayhawk!
 
-Allen Fieldhouse
-Kickin back
-Bring your team and they here you know we whippin that
-
-785, 913
-See them fly looking girls, hi honey
-Big team yup yup hello
-Shout out to Urban Phenom on that red and yellow
-
-Like I said on that song I got that heavy metal
-Doin things pullin strings yeah I'm something like Gepetto
-Jayhawks, hundred miles an hour on the pedal
-She hit us in the club and she shake it like it's jello
-
-KU
-So great
-I'm like Chalmers at the buzzer
-'08
-
-Uh huh
-You know what it is
-Rock Chalk Jayhawk, we do it big
-
-Uh huh
-Screamin KU
-It's B double E and Big T they knew
-
-Reppin my squad when you see me you know everything
-Red and blue KU
-Red and blue KU
-
-We put it down on the court you know everything
-Red and blue KU
-Red and blue KU
-
-We on fire, yeah my squad
-Krizz Kaliko and Tech in the iPod
-Them Kansas girls (woo) make you say my god
-No body spray but I bet you they want my bod
-
-After the game (hmm) I be up at Tonic
-Blueberry KU kush on the chronic
-Might be at Taste Brothers and the Cave too
-Hop up in the truck and blaze two I'm reppin KU
-
-Uh huh
-You know what it is
-Rock Chalk Jayhawk, we do it big
-
-Uh huh
-Screamin KU
-It's B double E and Big T they knew
-
-Reppin my squad when you see me you know everything
-Red and blue KU
-Red and blue KU
-
-We put it down on the court you know everything
-Red and blue KU
-Red and blue KU
-
-
-
-`,
-    sunoStyle: null,
+Allen Fieldhouse, it's a different kind of air
+Beware of the Phog, you better come prepared
+Mass Street jumping, we do this every year
+Remember it's ok, everybody loses here!`,
+    sunoStyle: `Midwest Hip-Hop, Basketball Anthem, High Energy, 92 BPM, Cinematic Horns, Heavy Boom Bap Drums, Energetic Male Vocals, Stadium Hype, Allen Fieldhouse Atmosphere`,
     canvas: 'did-kansas-win.mp4',
     canvasPoster: 'did-kansas-win.mp4',
     albumArtBasedOn: 'Graduation by Kanye West'

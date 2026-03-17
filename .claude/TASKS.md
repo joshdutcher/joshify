@@ -84,6 +84,9 @@
 ### Search & Filter Enhancements
 - [ ] **Improve skills UI and search filtering** - Better visual display of skills, ability to filter search results by skill. Details TBD.
 
+### Analytics
+- [ ] **Figure out how to implement analytics for Matomo** - Research Matomo integration, tracking events, and privacy-focused analytics setup.
+
 ---
 
 ## Completed Features

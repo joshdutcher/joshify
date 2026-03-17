@@ -249,6 +249,7 @@ const SpotifyResume = () => {
                             <LyricsView
                                 project={currentlyPlaying}
                                 lyrics={currentLyrics}
+                                onClose={toggleLyrics}
                             />
                         ) : (
                             <>
@@ -284,6 +285,9 @@ const SpotifyResume = () => {
                                         onPlayProject={handlePlayProject}
                                         onClose={() => navigateToView('home')}
                                         onMobileBack={() => window.history.back()}
+                                        hasLyrics={hasLyrics}
+                                        isLyricsOpen={isLyricsOpen}
+                                        onToggleLyrics={toggleLyrics}
                                     />
                                 )}
                                 {currentView === 'profile' && <ProfileView />}

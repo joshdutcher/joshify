@@ -1,9 +1,11 @@
 import { useState } from 'react';
-import { Play, Pause, ExternalLink, Github, ChevronDown } from 'lucide-react';
+import { Play, Pause, ExternalLink, Github, ChevronDown, Share2, Check, Mic2 } from 'lucide-react';
 import ProjectImage from '../ProjectImage';
 import AlbumArtModal from '../AlbumArtModal';
 import ProjectCanvas from '../ProjectCanvas';
+import ShareModal from '../ShareModal';
 import type { Project } from '../../types';
+import { trackEvent } from '../../utils/analytics';
 
 interface ProjectDetailViewProps {
     project: Project;
@@ -12,6 +14,9 @@ interface ProjectDetailViewProps {
     onPlayProject: (_project: Project) => void;
     onClose?: () => void;
     onMobileBack?: () => void;
+    hasLyrics?: boolean;
+    isLyricsOpen?: boolean;
+    onToggleLyrics?: () => void;
 }
 
 interface MobileProjectContentProps {
@@ -20,6 +25,11 @@ interface MobileProjectContentProps {
     isPlaying: boolean;
     onPlayProject: (_project: Project) => void;
     handleAlbumArtClick: () => void;
+    onShareClick: (_rect: DOMRect) => void;
+    shareCopied: boolean;
+    hasLyrics?: boolean;
+    isLyricsOpen?: boolean;
+    onToggleLyrics?: (() => void) | undefined;
 }
 
 const MobileProjectContent = ({
@@ -27,7 +37,12 @@ const MobileProjectContent = ({
     currentlyPlaying,
     isPlaying,
     onPlayProject,
-    handleAlbumArtClick
+    handleAlbumArtClick,
+    onShareClick,
+    shareCopied,
+    hasLyrics,
+    isLyricsOpen,
+    onToggleLyrics
 }: MobileProjectContentProps) => (
     <>
         <div className="flex flex-col items-center space-y-4 mb-6">
@@ -86,6 +101,29 @@ const MobileProjectContent = ({
                     <Github className="w-5 h-5" />
                 </a>
             )}
+            {hasLyrics && onToggleLyrics && (
+                <button
+                    onClick={onToggleLyrics}
+                    className={`flex items-center space-x-2 transition-colors ${isLyricsOpen ? 'text-spotify-green' : 'text-spotify-secondary hover:text-white'}`}
+                    aria-label="Lyrics"
+                >
+                    <Mic2 className="w-5 h-5" />
+                    <span className="text-sm">Lyrics</span>
+                </button>
+            )}
+            <button
+                onClick={(e) => onShareClick(e.currentTarget.getBoundingClientRect())}
+                className="flex items-center space-x-2 text-spotify-secondary hover:text-white transition-colors"
+                aria-label="Share"
+            >
+                {shareCopied
+                    ? <Check className="w-5 h-5 text-spotify-green" />
+                    : <Share2 className="w-5 h-5" />
+                }
+                <span className={`text-sm ${shareCopied ? 'text-spotify-green' : ''}`}>
+                    {shareCopied ? 'Copied!' : 'Share'}
+                </span>
+            </button>
         </div>
 
         <div className="space-y-6">
@@ -142,9 +180,24 @@ const ProjectDetailView = ({
     isPlaying,
     onPlayProject,
     onClose,
-    onMobileBack
+    onMobileBack,
+    hasLyrics = false,
+    isLyricsOpen = false,
+    onToggleLyrics
 }: ProjectDetailViewProps) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [shareAnchor, setShareAnchor] = useState<DOMRect | null>(null);
+    const [shareCopied, setShareCopied] = useState(false);
+
+    const shareUrl = `${window.location.origin}/project/${project.id}`;
+
+    const handleShareCopy = () => {
+        navigator.clipboard.writeText(shareUrl);
+        setShareCopied(true);
+        setShareAnchor(null);
+        setTimeout(() => setShareCopied(false), 1500);
+        trackEvent('Share', 'Copy Link', project.id);
+    };
 
     const handleAlbumArtClick = () => {
         // Only open modal if the project has valid album art
@@ -197,6 +250,11 @@ const ProjectDetailView = ({
                         isPlaying={isPlaying}
                         onPlayProject={onPlayProject}
                         handleAlbumArtClick={handleAlbumArtClick}
+                        onShareClick={(rect) => setShareAnchor(rect)}
+                        shareCopied={shareCopied}
+                        hasLyrics={hasLyrics}
+                        isLyricsOpen={isLyricsOpen}
+                        onToggleLyrics={onToggleLyrics ?? undefined}
                     />
                 </div>
             </div>
@@ -261,6 +319,29 @@ const ProjectDetailView = ({
                             <span className="text-sm md:text-base">View Repo</span>
                         </a>
                     )}
+                    {hasLyrics && onToggleLyrics && (
+                        <button
+                            onClick={onToggleLyrics}
+                            className={`flex items-center space-x-2 transition-colors ${isLyricsOpen ? 'text-spotify-green' : 'text-spotify-secondary hover:text-white'}`}
+                            aria-label="Lyrics"
+                        >
+                            <Mic2 className="w-4 h-4 md:w-5 md:h-5" />
+                            <span className="text-sm md:text-base">Lyrics</span>
+                        </button>
+                    )}
+                    <button
+                        onClick={(e) => setShareAnchor(e.currentTarget.getBoundingClientRect())}
+                        className="flex items-center space-x-2 text-spotify-secondary hover:text-white transition-colors"
+                        aria-label="Share"
+                    >
+                        {shareCopied
+                            ? <Check className="w-4 h-4 md:w-5 md:h-5 text-spotify-green" />
+                            : <Share2 className="w-4 h-4 md:w-5 md:h-5" />
+                        }
+                        <span className={`text-sm md:text-base ${shareCopied ? 'text-spotify-green' : ''}`}>
+                            {shareCopied ? 'Copied!' : 'Share'}
+                        </span>
+                    </button>
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
@@ -316,6 +397,16 @@ const ProjectDetailView = ({
                 onClose={() => setIsModalOpen(false)}
                 project={project}
             />
+
+            {shareAnchor && (
+                <ShareModal
+                    url={shareUrl}
+                    copied={shareCopied}
+                    anchorRect={shareAnchor}
+                    onCopy={handleShareCopy}
+                    onClose={() => setShareAnchor(null)}
+                />
+            )}
         </div>
     );
 };
