@@ -136,7 +136,7 @@ const NowPlayingPanel = ({
                                             isLyricsOpen
                                                 ? 'text-spotify-green bg-black/30'
                                                 : 'text-white bg-black/30 hover:bg-black/40'
-                                        } ${!isLyricsOpen ? 'animate-pulse-subtle' : ''}`}
+                                        }`}
                                         aria-label={isLyricsOpen ? 'Close lyrics' : 'View lyrics'}
                                     >
                                         <Mic2 className="w-4 h-4" />

@@ -277,7 +277,7 @@ const BottomPlayer = ({
                                     : hasLyrics
                                         ? 'text-spotify-secondary hover:text-spotify-primary hover:bg-white/10'
                                         : 'text-gray-600 cursor-not-allowed'
-                            } ${hasLyrics && !isLyricsOpen ? 'animate-pulse-subtle' : ''}`}
+                            }`}
                             disabled={!hasLyrics}
                             aria-label={isLyricsOpen ? 'Close lyrics' : 'View lyrics'}
                         >
