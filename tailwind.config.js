@@ -37,9 +37,22 @@ export default {
           '0%': { transform: 'translateY(100%)' },
           '100%': { transform: 'translateY(0)' },
         },
+        'pulse-subtle': {
+          '0%, 100%': {
+            opacity: '1',
+            transform: 'scale(1)',
+            filter: 'drop-shadow(0 0 0 transparent)'
+          },
+          '50%': {
+            opacity: '0.7',
+            transform: 'scale(1.15)',
+            filter: 'drop-shadow(0 0 8px rgb(29, 185, 84))'
+          },
+        },
       },
       animation: {
         'slide-up': 'slide-up 0.3s ease-out',
+        'pulse-subtle': 'pulse-subtle 2s ease-in-out infinite',
       },
     },
   },

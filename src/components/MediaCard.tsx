@@ -1,9 +1,14 @@
-import { Play, Pause } from 'lucide-react';
+import { Play, Pause, Mic2 } from 'lucide-react';
 import EqualizerIcon from './EqualizerIcon';
 import ProjectImage from './ProjectImage';
 import PlaylistCoverArt from './PlaylistCoverArt';
 import type { Project, Playlist } from '../types';
 import { isProject, isPlaylist } from '../utils/typeGuards';
+
+// Helper to check if a project has lyrics
+const projectHasLyrics = (project: Project): boolean => {
+    return !!(project.displayLyrics || project.sunoLyrics);
+};
 
 
 interface MediaCardProps {
@@ -68,6 +73,14 @@ const MediaCard = ({
           />
         ) : null}
         
+                {/* Lyrics badge for projects with lyrics */}
+                {size !== 'large' && type === 'project' && isProject(item) && projectHasLyrics(item) && (
+                    <div className="absolute top-2 left-2 flex items-center space-x-1 bg-black/70 px-2 py-0.5 rounded-full">
+                        <Mic2 className="w-3 h-3 text-spotify-green" />
+                        <span className="text-[10px] text-white font-medium">Lyrics</span>
+                    </div>
+                )}
+
                 {/* Play button for small/medium cards only - positioned within cover art area */}
                 {size !== 'large' && (
                 <button
@@ -151,39 +164,41 @@ const MediaCard = ({
 
             {/* Play/Pause/Equalizer controls for large (horizontal) cards - positioned on the right */}
             {size === 'large' && (
-            <div className="relative w-12 h-12 flex items-center justify-center flex-shrink-0">
-                {/* Equalizer - shown when playing and mouse is not hovering */}
-                {isCurrentlyPlaying && (
-                <div className="group-hover:opacity-0 transition-opacity duration-200">
-                    <EqualizerIcon />
+            <div className="flex items-center space-x-2 flex-shrink-0">
+                <div className="relative w-12 h-12 flex items-center justify-center flex-shrink-0">
+                    {/* Equalizer - shown when playing and mouse is not hovering */}
+                    {isCurrentlyPlaying && (
+                    <div className="group-hover:opacity-0 transition-opacity duration-200">
+                        <EqualizerIcon />
+                    </div>
+          )}
+          
+                    {/* Play button - shown on hover when not currently playing */}
+                    {!isCurrentlyPlaying && (
+                    <button
+                        className="absolute inset-0 w-12 h-12 bg-spotify-green rounded-full flex items-center justify-center shadow-xl transition-all duration-200 ease-out hover:scale-105 opacity-0 group-hover:opacity-100"
+                        onClick={(e) => {
+                e.stopPropagation();
+                onPlay && onPlay(item);
+              }}
+            >
+                        <Play className="w-5 h-5 text-black ml-0.5" fill="currentColor" />
+                    </button>
+          )}
+          
+                    {/* Pause button - shown on hover when currently playing */}
+                    {isCurrentlyPlaying && (
+                    <button
+                        className="absolute inset-0 w-12 h-12 bg-spotify-green rounded-full flex items-center justify-center shadow-xl transition-all duration-200 ease-out hover:scale-105 opacity-0 group-hover:opacity-100"
+                        onClick={(e) => {
+                e.stopPropagation();
+                onPlay && onPlay(item);
+              }}
+            >
+                        <Pause className="w-5 h-5 text-black" fill="currentColor" />
+                    </button>
+          )}
                 </div>
-          )}
-          
-                {/* Play button - shown on hover when not currently playing */}
-                {!isCurrentlyPlaying && (
-                <button
-                    className="absolute inset-0 w-12 h-12 bg-spotify-green rounded-full flex items-center justify-center shadow-xl transition-all duration-200 ease-out hover:scale-105 opacity-0 group-hover:opacity-100"
-                    onClick={(e) => {
-                e.stopPropagation();
-                onPlay && onPlay(item);
-              }}
-            >
-                    <Play className="w-5 h-5 text-black ml-0.5" fill="currentColor" />
-                </button>
-          )}
-          
-                {/* Pause button - shown on hover when currently playing */}
-                {isCurrentlyPlaying && (
-                <button
-                    className="absolute inset-0 w-12 h-12 bg-spotify-green rounded-full flex items-center justify-center shadow-xl transition-all duration-200 ease-out hover:scale-105 opacity-0 group-hover:opacity-100"
-                    onClick={(e) => {
-                e.stopPropagation();
-                onPlay && onPlay(item);
-              }}
-            >
-                    <Pause className="w-5 h-5 text-black" fill="currentColor" />
-                </button>
-          )}
             </div>
       )}
         </div>

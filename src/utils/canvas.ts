@@ -57,3 +57,20 @@ export const getMusicUrl = (filename: string | null): string | null => {
     return `${cdnBaseUrl}/${filename}`;
 };
 
+/**
+ * Get the best image source for color extraction
+ * Prioritizes canvas poster (from video frame) over album art
+ * @param canvasPoster - Canvas poster image URL (extracted from video)
+ * @param albumArt - Album art image URL
+ * @returns Best available image URL for color extraction, or null if none available
+ */
+export const getColorSourceImage = (
+    canvasPoster: string | null | undefined,
+    albumArt: string | null | undefined
+): string | null => {
+    // Prefer canvas poster (video frame) for more dynamic colors
+    if (canvasPoster) return canvasPoster;
+    // Fall back to album art
+    if (albumArt) return albumArt;
+    return null;
+};

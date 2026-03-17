@@ -118,6 +118,35 @@ export interface Project {
   readonly canvas: string | null;
   readonly canvasPoster: string | null; // Poster image for canvas video
   readonly albumArtBasedOn: string | null;
+  readonly active?: boolean; // Whether to show this project (defaults to true if not specified)
+}
+
+/**
+ * Raw project data before helper functions are applied
+ * Used in individual project files - musicFile, canvas, canvasPoster are just filenames
+ */
+export interface RawProject {
+  readonly id: string;
+  readonly title: string;
+  readonly artist: string;
+  readonly album: AlbumCategory;
+  readonly duration: string;
+  readonly image: string;
+  readonly year: string;
+  readonly impact: string | number | null;
+  readonly description: string;
+  readonly skills: readonly Skill[];
+  readonly demoUrl: string | null;
+  readonly githubUrl: string | null;
+  readonly musicFile: string | null; // Just the filename (e.g., 'project.mp3')
+  readonly projectStory: string | null;
+  readonly sunoLyrics: string | null;
+  readonly displayLyrics: string | null;
+  readonly sunoStyle: string | null;
+  readonly canvas: string | null; // Just the filename (e.g., 'project.mp4')
+  readonly canvasPoster: string | null; // Just the filename (e.g., 'project.mp4')
+  readonly albumArtBasedOn: string | null;
+  readonly active?: boolean;
 }
 
 /**

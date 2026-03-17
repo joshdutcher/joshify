@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import usePlayer from '@/hooks/usePlayer';
 import useColumnResize from '@/hooks/useColumnResize';
 import useDynamicBackground from '@/hooks/useDynamicBackground';
@@ -16,6 +16,8 @@ import SearchView from '@/components/views/SearchView';
 import CompanyView from '@/components/views/CompanyView';
 import DomainView from '@/components/views/DomainView';
 import WelcomeModal from '@/components/WelcomeModal';
+import MobilePlayerView from '@/components/MobilePlayerView';
+import LyricsView from '@/components/LyricsView';
 
 const SpotifyResume = () => {
     // Welcome modal state - show on first visit
@@ -40,6 +42,18 @@ const SpotifyResume = () => {
         currentPlaylist,
         currentTrackIndex,
         searchQuery,
+        audioRef,
+        // Audio state
+        currentTime,
+        duration,
+        volume,
+        currentMusicUrl,
+        hasLyrics,
+        currentLyrics,
+        // Mobile/Lyrics UI state
+        isMobilePlayerOpen,
+        isLyricsOpen,
+        // Actions
         handlePlayProject,
         playNextTrack,
         playPreviousTrack,
@@ -52,7 +66,21 @@ const SpotifyResume = () => {
         toggleSidebar,
         closeSidebar,
         setIsPlaying,
-        setSearchQuery
+        setSearchQuery,
+        // Audio controls
+        seek,
+        updateVolume,
+        // Lyrics controls
+        toggleLyrics,
+        // Mobile player controls
+        openMobilePlayer,
+        closeMobilePlayer,
+        // Audio event handlers
+        handleTimeUpdate,
+        handleLoadedMetadata,
+        handleEnded,
+        handleWaiting,
+        handleCanPlay
     } = usePlayer();
 
     const {
@@ -100,6 +128,53 @@ const SpotifyResume = () => {
     const handleNavigateToSearch = (query: string) => {
         navigateToSearch(query);
     };
+
+    // Track previous music URL to differentiate between track change vs play/pause toggle
+    const prevMusicUrlRef = useRef<string | null>(null);
+
+    // Control audio playback - handles both track changes and play/pause toggles
+    useEffect(() => {
+        const audio = audioRef.current;
+        if (!audio) return;
+
+        const prevUrl = prevMusicUrlRef.current;
+        const urlChanged = currentMusicUrl !== prevUrl;
+
+        if (urlChanged) {
+            // Track changed - load new source first, then play if needed
+            prevMusicUrlRef.current = currentMusicUrl;
+
+            if (currentMusicUrl) {
+                audio.src = currentMusicUrl;
+                audio.load();
+                if (isPlaying) {
+                    audio.play().catch(() => {
+                        setIsPlaying(false);
+                    });
+                }
+            } else {
+                // No music URL - pause and clear
+                audio.pause();
+            }
+        } else {
+            // Same track - just toggle play/pause
+            if (isPlaying && currentMusicUrl) {
+                audio.play().catch(() => {
+                    setIsPlaying(false);
+                });
+            } else {
+                audio.pause();
+            }
+        }
+    }, [isPlaying, currentMusicUrl, setIsPlaying, audioRef]);
+
+    // Set initial volume
+    useEffect(() => {
+        const audio = audioRef.current;
+        if (audio) {
+            audio.volume = volume;
+        }
+    }, [volume, audioRef]);
 
     return (
         <div
@@ -161,73 +236,90 @@ const SpotifyResume = () => {
                     <div
                         className="flex-1 overflow-y-auto overflow-x-hidden rounded-t-lg spotify-scrollbar"
                         style={{
-              scrollBehavior: 'smooth',
-              background: backgroundStyle.background,
-              transition: 'background 0.8s ease-in-out'
-            }}
-          >
-                        {currentView === 'home' && (
-                        <HomeView
-                            currentlyPlaying={currentlyPlaying}
-                            isPlaying={isPlaying}
-                            currentPlaylist={currentPlaylist}
-                            onPlayProject={handlePlayProject}
-                            onNavigateToProject={navigateToProject}
-                            onNavigateToPlaylist={navigateToPlaylist}
-                            onNavigateToProfile={handleNavigateToProfile}
-                            onNavigateToCompany={navigateToCompany}
-                            onNavigateToDomain={navigateToDomain}
-              />
-            )}
-                        {currentView === 'playlist' && selectedPlaylist && isPlaylist(selectedPlaylist) && (
-                        <PlaylistView
-                            playlist={selectedPlaylist}
-                            currentlyPlaying={currentlyPlaying}
-                            isPlaying={isPlaying}
-                            onPlayProject={handlePlayProject}
-                            onNavigateToProject={navigateToProject}
-                            onNavigateToCompany={navigateToCompany}
-                            onNavigateToDomain={navigateToDomain}
-              />
-            )}
-                        {currentView === 'project' && selectedPlaylist && isProject(selectedPlaylist) && (
-                        <ProjectDetailView
-                            project={selectedPlaylist}
-                            currentlyPlaying={currentlyPlaying}
-                            isPlaying={isPlaying}
-                            onPlayProject={handlePlayProject}
-                            onClose={() => navigateToView('home')}
-                            onMobileBack={() => window.history.back()}
-              />
-            )}
-                        {currentView === 'profile' && <ProfileView />}
-                        {currentView === 'search' && (
-                        <SearchView
-                            searchQuery={searchQuery}
-                            currentlyPlaying={currentlyPlaying}
-                            isPlaying={isPlaying}
-                            onPlayProject={handlePlayProject}
-                            onNavigateToProject={navigateToProject}
-              />
-            )}
-                        {currentView === 'company' && selectedPlaylist && 'company' in selectedPlaylist && (
-                        <CompanyView
-                            company={selectedPlaylist.company}
-                            currentlyPlaying={currentlyPlaying}
-                            isPlaying={isPlaying}
-                            onPlayProject={handlePlayProject}
-                            onNavigateToProject={navigateToProject}
-              />
-            )}
-                        {currentView === 'domain' && selectedPlaylist && 'domain' in selectedPlaylist && (
-                        <DomainView
-                            domain={selectedPlaylist.domain}
-                            currentlyPlaying={currentlyPlaying}
-                            isPlaying={isPlaying}
-                            onPlayProject={handlePlayProject}
-                            onNavigateToProject={navigateToProject}
-              />
-            )}
+                            scrollBehavior: 'smooth',
+                            // Only apply background when lyrics aren't showing (LyricsView has its own)
+                            ...(!(isLyricsOpen && currentlyPlaying) && {
+                                background: backgroundStyle.background,
+                                transition: 'background 0.8s ease-in-out'
+                            })
+                        }}
+                    >
+                        {/* Desktop Lyrics View - replaces center column content */}
+                        {isLyricsOpen && currentlyPlaying ? (
+                            <LyricsView
+                                project={currentlyPlaying}
+                                lyrics={currentLyrics}
+                                onClose={toggleLyrics}
+                            />
+                        ) : (
+                            <>
+                                {currentView === 'home' && (
+                                    <HomeView
+                                        currentlyPlaying={currentlyPlaying}
+                                        isPlaying={isPlaying}
+                                        currentPlaylist={currentPlaylist}
+                                        onPlayProject={handlePlayProject}
+                                        onNavigateToProject={navigateToProject}
+                                        onNavigateToPlaylist={navigateToPlaylist}
+                                        onNavigateToProfile={handleNavigateToProfile}
+                                        onNavigateToCompany={navigateToCompany}
+                                        onNavigateToDomain={navigateToDomain}
+                                    />
+                                )}
+                                {currentView === 'playlist' && selectedPlaylist && isPlaylist(selectedPlaylist) && (
+                                    <PlaylistView
+                                        playlist={selectedPlaylist}
+                                        currentlyPlaying={currentlyPlaying}
+                                        isPlaying={isPlaying}
+                                        onPlayProject={handlePlayProject}
+                                        onNavigateToProject={navigateToProject}
+                                        onNavigateToCompany={navigateToCompany}
+                                        onNavigateToDomain={navigateToDomain}
+                                    />
+                                )}
+                                {currentView === 'project' && selectedPlaylist && isProject(selectedPlaylist) && (
+                                    <ProjectDetailView
+                                        project={selectedPlaylist}
+                                        currentlyPlaying={currentlyPlaying}
+                                        isPlaying={isPlaying}
+                                        onPlayProject={handlePlayProject}
+                                        onClose={() => navigateToView('home')}
+                                        onMobileBack={() => window.history.back()}
+                                        hasLyrics={hasLyrics}
+                                        isLyricsOpen={isLyricsOpen}
+                                        onToggleLyrics={toggleLyrics}
+                                    />
+                                )}
+                                {currentView === 'profile' && <ProfileView />}
+                                {currentView === 'search' && (
+                                    <SearchView
+                                        searchQuery={searchQuery}
+                                        currentlyPlaying={currentlyPlaying}
+                                        isPlaying={isPlaying}
+                                        onPlayProject={handlePlayProject}
+                                        onNavigateToProject={navigateToProject}
+                                    />
+                                )}
+                                {currentView === 'company' && selectedPlaylist && 'company' in selectedPlaylist && (
+                                    <CompanyView
+                                        company={selectedPlaylist.company}
+                                        currentlyPlaying={currentlyPlaying}
+                                        isPlaying={isPlaying}
+                                        onPlayProject={handlePlayProject}
+                                        onNavigateToProject={navigateToProject}
+                                    />
+                                )}
+                                {currentView === 'domain' && selectedPlaylist && 'domain' in selectedPlaylist && (
+                                    <DomainView
+                                        domain={selectedPlaylist.domain}
+                                        currentlyPlaying={currentlyPlaying}
+                                        isPlaying={isPlaying}
+                                        onPlayProject={handlePlayProject}
+                                        onNavigateToProject={navigateToProject}
+                                    />
+                                )}
+                            </>
+                        )}
                     </div>
 
                     {/* Right Resize Handle - Desktop Only */}
@@ -246,7 +338,11 @@ const SpotifyResume = () => {
                         width={rightColumnWidth}
                         onNavigateToProject={navigateToProject}
                         style={isRightResizing ? {} : { width: `${rightColumnWidth}px` }}
-          />
+                        hasLyrics={hasLyrics}
+                        lyrics={currentLyrics}
+                        isLyricsOpen={isLyricsOpen}
+                        onToggleLyrics={toggleLyrics}
+                    />
                 </div>
             </div>
 
@@ -260,12 +356,49 @@ const SpotifyResume = () => {
                 onPreviousTrack={playPreviousTrack}
                 currentPlaylist={currentPlaylist}
                 currentTrackIndex={currentTrackIndex}
-      />
+                currentTime={currentTime}
+                duration={duration}
+                volume={volume}
+                hasLyrics={hasLyrics}
+                isLyricsOpen={isLyricsOpen}
+                onSeek={seek}
+                onVolumeChange={updateVolume}
+                onToggleLyrics={toggleLyrics}
+                onOpenMobilePlayer={openMobilePlayer}
+            />
 
             {/* Welcome Modal */}
             <WelcomeModal
                 isOpen={showWelcome}
                 onClose={handleWelcomeClose}
+            />
+
+            {/* Mobile Player View */}
+            <MobilePlayerView
+                isOpen={isMobilePlayerOpen}
+                onClose={closeMobilePlayer}
+                currentlyPlaying={currentlyPlaying}
+                isPlaying={isPlaying}
+                currentTime={currentTime}
+                duration={duration}
+                onTogglePlay={handleTogglePlay}
+                onSeek={seek}
+                onPreviousTrack={playPreviousTrack}
+                onNextTrack={playNextTrack}
+                canGoPrevious={!!(currentPlaylist && currentTrackIndex > 0)}
+                canGoNext={!!(currentPlaylist && currentTrackIndex < (currentPlaylist.projects?.length - 1))}
+                lyrics={currentLyrics}
+            />
+
+            {/* Hidden Audio Element */}
+            <audio
+                ref={audioRef}
+                preload="auto"
+                onTimeUpdate={handleTimeUpdate}
+                onLoadedMetadata={handleLoadedMetadata}
+                onEnded={handleEnded}
+                onWaiting={handleWaiting}
+                onCanPlay={handleCanPlay}
             />
         </div>
     );
