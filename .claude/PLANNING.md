@@ -62,11 +62,16 @@
 - `ResizeHandle.tsx` - Column resizing functionality
 - `SearchBar.tsx` - Search input with filtering
 - `MediaCard.tsx` - Reusable project/playlist cards
+- `ProgressBar.tsx` - Seekable audio progress bar
+- `MobilePlayerView.tsx` - Full-screen mobile player with lyrics
+- `LyricsView.tsx` - Desktop center-column lyrics overlay
+- `ShareModal.tsx` - Copy-link / native share modal
+- `WelcomeModal.tsx` - First-visit onboarding modal
 
 ### Custom Hooks
 
 **State Management**:
-- `usePlayer.ts` - Player state (now playing, navigation)
+- `usePlayer.ts` - Player state (now playing, playback, navigation, audio engine)
 - `useColumnResize.ts` - Column width management
 - `useDynamicBackground.ts` - Canvas background state
 - `useNavigationHistory.ts` - Browser history integration
@@ -88,19 +93,25 @@
 interface Project {
   id: string;
   title: string;
-  artist: string;           // "Project - Company" format
-  album: AlbumCategory;     // Project category enum
+  artist: string;               // "Project - Company" format
+  album: AlbumCategory;         // Project category enum
   year: string;
-  duration: string;         // Project timeline
-  image: string;            // Album art path
-  canvas?: string;          // Canvas video URL (via getCanvasUrl)
-  canvasPoster?: string;    // Poster image for instant feedback
-  description: string;      // Music critic-style project description
-  skills: Skill[];          // Technology stack (enum array)
-  demoUrl?: string;         // Live project URL
-  githubUrl?: string;       // Repository URL
-  impact?: string;          // Key metric or achievement
-  albumArtBasedOn?: string; // Attribution for album art inspiration
+  duration: string;             // Project timeline
+  image: string;                // Album art path
+  canvas?: string;              // Canvas video URL (via getCanvasUrl)
+  canvasPoster?: string;        // Poster image for instant feedback
+  description: string;          // Music critic-style project description
+  skills: Skill[];              // Technology stack (enum array)
+  demoUrl?: string;             // Live project URL
+  githubUrl?: string;           // Repository URL
+  impact?: string;              // Key metric or achievement
+  albumArtBasedOn?: string;     // Attribution for album art inspiration
+  active?: boolean;             // false = hidden from UI
+  musicFile?: string | null;    // MP3 filename (via getMusicUrl)
+  projectStory?: string | null; // First-person narrative
+  sunoLyrics?: string | null;   // Full lyrics for Suno AI input
+  displayLyrics?: string | null;// Lyrics shown in UI
+  sunoStyle?: string | null;    // Suno AI style prompt
 }
 ```
 
@@ -132,16 +143,26 @@ src/
 │   │   └── ProfileView.tsx
 │   ├── AlbumArtModal.tsx
 │   ├── BottomPlayer.tsx
+│   ├── LyricsView.tsx      # Desktop lyrics overlay
 │   ├── MediaCard.tsx
+│   ├── MobilePlayerView.tsx # Full-screen mobile player
 │   ├── NowPlayingPanel.tsx
+│   ├── ProgressBar.tsx     # Seekable audio progress bar
 │   ├── ProjectCanvas.tsx
+│   ├── ProjectCard.tsx
 │   ├── ProjectImage.tsx
 │   ├── ResizeHandle.tsx
 │   ├── SearchBar.tsx
+│   ├── ShareModal.tsx      # Copy-link / native share
 │   ├── Sidebar.tsx
-│   └── TopBar.tsx
+│   ├── TopBar.tsx
+│   └── WelcomeModal.tsx    # First-visit onboarding
 ├── data/
-│   └── projects.ts         # Centralized project and collection data
+│   ├── projects/           # Per-project data files
+│   │   ├── index.ts        # Re-exports all projects
+│   │   ├── project-name.ts # One file per project
+│   │   └── ...
+│   └── projects.ts         # Aggregates + applies URL helpers
 ├── hooks/
 │   ├── usePlayer.ts
 │   ├── useColumnResize.ts
@@ -151,7 +172,7 @@ src/
 │   └── index.ts            # TypeScript type definitions
 ├── utils/
 │   ├── analytics.ts
-│   ├── canvas.ts
+│   ├── canvas.ts           # getCanvasUrl, getMusicUrl helpers
 │   ├── colorExtractor.ts
 │   └── typeGuards.ts
 ├── App.tsx                 # Root component
@@ -206,8 +227,8 @@ src/
   - 600KB - 1.7MB each
   - 9:16 vertical format
   - H.264 encoding, FastStart enabled
-- **Music Files**: `assets/music/*.mp3` (future)
-  - 2-5MB each (estimated)
+- **Music Files**: `assets/music/*.mp3`
+  - 2-5MB each
   - MP3 format, 320kbps
 
 ### Environment-Based URLs
