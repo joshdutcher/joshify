@@ -8,13 +8,13 @@
 - Automated asset optimization
 - Responsive design complete
 - Canvas video system functional
-- Audio player with lyrics, share modal (PR #40 open, pending merge)
+- Audio player with lyrics, share modal (PR #40 merged)
 
 ---
 
 ## Active Tasks
 
-### Audio Player Implementation (PR #40 - pending merge)
+### Audio Player Implementation (PR #40 - merged ✅)
 
 **Completed**:
 - [x] Remove heart icons site-wide
@@ -36,7 +36,6 @@
 - [x] Project data refactored into per-project files
 
 **Remaining**:
-- [ ] Merge feature branch to main after testing
 - [ ] Implement expand button in mobile lyrics view (full-screen lyrics)
 - [ ] Add missing audio files (joshify.mp3, others)
 
@@ -51,6 +50,7 @@
 - [x] Remove E2E test requirement from GitHub branch protection ruleset
 - [x] Remove circular deployment jobs from GitHub Actions workflow
 - [x] Update CI/CD documentation to reflect Railway auto-deploy strategy
+- [x] Remove redundant push-to-main CI trigger (PR #41)
 
 ### Mobile UX Fixes (Completed)
 - [x] Fix mobile navigation - Add modal/slide-up UI for project detail pages with dismiss functionality
@@ -132,10 +132,11 @@
 2. (Optional) Create canvas video MP4, run optimization scripts
 3. (Optional) Generate poster image with `generate-poster-frames.sh`
 4. (Optional) Create music track MP3 for `public/assets/music/`
-5. Add project data to `src/data/projects.ts`
-6. Upload canvas/music assets to Cloudflare R2
-7. Run `npm run ci` to verify build
-8. Commit and push to trigger deployment
+5. Create project file: `src/data/projects/project-name.ts`
+6. Add export to `src/data/projects/index.ts` and `src/data/projects.ts`
+7. Upload canvas/music assets to Cloudflare R2
+8. Run `npm run ci` to verify build
+9. Commit and push to trigger deployment
 
 ### Regular Maintenance
 - Run `npm run ci` before pushing changes
