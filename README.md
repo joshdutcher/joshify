@@ -2,14 +2,14 @@
 
 **A personal portfolio website reimagined as a music streaming platform**
 
-Joshify transforms my traditional developer portfolio into an engaging Spotify-like experience where development projects become "tracks," skills become "genres," and my career becomes a carefully curated musical journey. Just without the music.
+Joshify transforms my traditional developer portfolio into an engaging Spotify-like experience where development projects become "tracks," skills become "genres," and my career becomes a carefully curated musical journey — complete with AI-generated music for each project.
 
 ## ✨ Features
 
 ### 🎵 Core Experience
 - **Project-as-Track Metaphor**: Each development project presented as a music track with rich metadata, descriptions, and technical details
 - **Collection System**: Curated project collections organized like Spotify playlists (workplace, side projects, top hits)
-- **Interactive Player**: Portfolio navigation with familiar music player controls and "now playing" interface
+- **Interactive Player**: Real MP3 audio playback with progress bar, seek, volume control, and auto-advance
 - **Canvas Backgrounds**: Dynamic visual backgrounds with seamless video/image fallback system
   - Desktop: Immersive canvas in right panel during project playback
   - Mobile: Full-screen canvas backgrounds on project detail pages with readable text overlays
@@ -80,16 +80,27 @@ src/
 │   │   └── SearchResultsView.tsx     # Global search results
 │   ├── AlbumArtModal.tsx             # Full-screen album art viewer
 │   ├── BottomPlayer.tsx              # "Now playing" player bar
-│   ├── HorizontalCardSection.tsx     # Card grid sections
+│   ├── LyricsView.tsx                # Desktop lyrics overlay
+│   ├── MediaCard.tsx                 # Reusable project/playlist cards
+│   ├── MobilePlayerView.tsx          # Full-screen mobile player
+│   ├── NowPlayingPanel.tsx           # Right column with canvas + metadata
+│   ├── ProgressBar.tsx               # Seekable audio progress bar
 │   ├── ProjectCanvas.tsx             # Canvas video/image system
 │   ├── ProjectImage.tsx              # Album art with fallbacks
+│   ├── ShareModal.tsx                # Copy-link / native share
 │   ├── Sidebar.tsx                   # Left navigation column
-│   └── TopBar.tsx                    # Header with search
+│   ├── TopBar.tsx                    # Header with search
+│   └── WelcomeModal.tsx              # First-visit onboarding
 ├── data/
-│   └── projects.ts                   # Project metadata and configuration
+│   ├── projects/                     # Per-project data files
+│   │   ├── index.ts                  # Re-exports all projects
+│   │   └── *.ts                      # One file per project
+│   └── projects.ts                   # Aggregates + applies URL helpers
 ├── hooks/
-│   ├── usePlayer.ts                  # Player state management
-│   └── useColumnResize.ts            # Column resizing logic
+│   ├── usePlayer.ts                  # Audio engine + player state
+│   ├── useColumnResize.ts            # Column resizing logic
+│   ├── useDynamicBackground.ts       # Canvas background color
+│   └── useNavigationHistory.ts       # Browser history integration
 └── types/
     └── index.ts                      # TypeScript type definitions
 ```
@@ -148,15 +159,16 @@ interface Project {
 ## 🚀 Development & Deployment
 
 ### CI/CD Pipeline
-Automated pipeline runs on every push to main:
+Automated pipeline runs on every PR / push to main:
 1. **Lint**: ESLint validation (max 50 warnings)
 2. **Type Check**: TypeScript compilation check (0 errors required)
 3. **Build**: Production build with image optimization
 4. **Quality Gate**: Ensure all checks pass
-5. **Deploy**: Automatic Railway deployment on success
+
+**Deployment**: Railway watches `main` and auto-deploys on merge (not triggered by GitHub Actions).
 
 ### Canvas Video Hosting
-- **Development**: Videos stored in `public/canvases/` (gitignored)
+- **Development**: Videos stored in `public/assets/canvases/` (gitignored)
 - **Production**: Hosted via Cloudflare R2 CDN
 - **Format**: MP4 H.264, 9:16 vertical aspect ratio, <2MB, 3-8s seamless loops
 - **Fallback**: Automatic fallback to static album art or animated gradients
@@ -170,7 +182,13 @@ Automated pipeline runs on every push to main:
 ## 📋 Project Status
 
 ### ✅ Completed Features (2025-2026)
+- **Audio Player**: Real MP3 playback, progress bar, seek, volume, auto-advance (March 2026)
+- **Lyrics System**: Desktop center-column overlay, mobile full-screen, per-project lyrics data (March 2026)
+- **Share Modal**: Copy-link and native share from NowPlaying panel (March 2026)
+- **NowPlaying Redesign**: Dynamic background color from album art, expanded metadata (March 2026)
+- **Project Data Refactor**: Per-project files under `src/data/projects/` (January 2026)
 - **Music & Lyrics Infrastructure**: Full data model for AI-generated music, lyrics, and style prompts (January 2026)
+- **First-Visit Welcome Modal**: Onboarding experience for new visitors (November 2025)
 - **TypeScript Conversion**: Complete type safety with 0 compilation errors (September 2025)
 - **Vite 5 Upgrade**: Modern build tooling with automated image optimization (October 2025)
 - **Mobile Canvas Backgrounds**: Full-screen immersive canvas on mobile detail pages (October 2025)
@@ -215,5 +233,5 @@ This project is intended for portfolio demonstration purposes. Spotify's design 
 ---
 
 **Developer**: Josh Dutcher
-**Last Updated**: January 29, 2026
+**Last Updated**: March 17, 2026
 **Status**: Production Ready

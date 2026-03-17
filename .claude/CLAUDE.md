@@ -9,6 +9,7 @@
 - Full CI/CD pipeline
 - Automated asset optimization
 - Deployed on Railway
+- Audio player with real MP3 playback, lyrics, and share functionality
 
 ---
 
@@ -69,6 +70,14 @@ git push origin <branch-name>
 - **Fallback chain**: Video → Album Art → Animated Gradient
 - **Poster images**: Instant visual feedback while loading
 
+### Audio Player
+- **Real MP3 playback** via `usePlayer.ts` hook
+- **Progress bar** with click-to-seek and drag-to-seek
+- **Lyrics view**: Desktop center column takeover, mobile full-screen
+- **Share modal**: Copy link or native share from NowPlaying panel
+- **Auto-advance**: Plays next track on song end
+- **Music CDN**: Same Cloudflare R2 pattern as canvas videos
+
 ### Project Structure
 ```
 src/
@@ -117,6 +126,12 @@ import type { Type } from '@/types'
 - **Local Dev**: `public/assets/canvases/*.mp4` (gitignored)
 - **Production**: Cloudflare R2 CDN (`https://cdn.joshify.dev/assets/canvases/`)
 - **Format**: MP4 H.264, 9:16 aspect, <2MB, 30fps
+- **Committed**: No (too large for git)
+
+### Music Files
+- **Local Dev**: `public/assets/music/*.mp3` (gitignored)
+- **Production**: Cloudflare R2 CDN (`https://cdn.joshify.dev/assets/music/`)
+- **Format**: MP3, 320kbps
 - **Committed**: No (too large for git)
 
 ### Canvas Posters
@@ -195,13 +210,15 @@ GitHub Ruleset: **"main branch protection"** (ID: 8492517)
 ## Common Tasks
 
 ### Adding New Projects
-1. Create album art: `public/album-art/project-name.png`
+1. Create album art: `public/assets/images/album-art/project-name.png`
 2. (Optional) Create canvas video, run `scripts/optimize-canvas-videos.sh`
 3. (Optional) Generate poster: `scripts/generate-poster-frames.sh`
-4. Add project data to `src/data/projects.ts`
-5. Upload canvas to Cloudflare R2 (if created)
-6. Run `npm run ci` to verify
-7. Commit and push
+4. (Optional) Create music track MP3 for `public/assets/music/`
+5. Create project file: `src/data/projects/project-name.ts`
+6. Add export to `src/data/projects/index.ts` and `src/data/projects.ts`
+7. Upload canvas/music assets to Cloudflare R2
+8. Run `npm run ci` to verify
+9. Commit and push
 
 ### Canvas Video Workflow
 See `README-CANVAS.md` for detailed canvas setup instructions.
@@ -292,9 +309,14 @@ npm run lint        # See all warnings
 ```
 
 ### Canvas Videos Not Loading
-- **Dev**: Check `public/canvases/` has MP4 files
+- **Dev**: Check `public/assets/canvases/` has MP4 files
 - **Prod**: Verify Cloudflare R2 URLs in `src/utils/canvas.ts`
 - **Both**: Check browser console for errors
+
+### Audio Not Playing
+- **Dev**: Check `public/assets/music/` has MP3 files
+- **Prod**: Verify Cloudflare R2 URLs in `src/utils/canvas.ts` (`getMusicUrl`)
+- **Both**: Check that project has a `musicFile` field set
 
 ### Build Failures
 ```bash
@@ -313,4 +335,4 @@ npm run build
 - **Analytics**: Matomo dashboard
 - **CDN**: Cloudflare R2 bucket
 
-**Last Updated**: October 21, 2025
+**Last Updated**: March 17, 2026

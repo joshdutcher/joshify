@@ -1,6 +1,6 @@
 # TASKS.md - Development Tasks
 
-## Current Status (January 31, 2026)
+## Current Status (March 17, 2026)
 
 **Project State**: Production-Ready ✅
 - Zero TypeScript errors
@@ -8,13 +8,13 @@
 - Automated asset optimization
 - Responsive design complete
 - Canvas video system functional
-- **Audio player implementation in progress** (feature/audio-player branch)
+- Audio player with lyrics, share modal (PR #40 open, pending merge)
 
 ---
 
 ## Active Tasks
 
-### Audio Player Implementation (In Progress - feature/audio-player branch)
+### Audio Player Implementation (PR #40 - pending merge)
 
 **Completed**:
 - [x] Remove heart icons site-wide
@@ -25,20 +25,23 @@
 - [x] MobilePlayerView component (slide-up modal with lyrics)
 - [x] Desktop player updates (real progress bar, actual audio times, volume slider, mic icon)
 - [x] LyricsView component (desktop center column takeover with gradient background)
-- [x] Lyrics discoverability (badge on cards, pulsing mic, preview in NowPlayingPanel, View Lyrics link)
-- [x] Mic icon turns green when lyrics are showing
+- [x] Lyrics discoverability (badge on cards, preview in NowPlayingPanel, View Lyrics link)
+- [x] Mic icon turns green when lyrics are showing (static, no pulse)
+- [x] ShareModal with copy-link and native share from NowPlayingPanel
+- [x] NowPlayingPanel redesign with dynamic background color from album art
+- [x] ProjectDetailView expanded with richer metadata and lyrics
 - [x] Fixed double-path bug in audio URL generation
 - [x] Fixed volume slider to support smooth dragging
-- [x] Fixed first-play race condition (audio effects consolidated to prevent play() before src is set)
+- [x] Fixed first-play race condition
+- [x] Project data refactored into per-project files
 
 **Remaining**:
-- [ ] Test all features thoroughly across devices
-- [ ] Handle projects without musicFile gracefully (some projects don't have audio yet)
 - [ ] Merge feature branch to main after testing
-- [ ] Implement expand button functionality in mobile lyrics view (full-screen lyrics)
+- [ ] Implement expand button in mobile lyrics view (full-screen lyrics)
+- [ ] Add missing audio files (joshify.mp3, others)
 
 **Known Issues**:
-- Not all projects have audio files yet (e.g., joshify.mp3 doesn't exist)
+- Not all projects have audio files yet
 - Projects without audio will show 0:00 duration
 
 ---
@@ -85,7 +88,7 @@
 - [ ] **Improve skills UI and search filtering** - Better visual display of skills, ability to filter search results by skill. Details TBD.
 
 ### Analytics
-- [ ] **Figure out how to implement analytics for Matomo** - Research Matomo integration, tracking events, and privacy-focused analytics setup.
+- [x] **Matomo analytics implemented** - `src/utils/analytics.ts` with `trackEvent()` helper. Events fire on project play, share, and other interactions. See `.claude/ANALYTICS.md` for setup details.
 
 ---
 
