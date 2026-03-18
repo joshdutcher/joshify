@@ -87,6 +87,28 @@
 ### Search & Filter Enhancements
 - [ ] **Improve skills UI and search filtering** - Better visual display of skills, ability to filter search results by skill. Details TBD.
 
+### Synchronized Lyrics (Karaoke-style)
+- [ ] **Spotify-style synced lyrics** - Lines highlight white as they're sung, others stay gray, view auto-scrolls
+
+**How it works**:
+- Uses **LRC format** (`.lrc` files) — same concept as SRT/WebVTT for movie subtitles, one timestamp per line:
+  ```
+  [00:04.20] Coding all night long
+  [00:08.50] Debugging till the dawn
+  ```
+- `currentTime` is already tracked in real-time via `usePlayer.ts` — the key infrastructure exists
+- LRC files would live alongside MP3s on Cloudflare R2 (`joshify.lrc` next to `joshify.mp3`)
+
+**Implementation scope**:
+1. Add `syncedLyrics` field to Project type (`Array<{ time: number; text: string }>`)
+2. Add `getLyricsUrl()` helper in `src/utils/canvas.ts` (mirrors `getMusicUrl()` pattern)
+3. Update `LyricsView.tsx` to accept `currentTime`, compute active line, highlight + scroll (~50 lines)
+4. Wire `currentTime` from `App.tsx` → `LyricsView`
+
+**Data pipeline**: MP3 → `whisper --output_format lrc` → upload `.lrc` to R2 → fetch at runtime
+
+**Effort**: ~2–3 hrs code + ~30 min/track for Whisper timestamp generation
+
 ### Analytics
 - [x] **Matomo analytics implemented** - `src/utils/analytics.ts` with `trackEvent()` helper. Events fire on project play, share, and other interactions. See `.claude/ANALYTICS.md` for setup details.
 

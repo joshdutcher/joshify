@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ExternalLink, Github, Share2, Check, Mic2, Heart } from 'lucide-react';
+import { ExternalLink, Github, Share2, Check, Mic2, Heart, X } from 'lucide-react';
 import ProjectCanvas from './ProjectCanvas';
 import ShareModal from './ShareModal';
 import useDynamicBackground from '../hooks/useDynamicBackground';
@@ -21,13 +21,6 @@ interface NowPlayingPanelProps {
     toggleFavorite?: (_projectId: string) => void;
 }
 
-// Get first few lines of lyrics for preview
-const getLyricsPreview = (lyrics: string | null, lines: number = 3): string | null => {
-    if (!lyrics) return null;
-    const lyricsLines = lyrics.split('\n').filter(line => line.trim());
-    return lyricsLines.slice(0, lines).join('\n');
-};
-
 const NowPlayingPanel = ({
     currentlyPlaying,
     isPlaying = false,
@@ -35,7 +28,7 @@ const NowPlayingPanel = ({
     style = {},
     onNavigateToProject,
     hasLyrics = false,
-    lyrics = null,
+    lyrics: _lyrics = null,
     isLyricsOpen = false,
     onToggleLyrics,
     isFavorite,
@@ -57,16 +50,11 @@ const NowPlayingPanel = ({
     };
 
     // Get dynamic background color from album art
-    const { backgroundStyle } = useDynamicBackground(currentlyPlaying?.image || null);
+    const { backgroundStyle: _backgroundStyle } = useDynamicBackground(currentlyPlaying?.image || null);
 
     if (!currentlyPlaying) {
         return null; // Hide panel when no project is playing
     }
-
-    const lyricsPreview = getLyricsPreview(lyrics, 6);
-
-    // Extract primary color for solid lyrics background
-    const primaryColor = backgroundStyle['--primary-color'] || 'rgb(83, 83, 83)';
 
     return (
         <div
@@ -107,8 +95,39 @@ const NowPlayingPanel = ({
 
                 {/* Project Details */}
                 <div className="p-4 space-y-3">
-                    {/* Share row */}
-                    <div className="flex items-center space-x-3">
+                    {/* Row 1: Like, Lyrics, Share */}
+                    <div className="flex items-center space-x-4">
+                        {toggleFavorite && (
+                            <button
+                                onClick={(e) => { e.stopPropagation(); toggleFavorite(currentlyPlaying.id); }}
+                                className="flex items-center space-x-1.5 text-spotify-secondary hover:text-white transition-colors"
+                                aria-label={isFavorite?.(currentlyPlaying.id) ? 'Remove from favorites' : 'Add to favorites'}
+                            >
+                                <Heart
+                                    className="w-4 h-4"
+                                    fill={isFavorite?.(currentlyPlaying.id) ? 'currentColor' : 'none'}
+                                    color={isFavorite?.(currentlyPlaying.id) ? '#1DB954' : 'currentColor'}
+                                />
+                                <span className="text-sm">{isFavorite?.(currentlyPlaying.id) ? 'Unlike' : 'Like'}</span>
+                            </button>
+                        )}
+                        {onToggleLyrics && (
+                            <button
+                                onClick={onToggleLyrics}
+                                disabled={!hasLyrics}
+                                className={`flex items-center space-x-1.5 transition-colors ${
+                                    isLyricsOpen
+                                        ? 'text-spotify-green'
+                                        : hasLyrics
+                                            ? 'text-spotify-secondary hover:text-white'
+                                            : 'text-gray-600 cursor-not-allowed'
+                                }`}
+                                aria-label={isLyricsOpen ? 'Close lyrics' : 'View lyrics'}
+                            >
+                                {isLyricsOpen ? <X className="w-4 h-4" /> : <Mic2 className="w-4 h-4" />}
+                                <span className="text-sm">{isLyricsOpen ? 'Close Lyrics' : 'Lyrics'}</span>
+                            </button>
+                        )}
                         <button
                             onClick={(e) => setShareAnchor(e.currentTarget.getBoundingClientRect())}
                             className="flex items-center space-x-1.5 text-spotify-secondary hover:text-white transition-colors"
@@ -122,48 +141,33 @@ const NowPlayingPanel = ({
                                 {copied ? 'Copied!' : 'Share'}
                             </span>
                         </button>
-                        {toggleFavorite && (
-                            <button
-                                onClick={(e) => { e.stopPropagation(); toggleFavorite(currentlyPlaying.id); }}
-                                className="text-spotify-secondary hover:text-white transition-colors"
-                                aria-label={isFavorite?.(currentlyPlaying.id) ? 'Remove from favorites' : 'Add to favorites'}
-                            >
-                                <Heart
-                                    className="w-4 h-4"
-                                    fill={isFavorite?.(currentlyPlaying.id) ? 'currentColor' : 'none'}
-                                    color={isFavorite?.(currentlyPlaying.id) ? '#1DB954' : 'currentColor'}
-                                />
-                            </button>
-                        )}
                     </div>
 
-                    {/* Lyrics Block */}
-                    {hasLyrics && lyricsPreview && (
-                        <div
-                            className="rounded-lg p-4"
-                            style={{ backgroundColor: primaryColor }}
-                        >
-                            {/* Header: Lyrics label + mic icon */}
-                            <div className="flex items-center justify-between mb-3">
-                                <span className="text-white font-semibold text-sm">Lyrics</span>
-                                {onToggleLyrics && (
-                                    <button
-                                        onClick={onToggleLyrics}
-                                        className={`p-2 rounded-full transition-all ${
-                                            isLyricsOpen
-                                                ? 'text-spotify-green bg-black/30'
-                                                : 'text-white bg-black/30 hover:bg-black/40'
-                                        }`}
-                                        aria-label={isLyricsOpen ? 'Close lyrics' : 'View lyrics'}
-                                    >
-                                        <Mic2 className="w-4 h-4" />
-                                    </button>
-                                )}
-                            </div>
-                            {/* Lyrics text */}
-                            <p className="text-white text-base font-bold leading-relaxed whitespace-pre-line line-clamp-6">
-                                {lyricsPreview}
-                            </p>
+                    {/* Row 2: External links (conditional) */}
+                    {(currentlyPlaying.demoUrl || currentlyPlaying.githubUrl) && (
+                        <div className="flex items-center space-x-4">
+                            {currentlyPlaying.demoUrl && (
+                                <a
+                                    href={currentlyPlaying.demoUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center space-x-1.5 text-spotify-secondary hover:text-white transition-colors"
+                                >
+                                    <ExternalLink className="w-4 h-4" />
+                                    <span className="text-sm">View Live Site</span>
+                                </a>
+                            )}
+                            {currentlyPlaying.githubUrl && (
+                                <a
+                                    href={currentlyPlaying.githubUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center space-x-1.5 text-spotify-secondary hover:text-white transition-colors"
+                                >
+                                    <Github className="w-4 h-4" />
+                                    <span className="text-sm">View Source Code</span>
+                                </a>
+                            )}
                         </div>
                     )}
 
@@ -198,34 +202,6 @@ const NowPlayingPanel = ({
                                 </div>
                             </div>
                         )}
-
-                        {/* Action Buttons */}
-                        <div className="space-y-2 pt-2">
-                            {currentlyPlaying.demoUrl && (
-                                <a
-                                    href={currentlyPlaying.demoUrl}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="flex items-center justify-center space-x-2 w-full py-3 bg-spotify-green text-black font-semibold rounded-full hover:scale-105 transition-transform"
-                                >
-                                    <ExternalLink className="w-4 h-4" />
-                                    <span>View Live Site</span>
-                                </a>
-                            )}
-
-                            {currentlyPlaying.githubUrl && (
-                                <a
-                                    href={currentlyPlaying.githubUrl}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="flex items-center justify-center space-x-2 w-full py-3 border border-white/20 text-spotify-primary font-semibold rounded-full hover:bg-white/10 transition-colors"
-                                >
-                                    <Github className="w-4 h-4" />
-                                    <span>View Source Code</span>
-                                </a>
-                            )}
-
-                        </div>
 
                         {/* Plays counter */}
                         <div className="pt-4 border-t border-white/10">
