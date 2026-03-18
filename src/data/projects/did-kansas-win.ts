@@ -7,7 +7,7 @@ export const didKansasWin: RawProject = {
     album: AlbumCategory.WEB_DEVELOPMENT,
     duration: '2 weeks',
     image: '/assets/images/album-art/did-kansas-win.png',
-    year: '2024',
+    year: '2025',
     impact: 'Trivial',
     description: 'My first AI-Assisted experiment, this barebones single-purpose web application provides real-time Kansas Jayhawks basketball results. Built with Node.js and Express, featuring live ESPN API integration and responsive design. The project demonstrates clean, focused development principles and API integration skills while solving a specific user need with minimal complexity. Sometimes the best solutions are the simplest ones, and this project showcases the ability to deliver exactly what users want without unnecessary features.',
     skills: [Skill.AI_ASSISTED_DEVELOPMENT, Skill.NODE_JS, Skill.EXPRESS, Skill.RESPONSIVE_DESIGN],

@@ -42,7 +42,7 @@ export const campbellZafarProjects: ProjectCollection = getProjectsByIds(['law-f
 export const ddxProjects: ProjectCollection = getProjectsByIds(['election-data-pipeline', 'democracy-engine']);
 export const adHocProjects: ProjectCollection = getProjectsByIds(['healthcare-etl', 'healthcare-api-extensions', 'medigap-integration']);
 export const dataEngineeringProjects: ProjectCollection = getProjectsByIds(['election-data-pipeline', 'healthcare-etl', 'healthcare-api-extensions', 'medigap-integration']);
-export const recentWork: ProjectCollection = getProjectsByIds(['joshify', 'did-kansas-win', 'startup-technology-infrastructure', 'law-firm-startup-operations', 'election-data-pipeline', 'democracy-engine', 'healthcare-api-extensions', 'wichita-radar']);
+export const recentWork: ProjectCollection = getProjectsByIds(['joshify', 'did-kansas-win', 'startup-technology-infrastructure', 'law-firm-startup-operations', 'election-data-pipeline', 'democracy-engine', 'healthcare-api-extensions']);
 export const topHits: ProjectCollection = getProjectsByIds(['law-firm-startup-operations', 'election-data-pipeline', 'api-engine-optimization', 'healthcare-etl', 'healthcare-api-extensions', 'mobile-api-rebuild']);
 export const sideProjects: ProjectCollection = getProjectsByIds(['joshify', 'did-kansas-win', 'wichita-radar']);
 export const defaultNowPlaying: ProjectCollection = getProjectsByIds(['joshify']);
@@ -50,7 +50,7 @@ export const defaultNowPlaying: ProjectCollection = getProjectsByIds(['joshify']
 // Typed playlists
 export const playlists: PlaylistCollection = [
     {
-        name: 'Recently Played',
+        name: 'Recent Releases',
         icon: Clock,
         projects: recentWork,
         description: 'Fresh out the studio. Latest work from 2024-2026.',
@@ -109,7 +109,7 @@ export const playlists: PlaylistCollection = [
 
 // Made for You section configuration with type safety
 export const madeForYou: MadeForYouSection = [
-    playlists.find(p => p.name === 'Recently Played'),
+    playlists.find(p => p.name === 'Recent Releases'),
     playlists.find(p => p.name === 'Top Hits'),
     playlists.find(p => p.name === 'Side Projects'),
     playlists.find(p => p.name === 'Campbell Zafar Law'),
