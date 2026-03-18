@@ -164,7 +164,7 @@ const MobileProjectContent = ({
                     </div>
                     {project.albumArtBasedOn && (
                         <div>
-                            <p className="text-gray-400 text-sm">Album Art based on</p>
+                            <p className="text-gray-400 text-sm">Music and Album Art based on</p>
                             <p className="text-white font-semibold">{project.albumArtBasedOn}</p>
                         </div>
                     )}
@@ -382,7 +382,7 @@ const ProjectDetailView = ({
                             </div>
                             {project.albumArtBasedOn && (
                                 <div>
-                                    <p className="text-gray-400 text-sm">Album Art based on</p>
+                                    <p className="text-gray-400 text-sm">Music and Album Art based on</p>
                                     <p className="text-white font-semibold">{project.albumArtBasedOn}</p>
                                 </div>
                             )}
