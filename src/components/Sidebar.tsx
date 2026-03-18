@@ -14,6 +14,8 @@ interface SidebarProps {
   width?: number;
   mode?: string;
   style?: Record<string, any>;
+  likedSongsPlaylist?: Playlist | null;
+  onNavigateToLikedSongs?: () => void;
 }
 import PlaylistCoverArt from './PlaylistCoverArt';
 import ProjectImage from './ProjectImage';
@@ -28,7 +30,9 @@ const Sidebar = ({
     onShowWelcome,
     width: _width = 256,
     mode = 'normal',
-    style = {}
+    style = {},
+    likedSongsPlaylist,
+    onNavigateToLikedSongs
 }: SidebarProps) => {
     const [activeFilter, setActiveFilter] = useState('All');
     const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -204,6 +208,33 @@ const Sidebar = ({
             {/* Filtered Content List */}
             <div className="flex-1 overflow-y-auto spotify-scrollbar">
                 <div className={isIconMode ? 'space-y-1' : 'space-y-1'}>
+                    {/* Liked Songs - shown when favorites exist and filter includes Collections */}
+                    {likedSongsPlaylist && (activeFilter === 'All' || activeFilter === 'Collections') && (
+                        <button
+                            className={`flex items-center w-full text-left rounded-md hover:bg-spotify-hover transition-colors group ${
+                                isIconMode ? 'justify-center py-3 px-1' : 'space-x-3 py-2 px-2'
+                            }`}
+                            onClick={onNavigateToLikedSongs}
+                            title={isIconMode ? 'Liked Songs' : undefined}
+                        >
+                            <PlaylistCoverArt
+                                playlist={likedSongsPlaylist}
+                                size="custom"
+                                className={isIconMode ? 'w-12 h-12' : 'w-12 h-12'}
+                                shape="rounded"
+                            />
+                            {!isIconMode && (
+                                <div className="flex-1 min-w-0">
+                                    <div className="text-base font-medium text-spotify-primary truncate group-hover:text-spotify-primary">
+                                        Liked Songs
+                                    </div>
+                                    <div className="text-sm text-spotify-secondary">
+                                        Collection • {likedSongsPlaylist.projects.length} track{likedSongsPlaylist.projects.length !== 1 ? 's' : ''}
+                                    </div>
+                                </div>
+                            )}
+                        </button>
+                    )}
                     {filteredContent.length > 0 ? (
           filteredContent.map((item, index) => (
               <button

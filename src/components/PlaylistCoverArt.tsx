@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Heart } from 'lucide-react';
 import ProjectImage from './ProjectImage';
 import type { Playlist, Project } from '../types';
 
@@ -18,22 +19,37 @@ const PlaylistCoverArt = ({
     shape = 'rounded',
     onNavigateToProject
 }: PlaylistCoverArtProps) => {
-    // Check if playlist has custom cover art
-    const hasCustomCoverArt = playlist.image;
-  
-    // Get the first 4 tracks from the playlist for tiled fallback
-    const coverTracks = playlist.projects ? playlist.projects.slice(0, 4) : [];
-  
     // Base size classes for different sizes
     const sizeClasses = {
         'tiny': 'w-8 h-8',
-        'small': 'w-16 h-16', 
+        'small': 'w-16 h-16',
         'medium': 'w-24 h-24',
         'large': 'w-32 h-32',
         'custom': className || 'w-32 h-32'
     };
-  
+
     const containerSize = size === 'custom' ? className : sizeClasses[size as keyof typeof sizeClasses];
+    const shapeClass = shape === 'rounded' ? 'rounded' : shape === 'circle' ? 'rounded-full' : '';
+
+    // Special case: Liked Songs always renders purple gradient + heart
+    if (playlist.id === 'liked-songs') {
+        return (
+            <div
+                className={`${containerSize} ${shapeClass} overflow-hidden`}
+                style={{ background: 'linear-gradient(135deg, #450af5 0%, #8b5cf6 100%)' }}
+            >
+                <div className="w-full h-full flex items-center justify-center">
+                    <Heart className="w-1/2 h-1/2 text-white" fill="white" />
+                </div>
+            </div>
+        );
+    }
+
+    // Check if playlist has custom cover art
+    const hasCustomCoverArt = playlist.image;
+
+    // Get the first 4 tracks from the playlist for tiled fallback
+    const coverTracks = playlist.projects ? playlist.projects.slice(0, 4) : [];
   
     // If playlist has custom cover art, display it instead of tiled layout
     if (hasCustomCoverArt) {

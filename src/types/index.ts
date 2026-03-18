@@ -153,6 +153,7 @@ export interface RawProject {
  * Playlist interface with strict typing
  */
 export interface Playlist {
+  readonly id?: string;
   readonly name: string;
   readonly icon: LucideIcon;
   readonly projects: readonly Project[];

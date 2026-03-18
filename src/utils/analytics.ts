@@ -56,23 +56,6 @@ export const trackPageView = (path: string): void => {
 
 /**
  * Track a custom event in Matomo analytics
- *
- * This can be used for tracking user interactions beyond page views,
- * such as button clicks, downloads, or other engagement metrics.
- *
- * @param category - The event category (e.g., 'Video', 'Download')
- * @param action - The event action (e.g., 'Play', 'Click')
- * @param name - Optional event name (e.g., 'Canvas Video')
- * @param value - Optional numeric value associated with the event
- *
- * @example
- * ```typescript
- * // Track a canvas video play event
- * trackEvent('Video', 'Play', 'did-kansas-win-canvas');
- *
- * // Track a demo link click
- * trackEvent('Link', 'Click', 'External Demo');
- * ```
  */
 export const trackEvent = (
     category: string,
@@ -98,4 +81,36 @@ export const trackEvent = (
     } else {
         console.warn('[Analytics] Matomo tracking not available. Event not tracked:', { category, action, name, value });
     }
+};
+
+// Audio tracking helpers
+
+export const trackAudioPlay = (projectId: string): void => {
+    trackEvent('Audio', 'Play', projectId);
+};
+
+export const trackAudioPause = (projectId: string): void => {
+    trackEvent('Audio', 'Pause', projectId);
+};
+
+export const trackAudioCompleted = (projectId: string): void => {
+    trackEvent('Audio', 'Completed', projectId);
+};
+
+export const trackAudioDuration = (projectId: string, seconds: number): void => {
+    trackEvent('Audio', 'ListenDuration', projectId, Math.round(seconds));
+};
+
+export const trackAudioMilestone = (projectId: string, percent: 25 | 50 | 75 | 100): void => {
+    trackEvent('Audio', `Progress${percent}`, projectId);
+};
+
+// Lyrics tracking helpers
+
+export const trackLyricsOpen = (projectId: string): void => {
+    trackEvent('Lyrics', 'Open', projectId);
+};
+
+export const trackLyricsDuration = (projectId: string, seconds: number): void => {
+    trackEvent('Lyrics', 'TimeSpent', projectId, Math.round(seconds));
 };
