@@ -1,9 +1,8 @@
 import { useState } from 'react';
-import { Play, Pause, ExternalLink, Github, ChevronDown, Share2, Check, Mic2, Heart } from 'lucide-react';
+import { Play, Pause, ExternalLink, Github, ChevronDown, Share2, Mic2, Heart } from 'lucide-react';
 import ProjectImage from '../ProjectImage';
 import AlbumArtModal from '../AlbumArtModal';
 import ProjectCanvas from '../ProjectCanvas';
-import ShareModal from '../ShareModal';
 import type { Project } from '../../types';
 import { trackEvent } from '../../utils/analytics';
 
@@ -19,6 +18,7 @@ interface ProjectDetailViewProps {
     onToggleLyrics?: () => void;
     isFavorite?: (_projectId: string) => boolean;
     toggleFavorite?: (_projectId: string) => void;
+    onShareCopied?: () => void;
 }
 
 interface MobileProjectContentProps {
@@ -27,8 +27,7 @@ interface MobileProjectContentProps {
     isPlaying: boolean;
     onPlayProject: (_project: Project) => void;
     handleAlbumArtClick: () => void;
-    onShareClick: (_rect: DOMRect) => void;
-    shareCopied: boolean;
+    onShare: () => void;
     hasLyrics?: boolean;
     isLyricsOpen?: boolean;
     onToggleLyrics?: (() => void) | undefined;
@@ -42,8 +41,7 @@ const MobileProjectContent = ({
     isPlaying,
     onPlayProject,
     handleAlbumArtClick,
-    onShareClick,
-    shareCopied,
+    onShare,
     hasLyrics,
     isLyricsOpen,
     onToggleLyrics,
@@ -126,7 +124,7 @@ const MobileProjectContent = ({
                     >
                         <Heart
                             className="w-5 h-5"
-                            fill={isFavorite?.(project.id) ? 'currentColor' : 'none'}
+                            fill={isFavorite?.(project.id) ? '#1DB954' : 'none'}
                             color={isFavorite?.(project.id) ? '#1DB954' : 'currentColor'}
                         />
                     </button>
@@ -152,17 +150,15 @@ const MobileProjectContent = ({
             )}
             <div className="relative group">
                 <button
-                    onClick={(e) => onShareClick(e.currentTarget.getBoundingClientRect())}
+                    onClick={onShare}
                     className="text-spotify-secondary hover:text-white transition-colors"
-                    aria-label="Share"
+                    aria-label="Copy link to Song"
+                    title="Copy link to Song"
                 >
-                    {shareCopied
-                        ? <Check className="w-5 h-5 text-spotify-green" />
-                        : <Share2 className="w-5 h-5" />
-                    }
+                    <Share2 className="w-5 h-5" />
                 </button>
                 <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-spotify-card text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
-                    {shareCopied ? 'Copied!' : 'Share'}
+                    Copy link to Song
                 </div>
             </div>
         </div>
@@ -226,19 +222,15 @@ const ProjectDetailView = ({
     isLyricsOpen = false,
     onToggleLyrics,
     isFavorite,
-    toggleFavorite
+    toggleFavorite,
+    onShareCopied
 }: ProjectDetailViewProps) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [shareAnchor, setShareAnchor] = useState<DOMRect | null>(null);
-    const [shareCopied, setShareCopied] = useState(false);
 
-    const shareUrl = `${window.location.origin}/project/${project.id}`;
-
-    const handleShareCopy = () => {
+    const handleShare = () => {
+        const shareUrl = `${window.location.origin}/project/${project.id}`;
         navigator.clipboard.writeText(shareUrl);
-        setShareCopied(true);
-        setShareAnchor(null);
-        setTimeout(() => setShareCopied(false), 1500);
+        onShareCopied?.();
         trackEvent('Share', 'Copy Link', project.id);
     };
 
@@ -293,8 +285,7 @@ const ProjectDetailView = ({
                         isPlaying={isPlaying}
                         onPlayProject={onPlayProject}
                         handleAlbumArtClick={handleAlbumArtClick}
-                        onShareClick={(rect) => setShareAnchor(rect)}
-                        shareCopied={shareCopied}
+                        onShare={handleShare}
                         hasLyrics={hasLyrics}
                         isLyricsOpen={isLyricsOpen}
                         onToggleLyrics={onToggleLyrics ?? undefined}
@@ -372,10 +363,12 @@ const ProjectDetailView = ({
                         >
                             <Heart
                                 className="w-4 h-4 md:w-5 md:h-5"
-                                fill={isFavorite?.(project.id) ? 'currentColor' : 'none'}
+                                fill={isFavorite?.(project.id) ? '#1DB954' : 'none'}
                                 color={isFavorite?.(project.id) ? '#1DB954' : 'currentColor'}
                             />
-                            <span className="text-sm md:text-base">{isFavorite?.(project.id) ? 'Unlike' : 'Like'}</span>
+                            <span className={`text-sm md:text-base ${isFavorite?.(project.id) ? 'text-spotify-green' : ''}`}>
+                                {isFavorite?.(project.id) ? 'Unlike' : 'Like'}
+                            </span>
                         </button>
                     )}
                     {onToggleLyrics && (
@@ -386,21 +379,17 @@ const ProjectDetailView = ({
                             aria-label={isLyricsOpen ? 'Close lyrics' : 'Lyrics'}
                         >
                             <Mic2 className="w-4 h-4 md:w-5 md:h-5" />
-                            <span className="text-sm md:text-base">{isLyricsOpen ? 'Close Lyrics' : 'Lyrics'}</span>
+                            <span className="text-sm md:text-base">Lyrics</span>
                         </button>
                     )}
                     <button
-                        onClick={(e) => setShareAnchor(e.currentTarget.getBoundingClientRect())}
+                        onClick={handleShare}
                         className="flex items-center space-x-2 text-spotify-secondary hover:text-white transition-colors"
-                        aria-label="Share"
+                        aria-label="Copy link to Song"
+                        title="Copy link to Song"
                     >
-                        {shareCopied
-                            ? <Check className="w-4 h-4 md:w-5 md:h-5 text-spotify-green" />
-                            : <Share2 className="w-4 h-4 md:w-5 md:h-5" />
-                        }
-                        <span className={`text-sm md:text-base ${shareCopied ? 'text-spotify-green' : ''}`}>
-                            {shareCopied ? 'Copied!' : 'Share'}
-                        </span>
+                        <Share2 className="w-4 h-4 md:w-5 md:h-5" />
+                        <span className="text-sm md:text-base">Share</span>
                     </button>
                 </div>
 
@@ -458,15 +447,6 @@ const ProjectDetailView = ({
                 project={project}
             />
 
-            {shareAnchor && (
-                <ShareModal
-                    url={shareUrl}
-                    copied={shareCopied}
-                    anchorRect={shareAnchor}
-                    onCopy={handleShareCopy}
-                    onClose={() => setShareAnchor(null)}
-                />
-            )}
         </div>
     );
 };

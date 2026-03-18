@@ -76,8 +76,7 @@ everything i do is so complex
 
 pens hit paper, keys in hand
 every detail goes to plan
-doors swing open, i disappear
-everything's perfect, i'm not here`,
+doors swing open, i disappear`,
     sunoStyle: `Hyperpop, Electropop, Club-pop, Y2K Europop revival. 140 BPM. Aggressive distorted basslines, abrasive sawtooth synths, metallic industrial textures, crisp Roland TR-909 drums, heavy sidechain compression. Production is maximalist, glitchy, and polished but "dirty." Vocals: Auto-tuned, deadpan delivery, rhythmic talk-singing, bratty nonchalance, high-register ad-libs, repetitive hooks, dry lead vocals with wet reverb splashes on transitions. Mood: Hedonistic, sweaty, chaotic, confident, vulnerable but cool. Sounding like 2024 London underground club scene.`,
     canvas: 'law-firm-startup-operations.mp4',
     canvasPoster: 'law-firm-startup-operations.mp4',

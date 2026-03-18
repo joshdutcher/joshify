@@ -1,7 +1,5 @@
-import { useState } from 'react';
-import { ExternalLink, Github, Share2, Check, Mic2, Heart, X } from 'lucide-react';
+import { ExternalLink, Github, Share2, Mic2, Heart } from 'lucide-react';
 import ProjectCanvas from './ProjectCanvas';
-import ShareModal from './ShareModal';
 import useDynamicBackground from '../hooks/useDynamicBackground';
 import type { Project } from '../types';
 import { trackEvent } from '../utils/analytics';
@@ -19,6 +17,7 @@ interface NowPlayingPanelProps {
     onToggleLyrics?: () => void;
     isFavorite?: (_projectId: string) => boolean;
     toggleFavorite?: (_projectId: string) => void;
+    onShareCopied?: () => void;
 }
 
 const NowPlayingPanel = ({
@@ -32,21 +31,15 @@ const NowPlayingPanel = ({
     isLyricsOpen = false,
     onToggleLyrics,
     isFavorite,
-    toggleFavorite
+    toggleFavorite,
+    onShareCopied
 }: NowPlayingPanelProps) => {
-    const [copied, setCopied] = useState(false);
-    const [shareAnchor, setShareAnchor] = useState<DOMRect | null>(null);
-
-    const shareUrl = currentlyPlaying
-        ? `${window.location.origin}/project/${currentlyPlaying.id}`
-        : '';
-
-    const handleShareCopy = () => {
+    const handleShare = () => {
+        if (!currentlyPlaying) return;
+        const shareUrl = `${window.location.origin}/project/${currentlyPlaying.id}`;
         navigator.clipboard.writeText(shareUrl);
-        setCopied(true);
-        setShareAnchor(null);
-        setTimeout(() => setCopied(false), 1500);
-        if (currentlyPlaying) trackEvent('Share', 'Copy Link', currentlyPlaying.id);
+        onShareCopied?.();
+        trackEvent('Share', 'Copy Link', currentlyPlaying.id);
     };
 
     // Get dynamic background color from album art
@@ -105,10 +98,12 @@ const NowPlayingPanel = ({
                             >
                                 <Heart
                                     className="w-4 h-4"
-                                    fill={isFavorite?.(currentlyPlaying.id) ? 'currentColor' : 'none'}
+                                    fill={isFavorite?.(currentlyPlaying.id) ? '#1DB954' : 'none'}
                                     color={isFavorite?.(currentlyPlaying.id) ? '#1DB954' : 'currentColor'}
                                 />
-                                <span className="text-sm">{isFavorite?.(currentlyPlaying.id) ? 'Unlike' : 'Like'}</span>
+                                <span className={`text-sm ${isFavorite?.(currentlyPlaying.id) ? 'text-spotify-green' : ''}`}>
+                                    {isFavorite?.(currentlyPlaying.id) ? 'Unlike' : 'Like'}
+                                </span>
                             </button>
                         )}
                         {onToggleLyrics && (
@@ -122,24 +117,24 @@ const NowPlayingPanel = ({
                                             ? 'text-spotify-secondary hover:text-white'
                                             : 'text-gray-600 cursor-not-allowed'
                                 }`}
-                                aria-label={isLyricsOpen ? 'Close lyrics' : 'View lyrics'}
+                                aria-label={isLyricsOpen ? 'Close lyrics' : hasLyrics ? 'Lyrics' : 'No lyrics available'}
+                                title={isLyricsOpen ? 'Close Lyrics' : hasLyrics ? 'Lyrics' : 'No lyrics available'}
                             >
-                                {isLyricsOpen ? <X className="w-4 h-4" /> : <Mic2 className="w-4 h-4" />}
-                                <span className="text-sm">{isLyricsOpen ? 'Close Lyrics' : 'Lyrics'}</span>
+                                <div className="flex flex-col items-center">
+                                    <Mic2 className="w-4 h-4" />
+                                    {isLyricsOpen && <div className="w-1 h-1 rounded-full bg-spotify-green mt-0.5" />}
+                                </div>
+                                <span className="text-sm">Lyrics</span>
                             </button>
                         )}
                         <button
-                            onClick={(e) => setShareAnchor(e.currentTarget.getBoundingClientRect())}
+                            onClick={handleShare}
                             className="flex items-center space-x-1.5 text-spotify-secondary hover:text-white transition-colors"
-                            aria-label="Share"
+                            aria-label="Copy link to Song"
+                            title="Copy link to Song"
                         >
-                            {copied
-                                ? <Check className="w-4 h-4 text-spotify-green" />
-                                : <Share2 className="w-4 h-4" />
-                            }
-                            <span className={`text-sm ${copied ? 'text-spotify-green' : ''}`}>
-                                {copied ? 'Copied!' : 'Share'}
-                            </span>
+                            <Share2 className="w-4 h-4" />
+                            <span className="text-sm">Share</span>
                         </button>
                     </div>
 
@@ -213,15 +208,6 @@ const NowPlayingPanel = ({
                     </div>
                 </div>
             </div>
-            {shareAnchor && (
-                <ShareModal
-                    url={shareUrl}
-                    copied={copied}
-                    anchorRect={shareAnchor}
-                    onCopy={handleShareCopy}
-                    onClose={() => setShareAnchor(null)}
-                />
-            )}
         </div>
     );
 };
