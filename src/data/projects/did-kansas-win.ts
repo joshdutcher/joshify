@@ -66,8 +66,8 @@ Red and Blue running deep in my veins
 Beware of the Phog where the tradition reigns
 In the cathedral of college basketball
 All roads lead to Lawrence, it's the root of it all!
-Rock Chalk! Jayhawk!
-Rock Chalk! Jayhawk!
+Rock Chalk!
+Rock Chalk!
 
 Allen Fieldhouse, it's a different kind of air
 Beware of the Phog, you better come prepared
