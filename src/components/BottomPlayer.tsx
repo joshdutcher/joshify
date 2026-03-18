@@ -258,32 +258,25 @@ const BottomPlayer = ({
                     </div>
                 </div>
 
-                {/* Right: Lyrics, Volume & Share */}
+                {/* Right: Like, Lyrics, Share, Volume */}
                 <div className="flex items-center justify-end space-x-4 w-1/4">
                     {/* Heart Button */}
-                    <button
-                        onClick={() => toggleFavorite(currentlyPlaying.id)}
-                        className="text-spotify-secondary hover:text-white transition-colors"
-                        aria-label={isFavorite(currentlyPlaying.id) ? 'Remove from favorites' : 'Add to favorites'}
-                    >
-                        <Heart
-                            className="w-4 h-4"
-                            fill={isFavorite(currentlyPlaying.id) ? 'currentColor' : 'none'}
-                            color={isFavorite(currentlyPlaying.id) ? '#1DB954' : 'currentColor'}
-                        />
-                    </button>
-
-                    {/* Share Button */}
-                    <button
-                        onClick={(e) => setShareAnchor(e.currentTarget.getBoundingClientRect())}
-                        className="text-spotify-secondary hover:text-spotify-primary transition-colors"
-                        aria-label="Share"
-                    >
-                        {shareCopied
-                            ? <Check className="w-4 h-4 text-spotify-green" />
-                            : <Share2 className="w-4 h-4" />
-                        }
-                    </button>
+                    <div className="relative group">
+                        <button
+                            onClick={() => toggleFavorite(currentlyPlaying.id)}
+                            className="text-spotify-secondary hover:text-white transition-colors"
+                            aria-label={isFavorite(currentlyPlaying.id) ? 'Remove from favorites' : 'Add to favorites'}
+                        >
+                            <Heart
+                                className="w-4 h-4"
+                                fill={isFavorite(currentlyPlaying.id) ? 'currentColor' : 'none'}
+                                color={isFavorite(currentlyPlaying.id) ? '#1DB954' : 'currentColor'}
+                            />
+                        </button>
+                        <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-spotify-card text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                            {isFavorite(currentlyPlaying.id) ? 'Unlike' : 'Like'}
+                        </div>
+                    </div>
 
                     {/* Lyrics Button */}
                     <div className="relative group">
@@ -301,9 +294,25 @@ const BottomPlayer = ({
                         >
                             <Mic2 className="w-4 h-4" />
                         </button>
-                        {/* Tooltip */}
                         <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-spotify-card text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
                             {isLyricsOpen ? 'Close lyrics' : hasLyrics ? 'Lyrics' : 'No lyrics available'}
+                        </div>
+                    </div>
+
+                    {/* Share Button */}
+                    <div className="relative group">
+                        <button
+                            onClick={(e) => setShareAnchor(e.currentTarget.getBoundingClientRect())}
+                            className="text-spotify-secondary hover:text-spotify-primary transition-colors"
+                            aria-label="Share"
+                        >
+                            {shareCopied
+                                ? <Check className="w-4 h-4 text-spotify-green" />
+                                : <Share2 className="w-4 h-4" />
+                            }
+                        </button>
+                        <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-spotify-card text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                            Share
                         </div>
                     </div>
 

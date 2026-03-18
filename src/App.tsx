@@ -324,6 +324,8 @@ const SpotifyResume = () => {
                                         hasLyrics={hasLyrics}
                                         isLyricsOpen={isLyricsOpen}
                                         onToggleLyrics={toggleLyrics}
+                                        isFavorite={isFavorite}
+                                        toggleFavorite={toggleFavorite}
                                     />
                                 )}
                                 {currentView === 'profile' && <ProfileView />}

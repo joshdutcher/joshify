@@ -43,7 +43,7 @@ const LyricsView = ({ project, lyrics, onClose }: LyricsViewProps) => {
 
             {/* Lyrics content with padding */}
             <div className="px-12 py-16">
-                <div className="text-white text-5xl font-bold leading-relaxed whitespace-pre-line">
+                <div className="text-white text-base md:text-5xl font-bold leading-relaxed whitespace-pre-line">
                     {lyrics}
                 </div>
             </div>

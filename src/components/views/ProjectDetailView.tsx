@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Play, Pause, ExternalLink, Github, ChevronDown, Share2, Check, Mic2 } from 'lucide-react';
+import { Play, Pause, ExternalLink, Github, ChevronDown, Share2, Check, Mic2, Heart } from 'lucide-react';
 import ProjectImage from '../ProjectImage';
 import AlbumArtModal from '../AlbumArtModal';
 import ProjectCanvas from '../ProjectCanvas';
@@ -17,6 +17,8 @@ interface ProjectDetailViewProps {
     hasLyrics?: boolean;
     isLyricsOpen?: boolean;
     onToggleLyrics?: () => void;
+    isFavorite?: (_projectId: string) => boolean;
+    toggleFavorite?: (_projectId: string) => void;
 }
 
 interface MobileProjectContentProps {
@@ -30,6 +32,8 @@ interface MobileProjectContentProps {
     hasLyrics?: boolean;
     isLyricsOpen?: boolean;
     onToggleLyrics?: (() => void) | undefined;
+    isFavorite?: (_projectId: string) => boolean;
+    toggleFavorite?: (_projectId: string) => void;
 }
 
 const MobileProjectContent = ({
@@ -42,7 +46,9 @@ const MobileProjectContent = ({
     shareCopied,
     hasLyrics,
     isLyricsOpen,
-    onToggleLyrics
+    onToggleLyrics,
+    isFavorite,
+    toggleFavorite
 }: MobileProjectContentProps) => (
     <>
         <div className="flex flex-col items-center space-y-4 mb-6">
@@ -82,48 +88,83 @@ const MobileProjectContent = ({
                 }
             </button>
             {project.demoUrl && (
-                <a
-                    href={project.demoUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center space-x-2 text-green-500 hover:text-green-400 transition-colors"
-                >
-                    <ExternalLink className="w-5 h-5" />
-                </a>
+                <div className="relative group">
+                    <a
+                        href={project.demoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center text-green-500 hover:text-green-400 transition-colors"
+                    >
+                        <ExternalLink className="w-5 h-5" />
+                    </a>
+                    <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-spotify-card text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                        View Live
+                    </div>
+                </div>
             )}
             {project.githubUrl && (
-                <a
-                    href={project.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center space-x-2 text-green-500 hover:text-green-400 transition-colors"
-                >
-                    <Github className="w-5 h-5" />
-                </a>
+                <div className="relative group">
+                    <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center text-green-500 hover:text-green-400 transition-colors"
+                    >
+                        <Github className="w-5 h-5" />
+                    </a>
+                    <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-spotify-card text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                        View Repo
+                    </div>
+                </div>
             )}
-            {hasLyrics && onToggleLyrics && (
+            {toggleFavorite && (
+                <div className="relative group">
+                    <button
+                        onClick={(e) => { e.stopPropagation(); toggleFavorite(project.id); }}
+                        className="text-spotify-secondary hover:text-white transition-colors"
+                        aria-label={isFavorite?.(project.id) ? 'Remove from favorites' : 'Add to favorites'}
+                    >
+                        <Heart
+                            className="w-5 h-5"
+                            fill={isFavorite?.(project.id) ? 'currentColor' : 'none'}
+                            color={isFavorite?.(project.id) ? '#1DB954' : 'currentColor'}
+                        />
+                    </button>
+                    <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-spotify-card text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                        {isFavorite?.(project.id) ? 'Unlike' : 'Like'}
+                    </div>
+                </div>
+            )}
+            {onToggleLyrics && (
+                <div className="relative group">
+                    <button
+                        onClick={hasLyrics ? onToggleLyrics : undefined}
+                        disabled={!hasLyrics}
+                        className={`transition-colors ${isLyricsOpen ? 'text-spotify-green' : hasLyrics ? 'text-spotify-secondary hover:text-white' : 'text-gray-600 cursor-not-allowed'}`}
+                        aria-label={isLyricsOpen ? 'Close lyrics' : 'Lyrics'}
+                    >
+                        <Mic2 className="w-5 h-5" />
+                    </button>
+                    <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-spotify-card text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                        {isLyricsOpen ? 'Close Lyrics' : hasLyrics ? 'Lyrics' : 'No lyrics available'}
+                    </div>
+                </div>
+            )}
+            <div className="relative group">
                 <button
-                    onClick={onToggleLyrics}
-                    className={`flex items-center space-x-2 transition-colors ${isLyricsOpen ? 'text-spotify-green' : 'text-spotify-secondary hover:text-white'}`}
-                    aria-label="Lyrics"
+                    onClick={(e) => onShareClick(e.currentTarget.getBoundingClientRect())}
+                    className="text-spotify-secondary hover:text-white transition-colors"
+                    aria-label="Share"
                 >
-                    <Mic2 className="w-5 h-5" />
-                    <span className="text-sm">Lyrics</span>
+                    {shareCopied
+                        ? <Check className="w-5 h-5 text-spotify-green" />
+                        : <Share2 className="w-5 h-5" />
+                    }
                 </button>
-            )}
-            <button
-                onClick={(e) => onShareClick(e.currentTarget.getBoundingClientRect())}
-                className="flex items-center space-x-2 text-spotify-secondary hover:text-white transition-colors"
-                aria-label="Share"
-            >
-                {shareCopied
-                    ? <Check className="w-5 h-5 text-spotify-green" />
-                    : <Share2 className="w-5 h-5" />
-                }
-                <span className={`text-sm ${shareCopied ? 'text-spotify-green' : ''}`}>
+                <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-spotify-card text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
                     {shareCopied ? 'Copied!' : 'Share'}
-                </span>
-            </button>
+                </div>
+            </div>
         </div>
 
         <div className="space-y-6">
@@ -183,7 +224,9 @@ const ProjectDetailView = ({
     onMobileBack,
     hasLyrics = false,
     isLyricsOpen = false,
-    onToggleLyrics
+    onToggleLyrics,
+    isFavorite,
+    toggleFavorite
 }: ProjectDetailViewProps) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [shareAnchor, setShareAnchor] = useState<DOMRect | null>(null);
@@ -255,6 +298,8 @@ const ProjectDetailView = ({
                         hasLyrics={hasLyrics}
                         isLyricsOpen={isLyricsOpen}
                         onToggleLyrics={onToggleLyrics ?? undefined}
+                        {...(isFavorite !== undefined && { isFavorite })}
+                        {...(toggleFavorite !== undefined && { toggleFavorite })}
                     />
                 </div>
             </div>
@@ -319,14 +364,29 @@ const ProjectDetailView = ({
                             <span className="text-sm md:text-base">View Repo</span>
                         </a>
                     )}
-                    {hasLyrics && onToggleLyrics && (
+                    {toggleFavorite && (
                         <button
-                            onClick={onToggleLyrics}
-                            className={`flex items-center space-x-2 transition-colors ${isLyricsOpen ? 'text-spotify-green' : 'text-spotify-secondary hover:text-white'}`}
-                            aria-label="Lyrics"
+                            onClick={(e) => { e.stopPropagation(); toggleFavorite(project.id); }}
+                            className="flex items-center space-x-2 text-spotify-secondary hover:text-white transition-colors"
+                            aria-label={isFavorite?.(project.id) ? 'Remove from favorites' : 'Add to favorites'}
+                        >
+                            <Heart
+                                className="w-4 h-4 md:w-5 md:h-5"
+                                fill={isFavorite?.(project.id) ? 'currentColor' : 'none'}
+                                color={isFavorite?.(project.id) ? '#1DB954' : 'currentColor'}
+                            />
+                            <span className="text-sm md:text-base">{isFavorite?.(project.id) ? 'Unlike' : 'Like'}</span>
+                        </button>
+                    )}
+                    {onToggleLyrics && (
+                        <button
+                            onClick={hasLyrics ? onToggleLyrics : undefined}
+                            disabled={!hasLyrics}
+                            className={`flex items-center space-x-2 transition-colors ${isLyricsOpen ? 'text-spotify-green' : hasLyrics ? 'text-spotify-secondary hover:text-white' : 'text-gray-600 cursor-not-allowed'}`}
+                            aria-label={isLyricsOpen ? 'Close lyrics' : 'Lyrics'}
                         >
                             <Mic2 className="w-4 h-4 md:w-5 md:h-5" />
-                            <span className="text-sm md:text-base">Lyrics</span>
+                            <span className="text-sm md:text-base">{isLyricsOpen ? 'Close Lyrics' : 'Lyrics'}</span>
                         </button>
                     )}
                     <button

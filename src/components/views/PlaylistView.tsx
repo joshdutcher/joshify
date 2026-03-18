@@ -1,5 +1,5 @@
 
-import { Play, MoreHorizontal, Heart } from 'lucide-react';
+import { Play, Heart } from 'lucide-react';
 import ProjectImage from '../ProjectImage';
 import PlaylistCoverArt from '../PlaylistCoverArt';
 import type { Playlist, Project } from '../../types';
@@ -62,7 +62,6 @@ const PlaylistView = ({
       >
                 <Play className="w-5 h-5 md:w-6 md:h-6 text-black ml-0.5" fill="currentColor" />
             </button>
-            <MoreHorizontal className="w-6 h-6 md:w-8 md:h-8 text-gray-400 hover:text-white cursor-pointer" />
         </div>
 
         {/* Desktop Table View */}
@@ -125,17 +124,22 @@ const PlaylistView = ({
                     <div className="text-gray-400 text-sm">{project.duration}</div>
                     <div className={isFavorite?.(project.id) ? '' : 'opacity-0 group-hover:opacity-100'}>
                         {toggleFavorite && (
-                            <button
-                                onClick={(e) => { e.stopPropagation(); toggleFavorite(project.id); }}
-                                className="text-spotify-secondary hover:text-white transition-colors"
-                                aria-label={isFavorite?.(project.id) ? 'Remove from favorites' : 'Add to favorites'}
-                            >
-                                <Heart
-                                    className="w-4 h-4"
-                                    fill={isFavorite?.(project.id) ? 'currentColor' : 'none'}
-                                    color={isFavorite?.(project.id) ? '#1DB954' : 'currentColor'}
-                                />
-                            </button>
+                            <div className="relative group/heart">
+                                <button
+                                    onClick={(e) => { e.stopPropagation(); toggleFavorite(project.id); }}
+                                    className="text-spotify-secondary hover:text-white transition-colors"
+                                    aria-label={isFavorite?.(project.id) ? 'Remove from favorites' : 'Add to favorites'}
+                                >
+                                    <Heart
+                                        className="w-4 h-4"
+                                        fill={isFavorite?.(project.id) ? 'currentColor' : 'none'}
+                                        color={isFavorite?.(project.id) ? '#1DB954' : 'currentColor'}
+                                    />
+                                </button>
+                                <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-spotify-card text-white text-xs rounded opacity-0 group-hover/heart:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                                    {isFavorite?.(project.id) ? 'Unlike' : 'Like'}
+                                </div>
+                            </div>
                         )}
                     </div>
                 </div>
@@ -185,17 +189,22 @@ const PlaylistView = ({
                     </div>
                     <div className="flex items-center space-x-2 flex-shrink-0">
                         {toggleFavorite && (
-                            <button
-                                onClick={(e) => { e.stopPropagation(); toggleFavorite(project.id); }}
-                                className="text-spotify-secondary hover:text-white transition-colors"
-                                aria-label={isFavorite?.(project.id) ? 'Remove from favorites' : 'Add to favorites'}
-                            >
-                                <Heart
-                                    className="w-4 h-4"
-                                    fill={isFavorite?.(project.id) ? 'currentColor' : 'none'}
-                                    color={isFavorite?.(project.id) ? '#1DB954' : 'currentColor'}
-                                />
-                            </button>
+                            <div className="relative group/heart">
+                                <button
+                                    onClick={(e) => { e.stopPropagation(); toggleFavorite(project.id); }}
+                                    className="text-spotify-secondary hover:text-white transition-colors"
+                                    aria-label={isFavorite?.(project.id) ? 'Remove from favorites' : 'Add to favorites'}
+                                >
+                                    <Heart
+                                        className="w-4 h-4"
+                                        fill={isFavorite?.(project.id) ? 'currentColor' : 'none'}
+                                        color={isFavorite?.(project.id) ? '#1DB954' : 'currentColor'}
+                                    />
+                                </button>
+                                <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-spotify-card text-white text-xs rounded opacity-0 group-hover/heart:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                                    {isFavorite?.(project.id) ? 'Unlike' : 'Like'}
+                                </div>
+                            </div>
                         )}
                         <button onClick={(e) => {
                 e.stopPropagation();
