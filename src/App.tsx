@@ -314,7 +314,13 @@ const SpotifyResume = () => {
                                         isPlaying={isPlaying}
                                         onPlayProject={handlePlayProject}
                                         onClose={() => navigateToView('home')}
-                                        onMobileBack={() => window.history.back()}
+                                        onMobileBack={() => {
+                                            if (window.history.length > 1) {
+                                                window.history.back();
+                                            } else {
+                                                navigateToView('home');
+                                            }
+                                        }}
                                         hasLyrics={hasLyrics}
                                         isLyricsOpen={isLyricsOpen}
                                         onToggleLyrics={toggleLyrics}
