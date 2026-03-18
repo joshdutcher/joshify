@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { Play, Pause, Volume2, VolumeX, Shuffle, Repeat, SkipBack, SkipForward, Mic2, Share2, Check } from 'lucide-react';
+import { Play, Pause, Volume2, VolumeX, Shuffle, Repeat, SkipBack, SkipForward, Mic2, Share2, Check, Heart } from 'lucide-react';
 import ProjectImage from './ProjectImage';
 import ProgressBar from './ProgressBar';
 import ShareModal from './ShareModal';
@@ -27,6 +27,9 @@ interface BottomPlayerProps {
     onToggleLyrics: () => void;
     // Mobile player
     onOpenMobilePlayer: () => void;
+    // Favorites
+    isFavorite: (_projectId: string) => boolean;
+    toggleFavorite: (_projectId: string) => void;
 }
 
 const BottomPlayer = ({
@@ -46,7 +49,9 @@ const BottomPlayer = ({
     onSeek,
     onVolumeChange,
     onToggleLyrics,
-    onOpenMobilePlayer
+    onOpenMobilePlayer,
+    isFavorite,
+    toggleFavorite
 }: BottomPlayerProps) => {
     // Determine if next/previous buttons should be enabled
     const canGoPrevious = currentPlaylist && currentTrackIndex > 0;
@@ -196,6 +201,17 @@ const BottomPlayer = ({
                             {currentlyPlaying.artist}
                         </p>
                     </div>
+                    <button
+                        onClick={(e) => { e.stopPropagation(); toggleFavorite(currentlyPlaying.id); }}
+                        className="text-spotify-secondary hover:text-white transition-colors flex-shrink-0"
+                        aria-label={isFavorite(currentlyPlaying.id) ? 'Remove from favorites' : 'Add to favorites'}
+                    >
+                        <Heart
+                            className="w-4 h-4"
+                            fill={isFavorite(currentlyPlaying.id) ? 'currentColor' : 'none'}
+                            color={isFavorite(currentlyPlaying.id) ? '#1DB954' : 'currentColor'}
+                        />
+                    </button>
                 </div>
 
                 {/* Center: Player Controls */}

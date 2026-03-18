@@ -1,5 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Heart } from 'lucide-react';
+import { projects as allProjects } from '@/data/projects';
+import type { Project, Playlist } from '@/types';
 import usePlayer from '@/hooks/usePlayer';
+import useFavorites from '@/hooks/useFavorites';
 import useColumnResize from '@/hooks/useColumnResize';
 import useDynamicBackground from '@/hooks/useDynamicBackground';
 import { isPlaylist, isProject } from '@/utils/typeGuards';
@@ -62,6 +66,7 @@ const SpotifyResume = () => {
         navigateToPlaylist,
         navigateToCompany,
         navigateToDomain,
+        navigateToLikedSongs,
         navigateToSearch,
         toggleSidebar,
         closeSidebar,
@@ -82,6 +87,27 @@ const SpotifyResume = () => {
         handleWaiting,
         handleCanPlay
     } = usePlayer();
+
+    const { favoritedIds, isFavorite, toggleFavorite } = useFavorites();
+
+    const likedSongsPlaylist: Playlist | null = favoritedIds.length > 0 ? {
+        id: 'liked-songs',
+        name: 'Liked Songs',
+        icon: Heart,
+        projects: favoritedIds
+            .map(id => allProjects.find(p => p.id === id))
+            .filter((p): p is Project => !!p),
+        description: '',
+        image: null,
+        employer: false,
+    } : null;
+
+    useEffect(() => {
+        if (currentView === 'liked-songs' && !likedSongsPlaylist) {
+            navigateToView('home');
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentView, likedSongsPlaylist]);
 
     const {
         leftColumnWidth,
@@ -218,6 +244,8 @@ const SpotifyResume = () => {
                         width={leftColumnWidth}
                         mode={leftColumnMode}
                         style={isLeftResizing ? {} : { width: `${leftColumnWidth}px` }}
+                        likedSongsPlaylist={likedSongsPlaylist}
+                        onNavigateToLikedSongs={navigateToLikedSongs}
           />
 
                     {/* Left Resize Handle - Desktop Only */}
@@ -275,6 +303,8 @@ const SpotifyResume = () => {
                                         onNavigateToProject={navigateToProject}
                                         onNavigateToCompany={navigateToCompany}
                                         onNavigateToDomain={navigateToDomain}
+                                        isFavorite={isFavorite}
+                                        toggleFavorite={toggleFavorite}
                                     />
                                 )}
                                 {currentView === 'project' && selectedPlaylist && isProject(selectedPlaylist) && (
@@ -307,6 +337,19 @@ const SpotifyResume = () => {
                                         isPlaying={isPlaying}
                                         onPlayProject={handlePlayProject}
                                         onNavigateToProject={navigateToProject}
+                                    />
+                                )}
+                                {currentView === 'liked-songs' && likedSongsPlaylist && (
+                                    <PlaylistView
+                                        playlist={likedSongsPlaylist}
+                                        currentlyPlaying={currentlyPlaying}
+                                        isPlaying={isPlaying}
+                                        onPlayProject={handlePlayProject}
+                                        onNavigateToProject={navigateToProject}
+                                        onNavigateToCompany={navigateToCompany}
+                                        onNavigateToDomain={navigateToDomain}
+                                        isFavorite={isFavorite}
+                                        toggleFavorite={toggleFavorite}
                                     />
                                 )}
                                 {currentView === 'domain' && selectedPlaylist && 'domain' in selectedPlaylist && (
@@ -342,6 +385,8 @@ const SpotifyResume = () => {
                         lyrics={currentLyrics}
                         isLyricsOpen={isLyricsOpen}
                         onToggleLyrics={toggleLyrics}
+                        isFavorite={isFavorite}
+                        toggleFavorite={toggleFavorite}
                     />
                 </div>
             </div>
@@ -365,6 +410,8 @@ const SpotifyResume = () => {
                 onVolumeChange={updateVolume}
                 onToggleLyrics={toggleLyrics}
                 onOpenMobilePlayer={openMobilePlayer}
+                isFavorite={isFavorite}
+                toggleFavorite={toggleFavorite}
             />
 
             {/* Welcome Modal */}

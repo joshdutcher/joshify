@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ExternalLink, Github, Share2, Check, Mic2 } from 'lucide-react';
+import { ExternalLink, Github, Share2, Check, Mic2, Heart } from 'lucide-react';
 import ProjectCanvas from './ProjectCanvas';
 import ShareModal from './ShareModal';
 import useDynamicBackground from '../hooks/useDynamicBackground';
@@ -17,6 +17,8 @@ interface NowPlayingPanelProps {
     lyrics?: string | null;
     isLyricsOpen?: boolean;
     onToggleLyrics?: () => void;
+    isFavorite?: (_projectId: string) => boolean;
+    toggleFavorite?: (_projectId: string) => void;
 }
 
 // Get first few lines of lyrics for preview
@@ -35,7 +37,9 @@ const NowPlayingPanel = ({
     hasLyrics = false,
     lyrics = null,
     isLyricsOpen = false,
-    onToggleLyrics
+    onToggleLyrics,
+    isFavorite,
+    toggleFavorite
 }: NowPlayingPanelProps) => {
     const [copied, setCopied] = useState(false);
     const [shareAnchor, setShareAnchor] = useState<DOMRect | null>(null);
@@ -104,7 +108,7 @@ const NowPlayingPanel = ({
                 {/* Project Details */}
                 <div className="p-4 space-y-3">
                     {/* Share row */}
-                    <div className="flex items-center space-x-2">
+                    <div className="flex items-center space-x-3">
                         <button
                             onClick={(e) => setShareAnchor(e.currentTarget.getBoundingClientRect())}
                             className="flex items-center space-x-1.5 text-spotify-secondary hover:text-white transition-colors"
@@ -118,6 +122,19 @@ const NowPlayingPanel = ({
                                 {copied ? 'Copied!' : 'Share'}
                             </span>
                         </button>
+                        {toggleFavorite && (
+                            <button
+                                onClick={(e) => { e.stopPropagation(); toggleFavorite(currentlyPlaying.id); }}
+                                className="text-spotify-secondary hover:text-white transition-colors"
+                                aria-label={isFavorite?.(currentlyPlaying.id) ? 'Remove from favorites' : 'Add to favorites'}
+                            >
+                                <Heart
+                                    className="w-4 h-4"
+                                    fill={isFavorite?.(currentlyPlaying.id) ? 'currentColor' : 'none'}
+                                    color={isFavorite?.(currentlyPlaying.id) ? '#1DB954' : 'currentColor'}
+                                />
+                            </button>
+                        )}
                     </div>
 
                     {/* Lyrics Block */}

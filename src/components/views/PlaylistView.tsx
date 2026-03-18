@@ -1,5 +1,5 @@
 
-import { Play, MoreHorizontal } from 'lucide-react';
+import { Play, MoreHorizontal, Heart } from 'lucide-react';
 import ProjectImage from '../ProjectImage';
 import PlaylistCoverArt from '../PlaylistCoverArt';
 import type { Playlist, Project } from '../../types';
@@ -12,6 +12,8 @@ interface PlaylistViewProps {
   onNavigateToProject: (_project: Project) => void;
   onNavigateToCompany?: (_companyName: string) => void;
   onNavigateToDomain?: (_domainName: string) => void;
+  isFavorite?: (_projectId: string) => boolean;
+  toggleFavorite?: (_projectId: string) => void;
 }
 
 const PlaylistView = ({
@@ -21,7 +23,9 @@ const PlaylistView = ({
     onPlayProject,
     onNavigateToProject,
     onNavigateToCompany,
-    onNavigateToDomain: _onNavigateToDomain
+    onNavigateToDomain: _onNavigateToDomain,
+    isFavorite,
+    toggleFavorite
 }: PlaylistViewProps) => (
     <div className="text-white p-4 md:p-6">
         <div className="flex flex-col md:flex-row md:items-end space-y-4 md:space-y-0 md:space-x-6 mb-6 md:mb-8">
@@ -35,7 +39,7 @@ const PlaylistView = ({
                 />
             </div>
             <div className="text-center md:text-left">
-                <p className="text-sm font-semibold uppercase">{playlist.employer ? 'Workplace' : 'Collection'}</p>
+                <p className="text-sm font-semibold uppercase">{playlist.id === 'liked-songs' ? 'Playlist' : playlist.employer ? 'Workplace' : 'Collection'}</p>
                 <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-2 md:mb-4">{playlist.name}</h1>
                 <p className="text-gray-400 mb-2">Josh Dutcher • {playlist.projects.length} projects</p>
                 {playlist.description && (
@@ -63,27 +67,28 @@ const PlaylistView = ({
 
         {/* Desktop Table View */}
         <div className="hidden md:block space-y-1">
-            <div className="grid grid-cols-12 gap-4 text-gray-400 text-sm border-b border-gray-700 pb-2 mb-4">
-                <div className="col-span-1">#</div>
-                <div className="col-span-5">Title</div>
-                <div className="col-span-3">Role</div>
-                <div className="col-span-2">Year</div>
-                <div className="col-span-1">Duration</div>
+            <div className="grid gap-4 text-gray-400 text-sm border-b border-gray-700 pb-2 mb-4" style={{gridTemplateColumns: '1fr 5fr 2fr 2fr 1fr 1fr'}}>
+                <div>#</div>
+                <div>Title</div>
+                <div>Role</div>
+                <div>Year</div>
+                <div>Duration</div>
+                <div></div>
             </div>
             {playlist.projects.map((project, index) => (
-                <div key={project.id} className="grid grid-cols-12 gap-4 items-center py-2 hover:bg-gray-800 rounded-lg px-2 group">
-                    <div className="col-span-1 text-gray-400 text-sm">
+                <div key={project.id} className="grid gap-4 items-center py-2 hover:bg-gray-800 rounded-lg px-2 group" style={{gridTemplateColumns: '1fr 5fr 2fr 2fr 1fr 1fr'}}>
+                    <div className="text-gray-400 text-sm">
                         <span className="group-hover:hidden">{index + 1}</span>
                         <Play className="w-4 h-4 hidden group-hover:block cursor-pointer" fill="currentColor" onClick={() => onPlayProject(project, playlist)} />
                     </div>
-                    <div className="col-span-5 flex items-center space-x-3">
+                    <div className="flex items-center space-x-3">
                         <ProjectImage
                             project={project}
                             size="small"
                             shape="rounded"
             />
                         <div className="min-w-0 flex-1">
-                            <p 
+                            <p
                                 className="text-white truncate hover:underline cursor-pointer"
                                 onClick={(e) => {
                   e.stopPropagation();
@@ -95,8 +100,8 @@ const PlaylistView = ({
                             <p className="text-gray-400 text-sm truncate">
                                 {project.artist && project.artist.includes(' - ') ? (
                                     <>
-                                        {project.artist?.split(' - ')[0]} - 
-                                        <span 
+                                        {project.artist?.split(' - ')[0]} -
+                                        <span
                                             className="hover:underline cursor-pointer hover:text-white"
                                             onClick={(e) => {
                         e.stopPropagation();
@@ -115,9 +120,24 @@ const PlaylistView = ({
                             </p>
                         </div>
                     </div>
-                    <div className="col-span-3 text-gray-400 text-sm truncate">{project.album}</div>
-                    <div className="col-span-2 text-gray-400 text-sm">{project.year}</div>
-                    <div className="col-span-1 text-gray-400 text-sm">{project.duration}</div>
+                    <div className="text-gray-400 text-sm truncate">{project.album}</div>
+                    <div className="text-gray-400 text-sm">{project.year}</div>
+                    <div className="text-gray-400 text-sm">{project.duration}</div>
+                    <div className={isFavorite?.(project.id) ? '' : 'opacity-0 group-hover:opacity-100'}>
+                        {toggleFavorite && (
+                            <button
+                                onClick={(e) => { e.stopPropagation(); toggleFavorite(project.id); }}
+                                className="text-spotify-secondary hover:text-white transition-colors"
+                                aria-label={isFavorite?.(project.id) ? 'Remove from favorites' : 'Add to favorites'}
+                            >
+                                <Heart
+                                    className="w-4 h-4"
+                                    fill={isFavorite?.(project.id) ? 'currentColor' : 'none'}
+                                    color={isFavorite?.(project.id) ? '#1DB954' : 'currentColor'}
+                                />
+                            </button>
+                        )}
+                    </div>
                 </div>
       ))}
         </div>
@@ -163,12 +183,27 @@ const PlaylistView = ({
               )}
                         </p>
                     </div>
-                    <button onClick={(e) => {
-            e.stopPropagation();
-            onPlayProject(project, playlist);
-          }}>
-                        <Play className="w-5 h-5 text-gray-400" fill="currentColor" />
-                    </button>
+                    <div className="flex items-center space-x-2 flex-shrink-0">
+                        {toggleFavorite && (
+                            <button
+                                onClick={(e) => { e.stopPropagation(); toggleFavorite(project.id); }}
+                                className="text-spotify-secondary hover:text-white transition-colors"
+                                aria-label={isFavorite?.(project.id) ? 'Remove from favorites' : 'Add to favorites'}
+                            >
+                                <Heart
+                                    className="w-4 h-4"
+                                    fill={isFavorite?.(project.id) ? 'currentColor' : 'none'}
+                                    color={isFavorite?.(project.id) ? '#1DB954' : 'currentColor'}
+                                />
+                            </button>
+                        )}
+                        <button onClick={(e) => {
+                e.stopPropagation();
+                onPlayProject(project, playlist);
+              }}>
+                            <Play className="w-5 h-5 text-gray-400" fill="currentColor" />
+                        </button>
+                    </div>
                 </div>
       ))}
         </div>

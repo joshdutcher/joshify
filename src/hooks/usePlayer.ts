@@ -204,6 +204,11 @@ const usePlayer = () => {
         setSidebarOpen(false);
     };
 
+    const navigateToLikedSongs = () => {
+        pushNavigation('liked-songs', null);
+        setSidebarOpen(false);
+    };
+
     const navigateToDomain = (domainName: string) => {
         const domainSelection = { domain: domainName } as DomainSelection;
         pushNavigation('domain', domainSelection);
@@ -376,6 +381,7 @@ const usePlayer = () => {
         navigateToPlaylist,
         navigateToCompany,
         navigateToDomain,
+        navigateToLikedSongs,
         navigateToSearch,
         toggleSidebar,
         closeSidebar,
