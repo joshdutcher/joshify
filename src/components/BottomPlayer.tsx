@@ -201,17 +201,6 @@ const BottomPlayer = ({
                             {currentlyPlaying.artist}
                         </p>
                     </div>
-                    <button
-                        onClick={(e) => { e.stopPropagation(); toggleFavorite(currentlyPlaying.id); }}
-                        className="text-spotify-secondary hover:text-white transition-colors flex-shrink-0"
-                        aria-label={isFavorite(currentlyPlaying.id) ? 'Remove from favorites' : 'Add to favorites'}
-                    >
-                        <Heart
-                            className="w-4 h-4"
-                            fill={isFavorite(currentlyPlaying.id) ? 'currentColor' : 'none'}
-                            color={isFavorite(currentlyPlaying.id) ? '#1DB954' : 'currentColor'}
-                        />
-                    </button>
                 </div>
 
                 {/* Center: Player Controls */}
@@ -271,6 +260,19 @@ const BottomPlayer = ({
 
                 {/* Right: Lyrics, Volume & Share */}
                 <div className="flex items-center justify-end space-x-4 w-1/4">
+                    {/* Heart Button */}
+                    <button
+                        onClick={() => toggleFavorite(currentlyPlaying.id)}
+                        className="text-spotify-secondary hover:text-white transition-colors"
+                        aria-label={isFavorite(currentlyPlaying.id) ? 'Remove from favorites' : 'Add to favorites'}
+                    >
+                        <Heart
+                            className="w-4 h-4"
+                            fill={isFavorite(currentlyPlaying.id) ? 'currentColor' : 'none'}
+                            color={isFavorite(currentlyPlaying.id) ? '#1DB954' : 'currentColor'}
+                        />
+                    </button>
+
                     {/* Share Button */}
                     <button
                         onClick={(e) => setShareAnchor(e.currentTarget.getBoundingClientRect())}
