@@ -2,6 +2,7 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import { projects } from '../data/projects';
 import type { Project, Playlist, SelectedPlaylist, CompanySelection, DomainSelection } from '../types';
 import { useNavigationHistory } from './useNavigationHistory';
+import { syncedLyricsMap } from '../data/lyrics';
 import {
     trackPageView,
     trackAudioPlay,
@@ -436,6 +437,9 @@ const usePlayer = () => {
     // Get lyrics for current track
     const currentLyrics = currentlyPlaying?.displayLyrics || currentlyPlaying?.sunoLyrics || null;
 
+    // Get synced lyrics for current track
+    const currentSyncedLyrics = currentlyPlaying ? (syncedLyricsMap[currentlyPlaying.id] ?? null) : null;
+
     return {
         // State
         currentlyPlaying,
@@ -456,6 +460,7 @@ const usePlayer = () => {
         currentMusicUrl,
         hasLyrics,
         currentLyrics,
+        currentSyncedLyrics,
 
         // Mobile/Lyrics UI state
         isMobilePlayerOpen,

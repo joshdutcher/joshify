@@ -64,6 +64,7 @@ const SpotifyResume = () => {
         currentMusicUrl,
         hasLyrics,
         currentLyrics,
+        currentSyncedLyrics,
         // Mobile/Lyrics UI state
         isMobilePlayerOpen,
         isLyricsOpen,
@@ -293,6 +294,8 @@ const SpotifyResume = () => {
                             <LyricsView
                                 project={currentlyPlaying}
                                 lyrics={currentLyrics}
+                                syncedLyrics={currentSyncedLyrics}
+                                currentTime={currentTime}
                                 onClose={toggleLyrics}
                             />
                         ) : (
@@ -466,6 +469,7 @@ const SpotifyResume = () => {
                 canGoPrevious={!!(currentPlaylist && currentTrackIndex > 0)}
                 canGoNext={!!(currentPlaylist && currentTrackIndex < (currentPlaylist.projects?.length - 1))}
                 lyrics={currentLyrics}
+                syncedLyrics={currentSyncedLyrics}
             />
 
             <Toast message="Link copied to clipboard" visible={toastVisible} />

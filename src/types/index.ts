@@ -193,6 +193,15 @@ export type ValidSkill = `${Skill}`;
 export type ValidAlbumCategory = `${AlbumCategory}`;
 
 /**
+ * Time-synced lyric line for karaoke-style display
+ */
+export interface SyncedLyric {
+    readonly time: number;  // Start time in seconds
+    readonly end: number;   // End time in seconds
+    readonly text: string;  // Lyric line text
+}
+
+/**
  * Special selection types for navigation states
  */
 export interface CompanySelection {

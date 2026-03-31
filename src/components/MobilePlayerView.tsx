@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { ChevronDown, Play, Pause, SkipBack, SkipForward, Maximize2 } from 'lucide-react';
 import ProjectImage from './ProjectImage';
 import ProjectCanvas from './ProjectCanvas';
 import ProgressBar from './ProgressBar';
 import useDynamicBackground from '../hooks/useDynamicBackground';
-import type { Project } from '../types';
+import type { Project, SyncedLyric } from '../types';
 
 interface MobilePlayerViewProps {
     isOpen: boolean;
@@ -20,6 +20,7 @@ interface MobilePlayerViewProps {
     canGoPrevious: boolean;
     canGoNext: boolean;
     lyrics: string | null;
+    syncedLyrics: SyncedLyric[] | null;
 }
 
 const MobilePlayerView = ({
@@ -35,9 +36,45 @@ const MobilePlayerView = ({
     onNextTrack,
     canGoPrevious,
     canGoNext,
-    lyrics
+    lyrics,
+    syncedLyrics
 }: MobilePlayerViewProps) => {
     const [lyricsExpanded, setLyricsExpanded] = useState(false);
+    const mobileLineRefs = useRef<(HTMLParagraphElement | null)[]>([]);
+    const mobileContainerRef = useRef<HTMLDivElement>(null);
+    const lastMobileScrolledLine = useRef<number>(-1);
+
+    const getActiveLine = (synced: SyncedLyric[], time: number): number => {
+        for (let i = synced.length - 1; i >= 0; i--) {
+            const lyric = synced[i];
+            if (lyric && time >= lyric.time) return i;
+        }
+        return -1;
+    };
+
+    const activeLine = syncedLyrics ? getActiveLine(syncedLyrics, currentTime) : -1;
+
+    const setMobileLineRef = useCallback((index: number) => (el: HTMLParagraphElement | null) => {
+        mobileLineRefs.current[index] = el;
+    }, []);
+
+    // Auto-scroll for mobile expanded lyrics
+    useEffect(() => {
+        if (!lyricsExpanded || activeLine < 0 || activeLine === lastMobileScrolledLine.current) return;
+        lastMobileScrolledLine.current = activeLine;
+
+        const lineEl = mobileLineRefs.current[activeLine];
+        const container = mobileContainerRef.current;
+        if (!lineEl || !container) return;
+
+        const containerRect = container.getBoundingClientRect();
+        const lineRect = lineEl.getBoundingClientRect();
+        const targetOffset = containerRect.height * 0.33;
+        const currentOffset = lineRect.top - containerRect.top;
+        const scrollDelta = currentOffset - targetOffset;
+
+        container.scrollBy({ top: scrollDelta, behavior: 'smooth' });
+    }, [activeLine, lyricsExpanded]);
 
     // Get dynamic background color from album art
     const { backgroundStyle } = useDynamicBackground(currentlyPlaying?.image || null);
@@ -75,10 +112,33 @@ const MobilePlayerView = ({
 
                 {/* Lyrics - scrollable with fade effect */}
                 <div className="flex-1 relative overflow-hidden">
-                    <div className="absolute inset-0 overflow-y-auto px-6 pb-16 spotify-scrollbar">
-                        <div className="text-white text-2xl font-bold leading-loose whitespace-pre-line">
-                            {lyrics}
-                        </div>
+                    <div ref={mobileContainerRef} className="absolute inset-0 overflow-y-auto px-6 pb-16 spotify-scrollbar">
+                        {syncedLyrics ? (
+                            <div>
+                                {syncedLyrics.map((line, index) => {
+                                    const isActive = index === activeLine;
+                                    const isPast = index < activeLine;
+                                    return (
+                                        <p
+                                            key={index}
+                                            ref={setMobileLineRef(index)}
+                                            className={`
+                                                text-2xl font-bold leading-loose
+                                                transition-all duration-300 ease-out
+                                                ${isActive ? 'text-white' : isPast ? 'text-white/40' : 'text-white/40'}
+                                            `}
+                                        >
+                                            {line.text}
+                                        </p>
+                                    );
+                                })}
+                                <div className="h-[50vh]" />
+                            </div>
+                        ) : (
+                            <div className="text-white text-2xl font-bold leading-loose whitespace-pre-line">
+                                {lyrics}
+                            </div>
+                        )}
                     </div>
                     {/* Bottom fade gradient */}
                     <div
