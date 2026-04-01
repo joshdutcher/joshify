@@ -49,9 +49,7 @@ pens hit paper, keys in hand
 every detail goes to plan
 doors swing open, i disappear
 everything's perfect, i'm not here`,
-    displayLyrics: `four months, no sleep, i make it look easy
-
-two suits, big plans, blank door, no name
+    displayLyrics: `two suits, big plans, blank door, no name
 they know the law, i run the game
 calls at midnight, fonts and faces
 logos, lights, setting the paces

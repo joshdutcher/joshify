@@ -226,6 +226,10 @@ Automated pipeline runs on every PR / push to main:
 - **Version Control**: Professional git workflow with meaningful commits
 - **Documentation**: Comprehensive inline documentation and README
 
+## Acknowledgments
+
+- **[LRC Maker](https://github.com/magic-akari/lrc-maker)** by magic-akari — Used to create time-synced lyrics for each track. An excellent browser-based tool for synchronizing lyrics to audio by tapping along to the song.
+
 ## 📄 License
 
 This project is intended for portfolio demonstration purposes. Spotify's design patterns are used for educational/personal portfolio purposes under fair use.

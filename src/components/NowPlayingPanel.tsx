@@ -1,7 +1,8 @@
 import { ExternalLink, Github, Share2, Mic2, Heart } from 'lucide-react';
 import ProjectCanvas from './ProjectCanvas';
+import LyricsPreview from './LyricsPreview';
 import useDynamicBackground from '../hooks/useDynamicBackground';
-import type { Project } from '../types';
+import type { Project, SyncedLyric } from '../types';
 import { trackEvent } from '../utils/analytics';
 
 interface NowPlayingPanelProps {
@@ -11,8 +12,9 @@ interface NowPlayingPanelProps {
     style?: Record<string, any>;
     onNavigateToProject: (_project: Project) => void;
     width?: number;
+    syncedLyrics?: SyncedLyric[] | null;
+    currentTime?: number;
     hasLyrics?: boolean;
-    lyrics?: string | null;
     isLyricsOpen?: boolean;
     onToggleLyrics?: () => void;
     isFavorite?: (_projectId: string) => boolean;
@@ -26,8 +28,9 @@ const NowPlayingPanel = ({
     className = "",
     style = {},
     onNavigateToProject,
+    syncedLyrics = null,
+    currentTime = 0,
     hasLyrics = false,
-    lyrics: _lyrics = null,
     isLyricsOpen = false,
     onToggleLyrics,
     isFavorite,
@@ -72,15 +75,16 @@ const NowPlayingPanel = ({
                     {/* Overlay gradient for text readability */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 
-                    {/* Project title overlay */}
-                    <div className="absolute bottom-4 left-4 right-4">
+                    {/* Lyrics preview + Project title overlay */}
+                    <div className="absolute bottom-2 left-4 right-4">
+                        <LyricsPreview syncedLyrics={syncedLyrics} currentTime={currentTime} />
                         <h2
-                            className="text-white font-bold text-xl mb-1 drop-shadow-lg hover:underline cursor-pointer"
+                            className="text-white font-bold text-xl leading-tight drop-shadow-lg hover:underline cursor-pointer"
                             onClick={() => onNavigateToProject && onNavigateToProject(currentlyPlaying)}
                         >
                             {currentlyPlaying.title}
                         </h2>
-                        <p className="text-white/90 text-sm drop-shadow-md">
+                        <p className="text-white/90 text-sm leading-tight drop-shadow-md">
                             {currentlyPlaying.artist}
                         </p>
                     </div>

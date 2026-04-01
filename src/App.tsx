@@ -63,7 +63,6 @@ const SpotifyResume = () => {
         volume,
         currentMusicUrl,
         hasLyrics,
-        currentLyrics,
         currentSyncedLyrics,
         // Mobile/Lyrics UI state
         isMobilePlayerOpen,
@@ -293,7 +292,6 @@ const SpotifyResume = () => {
                         {isLyricsOpen && currentlyPlaying ? (
                             <LyricsView
                                 project={currentlyPlaying}
-                                lyrics={currentLyrics}
                                 syncedLyrics={currentSyncedLyrics}
                                 currentTime={currentTime}
                                 onClose={toggleLyrics}
@@ -409,8 +407,9 @@ const SpotifyResume = () => {
                         width={rightColumnWidth}
                         onNavigateToProject={navigateToProject}
                         style={isRightResizing ? {} : { width: `${rightColumnWidth}px` }}
+                        syncedLyrics={currentSyncedLyrics}
+                        currentTime={currentTime}
                         hasLyrics={hasLyrics}
-                        lyrics={currentLyrics}
                         isLyricsOpen={isLyricsOpen}
                         onToggleLyrics={toggleLyrics}
                         isFavorite={isFavorite}
@@ -468,7 +467,6 @@ const SpotifyResume = () => {
                 onNextTrack={playNextTrack}
                 canGoPrevious={!!(currentPlaylist && currentTrackIndex > 0)}
                 canGoNext={!!(currentPlaylist && currentTrackIndex < (currentPlaylist.projects?.length - 1))}
-                lyrics={currentLyrics}
                 syncedLyrics={currentSyncedLyrics}
             />
 

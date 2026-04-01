@@ -1,7 +1,7 @@
 # Joshify Local CI/CD Pipeline
 # Comprehensive validation matching Railway deployment process
 
-.PHONY: help install lint typecheck build test clean ci ci-full deploy-check railway-simulation prepare-release
+.PHONY: help install lint typecheck build test clean ci ci-full deploy-check railway-simulation prepare-release dev
 
 # Default target
 help:
@@ -157,6 +157,10 @@ validate-env:
 	@echo "⚙️ Checking Vite config..."
 	@[ -f "vite.config.ts" ] && echo "✅ vite.config.ts found" || (echo "❌ vite.config.ts missing" && exit 1)
 	@echo "✅ Environment validation completed"
+
+# Start development server
+dev:
+	@npm run dev
 
 # Quick development setup
 dev-setup: install

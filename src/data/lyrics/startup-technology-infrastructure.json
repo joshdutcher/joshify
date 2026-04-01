@@ -1,52 +1,66 @@
 [
   {
-    "time": 0.0,
-    "end": 1.1,
-    "text": "Domain."
+    "time": 0,
+    "text": "🎵"
   },
   {
-    "time": 1.2,
-    "end": 3.64,
-    "text": "Admin."
+    "time": 0,
+    "text": ""
   },
   {
-    "time": 3.82,
-    "end": 6.04,
-    "text": "Logic."
+    "time": 22.996,
+    "text": "Domain"
   },
   {
-    "time": 29.3,
-    "end": 30.8,
-    "text": "Access."
+    "time": 24.916,
+    "text": "Admin"
   },
   {
-    "time": 30.8,
-    "end": 32.76,
-    "text": "Connectivity."
+    "time": 27.199,
+    "text": "Logic"
   },
   {
-    "time": 33.18,
-    "end": 35.9,
-    "text": "Connectivity."
+    "time": 29.262,
+    "text": "Access"
   },
   {
-    "time": 38.12,
-    "end": 40.3,
-    "text": "Node."
+    "time": 29.262,
+    "text": ""
   },
   {
-    "time": 40.3,
-    "end": 42.24,
-    "text": "Signal."
+    "time": 30.968,
+    "text": "Connectivity"
   },
   {
-    "time": 42.94,
-    "end": 44.16,
-    "text": "Firm."
+    "time": 33.029,
+    "text": "Connectivity"
   },
   {
-    "time": 44.64,
-    "end": 47.38,
-    "text": "Complete."
+    "time": 33.029,
+    "text": ""
+  },
+  {
+    "time": 38.695,
+    "text": "Node"
+  },
+  {
+    "time": 40.456,
+    "text": "Signal"
+  },
+  {
+    "time": 42.655,
+    "text": "Firm"
+  },
+  {
+    "time": 44.411,
+    "text": "Complete"
+  },
+  {
+    "time": 44.411,
+    "text": ""
+  },
+  {
+    "time": 46.196,
+    "text": "🎵"
   }
 ]

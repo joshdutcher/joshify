@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { projects } from '../data/projects';
+import { projects, playlists } from '../data/projects';
 import type { Project, Playlist, SelectedPlaylist, CompanySelection, DomainSelection } from '../types';
 import { useNavigationHistory } from './useNavigationHistory';
 import { syncedLyricsMap } from '../data/lyrics';
@@ -96,6 +96,17 @@ const usePlayer = () => {
                 setSelectedPlaylist(project);
                 setCurrentlyPlaying(project);
                 window.history.replaceState({ view: 'project', data: project }, '', path);
+            }
+        }
+        const playlistMatch = path.match(/^\/playlist\/(.+)$/);
+        if (playlistMatch) {
+            const slug = playlistMatch[1];
+            const playlist = playlists.find(p => p.name.toLowerCase().replace(/\s+/g, '-') === slug);
+            if (playlist) {
+                setCurrentView('playlist');
+                setSelectedPlaylist(playlist);
+                const { icon: _icon, ...serializablePlaylist } = playlist;
+                window.history.replaceState({ view: 'playlist', data: serializablePlaylist }, '', path);
             }
         }
         if (path !== '/') {
@@ -255,6 +266,12 @@ const usePlayer = () => {
     }, [currentPlaylist, currentTrackIndex, repeatMode, isShuffled, shuffleQueue, currentlyPlaying, isPlaying, flushListenDuration]);
 
     const playPreviousTrack = () => {
+        // If playing and past 5 seconds, restart current track
+        if (isPlaying && currentTime > 5 && audioRef.current) {
+            audioRef.current.currentTime = 0;
+            return;
+        }
+
         if (!currentPlaylist || !currentPlaylist.projects) return;
 
         const prevIndex = currentTrackIndex - 1;
@@ -325,6 +342,29 @@ const usePlayer = () => {
             setCurrentTime(time);
         }
     }, []);
+
+    // Arrow key seek (desktop only)
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (!audioRef.current || !currentlyPlaying) return;
+            // Don't capture when typing in an input
+            if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
+
+            if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                const newTime = Math.max(0, audioRef.current.currentTime - 5);
+                audioRef.current.currentTime = newTime;
+                setCurrentTime(newTime);
+            } else if (e.key === 'ArrowRight') {
+                e.preventDefault();
+                const newTime = Math.min(audioRef.current.duration || 0, audioRef.current.currentTime + 5);
+                audioRef.current.currentTime = newTime;
+                setCurrentTime(newTime);
+            }
+        };
+        document.addEventListener('keydown', handleKeyDown);
+        return () => document.removeEventListener('keydown', handleKeyDown);
+    }, [currentlyPlaying]);
 
     // Update volume and persist to localStorage
     const updateVolume = useCallback((newVolume: number) => {
@@ -431,14 +471,11 @@ const usePlayer = () => {
     // Get current music URL - musicFile already contains the full URL from projects.ts
     const currentMusicUrl = currentlyPlaying?.musicFile || null;
 
-    // Check if current track has lyrics
-    const hasLyrics = !!(currentlyPlaying?.displayLyrics || currentlyPlaying?.sunoLyrics);
-
-    // Get lyrics for current track
-    const currentLyrics = currentlyPlaying?.displayLyrics || currentlyPlaying?.sunoLyrics || null;
-
     // Get synced lyrics for current track
     const currentSyncedLyrics = currentlyPlaying ? (syncedLyricsMap[currentlyPlaying.id] ?? null) : null;
+
+    // Check if current track has lyrics
+    const hasLyrics = !!currentSyncedLyrics;
 
     return {
         // State
@@ -459,7 +496,6 @@ const usePlayer = () => {
         volume,
         currentMusicUrl,
         hasLyrics,
-        currentLyrics,
         currentSyncedLyrics,
 
         // Mobile/Lyrics UI state

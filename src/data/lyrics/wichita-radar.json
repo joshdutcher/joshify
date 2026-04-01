@@ -1,82 +1,98 @@
 [
   {
-    "time": 0.2,
-    "end": 2.86,
+    "time": 0.354,
     "text": "High res map, data streams"
   },
   {
-    "time": 2.86,
-    "end": 6.8,
+    "time": 3.79,
     "text": "Looking for the inflow of my dreams"
   },
   {
-    "time": 6.8,
-    "end": 10.68,
+    "time": 7.419,
     "text": "Dry line comes, CAPE is high"
   },
   {
-    "time": 10.68,
-    "end": 14.5,
+    "time": 11.277,
     "text": "Watch the storm blow up the sky"
   },
   {
-    "time": 14.5,
-    "end": 20.92,
+    "time": 11.277,
+    "text": ""
+  },
+  {
+    "time": 16.345,
     "text": "Hook echo on the screen"
   },
   {
-    "time": 20.92,
-    "end": 27.84,
+    "time": 22.518,
     "text": "Rainfall lines of red and green"
   },
   {
-    "time": 27.84,
-    "end": 57.0,
+    "time": 22.518,
+    "text": ""
+  },
+  {
+    "time": 37.665,
     "text": "Track the core"
   },
   {
-    "time": 57.0,
-    "end": 57.72,
+    "time": 41.558,
     "text": "Watch it roar"
   },
   {
-    "time": 57.72,
-    "end": 61.6,
+    "time": 45.174,
     "text": "Track the core"
   },
   {
-    "time": 61.6,
-    "end": 63.62,
+    "time": 48.91,
     "text": "Watch it roar"
   },
   {
-    "time": 63.62,
-    "end": 63.82,
+    "time": 48.91,
+    "text": ""
+  },
+  {
+    "time": 52.457,
     "text": "Track the core"
   },
   {
-    "time": 63.82,
-    "end": 63.82,
+    "time": 56.507,
     "text": "Watch it roar"
   },
   {
-    "time": 63.82,
-    "end": 64.32,
+    "time": 60.22,
     "text": "Track the core"
   },
   {
-    "time": 64.32,
-    "end": 65.3,
+    "time": 64.126,
     "text": "Watch it roar"
   },
   {
-    "time": 65.3,
-    "end": 116.66,
+    "time": 64.126,
+    "text": ""
+  },
+  {
+    "time": 69.037,
+    "text": "🎵"
+  },
+  {
+    "time": 69.037,
+    "text": ""
+  },
+  {
+    "time": 97.959,
     "text": "Track the core"
   },
   {
-    "time": 116.66,
-    "end": 119.64,
+    "time": 97.959,
+    "text": ""
+  },
+  {
+    "time": 105.686,
+    "text": "Watch it roar"
+  },
+  {
+    "time": 109.676,
     "text": "Watch it roar"
   }
 ]

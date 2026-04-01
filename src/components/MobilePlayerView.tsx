@@ -19,7 +19,6 @@ interface MobilePlayerViewProps {
     onNextTrack: () => void;
     canGoPrevious: boolean;
     canGoNext: boolean;
-    lyrics: string | null;
     syncedLyrics: SyncedLyric[] | null;
 }
 
@@ -36,7 +35,6 @@ const MobilePlayerView = ({
     onNextTrack,
     canGoPrevious,
     canGoNext,
-    lyrics,
     syncedLyrics
 }: MobilePlayerViewProps) => {
     const [lyricsExpanded, setLyricsExpanded] = useState(false);
@@ -47,7 +45,7 @@ const MobilePlayerView = ({
     const getActiveLine = (synced: SyncedLyric[], time: number): number => {
         for (let i = synced.length - 1; i >= 0; i--) {
             const lyric = synced[i];
-            if (lyric && time >= lyric.time) return i;
+            if (lyric && lyric.text !== '' && time >= lyric.time) return i;
         }
         return -1;
     };
@@ -85,7 +83,7 @@ const MobilePlayerView = ({
     const primaryColor = backgroundStyle['--primary-color'] || 'rgb(83, 83, 83)';
 
     // Expanded Lyrics View (full-screen takeover)
-    if (lyricsExpanded && lyrics) {
+    if (lyricsExpanded && syncedLyrics) {
         return (
             <div
                 className="fixed inset-0 z-[80] md:hidden flex flex-col"
@@ -113,32 +111,31 @@ const MobilePlayerView = ({
                 {/* Lyrics - scrollable with fade effect */}
                 <div className="flex-1 relative overflow-hidden">
                     <div ref={mobileContainerRef} className="absolute inset-0 overflow-y-auto px-6 pb-16 spotify-scrollbar">
-                        {syncedLyrics ? (
-                            <div>
-                                {syncedLyrics.map((line, index) => {
-                                    const isActive = index === activeLine;
-                                    const isPast = index < activeLine;
-                                    return (
-                                        <p
-                                            key={index}
-                                            ref={setMobileLineRef(index)}
-                                            className={`
-                                                text-2xl font-bold leading-loose
-                                                transition-all duration-300 ease-out
-                                                ${isActive ? 'text-white' : isPast ? 'text-white/40' : 'text-white/40'}
-                                            `}
-                                        >
-                                            {line.text}
-                                        </p>
-                                    );
-                                })}
-                                <div className="h-[50vh]" />
-                            </div>
-                        ) : (
-                            <div className="text-white text-2xl font-bold leading-loose whitespace-pre-line">
-                                {lyrics}
-                            </div>
-                        )}
+                        <div>
+                            {syncedLyrics.map((line, index) => {
+                                if (line.text === '') {
+                                    return <div key={index} className="h-6" />;
+                                }
+
+                                const isActive = index === activeLine;
+                                const isPast = index < activeLine;
+                                return (
+                                    <p
+                                        key={index}
+                                        ref={setMobileLineRef(index)}
+                                        className={`
+                                            text-2xl font-bold leading-loose
+                                            transition-all duration-300 ease-out
+                                            ${isActive ? 'text-white' : isPast ? 'text-white/40' : 'text-white/40'}
+                                        `}
+                                        style={{ letterSpacing: '-0.02em' }}
+                                    >
+                                        {isActive && line.text === '🎵' ? <span className="lyrics-note-pulse">{line.text}</span> : line.text}
+                                    </p>
+                                );
+                            })}
+                            <div className="h-[50vh]" />
+                        </div>
                     </div>
                     {/* Bottom fade gradient */}
                     <div
@@ -286,7 +283,7 @@ const MobilePlayerView = ({
                     </div>
 
                     {/* Lyrics Section */}
-                    {lyrics && (
+                    {syncedLyrics && (
                         <div
                             className="mt-8 rounded-lg p-5"
                             style={{ backgroundColor: primaryColor }}
@@ -302,11 +299,11 @@ const MobilePlayerView = ({
                                     <Maximize2 className="w-4 h-4 text-white" />
                                 </button>
                             </div>
-                            {/* Lyrics text */}
-                            <div
-                                className="text-white text-xl font-bold leading-relaxed whitespace-pre-line max-h-64 overflow-y-auto spotify-scrollbar"
-                            >
-                                {lyrics}
+                            {/* Lyrics preview - first few lines */}
+                            <div className="text-white text-xl font-bold leading-relaxed max-h-64 overflow-y-auto spotify-scrollbar">
+                                {syncedLyrics.filter(l => l.text !== '').slice(0, 8).map((line, i) => (
+                                    <p key={i}>{line.text}</p>
+                                ))}
                             </div>
                         </div>
                     )}
