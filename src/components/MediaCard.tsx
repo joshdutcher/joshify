@@ -4,10 +4,11 @@ import ProjectImage from './ProjectImage';
 import PlaylistCoverArt from './PlaylistCoverArt';
 import type { Project, Playlist } from '../types';
 import { isProject, isPlaylist } from '../utils/typeGuards';
+import { syncedLyricsMap } from '../data/lyrics';
 
 // Helper to check if a project has lyrics
 const projectHasLyrics = (project: Project): boolean => {
-    return !!(project.displayLyrics || project.sunoLyrics);
+    return !!syncedLyricsMap[project.id];
 };
 
 

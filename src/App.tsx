@@ -22,6 +22,7 @@ import DomainView from '@/components/views/DomainView';
 import WelcomeModal from '@/components/WelcomeModal';
 import MobilePlayerView from '@/components/MobilePlayerView';
 import LyricsView from '@/components/LyricsView';
+import Toast from '@/components/Toast';
 
 const SpotifyResume = () => {
     // Welcome modal state - show on first visit
@@ -36,6 +37,15 @@ const SpotifyResume = () => {
 
     const handleShowWelcome = () => {
         setShowWelcome(true);
+    };
+
+    const [toastVisible, setToastVisible] = useState(false);
+    const toastTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+
+    const triggerToast = () => {
+        if (toastTimer.current) clearTimeout(toastTimer.current);
+        setToastVisible(true);
+        toastTimer.current = setTimeout(() => setToastVisible(false), 2000);
     };
     const {
         currentlyPlaying,
@@ -53,10 +63,16 @@ const SpotifyResume = () => {
         volume,
         currentMusicUrl,
         hasLyrics,
-        currentLyrics,
+        currentSyncedLyrics,
         // Mobile/Lyrics UI state
         isMobilePlayerOpen,
         isLyricsOpen,
+        // Shuffle/Repeat state
+        isShuffled,
+        repeatMode,
+        toggleShuffle,
+        toggleRepeat,
+
         // Actions
         handlePlayProject,
         playNextTrack,
@@ -276,7 +292,8 @@ const SpotifyResume = () => {
                         {isLyricsOpen && currentlyPlaying ? (
                             <LyricsView
                                 project={currentlyPlaying}
-                                lyrics={currentLyrics}
+                                syncedLyrics={currentSyncedLyrics}
+                                currentTime={currentTime}
                                 onClose={toggleLyrics}
                             />
                         ) : (
@@ -326,6 +343,7 @@ const SpotifyResume = () => {
                                         onToggleLyrics={toggleLyrics}
                                         isFavorite={isFavorite}
                                         toggleFavorite={toggleFavorite}
+                                        onShareCopied={triggerToast}
                                     />
                                 )}
                                 {currentView === 'profile' && <ProfileView />}
@@ -389,12 +407,14 @@ const SpotifyResume = () => {
                         width={rightColumnWidth}
                         onNavigateToProject={navigateToProject}
                         style={isRightResizing ? {} : { width: `${rightColumnWidth}px` }}
+                        syncedLyrics={currentSyncedLyrics}
+                        currentTime={currentTime}
                         hasLyrics={hasLyrics}
-                        lyrics={currentLyrics}
                         isLyricsOpen={isLyricsOpen}
                         onToggleLyrics={toggleLyrics}
                         isFavorite={isFavorite}
                         toggleFavorite={toggleFavorite}
+                        onShareCopied={triggerToast}
                     />
                 </div>
             </div>
@@ -417,9 +437,14 @@ const SpotifyResume = () => {
                 onSeek={seek}
                 onVolumeChange={updateVolume}
                 onToggleLyrics={toggleLyrics}
+                isShuffled={isShuffled}
+                toggleShuffle={toggleShuffle}
+                repeatMode={repeatMode}
+                toggleRepeat={toggleRepeat}
                 onOpenMobilePlayer={openMobilePlayer}
                 isFavorite={isFavorite}
                 toggleFavorite={toggleFavorite}
+                onShareCopied={triggerToast}
             />
 
             {/* Welcome Modal */}
@@ -442,8 +467,10 @@ const SpotifyResume = () => {
                 onNextTrack={playNextTrack}
                 canGoPrevious={!!(currentPlaylist && currentTrackIndex > 0)}
                 canGoNext={!!(currentPlaylist && currentTrackIndex < (currentPlaylist.projects?.length - 1))}
-                lyrics={currentLyrics}
+                syncedLyrics={currentSyncedLyrics}
             />
+
+            <Toast message="Link copied to clipboard" visible={toastVisible} />
 
             {/* Hidden Audio Element */}
             <audio

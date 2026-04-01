@@ -71,5 +71,8 @@ comparison_screenshots/
 *.test.png
 test-*.png
 
+# Python virtual environments (lyrics generation tooling)
+.venv-lyrics/
+
 # Cloudflare CLI
 .wrangler/

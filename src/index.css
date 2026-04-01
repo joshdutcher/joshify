@@ -4,6 +4,17 @@
 @tailwind components;
 @tailwind utilities;
 
+@keyframes lyrics-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+.lyrics-note-pulse {
+  display: inline-block;
+  animation: lyrics-pulse 2s ease-in-out infinite;
+  transform-origin: center;
+  will-change: transform;
+}
+
 /* Hide scrollbar for horizontal filter scroll */
 .scrollbar-hide {
   -ms-overflow-style: none;  /* IE and Edge */

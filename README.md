@@ -9,7 +9,8 @@ Joshify transforms my traditional developer portfolio into an engaging Spotify-l
 ### 🎵 Core Experience
 - **Project-as-Track Metaphor**: Each development project presented as a music track with rich metadata, descriptions, and technical details
 - **Collection System**: Curated project collections organized like Spotify playlists (workplace, side projects, top hits)
-- **Interactive Player**: Real MP3 audio playback with progress bar, seek, volume control, and auto-advance
+- **Interactive Player**: Real MP3 audio playback with progress bar, seek, volume control, auto-advance, and keyboard seek (arrow keys ±5s)
+- **Time-Synced Lyrics**: Karaoke-style lyrics with line highlighting, auto-scroll, stanza breaks, and instrumental break indicators
 - **Canvas Backgrounds**: Dynamic visual backgrounds with seamless video/image fallback system
   - Desktop: Immersive canvas in right panel during project playback
   - Mobile: Full-screen canvas backgrounds on project detail pages with readable text overlays
@@ -123,8 +124,8 @@ interface Project {
   githubUrl: string | null;   // Repository link
   musicFile: string | null;   // URL to AI-generated MP3
   projectStory: string | null;  // First-person narrative for lyrics
-  sunoLyrics: string | null;  // AI-generated song lyrics
-  displayLyrics: string | null; // Lyrics for UI display
+  sunoLyrics: string | null;  // AI-generated song lyrics (Suno input, not for display)
+  displayLyrics: string | null; // Clean copy of lyrics (reference only, not used for rendering)
   sunoStyle: string | null;   // Suno AI style prompt
   canvas: string | null;      // 9:16 canvas video URL
   canvasPoster: string | null;  // Poster image for video
@@ -182,7 +183,8 @@ Automated pipeline runs on every PR / push to main:
 ## 📋 Project Status
 
 ### ✅ Completed Features (2025-2026)
-- **Audio Player**: Real MP3 playback, progress bar, seek, volume, auto-advance (March 2026)
+- **Time-Synced Lyrics**: Karaoke-style lyrics with line highlighting, auto-scroll, sidebar preview, keyboard seek, stanza breaks (April 2026)
+- **Audio Player**: Real MP3 playback, progress bar, seek, volume, auto-advance, keyboard arrows ±5s (March 2026)
 - **Lyrics System**: Desktop center-column overlay, mobile full-screen, per-project lyrics data (March 2026)
 - **Share Modal**: Copy-link and native share from NowPlaying panel (March 2026)
 - **NowPlaying Redesign**: Dynamic background color from album art, expanded metadata (March 2026)
@@ -226,6 +228,10 @@ Automated pipeline runs on every PR / push to main:
 - **Version Control**: Professional git workflow with meaningful commits
 - **Documentation**: Comprehensive inline documentation and README
 
+## Acknowledgments
+
+- **[LRC Maker](https://github.com/magic-akari/lrc-maker)** by magic-akari — Used to create time-synced lyrics for each track. An excellent browser-based tool for synchronizing lyrics to audio by tapping along to the song.
+
 ## 📄 License
 
 This project is intended for portfolio demonstration purposes. Spotify's design patterns are used for educational/personal portfolio purposes under fair use.
@@ -233,5 +239,5 @@ This project is intended for portfolio demonstration purposes. Spotify's design 
 ---
 
 **Developer**: Josh Dutcher
-**Last Updated**: March 17, 2026
+**Last Updated**: April 1, 2026
 **Status**: Production Ready

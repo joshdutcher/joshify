@@ -1,4 +1,4 @@
-import { Clock, Heart, User, Plus } from 'lucide-react';
+import { Clock, Heart, User, Plus, ListMusic } from 'lucide-react';
 import {
     Project,
     RawProject,
@@ -62,6 +62,14 @@ export const playlists: PlaylistCollection = [
         icon: Heart,
         projects: topHits,
         description: 'The classics that made the cut. Career-defining work.',
+        image: null,
+        employer: false
+    },
+    {
+        name: 'All Projects',
+        icon: ListMusic,
+        projects: projects,
+        description: 'The complete discography. Every track, every project.',
         image: null,
         employer: false
     },

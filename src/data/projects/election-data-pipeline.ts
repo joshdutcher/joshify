@@ -56,8 +56,48 @@ Overnight the numbers grow
 Check again
 Still in line
 Hundreds of thousands, every time`,
-    displayLyrics: null,
-    sunoStyle: null,
+    displayLyrics: `September clocks were ticking loud
+Two months out, no room for doubt
+Names and numbers, doors and calls
+Flowing through the wires and walls
+
+Twenty million moving parts
+Every knock a fragile start
+If it breaks, the phones go quiet
+Bad data turns the noise to static
+
+Count the rows
+Watch them go
+Overnight the numbers grow
+Check again
+Still in line
+Hundreds of thousands, every time
+
+Morning light, the logs run clean
+Pipelines hold, unseen machine
+Election day, the final sum
+Twenty point four, all accounted, done
+
+The answer came, the screen went dark
+The loss still hit, it left a mark
+But in the flow, I still can say
+It would have been worse
+If it failed that day
+
+Count the rows
+Watch them go
+Overnight the numbers grow
+Check again
+Still in line
+Hundreds of thousands, every time
+
+Count the rows
+Watch them go
+Overnight the numbers grow
+Check again
+Still in line
+Hundreds of thousands, every time`,
+    sunoStyle: `1970s prog rock, new age, psychedelic, minimal, minor key, inconsistent time signature, no percussion, In the style of the song tubular bells from that old exorcist movie, suspenseful, no longer than one minute`,
     canvas: 'election-data-pipeline.mp4',
     canvasPoster: 'election-data-pipeline.mp4',
     albumArtBasedOn: 'Tubular Bells by Mike Oldfield'

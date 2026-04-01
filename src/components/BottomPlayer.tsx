@@ -1,8 +1,7 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { Play, Pause, Volume2, VolumeX, Shuffle, Repeat, SkipBack, SkipForward, Mic2, Share2, Check, Heart } from 'lucide-react';
+import { Play, Pause, Volume2, VolumeX, Shuffle, Repeat, Repeat1, SkipBack, SkipForward, Mic2, Share2, Heart } from 'lucide-react';
 import ProjectImage from './ProjectImage';
 import ProgressBar from './ProgressBar';
-import ShareModal from './ShareModal';
 import type { Project, Playlist } from '../types';
 import { trackEvent } from '../utils/analytics';
 
@@ -25,11 +24,17 @@ interface BottomPlayerProps {
     onSeek: (_time: number) => void;
     onVolumeChange: (_volume: number) => void;
     onToggleLyrics: () => void;
+    // Shuffle/Repeat
+    isShuffled: boolean;
+    toggleShuffle: () => void;
+    repeatMode: 'off' | 'all' | 'one';
+    toggleRepeat: () => void;
     // Mobile player
     onOpenMobilePlayer: () => void;
     // Favorites
     isFavorite: (_projectId: string) => boolean;
     toggleFavorite: (_projectId: string) => void;
+    onShareCopied?: () => void;
 }
 
 const BottomPlayer = ({
@@ -49,28 +54,25 @@ const BottomPlayer = ({
     onSeek,
     onVolumeChange,
     onToggleLyrics,
+    isShuffled,
+    toggleShuffle,
+    repeatMode,
+    toggleRepeat,
     onOpenMobilePlayer,
     isFavorite,
-    toggleFavorite
+    toggleFavorite,
+    onShareCopied
 }: BottomPlayerProps) => {
     // Determine if next/previous buttons should be enabled
     const canGoPrevious = currentPlaylist && currentTrackIndex > 0;
     const canGoNext = currentPlaylist && currentTrackIndex < (currentPlaylist.projects?.length - 1);
 
-    // Share state
-    const [shareAnchor, setShareAnchor] = useState<DOMRect | null>(null);
-    const [shareCopied, setShareCopied] = useState(false);
-
-    const shareUrl = currentlyPlaying
-        ? `${window.location.origin}/project/${currentlyPlaying.id}`
-        : '';
-
-    const handleShareCopy = () => {
+    const handleShare = () => {
+        if (!currentlyPlaying) return;
+        const shareUrl = `${window.location.origin}/project/${currentlyPlaying.id}`;
         navigator.clipboard.writeText(shareUrl);
-        setShareCopied(true);
-        setShareAnchor(null);
-        setTimeout(() => setShareCopied(false), 1500);
-        if (currentlyPlaying) trackEvent('Share', 'Copy Link', currentlyPlaying.id);
+        onShareCopied?.();
+        trackEvent('Share', 'Copy Link', currentlyPlaying.id);
     };
 
     // Volume slider drag state
@@ -207,7 +209,23 @@ const BottomPlayer = ({
                 <div className="flex flex-col items-center w-1/2 max-w-2xl mx-auto">
                     {/* Control Buttons */}
                     <div className="flex items-center space-x-6 mb-2">
-                        <Shuffle className="w-4 h-4 text-spotify-secondary hover:text-spotify-primary cursor-pointer transition-colors" />
+                        <button
+                            onClick={currentPlaylist ? toggleShuffle : undefined}
+                            disabled={!currentPlaylist}
+                            className={`transition-colors ${
+                                !currentPlaylist
+                                    ? 'text-gray-600 cursor-not-allowed'
+                                    : isShuffled
+                                        ? 'text-spotify-green'
+                                        : 'text-spotify-secondary hover:text-spotify-primary cursor-pointer'
+                            }`}
+                            aria-label={isShuffled ? 'Disable shuffle' : 'Enable shuffle'}
+                        >
+                            <div className="flex flex-col items-center">
+                                <Shuffle className="w-4 h-4" />
+                                {isShuffled && <div className="w-1 h-1 rounded-full bg-spotify-green mt-0.5" />}
+                            </div>
+                        </button>
                         <button
                             onClick={canGoPrevious ? onPreviousTrack : undefined}
                             disabled={!canGoPrevious}
@@ -243,7 +261,23 @@ const BottomPlayer = ({
                         >
                             <SkipForward className="w-4 h-4" />
                         </button>
-                        <Repeat className="w-4 h-4 text-spotify-secondary hover:text-spotify-primary cursor-pointer transition-colors" />
+                        <button
+                            onClick={toggleRepeat}
+                            className={`transition-colors cursor-pointer ${
+                                repeatMode !== 'off'
+                                    ? 'text-spotify-green hover:text-spotify-green'
+                                    : 'text-spotify-secondary hover:text-spotify-primary'
+                            }`}
+                            aria-label={repeatMode === 'off' ? 'Enable repeat' : repeatMode === 'all' ? 'Enable repeat one' : 'Disable repeat'}
+                        >
+                            <div className="flex flex-col items-center">
+                                {repeatMode === 'one'
+                                    ? <Repeat1 className="w-4 h-4" />
+                                    : <Repeat className="w-4 h-4" />
+                                }
+                                {repeatMode !== 'off' && <div className="w-1 h-1 rounded-full bg-spotify-green mt-0.5" />}
+                            </div>
+                        </button>
                     </div>
 
                     {/* Progress Bar with Times */}
@@ -269,7 +303,7 @@ const BottomPlayer = ({
                         >
                             <Heart
                                 className="w-4 h-4"
-                                fill={isFavorite(currentlyPlaying.id) ? 'currentColor' : 'none'}
+                                fill={isFavorite(currentlyPlaying.id) ? '#1DB954' : 'none'}
                                 color={isFavorite(currentlyPlaying.id) ? '#1DB954' : 'currentColor'}
                             />
                         </button>
@@ -292,7 +326,10 @@ const BottomPlayer = ({
                             disabled={!hasLyrics}
                             aria-label={isLyricsOpen ? 'Close lyrics' : 'View lyrics'}
                         >
-                            <Mic2 className="w-4 h-4" />
+                            <div className="flex flex-col items-center">
+                                <Mic2 className="w-4 h-4" />
+                                {isLyricsOpen && <div className="w-1 h-1 rounded-full bg-spotify-green mt-0.5" />}
+                            </div>
                         </button>
                         <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-spotify-card text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
                             {isLyricsOpen ? 'Close lyrics' : hasLyrics ? 'Lyrics' : 'No lyrics available'}
@@ -302,17 +339,14 @@ const BottomPlayer = ({
                     {/* Share Button */}
                     <div className="relative group">
                         <button
-                            onClick={(e) => setShareAnchor(e.currentTarget.getBoundingClientRect())}
+                            onClick={handleShare}
                             className="text-spotify-secondary hover:text-spotify-primary transition-colors"
-                            aria-label="Share"
+                            aria-label="Copy link to Song"
                         >
-                            {shareCopied
-                                ? <Check className="w-4 h-4 text-spotify-green" />
-                                : <Share2 className="w-4 h-4" />
-                            }
+                            <Share2 className="w-4 h-4" />
                         </button>
                         <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-spotify-card text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
-                            Share
+                            Copy link to Song
                         </div>
                     </div>
 
@@ -350,15 +384,6 @@ const BottomPlayer = ({
                 </div>
             </div>
 
-            {shareAnchor && (
-                <ShareModal
-                    url={shareUrl}
-                    copied={shareCopied}
-                    anchorRect={shareAnchor}
-                    onCopy={handleShareCopy}
-                    onClose={() => setShareAnchor(null)}
-                />
-            )}
         </div>
     );
 };

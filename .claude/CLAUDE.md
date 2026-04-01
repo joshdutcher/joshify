@@ -73,7 +73,11 @@ git push origin <branch-name>
 ### Audio Player
 - **Real MP3 playback** via `usePlayer.ts` hook
 - **Progress bar** with click-to-seek and drag-to-seek
-- **Lyrics view**: Desktop center column takeover, mobile full-screen
+- **Time-synced lyrics**: Karaoke-style highlighting with auto-scroll (JSON files in `src/data/lyrics/`)
+- **Lyrics preview**: Single-line scroll animation in NowPlaying sidebar
+- **Lyrics view**: Desktop center column takeover, mobile full-screen expanded view
+- **Keyboard seek**: Left/right arrow keys ±5 seconds
+- **Previous track**: Restarts song if past 5 seconds, otherwise goes to previous
 - **Share modal**: Copy link or native share from NowPlaying panel
 - **Auto-advance**: Plays next track on song end
 - **Music CDN**: Same Cloudflare R2 pattern as canvas videos
@@ -335,4 +339,4 @@ npm run build
 - **Analytics**: Matomo dashboard
 - **CDN**: Cloudflare R2 bucket
 
-**Last Updated**: March 17, 2026
+**Last Updated**: April 1, 2026

@@ -1,7 +1,8 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { projects } from '../data/projects';
+import { projects, playlists } from '../data/projects';
 import type { Project, Playlist, SelectedPlaylist, CompanySelection, DomainSelection } from '../types';
 import { useNavigationHistory } from './useNavigationHistory';
+import { syncedLyricsMap } from '../data/lyrics';
 import {
     trackPageView,
     trackAudioPlay,
@@ -13,6 +14,17 @@ import {
     trackLyricsDuration,
 } from '../utils/analytics';
 
+const buildShuffleQueue = (playlist: Playlist, excludeIndex: number): number[] => {
+    const indices = playlist.projects.map((_, i) => i).filter(i => i !== excludeIndex);
+    for (let i = indices.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const temp = indices[i] as number;
+        indices[i] = indices[j] as number;
+        indices[j] = temp;
+    }
+    return indices;
+};
+
 const usePlayer = () => {
     const [currentlyPlaying, setCurrentlyPlaying] = useState<Project | null>(null);
     const [isPlaying, setIsPlaying] = useState<boolean>(false);
@@ -22,6 +34,9 @@ const usePlayer = () => {
     const [currentPlaylist, setCurrentPlaylist] = useState<Playlist | null>(null); // Track current playlist context
     const [currentTrackIndex, setCurrentTrackIndex] = useState<number>(0); // Track position in playlist
     const [searchQuery, setSearchQuery] = useState<string>('');
+    const [isShuffled, setIsShuffled] = useState(false);
+    const [repeatMode, setRepeatMode] = useState<'off' | 'all' | 'one'>('off');
+    const [shuffleQueue, setShuffleQueue] = useState<number[]>([]);
     const audioRef = useRef<HTMLAudioElement | null>(null);
 
     // Analytics tracking refs
@@ -83,6 +98,17 @@ const usePlayer = () => {
                 window.history.replaceState({ view: 'project', data: project }, '', path);
             }
         }
+        const playlistMatch = path.match(/^\/playlist\/(.+)$/);
+        if (playlistMatch) {
+            const slug = playlistMatch[1];
+            const playlist = playlists.find(p => p.name.toLowerCase().replace(/\s+/g, '-') === slug);
+            if (playlist) {
+                setCurrentView('playlist');
+                setSelectedPlaylist(playlist);
+                const { icon: _icon, ...serializablePlaylist } = playlist;
+                window.history.replaceState({ view: 'playlist', data: serializablePlaylist }, '', path);
+            }
+        }
         if (path !== '/') {
             trackPageView(path);
         }
@@ -130,25 +156,86 @@ const usePlayer = () => {
             if (playlist) {
                 setCurrentPlaylist(playlist);
                 const trackIndex = playlist.projects.findIndex((p: Project) => p.id === project.id);
-                setCurrentTrackIndex(trackIndex >= 0 ? trackIndex : 0);
+                const newIndex = trackIndex >= 0 ? trackIndex : 0;
+                setCurrentTrackIndex(newIndex);
+                if (isShuffled) setShuffleQueue(buildShuffleQueue(playlist, newIndex));
             } else {
                 // If no playlist provided, check if the project is part of current playlist
                 if (currentPlaylist) {
                     const trackIndex = currentPlaylist.projects.findIndex((p: Project) => p.id === project.id);
                     if (trackIndex >= 0) {
                         setCurrentTrackIndex(trackIndex);
+                        if (isShuffled) setShuffleQueue(buildShuffleQueue(currentPlaylist, trackIndex));
                     } else {
                         // Project not in current playlist, clear playlist context
                         setCurrentPlaylist(null);
                         setCurrentTrackIndex(0);
+                        if (isShuffled) setShuffleQueue([]);
                     }
                 }
             }
         }
     };
 
-    const playNextTrack = () => {
+    const toggleShuffle = useCallback(() => {
+        setIsShuffled(prev => {
+            if (!prev && currentPlaylist) {
+                setShuffleQueue(buildShuffleQueue(currentPlaylist, currentTrackIndex));
+            } else {
+                setShuffleQueue([]);
+            }
+            return !prev;
+        });
+    }, [currentPlaylist, currentTrackIndex]);
+
+    const toggleRepeat = useCallback(() => {
+        setRepeatMode(prev => {
+            if (prev === 'off') return currentPlaylist ? 'all' : 'one';
+            if (prev === 'all') return 'one';
+            return 'off';
+        });
+    }, [currentPlaylist]);
+
+    const playNextTrack = useCallback(() => {
         if (!currentPlaylist || !currentPlaylist.projects) return;
+
+        if (isShuffled) {
+            if (shuffleQueue.length > 0) {
+                const nextIndex = shuffleQueue[0] as number;
+                setShuffleQueue(shuffleQueue.slice(1));
+                const nextTrack = currentPlaylist.projects[nextIndex];
+                if (nextTrack) {
+                    if (currentlyPlaying && isPlaying) flushListenDuration(currentlyPlaying.id);
+                    setCurrentlyPlaying(nextTrack);
+                    setCurrentTrackIndex(nextIndex);
+                    listenStartRef.current = Date.now();
+                    milestonesRef.current = new Set();
+                    if (nextTrack.musicFile) trackAudioPlay(nextTrack.id);
+                    setIsPlaying(true);
+                }
+            } else if (repeatMode === 'all') {
+                const newQueue = buildShuffleQueue(currentPlaylist, currentTrackIndex);
+                if (newQueue.length > 0) {
+                    const nextIndex = newQueue[0] as number;
+                    setShuffleQueue(newQueue.slice(1));
+                    const nextTrack = currentPlaylist.projects[nextIndex];
+                    if (nextTrack) {
+                        if (currentlyPlaying && isPlaying) flushListenDuration(currentlyPlaying.id);
+                        setCurrentlyPlaying(nextTrack);
+                        setCurrentTrackIndex(nextIndex);
+                        listenStartRef.current = Date.now();
+                        milestonesRef.current = new Set();
+                        if (nextTrack.musicFile) trackAudioPlay(nextTrack.id);
+                        setIsPlaying(true);
+                    }
+                } else {
+                    setIsPlaying(false);
+                }
+            } else {
+                setIsPlaying(false);
+            }
+            return;
+        }
 
         const nextIndex = currentTrackIndex + 1;
         if (nextIndex < currentPlaylist.projects.length) {
@@ -162,10 +249,29 @@ const usePlayer = () => {
             }
             setCurrentTrackIndex(nextIndex);
             setIsPlaying(true);
+        } else if (repeatMode === 'all') {
+            if (currentlyPlaying && isPlaying) flushListenDuration(currentlyPlaying.id);
+            const firstTrack = currentPlaylist.projects[0];
+            if (firstTrack) {
+                setCurrentlyPlaying(firstTrack);
+                listenStartRef.current = Date.now();
+                milestonesRef.current = new Set();
+                if (firstTrack.musicFile) trackAudioPlay(firstTrack.id);
+            }
+            setCurrentTrackIndex(0);
+            setIsPlaying(true);
+        } else {
+            setIsPlaying(false);
         }
-    };
+    }, [currentPlaylist, currentTrackIndex, repeatMode, isShuffled, shuffleQueue, currentlyPlaying, isPlaying, flushListenDuration]);
 
     const playPreviousTrack = () => {
+        // If playing and past 5 seconds, restart current track
+        if (isPlaying && currentTime > 5 && audioRef.current) {
+            audioRef.current.currentTime = 0;
+            return;
+        }
+
         if (!currentPlaylist || !currentPlaylist.projects) return;
 
         const prevIndex = currentTrackIndex - 1;
@@ -237,6 +343,29 @@ const usePlayer = () => {
         }
     }, []);
 
+    // Arrow key seek (desktop only)
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (!audioRef.current || !currentlyPlaying) return;
+            // Don't capture when typing in an input
+            if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
+
+            if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                const newTime = Math.max(0, audioRef.current.currentTime - 5);
+                audioRef.current.currentTime = newTime;
+                setCurrentTime(newTime);
+            } else if (e.key === 'ArrowRight') {
+                e.preventDefault();
+                const newTime = Math.min(audioRef.current.duration || 0, audioRef.current.currentTime + 5);
+                audioRef.current.currentTime = newTime;
+                setCurrentTime(newTime);
+            }
+        };
+        document.addEventListener('keydown', handleKeyDown);
+        return () => document.removeEventListener('keydown', handleKeyDown);
+    }, [currentlyPlaying]);
+
     // Update volume and persist to localStorage
     const updateVolume = useCallback((newVolume: number) => {
         setVolume(newVolume);
@@ -302,14 +431,15 @@ const usePlayer = () => {
             flushListenDuration(currentlyPlaying.id);
             trackAudioCompleted(currentlyPlaying.id);
         }
-        // Auto-advance to next track
-        if (currentPlaylist && currentTrackIndex < currentPlaylist.projects.length - 1) {
-            playNextTrack();
-        } else {
-            setIsPlaying(false);
+        if (repeatMode === 'one') {
+            if (audioRef.current) {
+                audioRef.current.currentTime = 0;
+                audioRef.current.play().catch(() => setIsPlaying(false));
+            }
+            return;
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [currentlyPlaying, currentPlaylist, currentTrackIndex, flushListenDuration]);
+        playNextTrack();
+    }, [currentlyPlaying, repeatMode, flushListenDuration, playNextTrack]);
 
     const handleWaiting = useCallback(() => {
         setIsBuffering(true);
@@ -341,11 +471,11 @@ const usePlayer = () => {
     // Get current music URL - musicFile already contains the full URL from projects.ts
     const currentMusicUrl = currentlyPlaying?.musicFile || null;
 
-    // Check if current track has lyrics
-    const hasLyrics = !!(currentlyPlaying?.displayLyrics || currentlyPlaying?.sunoLyrics);
+    // Get synced lyrics for current track
+    const currentSyncedLyrics = currentlyPlaying ? (syncedLyricsMap[currentlyPlaying.id] ?? null) : null;
 
-    // Get lyrics for current track
-    const currentLyrics = currentlyPlaying?.displayLyrics || currentlyPlaying?.sunoLyrics || null;
+    // Check if current track has lyrics
+    const hasLyrics = !!currentSyncedLyrics;
 
     return {
         // State
@@ -366,11 +496,17 @@ const usePlayer = () => {
         volume,
         currentMusicUrl,
         hasLyrics,
-        currentLyrics,
+        currentSyncedLyrics,
 
         // Mobile/Lyrics UI state
         isMobilePlayerOpen,
         isLyricsOpen,
+
+        // Shuffle/Repeat state
+        isShuffled,
+        repeatMode,
+        toggleShuffle,
+        toggleRepeat,
 
         // Actions
         handlePlayProject,
