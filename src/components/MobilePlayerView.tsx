@@ -41,6 +41,9 @@ const MobilePlayerView = ({
     const mobileLineRefs = useRef<(HTMLParagraphElement | null)[]>([]);
     const mobileContainerRef = useRef<HTMLDivElement>(null);
     const lastMobileScrolledLine = useRef<number>(-1);
+    const previewLineRefs = useRef<(HTMLParagraphElement | null)[]>([]);
+    const previewContainerRef = useRef<HTMLDivElement>(null);
+    const lastPreviewScrolledLine = useRef<number>(-1);
 
     const getActiveLine = (synced: SyncedLyric[], time: number): number => {
         for (let i = synced.length - 1; i >= 0; i--) {
@@ -56,6 +59,10 @@ const MobilePlayerView = ({
         mobileLineRefs.current[index] = el;
     }, []);
 
+    const setPreviewLineRef = useCallback((index: number) => (el: HTMLParagraphElement | null) => {
+        previewLineRefs.current[index] = el;
+    }, []);
+
     // Auto-scroll for mobile expanded lyrics
     useEffect(() => {
         if (!lyricsExpanded || activeLine < 0 || activeLine === lastMobileScrolledLine.current) return;
@@ -63,6 +70,24 @@ const MobilePlayerView = ({
 
         const lineEl = mobileLineRefs.current[activeLine];
         const container = mobileContainerRef.current;
+        if (!lineEl || !container) return;
+
+        const containerRect = container.getBoundingClientRect();
+        const lineRect = lineEl.getBoundingClientRect();
+        const targetOffset = containerRect.height * 0.33;
+        const currentOffset = lineRect.top - containerRect.top;
+        const scrollDelta = currentOffset - targetOffset;
+
+        container.scrollBy({ top: scrollDelta, behavior: 'smooth' });
+    }, [activeLine, lyricsExpanded]);
+
+    // Auto-scroll for lyrics preview (non-expanded)
+    useEffect(() => {
+        if (lyricsExpanded || activeLine < 0 || activeLine === lastPreviewScrolledLine.current) return;
+        lastPreviewScrolledLine.current = activeLine;
+
+        const lineEl = previewLineRefs.current[activeLine];
+        const container = previewContainerRef.current;
         if (!lineEl || !container) return;
 
         const containerRect = container.getBoundingClientRect();
@@ -299,11 +324,32 @@ const MobilePlayerView = ({
                                     <Maximize2 className="w-4 h-4 text-white" />
                                 </button>
                             </div>
-                            {/* Lyrics preview - first few lines */}
-                            <div className="text-white text-xl font-bold leading-relaxed max-h-64 overflow-y-auto spotify-scrollbar">
-                                {syncedLyrics.filter(l => l.text !== '').slice(0, 8).map((line, i) => (
-                                    <p key={i}>{line.text}</p>
-                                ))}
+                            {/* Synced lyrics preview */}
+                            <div
+                                ref={previewContainerRef}
+                                className="max-h-64 overflow-y-auto spotify-scrollbar"
+                            >
+                                {syncedLyrics.map((line, index) => {
+                                    if (line.text === '') {
+                                        return <div key={index} className="h-4" />;
+                                    }
+                                    const isActive = index === activeLine;
+                                    const isPast = index < activeLine;
+                                    return (
+                                        <p
+                                            key={index}
+                                            ref={setPreviewLineRef(index)}
+                                            className={`
+                                                text-xl font-bold leading-relaxed
+                                                transition-colors duration-300
+                                                ${isActive ? 'text-white' : isPast ? 'text-white/40' : 'text-white/40'}
+                                            `}
+                                            style={{ letterSpacing: '-0.02em' }}
+                                        >
+                                            {isActive && line.text === '🎵' ? <span className="lyrics-note-pulse">{line.text}</span> : line.text}
+                                        </p>
+                                    );
+                                })}
                             </div>
                         </div>
                     )}

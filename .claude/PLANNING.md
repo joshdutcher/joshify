@@ -64,7 +64,8 @@
 - `MediaCard.tsx` - Reusable project/playlist cards
 - `ProgressBar.tsx` - Seekable audio progress bar
 - `MobilePlayerView.tsx` - Full-screen mobile player with lyrics
-- `LyricsView.tsx` - Desktop center-column lyrics overlay
+- `LyricsView.tsx` - Desktop center-column lyrics overlay with time-synced highlighting
+- `LyricsPreview.tsx` - Single-line lyrics preview in NowPlaying sidebar with scroll animation
 - `ShareModal.tsx` - Copy-link / native share modal
 - `WelcomeModal.tsx` - First-visit onboarding modal
 
@@ -109,11 +110,22 @@ interface Project {
   active?: boolean;             // false = hidden from UI
   musicFile?: string | null;    // MP3 filename (via getMusicUrl)
   projectStory?: string | null; // First-person narrative
-  sunoLyrics?: string | null;   // Full lyrics for Suno AI input
-  displayLyrics?: string | null;// Lyrics shown in UI
+  sunoLyrics?: string | null;   // Suno AI input (not for display)
+  displayLyrics?: string | null;// Clean copy of lyrics (reference only)
   sunoStyle?: string | null;    // Suno AI style prompt
 }
 ```
+
+### SyncedLyric Schema
+```typescript
+interface SyncedLyric {
+  readonly time: number;  // Start time in seconds
+  readonly text: string;  // Lyric line text ("" = stanza break, "🎵" = instrumental)
+}
+```
+- Stored as JSON in `src/data/lyrics/{project-id}.json`
+- Imported at build time via `syncedLyricsMap` in `src/data/lyrics/index.ts`
+- Timestamps created with [LRC Maker](https://github.com/magic-akari/lrc-maker)
 
 ### Collection Schema
 ```typescript
