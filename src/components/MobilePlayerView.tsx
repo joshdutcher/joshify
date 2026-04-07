@@ -179,7 +179,8 @@ const MobilePlayerView = ({
                                         key={index}
                                         ref={setMobileLineRef(index)}
                                         className={`
-                                            text-2xl font-bold leading-loose
+                                            text-2xl font-bold leading-tight mb-5
+                                            max-w-[77%]
                                             transition-all duration-500 ease-out origin-left
                                             ${isActive ? 'text-white scale-[1.3]' : isPast ? 'text-white/40 scale-100' : 'text-white/40 scale-100'}
                                         `}
@@ -378,7 +379,8 @@ const MobilePlayerView = ({
                                             key={index}
                                             ref={setPreviewLineRef(index)}
                                             className={`
-                                                text-xl font-bold leading-relaxed
+                                                text-xl font-bold leading-tight mb-5
+                                                max-w-[77%]
                                                 transition-all duration-500 ease-out origin-left
                                                 ${isActive ? 'text-white scale-[1.3]' : isPast ? 'text-white/40 scale-100' : 'text-white/40 scale-100'}
                                             `}
