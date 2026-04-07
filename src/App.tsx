@@ -344,6 +344,7 @@ const SpotifyResume = () => {
                                         isFavorite={isFavorite}
                                         toggleFavorite={toggleFavorite}
                                         onShareCopied={triggerToast}
+                                        onOpenMobilePlayer={openMobilePlayer}
                                     />
                                 )}
                                 {currentView === 'profile' && <ProfileView />}
@@ -468,6 +469,9 @@ const SpotifyResume = () => {
                 canGoPrevious={!!(currentPlaylist && currentTrackIndex > 0)}
                 canGoNext={!!(currentPlaylist && currentTrackIndex < (currentPlaylist.projects?.length - 1))}
                 syncedLyrics={currentSyncedLyrics}
+                isFavorite={isFavorite}
+                toggleFavorite={toggleFavorite}
+                onShareCopied={triggerToast}
             />
 
             <Toast message="Link copied to clipboard" visible={toastVisible} />

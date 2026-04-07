@@ -1,8 +1,7 @@
-import { useState } from 'react';
-import { Play, Pause, ExternalLink, Github, ChevronDown, Share2, Mic2, Heart } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Play, Pause, ExternalLink, Github, Share2, Mic2, Heart } from 'lucide-react';
 import ProjectImage from '../ProjectImage';
 import AlbumArtModal from '../AlbumArtModal';
-import ProjectCanvas from '../ProjectCanvas';
 import type { Project } from '../../types';
 import { trackEvent } from '../../utils/analytics';
 
@@ -19,213 +18,35 @@ interface ProjectDetailViewProps {
     isFavorite?: (_projectId: string) => boolean;
     toggleFavorite?: (_projectId: string) => void;
     onShareCopied?: () => void;
+    onOpenMobilePlayer?: () => void;
 }
-
-interface MobileProjectContentProps {
-    project: Project;
-    currentlyPlaying: Project | null;
-    isPlaying: boolean;
-    onPlayProject: (_project: Project) => void;
-    handleAlbumArtClick: () => void;
-    onShare: () => void;
-    hasLyrics?: boolean;
-    isLyricsOpen?: boolean;
-    onToggleLyrics?: (() => void) | undefined;
-    isFavorite?: (_projectId: string) => boolean;
-    toggleFavorite?: (_projectId: string) => void;
-}
-
-const MobileProjectContent = ({
-    project,
-    currentlyPlaying,
-    isPlaying,
-    onPlayProject,
-    handleAlbumArtClick,
-    onShare,
-    hasLyrics,
-    isLyricsOpen,
-    onToggleLyrics,
-    isFavorite,
-    toggleFavorite
-}: MobileProjectContentProps) => (
-    <>
-        <div className="flex flex-col items-center space-y-4 mb-6">
-            <div
-                onClick={handleAlbumArtClick}
-                className={`${project?.image && !project.image.includes('/api/placeholder')
-                    ? 'cursor-pointer hover:scale-105 transition-transform'
-                    : ''
-                }`}
-            >
-                <ProjectImage
-                    project={project}
-                    size="custom"
-                    className="w-48 h-48 shadow-2xl"
-                    shape="rounded"
-                    customStyle={{
-                        fontSize: '3rem'
-                    }}
-                />
-            </div>
-            <div className="text-center">
-                <p className="text-sm font-semibold uppercase">Project</p>
-                <h1 className="text-3xl font-bold mb-2">{project.title}</h1>
-                <p className="text-gray-400 mb-2">{project.artist}</p>
-                <p className="text-gray-400">{project.year} • {project.duration}{project.impact ? ` • ${project.impact}` : ''}</p>
-            </div>
-        </div>
-
-        <div className="flex items-center justify-center space-x-6 mb-6">
-            <button
-                className="w-14 h-14 bg-green-500 rounded-full flex items-center justify-center hover:scale-105 transition-transform"
-                onClick={() => onPlayProject(project)}
-            >
-                {currentlyPlaying?.id === project.id && isPlaying ?
-                    <Pause className="w-6 h-6 text-black" fill="currentColor" /> :
-                    <Play className="w-6 h-6 text-black ml-0.5" fill="currentColor" />
-                }
-            </button>
-            {project.demoUrl && (
-                <div className="relative group">
-                    <a
-                        href={project.demoUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center text-green-500 hover:text-green-400 transition-colors"
-                    >
-                        <ExternalLink className="w-5 h-5" />
-                    </a>
-                    <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-spotify-card text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
-                        View Live
-                    </div>
-                </div>
-            )}
-            {project.githubUrl && (
-                <div className="relative group">
-                    <a
-                        href={project.githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center text-green-500 hover:text-green-400 transition-colors"
-                    >
-                        <Github className="w-5 h-5" />
-                    </a>
-                    <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-spotify-card text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
-                        View Repo
-                    </div>
-                </div>
-            )}
-            {toggleFavorite && (
-                <div className="relative group">
-                    <button
-                        onClick={(e) => { e.stopPropagation(); toggleFavorite(project.id); }}
-                        className="text-spotify-secondary hover:text-white transition-colors"
-                        aria-label={isFavorite?.(project.id) ? 'Remove from favorites' : 'Add to favorites'}
-                    >
-                        <Heart
-                            className="w-5 h-5"
-                            fill={isFavorite?.(project.id) ? '#1DB954' : 'none'}
-                            color={isFavorite?.(project.id) ? '#1DB954' : 'currentColor'}
-                        />
-                    </button>
-                    <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-spotify-card text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
-                        {isFavorite?.(project.id) ? 'Unlike' : 'Like'}
-                    </div>
-                </div>
-            )}
-            {onToggleLyrics && (
-                <div className="relative group">
-                    <button
-                        onClick={hasLyrics ? onToggleLyrics : undefined}
-                        disabled={!hasLyrics}
-                        className={`transition-colors ${isLyricsOpen ? 'text-spotify-green' : hasLyrics ? 'text-spotify-secondary hover:text-white' : 'text-gray-600 cursor-not-allowed'}`}
-                        aria-label={isLyricsOpen ? 'Close lyrics' : 'Lyrics'}
-                    >
-                        <Mic2 className="w-5 h-5" />
-                    </button>
-                    <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-spotify-card text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
-                        {isLyricsOpen ? 'Close Lyrics' : hasLyrics ? 'Lyrics' : 'No lyrics available'}
-                    </div>
-                </div>
-            )}
-            <div className="relative group">
-                <button
-                    onClick={onShare}
-                    className="text-spotify-secondary hover:text-white transition-colors"
-                    aria-label="Copy link to Song"
-                    title="Copy link to Song"
-                >
-                    <Share2 className="w-5 h-5" />
-                </button>
-                <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-spotify-card text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
-                    Copy link to Song
-                </div>
-            </div>
-        </div>
-
-        <div className="space-y-6">
-            <div>
-                <h2 className="text-xl font-bold mb-4">About this project</h2>
-                <p className="text-gray-300 mb-6 text-sm leading-relaxed">{project.description}</p>
-
-                <h3 className="text-lg font-bold mb-3">Technologies Used</h3>
-                <div className="flex flex-wrap gap-2">
-                    {project.skills.map((skill: string) => (
-                        <span key={skill} className="px-3 py-1 bg-white text-black rounded-full text-sm font-medium">
-                            {skill}
-                        </span>
-                    ))}
-                </div>
-            </div>
-
-            <div>
-                <h3 className="text-lg font-bold mb-4">Project Stats</h3>
-                <div className="space-y-3">
-                    <div>
-                        <p className="text-gray-400 text-sm">Duration</p>
-                        <p className="text-white font-semibold">{project.duration}</p>
-                    </div>
-                    <div>
-                        <p className="text-gray-400 text-sm">Year</p>
-                        <p className="text-white font-semibold">{project.year}</p>
-                    </div>
-                    {project.impact && (
-                        <div>
-                            <p className="text-gray-400 text-sm">Impact</p>
-                            <p className="text-white font-semibold">{project.impact}</p>
-                        </div>
-                    )}
-                    <div>
-                        <p className="text-gray-400 text-sm">Album</p>
-                        <p className="text-white font-semibold">{project.album}</p>
-                    </div>
-                    {project.albumArtBasedOn && (
-                        <div>
-                            <p className="text-gray-400 text-sm">Music and Album Art based on</p>
-                            <p className="text-white font-semibold">{project.albumArtBasedOn}</p>
-                        </div>
-                    )}
-                </div>
-            </div>
-        </div>
-    </>
-);
 
 const ProjectDetailView = ({
     project,
     currentlyPlaying,
     isPlaying,
     onPlayProject,
-    onClose,
-    onMobileBack,
+    onClose: _onClose,
+    onMobileBack: _onMobileBack,
     hasLyrics = false,
     isLyricsOpen = false,
     onToggleLyrics,
     isFavorite,
     toggleFavorite,
-    onShareCopied
+    onShareCopied,
+    onOpenMobilePlayer
 }: ProjectDetailViewProps) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
+
+    // On mobile deep links, auto-play and open the unified mobile player
+    useEffect(() => {
+        const isMobile = window.innerWidth < 768;
+        if (isMobile) {
+            onPlayProject(project);
+            onOpenMobilePlayer?.();
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [project.id]);
 
     const handleShare = () => {
         const shareUrl = `${window.location.origin}/project/${project.id}`;
@@ -235,66 +56,13 @@ const ProjectDetailView = ({
     };
 
     const handleAlbumArtClick = () => {
-        // Only open modal if the project has valid album art
         if (project?.image && !project.image.includes('/api/placeholder')) {
             setIsModalOpen(true);
         }
     };
 
-    const handleMobileClose = () => {
-        // Use mobile-specific back handler if provided, otherwise fall back to onClose
-        if (onMobileBack) {
-            onMobileBack();
-        } else if (onClose) {
-            onClose();
-        }
-    };
-
     return (
         <div className="relative text-white md:p-6">
-            {/* Mobile: Full-screen modal with slide-up animation */}
-            <div className="md:hidden fixed inset-x-0 top-0 bottom-24 z-50 bg-black animate-slide-up">
-                {/* Canvas Background */}
-                <div className="absolute inset-0 z-0">
-                    <ProjectCanvas
-                        project={project}
-                        isPlaying={true}
-                        className="w-full h-full"
-                        posterImage={project.canvasPoster}
-                    />
-                    {/* Dark overlay for text readability */}
-                    <div className="absolute inset-0 bg-black/60" />
-                </div>
-
-                {/* Mobile Header with Dismiss Button */}
-                <div className="relative z-10 flex justify-center pt-4 pb-2">
-                    <button
-                        onClick={handleMobileClose}
-                        className="p-2 hover:bg-white/10 rounded-full transition-colors"
-                        aria-label="Close project details"
-                    >
-                        <ChevronDown className="w-8 h-8 text-white" />
-                    </button>
-                </div>
-
-                {/* Scrollable Content */}
-                <div className="relative z-10 h-full overflow-y-auto pb-32 px-4">
-                    <MobileProjectContent
-                        project={project}
-                        currentlyPlaying={currentlyPlaying}
-                        isPlaying={isPlaying}
-                        onPlayProject={onPlayProject}
-                        handleAlbumArtClick={handleAlbumArtClick}
-                        onShare={handleShare}
-                        hasLyrics={hasLyrics}
-                        isLyricsOpen={isLyricsOpen}
-                        onToggleLyrics={onToggleLyrics ?? undefined}
-                        {...(isFavorite !== undefined && { isFavorite })}
-                        {...(toggleFavorite !== undefined && { toggleFavorite })}
-                    />
-                </div>
-            </div>
-
             {/* Desktop: Normal layout */}
             <div className="hidden md:block relative z-10">
                 <div className="flex flex-col md:flex-row md:items-end space-y-4 md:space-y-0 md:space-x-6 mb-6 md:mb-8">
@@ -311,7 +79,7 @@ const ProjectDetailView = ({
                             className="w-48 h-48 md:w-64 md:h-64 mx-auto md:mx-0 shadow-2xl"
                             shape="rounded"
                             customStyle={{
-                                fontSize: '3rem' // Override the text size for large display
+                                fontSize: '3rem'
                             }}
                         />
                     </div>
@@ -440,7 +208,7 @@ const ProjectDetailView = ({
                 </div>
             </div>
 
-            {/* Album Art Modal - Works for both mobile and desktop */}
+            {/* Album Art Modal - Desktop only now */}
             <AlbumArtModal
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}

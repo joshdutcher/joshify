@@ -13,7 +13,7 @@ interface CompanyViewProps {
 
 const CompanyView = ({
     company,
-    currentlyPlaying: _currentlyPlaying,
+    currentlyPlaying,
     isPlaying: _isPlaying,
     onPlayProject,
     onNavigateToProject
@@ -107,32 +107,28 @@ const CompanyView = ({
             {/* Mobile List View */}
             <div className="md:hidden space-y-2">
                 {companyProjects.map((project, _index) => (
-                    <div key={project.id} className="flex items-center space-x-3 p-3 hover:bg-gray-800 rounded-lg" onClick={() => onNavigateToProject(project)}>
+                    <div
+                        key={project.id}
+                        className="flex items-center space-x-3 p-3 hover:bg-gray-800 rounded-lg"
+                        onClick={() => {
+                            if (currentlyPlaying?.id !== project.id) {
+                                onPlayProject(project, { projects: companyProjects });
+                            }
+                        }}
+                    >
                         <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-green-700 rounded flex items-center justify-center">
                             <span className="text-white text-sm font-bold">
                                 {project.title.split(' ').map((w: string) => w[0]).join('').slice(0, 2)}
                             </span>
                         </div>
                         <div className="flex-1 min-w-0">
-                            <p 
-                                className="text-white font-medium truncate hover:underline cursor-pointer"
-                                onClick={(e) => {
-                  e.stopPropagation();
-                  onNavigateToProject && onNavigateToProject(project);
-                }}
-              >
+                            <p className="text-white font-medium truncate">
                                 {project.title}
                             </p>
                             <p className="text-gray-400 text-sm truncate">{project.artist}</p>
                         </div>
-                        <button onClick={(e) => {
-              e.stopPropagation();
-              onPlayProject(project, { projects: companyProjects });
-            }}>
-                            <Play className="w-5 h-5 text-gray-400" fill="currentColor" />
-                        </button>
                     </div>
-        ))}
+                ))}
             </div>
         </div>
     );

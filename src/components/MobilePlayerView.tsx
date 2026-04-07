@@ -1,9 +1,11 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { ChevronDown, Play, Pause, SkipBack, SkipForward, Maximize2 } from 'lucide-react';
+import { ChevronDown, Play, Pause, SkipBack, SkipForward, Maximize2, ExternalLink, Github, Heart, Share2 } from 'lucide-react';
 import ProjectImage from './ProjectImage';
 import ProjectCanvas from './ProjectCanvas';
 import ProgressBar from './ProgressBar';
+import AlbumArtModal from './AlbumArtModal';
 import useDynamicBackground from '../hooks/useDynamicBackground';
+import { trackEvent } from '../utils/analytics';
 import type { Project, SyncedLyric } from '../types';
 
 interface MobilePlayerViewProps {
@@ -20,6 +22,9 @@ interface MobilePlayerViewProps {
     canGoPrevious: boolean;
     canGoNext: boolean;
     syncedLyrics: SyncedLyric[] | null;
+    isFavorite?: (_projectId: string) => boolean;
+    toggleFavorite?: (_projectId: string) => void;
+    onShareCopied?: () => void;
 }
 
 const MobilePlayerView = ({
@@ -35,15 +40,20 @@ const MobilePlayerView = ({
     onNextTrack,
     canGoPrevious,
     canGoNext,
-    syncedLyrics
+    syncedLyrics,
+    isFavorite,
+    toggleFavorite,
+    onShareCopied
 }: MobilePlayerViewProps) => {
     const [lyricsExpanded, setLyricsExpanded] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const mobileLineRefs = useRef<(HTMLParagraphElement | null)[]>([]);
     const mobileContainerRef = useRef<HTMLDivElement>(null);
     const lastMobileScrolledLine = useRef<number>(-1);
     const previewLineRefs = useRef<(HTMLParagraphElement | null)[]>([]);
     const previewContainerRef = useRef<HTMLDivElement>(null);
     const lastPreviewScrolledLine = useRef<number>(-1);
+    const scrollableRef = useRef<HTMLDivElement>(null);
 
     const getActiveLine = (synced: SyncedLyric[], time: number): number => {
         for (let i = synced.length - 1; i >= 0; i--) {
@@ -99,6 +109,13 @@ const MobilePlayerView = ({
         container.scrollBy({ top: scrollDelta, behavior: 'smooth' });
     }, [activeLine, lyricsExpanded]);
 
+    // Scroll to top when track changes
+    useEffect(() => {
+        if (scrollableRef.current) {
+            scrollableRef.current.scrollTop = 0;
+        }
+    }, [currentlyPlaying?.id]);
+
     // Get dynamic background color from album art
     const { backgroundStyle } = useDynamicBackground(currentlyPlaying?.image || null);
 
@@ -106,6 +123,19 @@ const MobilePlayerView = ({
 
     // Extract primary color for solid lyrics background
     const primaryColor = backgroundStyle['--primary-color'] || 'rgb(83, 83, 83)';
+
+    const handleShare = () => {
+        const shareUrl = `${window.location.origin}/project/${currentlyPlaying.id}`;
+        navigator.clipboard.writeText(shareUrl);
+        onShareCopied?.();
+        trackEvent('Share', 'Copy Link', currentlyPlaying.id);
+    };
+
+    const handleAlbumArtClick = () => {
+        if (currentlyPlaying?.image && !currentlyPlaying.image.includes('/api/placeholder')) {
+            setIsModalOpen(true);
+        }
+    };
 
     // Expanded Lyrics View (full-screen takeover)
     if (lyricsExpanded && syncedLyrics) {
@@ -150,8 +180,8 @@ const MobilePlayerView = ({
                                         ref={setMobileLineRef(index)}
                                         className={`
                                             text-2xl font-bold leading-loose
-                                            transition-all duration-300 ease-out
-                                            ${isActive ? 'text-white' : isPast ? 'text-white/40' : 'text-white/40'}
+                                            transition-all duration-500 ease-out origin-left
+                                            ${isActive ? 'text-white scale-[1.3]' : isPast ? 'text-white/40 scale-100' : 'text-white/40 scale-100'}
                                         `}
                                         style={{ letterSpacing: '-0.02em' }}
                                     >
@@ -234,15 +264,23 @@ const MobilePlayerView = ({
                 </div>
 
                 {/* Main Content - Scrollable */}
-                <div className="flex-1 overflow-y-auto px-6 pb-8">
+                <div ref={scrollableRef} className="flex-1 overflow-y-auto px-6 pb-8">
                     {/* Album Art */}
                     <div className="flex justify-center mt-4 mb-8">
-                        <ProjectImage
-                            project={currentlyPlaying}
-                            size="custom"
-                            className="w-64 h-64 sm:w-72 sm:h-72 shadow-2xl"
-                            shape="rounded"
-                        />
+                        <div
+                            onClick={handleAlbumArtClick}
+                            className={`${currentlyPlaying?.image && !currentlyPlaying.image.includes('/api/placeholder')
+                                ? 'cursor-pointer hover:scale-105 transition-transform'
+                                : ''
+                            }`}
+                        >
+                            <ProjectImage
+                                project={currentlyPlaying}
+                                size="custom"
+                                className="w-64 h-64 sm:w-72 sm:h-72 shadow-2xl"
+                                shape="rounded"
+                            />
+                        </div>
                     </div>
 
                     {/* Track Info */}
@@ -341,8 +379,8 @@ const MobilePlayerView = ({
                                             ref={setPreviewLineRef(index)}
                                             className={`
                                                 text-xl font-bold leading-relaxed
-                                                transition-colors duration-300
-                                                ${isActive ? 'text-white' : isPast ? 'text-white/40' : 'text-white/40'}
+                                                transition-all duration-500 ease-out origin-left
+                                                ${isActive ? 'text-white scale-[1.3]' : isPast ? 'text-white/40 scale-100' : 'text-white/40 scale-100'}
                                             `}
                                             style={{ letterSpacing: '-0.02em' }}
                                         >
@@ -353,8 +391,106 @@ const MobilePlayerView = ({
                             </div>
                         </div>
                     )}
+
+                    {/* Action Buttons */}
+                    <div className="flex items-center justify-center space-x-6 mt-8 mb-6">
+                        {currentlyPlaying.demoUrl && (
+                            <a
+                                href={currentlyPlaying.demoUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center text-green-500 hover:text-green-400 transition-colors"
+                            >
+                                <ExternalLink className="w-5 h-5" />
+                            </a>
+                        )}
+                        {currentlyPlaying.githubUrl && (
+                            <a
+                                href={currentlyPlaying.githubUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center text-green-500 hover:text-green-400 transition-colors"
+                            >
+                                <Github className="w-5 h-5" />
+                            </a>
+                        )}
+                        {toggleFavorite && (
+                            <button
+                                onClick={() => toggleFavorite(currentlyPlaying.id)}
+                                className="text-spotify-secondary hover:text-white transition-colors"
+                                aria-label={isFavorite?.(currentlyPlaying.id) ? 'Remove from favorites' : 'Add to favorites'}
+                            >
+                                <Heart
+                                    className="w-5 h-5"
+                                    fill={isFavorite?.(currentlyPlaying.id) ? '#1DB954' : 'none'}
+                                    color={isFavorite?.(currentlyPlaying.id) ? '#1DB954' : 'currentColor'}
+                                />
+                            </button>
+                        )}
+                        <button
+                            onClick={handleShare}
+                            className="text-spotify-secondary hover:text-white transition-colors"
+                            aria-label="Copy link to Song"
+                        >
+                            <Share2 className="w-5 h-5" />
+                        </button>
+                    </div>
+
+                    {/* About This Project */}
+                    <div className="mt-6 space-y-6">
+                        <div>
+                            <h2 className="text-xl font-bold text-white mb-4">About this project</h2>
+                            <p className="text-gray-300 mb-6 text-sm leading-relaxed">{currentlyPlaying.description}</p>
+
+                            <h3 className="text-lg font-bold text-white mb-3">Technologies Used</h3>
+                            <div className="flex flex-wrap gap-2">
+                                {currentlyPlaying.skills.map((skill: string) => (
+                                    <span key={skill} className="px-3 py-1 bg-white text-black rounded-full text-sm font-medium">
+                                        {skill}
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 className="text-lg font-bold text-white mb-4">Project Stats</h3>
+                            <div className="space-y-3">
+                                <div>
+                                    <p className="text-gray-400 text-sm">Duration</p>
+                                    <p className="text-white font-semibold">{currentlyPlaying.duration}</p>
+                                </div>
+                                <div>
+                                    <p className="text-gray-400 text-sm">Year</p>
+                                    <p className="text-white font-semibold">{currentlyPlaying.year}</p>
+                                </div>
+                                {currentlyPlaying.impact && (
+                                    <div>
+                                        <p className="text-gray-400 text-sm">Impact</p>
+                                        <p className="text-white font-semibold">{currentlyPlaying.impact}</p>
+                                    </div>
+                                )}
+                                <div>
+                                    <p className="text-gray-400 text-sm">Album</p>
+                                    <p className="text-white font-semibold">{currentlyPlaying.album}</p>
+                                </div>
+                                {currentlyPlaying.albumArtBasedOn && (
+                                    <div>
+                                        <p className="text-gray-400 text-sm">Music and Album Art based on</p>
+                                        <p className="text-white font-semibold">{currentlyPlaying.albumArtBasedOn}</p>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+            {/* Album Art Modal */}
+            <AlbumArtModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                project={currentlyPlaying}
+            />
         </div>
     );
 };
