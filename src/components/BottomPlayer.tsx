@@ -128,7 +128,7 @@ const BottomPlayer = ({
     }
 
     return (
-        <div className="bg-black relative z-[60]">
+        <div className="bg-black relative z-[60]" style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}>
             {/* Mobile Player Bar */}
             <div className="md:hidden">
                 {/* Clickable area (excludes play button) */}

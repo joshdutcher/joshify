@@ -6,7 +6,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon.svg" />
     <link rel="icon" type="image/svg+xml" sizes="32x32" href="/favicon.svg" />
     <link rel="icon" type="image/svg+xml" sizes="16x16" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>Joshify - Josh's Developer Portfolio</title>
     <meta name="description" content="Josh's developer portfolio designed as a Spotify-like music streaming interface, showcasing projects as albums." />
 
@@ -30,6 +30,15 @@
 </head>
   <body>
     <div id="root"></div>
+    <script>
+      // Set --app-height from window.innerHeight to reliably account for
+      // mobile browser chrome (address bar, bottom nav) on initial load.
+      function setAppHeight() {
+        document.documentElement.style.setProperty('--app-height', window.innerHeight + 'px');
+      }
+      setAppHeight();
+      window.addEventListener('resize', setAppHeight);
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
