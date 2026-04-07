@@ -224,7 +224,7 @@ const SpotifyResume = () => {
             style={{
         '--left-sidebar-width': `${leftColumnWidth}px`,
         '--right-sidebar-width': `${rightColumnWidth}px`,
-        height: '100dvh'
+        height: 'var(--app-height, 100dvh)'
       } as React.CSSProperties}
     >
             {/* Top Bar - Full Width */}
@@ -316,7 +316,9 @@ const SpotifyResume = () => {
                                         playlist={selectedPlaylist}
                                         currentlyPlaying={currentlyPlaying}
                                         isPlaying={isPlaying}
+                                        currentPlaylist={currentPlaylist}
                                         onPlayProject={handlePlayProject}
+                                        onTogglePlay={handleTogglePlay}
                                         onNavigateToProject={navigateToProject}
                                         onNavigateToCompany={navigateToCompany}
                                         onNavigateToDomain={navigateToDomain}
@@ -371,7 +373,9 @@ const SpotifyResume = () => {
                                         playlist={likedSongsPlaylist}
                                         currentlyPlaying={currentlyPlaying}
                                         isPlaying={isPlaying}
+                                        currentPlaylist={currentPlaylist}
                                         onPlayProject={handlePlayProject}
+                                        onTogglePlay={handleTogglePlay}
                                         onNavigateToProject={navigateToProject}
                                         onNavigateToCompany={navigateToCompany}
                                         onNavigateToDomain={navigateToDomain}

@@ -1,5 +1,5 @@
 
-import { Play, Heart } from 'lucide-react';
+import { Play, Pause, Heart } from 'lucide-react';
 import ProjectImage from '../ProjectImage';
 import PlaylistCoverArt from '../PlaylistCoverArt';
 import type { Playlist, Project } from '../../types';
@@ -8,7 +8,9 @@ interface PlaylistViewProps {
   playlist: Playlist;
   currentlyPlaying: Project | null;
   isPlaying: boolean;
+  currentPlaylist: Playlist | null;
   onPlayProject: (_project: Project, _playlist?: Playlist | null) => void;
+  onTogglePlay: () => void;
   onNavigateToProject: (_project: Project) => void;
   onNavigateToCompany?: (_companyName: string) => void;
   onNavigateToDomain?: (_domainName: string) => void;
@@ -19,8 +21,10 @@ interface PlaylistViewProps {
 const PlaylistView = ({
     playlist,
     currentlyPlaying,
-    isPlaying: _isPlaying,
+    isPlaying,
+    currentPlaylist,
     onPlayProject,
+    onTogglePlay,
     onNavigateToProject,
     onNavigateToCompany,
     onNavigateToDomain: _onNavigateToDomain,
@@ -49,19 +53,30 @@ const PlaylistView = ({
         </div>
 
         <div className="flex items-center space-x-4 md:space-x-6 mb-6 md:mb-8">
-            <button 
-                className="w-12 h-12 md:w-14 md:h-14 bg-green-500 rounded-full flex items-center justify-center hover:scale-105 transition-transform"
-                onClick={() => {
-          if (playlist.projects.length > 0) {
-            const firstProject = playlist.projects[0];
-            if (firstProject) {
-              onPlayProject(firstProject, playlist);
-            }
-          }
-        }}
-      >
-                <Play className="w-5 h-5 md:w-6 md:h-6 text-black ml-0.5" fill="currentColor" />
-            </button>
+            {(() => {
+                const isThisPlaylistActive = currentPlaylist?.name === playlist.name && playlist.projects.some(p => p.id === currentlyPlaying?.id);
+                return (
+                    <button
+                        className="w-12 h-12 md:w-14 md:h-14 bg-green-500 rounded-full flex items-center justify-center hover:scale-105 transition-transform"
+                        onClick={() => {
+                            if (isThisPlaylistActive) {
+                                onTogglePlay();
+                            } else if (playlist.projects.length > 0) {
+                                const firstProject = playlist.projects[0];
+                                if (firstProject) {
+                                    onPlayProject(firstProject, playlist);
+                                }
+                            }
+                        }}
+                    >
+                        {isThisPlaylistActive && isPlaying ? (
+                            <Pause className="w-5 h-5 md:w-6 md:h-6 text-black" fill="currentColor" />
+                        ) : (
+                            <Play className="w-5 h-5 md:w-6 md:h-6 text-black ml-0.5" fill="currentColor" />
+                        )}
+                    </button>
+                );
+            })()}
         </div>
 
         {/* Desktop Table View */}
