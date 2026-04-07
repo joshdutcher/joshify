@@ -18,7 +18,7 @@ interface PlaylistViewProps {
 
 const PlaylistView = ({
     playlist,
-    currentlyPlaying: _currentlyPlaying,
+    currentlyPlaying,
     isPlaying: _isPlaying,
     onPlayProject,
     onNavigateToProject,
@@ -149,42 +149,44 @@ const PlaylistView = ({
         {/* Mobile List View */}
         <div className="md:hidden space-y-2">
             {playlist.projects.map((project, _index) => (
-                <div key={project.id} className="flex items-center space-x-3 p-3 hover:bg-gray-800 rounded-lg" onClick={() => onNavigateToProject(project)}>
+                <div
+                    key={project.id}
+                    className="flex items-center space-x-3 p-3 hover:bg-gray-800 rounded-lg"
+                    onClick={() => {
+                        if (currentlyPlaying?.id !== project.id) {
+                            onPlayProject(project, playlist);
+                        }
+                    }}
+                >
                     <ProjectImage
                         project={project}
                         size="medium"
                         shape="rounded"
-          />
+                    />
                     <div className="flex-1 min-w-0">
-                        <p 
-                            className="text-white font-medium truncate hover:underline cursor-pointer"
-                            onClick={(e) => {
-                e.stopPropagation();
-                onNavigateToProject && onNavigateToProject(project);
-              }}
-            >
+                        <p className="text-white font-medium truncate">
                             {project.title}
                         </p>
                         <p className="text-gray-400 text-sm truncate">
                             {project.artist && project.artist.includes(' - ') ? (
                                 <>
-                                    {project.artist.split(' - ')[0]} - 
-                                    <span 
+                                    {project.artist.split(' - ')[0]} -
+                                    <span
                                         className="hover:underline cursor-pointer hover:text-white"
                                         onClick={(e) => {
-                      e.stopPropagation();
-                      const company = project.artist?.split(' - ')[1];
-                      if (company && onNavigateToCompany) {
-                        onNavigateToCompany(company);
-                      }
-                    }}
-                  >
+                                            e.stopPropagation();
+                                            const company = project.artist?.split(' - ')[1];
+                                            if (company && onNavigateToCompany) {
+                                                onNavigateToCompany(company);
+                                            }
+                                        }}
+                                    >
                                         {project.artist?.split(' - ')[1]}
                                     </span>
                                 </>
-              ) : (
-                project.artist
-              )}
+                            ) : (
+                                project.artist
+                            )}
                         </p>
                     </div>
                     <div className="flex items-center space-x-2 flex-shrink-0">
@@ -206,15 +208,9 @@ const PlaylistView = ({
                                 </div>
                             </div>
                         )}
-                        <button onClick={(e) => {
-                e.stopPropagation();
-                onPlayProject(project, playlist);
-              }}>
-                            <Play className="w-5 h-5 text-gray-400" fill="currentColor" />
-                        </button>
                     </div>
                 </div>
-      ))}
+            ))}
         </div>
     </div>
 );
